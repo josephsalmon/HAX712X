@@ -16,23 +16,23 @@ The pull request system is a standard way of proposing improvement and modificat
 
 The principle is the following
 
-- Fork: Connect to your Github account (see [(tp.md]../Git/tp.md) for details) and fork the repository by clicking on the "Fork" icon:
+- Fork: Connect to your Github account (see [(tp.md]../Git/tp.md) for details) and fork the current repository by clicking on the "Fork" icon (note that HMMA238 was the old name of this course):
 ![plot](fork.png)
 
-- Go to on your Github account and find the HMMA238 repository. In what follows you should substitute my_github_id by your github identification; in the screenshots the examples are with **my_github_id=josephsalmon** and they should be adapted according to yours.
-The url is hence <https://github.com/my_github_id/HMMA238>.
+- Go to on your Github account and find the HAX712X repository. In what follows you should substitute my_github_id by your github identification; in the screenshots the examples are with **my_github_id=josephsalmon** and they should be adapted according to yours.
+The url is hence <https://github.com/my_github_id/HAX712X>.
 
 - Get the cloning repository by clicking the "clone" button and choose either the `https` or `ssh` protocol (the later being recommended to avoid typing your password at each git pull/push):  ![plot](github_clone.png) .
 
 - Clone the repository on your local machine. On Linux this consists in typing the following line in a terminal:
 
 ```bash
-$ git clone git@github.com:my_github_id/HMMA238.git
+$ git clone git@github.com:my_github_id/HAX712X.git
 ```
 
-- Adding a remote : you need to configure a remote that points to the upstream repository. Before you can sync your fork with an upstream repository, you must do this step 
+- Adding a remote : you need to configure a remote that points to the upstream repository. Before you can sync your fork with an upstream repository, you must do this step
 
-```git remote add upstream https://github.com/bcharlier/HMMA238.git```
+```git remote add upstream https://github.com/josephsalmon/HAX712X.git```
 
 - you can check the remote available (yours and the class one) by typing:
 
@@ -54,7 +54,7 @@ $ git push --set-upstream origin improving_git
 ```
 
 
-- Create Pull Request: go back in your browser to https://github.com/my_github_id/HMMA238 and click on Pull Request.
+- Create Pull Request: go back in your browser to https://github.com/my_github_id/HAX712X  and click on Pull Request.
 
 
 - To keep your fork up to date / sync:
@@ -69,7 +69,7 @@ $ git fetch upstream
 $ git checkout master
 ```
 
-- To merge the upstream version (the one you see at https://github.com/bcharlier/HMMA238.git)
+- To merge the upstream version (the one you see at https://github.com/josephsalmon/HAX712X.git)
 
 ```bash 
 $ git pull upstream master
