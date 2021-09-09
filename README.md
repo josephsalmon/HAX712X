@@ -18,7 +18,7 @@ This course material was improved with the help of some students including:
 Students are expected to know basic notions of probabilities, optimization, linear algebra and statistics for this course.
 Some rudiments on coding is also expected (if, for, while, functions) but not mandatory.
 
-## Course description (XXX TBD)
+## Course description
 
 This course focuses on discovering good coding practices (the language used being Python, but some element of bash and git will also be useful) for professional coding.
 A special focus on data processing and visualization will be at the heart of the course.
@@ -40,7 +40,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 7. JS : (22/10/2021) [`scipy, numpy`: Images/channel](Courses/Scipy/)
 
-8. JS (quiz 2) : (29/09/2021) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
+8. JS (quiz 2) : (29/10/2021) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
 
 9. BC : (19/11/2021) [Documentation with Sphinx](Courses/Docs/)
 
@@ -50,14 +50,14 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 ## Grading
 
 
-### Tests (XXX TBD % of the final grade)
+### Tests (20 % of the final grade)
 Short quiz of 20 min each (on Moodle). This will be a personal work.
 
-- Quiz 1 BC (**Week XXX TBD**, 10%)
-- Quiz 2 JS (**Week XXX TBD**, 10%)
+- Quiz 1 BC (**01/10/2021**, 10%)
+- Quiz 2 JS (**29/10/2021**, 10%)
 
 
-### Project (XXX TBD 80% (oral 30 / written 50) of the final grade)
+### Project 80% (= oral 30% + code/report 50%) of the final grade)
 
 
 **Warning:** the precise details of the projects might evolve before the allocation phase, and a precise grid will be given in the project section.
