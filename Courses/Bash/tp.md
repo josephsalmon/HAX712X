@@ -67,7 +67,7 @@ $ man most
 
 **Useful tips:**
 
-- to search for a word type `/`. To go to the next (resp. previous)  occurrence type `n` (resp. `p`).
+- to search for a word type `s`. To go to the next (resp. previous)  occurrence type `n` (resp. `N`).
 - [less only] to go down type `j`, to go up type `k`.
 - to go to the beginning of file type `g`, to the end `G`.
 - To quit type `q`.
