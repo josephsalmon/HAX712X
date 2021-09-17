@@ -33,6 +33,8 @@ Anaconda is a package manager, an environment manager coming with a Python/R dat
 
 On the Linux box provided by the FdS, there is a terminal with the $PATH environment variable already configured (`/net/apps/bin/init_anaconda3`). You may launch it via the Graphical User Interface.
 
+*Remark* : See also the mamba project <https://github.com/mamba-org/mamba>
+
 ----
 ### <font color='red'>Exercise:</font>
 
