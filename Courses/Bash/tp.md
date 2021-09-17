@@ -40,8 +40,7 @@ $ pwd
 ### <font color='red'>Exercise:</font>
 
    1. What is the difference between `cd ./toto/tata`, `cd toto/tata` `cd ~/toto/tata` and `cd /toto/tata`
-   2. Use the `locate` command to determine if `matlab` is installed on your system
-   3. Use the `which` command to determine which instance of python is used when you use the `python` command. Same question with `python2`.
+   2. Use the `which` command to determine which instance of python is used when you use the `python` command. Same question with `python2`.
 ----
 
 ## Getting help
@@ -68,7 +67,7 @@ $ man most
 
 **Useful tips:**
 
-- to search for a word type `/`. To go to the next (resp. previous)  occurrence type `n` (resp. `p`).
+- to search for a word type `s`. To go to the next (resp. previous)  occurrence type `n` (resp. `N`).
 - [less only] to go down type `j`, to go up type `k`.
 - to go to the beginning of file type `g`, to the end `G`.
 - To quit type `q`.
@@ -98,8 +97,6 @@ Most shells have similar glob rules, and they usually consist of:
    - A way to express a choice of one or more strings: `{...,...}`
    - A way to escape any of the above special characters: `\`
 
-
-
 ----
 ### <font color='red'>Exercise:</font>
 
@@ -127,8 +124,8 @@ The `file` command can be used to display the information of a file (if not give
 ----
 ### <font color='red'>Exercise:</font>
 
-1. List all the files in the directory `/usr/lib/R/bin` and sort them by size.
-2. Display the type information of the files in `/var/log/` one call to `file`.
+   1. List all the files in the directory `/usr/lib/R/bin` and sort them by size.
+   2. Display the type information of the files in `/var/log/` one call to `file`.
 ----
 
 ## Symbolic links
@@ -145,10 +142,13 @@ A symlink can be created with the command `ln`.
 $ ln -s target_path link_path
 ```
 
+Obiously, replace `target_path` and `link_path` by their coresponding values.
+
 ----
 ### <font color='red'>Exercise:</font>
 
-1. Create a symlink called `my_python` pointing to `/usr/bin/python` in your `home` directory.
+   1. Create a symlink called `my_etc_dir_link` pointing to `/etc` in your `home` directory.
+   2. Then compare the output of `ls /etc` and `ls ~/my_etc_dir_link`
 ----
 
 ## Users
