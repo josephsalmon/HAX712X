@@ -80,11 +80,11 @@ git push -u origin master
 
 # Interact with other users
 
-The purpose of this exercise is to learn how to the use git as a collaboration tool for software development.
+The purpose of this exercise is to learn how to use git as a collaboration tool for software development.
 
 ## Using an existing repository
 
-Browse the repository at https://github.com/HMMA238-2021/git-tutorial. What is this module able to do?
+Browse the repository at https://github.com/bcharlier/HAX907X_2021. What is this module able to do?
 
 
 ---
@@ -98,7 +98,7 @@ Fork the repository by following these steps:
 
 ## Debugging
 
-A bug has appeared into the python module after some commit. An issue has been opened in the bug tracking system at https://github.com/HMMA238-2020/git-tutorial/issues . Your goal is to find the problem... and then to fix it on your **forked repository**. Finally, you will be able to submit a Pull Request to the original repository to share your fix.
+A bug has appeared into the python module after some commit. An issue has been opened in the bug tracking system at <https://github.com/bcharlier/HAX907X_2021/issues>. Your goal is to find the problem... and then to fix it on your **forked repository**. Finally, you will be able to submit a Pull Request to the original repository to share your fix.
 
 ### Identification of the bad commit
 

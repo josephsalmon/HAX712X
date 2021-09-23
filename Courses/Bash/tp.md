@@ -407,6 +407,7 @@ $ du | sort -nr | less
     Intersection en T
     Intersection en X
     ```
+
 ----
 
 ### Redirection
