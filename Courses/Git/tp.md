@@ -55,7 +55,7 @@ Create a **public** repository, meaning that everyone can access to your code (r
 
 
 Follow the instructions provided by GitHub to create your local copy of the repository:
-1. Create a new folder called `FirstRepo` in your `/home` directory and `cd` to it
+1. Create a new folder called `FirstRepo` in your `home` directory and `cd` to it
 2. Then execute the following command
 ```bash
 echo "# FirstRepo" >> README.md
