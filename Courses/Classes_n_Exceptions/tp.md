@@ -309,9 +309,13 @@ def f():
 print(e)
 ```
 
-## Manipulate file name on disk across platforms.
+**Conclusion**: `e` is only "visible" inside the function definition.
+See https://realpython.com/python-scope-legb-rule/ for more information on this topics.
 
-The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax.
+
+## Manipulate file names on disk across platforms.
+
+The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues having a different OS than yours!!!
 
 
 ```python
@@ -329,11 +333,32 @@ print(os.path.expanduser(os.path.join('~', 'work', 'src')))
 Write a simple script that creates, in the sub-directory `scripts`, the following text files: `myDb_000.txt`, `myDb_001.txt`, `myDb_002.txt`, ..., `myDb_049.txt`. The `i`-th file should contains a single line with the average of the `i` first digits of pi.
 
 
-**Hint**: you can check what the following command does
+**Hint**:
+- you might need zero pading
+- you can check what the following code does
+
 ```python
 file = open("copy.txt", "w")
 file.write("Your text goes here")
 file.close()
+```
+- you might also need some precision for the digits of pi, hence using `mpmath` instead of `numpy`
+-
+```python
+from mpmath import mp
+import numpy as np
+for i in range(2, 50):
+    mp.dps = i
+    digits = list(str(mp.pi))
+    print(digits)
+    print(list(str(np.pi)))
+    file = open("copy.txt", "w")
+    file.write("Your text goes here")
+    file.close()
+
+for i in range(2, n_tot + 2):
+    val = '0' + str(i)
+    print(str(f"{i:{val}}"))
 ```
 
 ```python
