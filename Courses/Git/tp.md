@@ -84,7 +84,7 @@ The purpose of this exercise is to learn how to use git as a collaboration tool 
 
 ## Using an existing repository
 
-Browse the repository at https://github.com/bcharlier/HAX907X_2021. What is this module able to do?
+Browse the repository at <https://github.com/bcharlier/HAX907X_2021>. What is this module able to do?
 
 
 ---
