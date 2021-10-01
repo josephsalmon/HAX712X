@@ -221,7 +221,7 @@ $ pip search some-package-name
 ----
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 
   1. Install the modules `download`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
@@ -313,7 +313,7 @@ The final directory structure of our module will look like:
 ```
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 Add some `python` files in the `modules_files` folder:
 
@@ -338,7 +338,7 @@ from .preprocess.get_accident import get_accident
 ```
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
   1. Check that your module does work by launching the `script.py` script
   2. Create a file `format_date.py` in the `biketrauma.preprocess` module in which a function `format_date` format the date of the data-set in international format.
@@ -410,7 +410,7 @@ Unfortunately, it may generate a way too large collection of packages dependenci
 `twine` is a utility for publishing Python packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 
   1. Create an account on the PyPI test repository
