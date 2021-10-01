@@ -152,7 +152,7 @@ print(sum([g1, g2, g3]) == g4)
 ```
 ---
 
-### Inheritance
+### Inheritance, the sub-Gaussian case (of a kind)
 
 Classes can inherit methods from other classes. You can use `super` (latin for "above") to access to the parent class.
 
@@ -279,7 +279,7 @@ finally:
 ```
 
 ---
-### <font color='red'>Exercise : Gaussian  (again)</font>
+### <font color='red'>Exercise : Improving the Gaussian class</font>
 
 Create a sub-class `GaussianBis` where you check if the user has provided float arguments (see also `assert` and `isinstance` routines).
 Print a custom explicit error message if it is not the case.
