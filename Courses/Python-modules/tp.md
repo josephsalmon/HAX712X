@@ -275,7 +275,7 @@ packaging_tutorial/
 The top level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual Python module.
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise:</font>
 
  We are going to create a new `python` module that can be used to visualize the bike dataset.
 
@@ -398,7 +398,7 @@ $ pip freeze > requirements.txt
 Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use `pipreqs`
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise:</font>
 
 
 1. Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrauma` module.
