@@ -342,8 +342,8 @@ file = open("copy.txt", "w")
 file.write("Your text goes here")
 file.close()
 ```
-- you might also need some precision for the digits of pi, hence using `mpmath` instead of `numpy`
--
+- you might also need some precision for the digits of $\pi$, hence using `mpmath` instead of `numpy`
+
 ```python
 from mpmath import mp
 import numpy as np
