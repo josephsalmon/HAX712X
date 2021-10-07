@@ -57,7 +57,7 @@ Short quiz of 20 min each (on Moodle). This will be a personal work.
 - Quiz 2 JS (**29/10/2021**, 10%)
 
 
-### Project 80% (= oral 30% + code/report 50%) of the final grade)
+### Project 80% (= oral 30% + code/report 50%) of the final grade
 
 
 **Warning:** the precise details of the projects might evolve before the allocation phase, and a precise grid will be given in the project section.
