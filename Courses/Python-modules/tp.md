@@ -221,7 +221,7 @@ $ pip search some-package-name
 ----
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 
   1. Install the modules `download`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
@@ -275,7 +275,7 @@ packaging_tutorial/
 The top level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual Python module.
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise:</font>
 
  We are going to create a new `python` module that can be used to visualize the bike dataset.
 
@@ -313,7 +313,7 @@ The final directory structure of our module will look like:
 ```
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 Add some `python` files in the `modules_files` folder:
 
@@ -338,7 +338,7 @@ from .preprocess.get_accident import get_accident
 ```
 
 ----
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
   1. Check that your module does work by launching the `script.py` script
   2. Create a file `format_date.py` in the `biketrauma.preprocess` module in which a function `format_date` format the date of the data-set in international format.
@@ -398,7 +398,7 @@ $ pip freeze > requirements.txt
 Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use `pipreqs`
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise:</font>
 
 
 1. Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrauma` module.
@@ -410,7 +410,7 @@ Unfortunately, it may generate a way too large collection of packages dependenci
 `twine` is a utility for publishing Python packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
 
 ---
-### <font color='red'>Exercise : Create a bunch of files</font>
+### <font color='red'>Exercise: </font>
 
 
   1. Create an account on the PyPI test repository
