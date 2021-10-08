@@ -334,11 +334,11 @@ Write a simple script that creates, in the sub-directory `scripts`, the followin
 
 
 **Hint**:
-- you might need zero pading
+- you might need zero padding
 - you can check what the following code does
 
 ```python
-file = open("copy.txt", "w")
+file = open("copy.txt")
 file.write("Your text goes here")
 file.close()
 ```
@@ -348,13 +348,7 @@ file.close()
 from mpmath import mp
 import numpy as np
 for i in range(2, 50):
-    mp.dps = i
-    digits = list(str(mp.pi))
-    print(digits)
-    print(list(str(np.pi)))
-    file = open("copy.txt", "w")
-    file.write("Your text goes here")
-    file.close()
+
 
 for i in range(2, n_tot + 2):
     val = '0' + str(i)
