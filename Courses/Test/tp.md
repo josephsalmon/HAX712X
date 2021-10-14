@@ -131,23 +131,22 @@ def test_inc():
 then
 
 ```bash
-$ pytest inc_cov --cov 
-=============================== test session starts ===============================
-platform linux -- Python 3.7.6, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
-rootdir: /home/bcharlier/enseignement/HMMA238/HMMA238/Tests-CI
-plugins: cov-2.8.1
-collected 3 items
+pytest inc_cov.py --cov
+============================= test session starts ==============================
+platform linux -- Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1
+rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test
+plugins: tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9
+collected 0 items
 
-test_inc.py ..                                                              [ 66%]
-test_inc_cov.py .                                                           [100%]
 
------------ coverage: platform linux, python 3.7.6-final-0 -----------
+----------- coverage: platform linux, python 3.8.5-final-0 -----------
 Name         Stmts   Miss  Cover
 --------------------------------
-inc_cov.py       6      2    67%
+inc_cov.py       6      4    33%
+--------------------------------
+TOTAL            6      4    33%
 
-
-================================ 3 passed in 0.05s ================================
+============================ no tests ran in 0.02s =============================
 ```
 
 Two lines in `inc_cov` module were not used. See
