@@ -139,10 +139,9 @@ df_titanic.describe()
 - Swarmplot:
     ```python
     plt.figure(figsize=(10, 5), num='jfpwje')
-    ax = sns.swarmplot(data=df_titanic, x='Sex', y='Age', hue='Survived',
-                    palette={0: 'r', 1: 'k'}, order=['female', 'male'])  # bw: bandwith
-    plt.ylabel('Age')
-    ax.legend().set_visible(False)
+    # Swarmplot from seaborn package
+    ax = sns.swarmplot(data=df_titanic_raw, x='Sex', y='Age', hue='Survived',
+                    palette={0: 'r', 1: 'k'}, order=['female', 'male'])
     plt.title("Passager age by gender/survival")
     plt.legend()
     plt.tight_layout()

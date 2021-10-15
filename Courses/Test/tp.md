@@ -35,7 +35,7 @@ It is simple though powerful.
 It outputs a nice errors report.
 
 ----
-### <font color='red'>Exercise:</font>
+### <font color='red'>Exercise</font>
 
 1. Install `pytest` with `pip` using the user scheme (`--user` option)
 2. Test if the command `pytest` is in your PATH (depending on your configuration you will have to add `~/.local/bin` in PATH)
@@ -131,7 +131,7 @@ def test_inc():
 then
 
 ```bash
-pytest inc_cov.py --cov
+pytest test_inc_cov.py --cov
 ============================= test session starts ==============================
 platform linux -- Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1
 rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test
@@ -152,7 +152,19 @@ TOTAL            6      4    33%
 Two lines in `inc_cov` module were not used. See
 
 ```bash
-$ pytest --cov inc_cov --cov-report=html
+pytest --cov --cov-report=html test_inc_cov.py
+
+============================= test session starts ==============================
+platform linux -- Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1
+rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test
+plugins: tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9
+collected 0 items                                                              
+
+
+----------- coverage: platform linux, python 3.8.5-final-0 -----------
+Coverage HTML written to dir htmlcov
+
+
 ```
 
 for details.

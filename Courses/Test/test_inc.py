@@ -9,5 +9,5 @@ def test_inc1():
 
 # This test will fail
 def test_inc2():
-    assert inc2(-1) == 4
-    # assert inc2(2) == 4
+    # assert inc2(-1) == 4
+    assert inc2(2) == 4
