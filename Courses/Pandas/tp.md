@@ -371,12 +371,13 @@ df_titanic_raw['Survived'].sum() / df_titanic_raw['Survived'].count()
 df_titanic['Survived'].mean()
 ```
 
-** What was the proportion of women on the boat? **
+**Q:What was the proportion of women on the boat?**
 
 
 # See also the command:
+```python
 df_titanic_raw.groupby(['Sex']).mean()
-
+```
 
 # Data import et export
 
@@ -392,7 +393,7 @@ df_titanic_raw.groupby(['Sex']).mean()
  - ...
 
 ```python
-# pd.read_csv?
+pd.read_csv?
 # http://josephsalmon.eu/enseignement/datasets/babies23.data
 pd.read_csv('babies23.data', skiprows=38, sep='\s+')
 # pd.read_csv?
