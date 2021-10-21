@@ -44,7 +44,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 9. BC : (19/11/2021) [Documentation with Sphinx](Courses/Docs/)
 
-10. JS + BC : (12/12/2021) The end:  Project presentations
+10. JS + BC : (13/12/2021) The end:  Project presentations
 
 
 ## Grading

@@ -13,7 +13,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from ipywidgets import interact  # widget manipulation
-from download import download  # download data / avoid redownloading
+from ipywidgets import widgets, interact, interactive, fixed, interact_manual
+
+from download import download  # download data / avoid re-downloading
+from IPython import get_ipython
+
 pd.options.display.max_rows = 8
 ```
 
@@ -157,33 +161,46 @@ Interactive interaction with codes and output is nowdays easier and easier (see 
 In python one can use for that `widgets` and the `interact` package.
 We are going to visualize that on the simple KDE and histograms examples.
 
+
 ```python
-def hist_explore(n_bins=24, alpha=0.25, density=False):
+def hist_explore(
+    dataset=df_titanic,
+    variable=df_titanic.columns,
+    n_bins=24,
+    alpha=0.25,
+    density=False,
+):
     fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-    ax.hist(df_titanic['Age'], density=density,
-            bins=n_bins, alpha=alpha)  # standardization
-    plt.xlabel('Age')
-    plt.ylabel('Density level')
-    plt.title("Histogram for passengers' age")
+    ax.hist(
+        dataset[variable], density=density, bins=n_bins, alpha=alpha
+    )  # standardization
+    plt.ylabel("Density level")
+    plt.title(f"Dataset {dataset.attrs['name']}:\n Histogram for passengers' age")
     plt.tight_layout()
     plt.show()
 
 
-interact(hist_explore, n_bins=(1, 50, 1), alpha=(0, 1, 0.1), density=False)
+interact(
+    hist_explore,
+    dataset=fixed(df_titanic),
+    n_bins=(1, 50, 1),
+    alpha=(0, 1, 0.1),
+    density=False,
+)
 ```
 
+
 ```python
-def kde_explore(bw=5):
+def kde_explore(dataset=df_titanic, variable=df_titanic.columns, bw=5):
     fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-    sns.kdeplot(df_titanic['Age'], bw=bw, shade=True, cut=0, ax=ax)
-    plt.xlabel('Age (in year)')
-    plt.ylabel('Density level')
-    plt.title("Age of the passengers")
+    sns.kdeplot(dataset[variable], bw_adjust=bw, shade=True, cut=0, ax=ax)
+    plt.ylabel("Density level")
+    plt.title(f"Dataset {dataset.attrs['name']}:\n KDE for passengers'  {variable}")
     plt.tight_layout()
     plt.show()
 
+interact(kde_explore, dataset=fixed(df_titanic), bw=(0.001, 2, 0.01))
 
-interact(kde_explore, bw=(0.001, 2, 0.01))
 ```
 
 ## `Groupby` function
@@ -217,10 +234,7 @@ plt.show()
 # Perform a similar analysis with the median for the price per class in pounds.
 
 ```python
-plt.figure()
-df_titanic.groupby('Pclass')['Fare'].aggregate(lambda x:
-                                               x.median()).plot(kind='bar')
-plt.show()
+
 ```
 
 ## Catplot: a visual groupby
@@ -253,223 +267,200 @@ pd.crosstab(df_titanic_raw['Sex'],
 ```
 
 
-
+```python
 df_titanic
+```
 
-
-# %%
-
+```python
 df_titanic.index
+```
 
-
-# %%
-
+```python
 df_titanic.columns
+```
 
-
-# %%
-
+```python
 pd.options.display.max_rows = 12
 df_titanic.dtypes
 
 df_titanic['Name'].astype(str)
-# %%
+```
 
-# Extract numpy array, useful for using packages on top of pandas
-# (e.g., sklearn)
+
+# Extract numpy array from dataframe
+useful for using packages on top of `pandas` (e.g., sklearn, though nowadays it works out of the box with `pandas`)
+
+```python
 array_titanic = df_titanic.values  # associated numpy array
 array_titanic
+```
+
+### <font color='red'> EXERCISE : dropna</font>
+Perform the following operation: remove the columns Cabin from the raw
+dataset, and then remove the rows with missing age.
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html
 
 
-# ### <font color='red'> EXERCISE : dropna</font>
-# Perform the following operation: remove the columns Cabin from the raw
-# dataset, and then remove the rows with missing age.
-#
-# https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html
-#
-
-# %%
-
+```python
 # XXX TODO
+```
 
-# %%
+
 # 1D dataset : Series (a column of a DataFrame)
 
-# A Series is a labelled 1D column of a kind.
+A Series is a labelled 1D column of a kind.
 
-# %%
-
+```python
 fare = df_titanic['Fare']
-
-# %%
-
 fare
+```
 
 
-# ## Attributes *Series*: indices and values
+## Attributes *Series*: indices and values
 
-# %%
-
+```python
 fare.values[:10]
+```
 
+Contrarily to *numpy* arrays, you can index with other thing that integers:
 
-# Contrarily to *numpy* arrays, you can index with other thing that integers:
-
-# %%
-
+```python
 df_titanic_raw = df_titanic_raw.set_index('Name')  # you can only do it once !!
-# %%
 df_titanic_raw
+```
 
-# %%
+```python
 age = df_titanic_raw['Age']
 age['Behr, Mr. Karl Howell']
+```
 
-# %%
-
+```python
 age.mean()
+```
 
-# %%
-
+```python
 df_titanic_raw[age < 2]
+```
 
-
+```
 df_titanic_raw = df_titanic_raw.reset_index()  # come back to original index
+```
 
 
-# %%
 # Counting values for categorical variables
 
+```python
 df_titanic_raw['Embarked'].value_counts(normalize=False, sort=True,
                                         ascending=False)
+```
 
-
-# %%
-
+```python
 pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
-# Comments: passagers from Cherbourg are not all Gallic...
+```
+Comments: not all passagers from Cherbourg are  Gallic...
 
 
-# %%
-
+```python
 pd.options.display.max_rows = 8
-
-
-# %%
-
 df_titanic_raw['Survived'].sum() / df_titanic_raw['Survived'].count()
+```
 
 
-# %%
-
+```python
 df_titanic['Survived'].mean()
+```
 
-
-# ** What was the proportion of women on the boat? **
-
-# %%
+** What was the proportion of women on the boat? **
 
 
 # See also the command:
 df_titanic_raw.groupby(['Sex']).mean()
 
 
-# # Data import et export
-#
-# Pandas supports many formats:
-# - CSV, text
-# - SQL database
-# - Excel
-# - HDF5
-# - json
-# - html
-# - pickle
-# - sas, stata
-# - ...
+# Data import et export
 
-# %%
+ Pandas supports many formats:
+ - CSV, text
+ - SQL database
+ - Excel
+ - HDF5
+ - json
+ - html
+ - pickle
+ - sas, stata
+ - ...
 
+```python
 # pd.read_csv?
 # http://josephsalmon.eu/enseignement/datasets/babies23.data
-
 pd.read_csv('babies23.data', skiprows=38, sep='\s+')
 # pd.read_csv?
+```
+# Exploration
 
-# # Exploration
-
-# %%
-
+```python
 df_titanic_raw.tail()
+```
 
-
-# %%
-
+```python
 df_titanic_raw.head()
+```
 
-
-# %%
 # Pandas pairs well with seaborn:
-
+```python
 sns.set_palette("colorblind")
 sns.catplot(x='Pclass', y='Age', hue='Survived', data=df_titanic_raw,
             kind="violin")
+```
 
 
 # Access values by line/columns etc.
 
-# iloc
+- `iloc`
 df_titanic_raw.iloc[0:2, 1:8]
 
-# loc
+- `loc`
 
-# %%
-
+```python
 # with original index:
 # df_titanic_raw.loc[128]
 
-# with naming indexing 
+# with naming indexing
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Fare']
 
 
-# %%
-
+```python
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth']
+```
 
-
-# %%
-
+```python
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived']
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived'] = 0
+```
 
-
-# %%
-
+```python
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth']
+```
 
-
-# %%
-
+```python
 # set back the original value
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived'] = 1
+```
 
+## `groupby`
 
-# # group-by:
-
-# %%
-
+```python
 df_titanic.groupby('Sex').mean()
+```
 
-
-# %%
-
+```python
 df_titanic_raw.groupby('Sex').mean()['Pclass']
+```
 
+## Create binned values
 
-# %%
-
-# creates binned values
-# .
+```python
 df_titanic['AgeClass'] = pd.cut(df_titanic['Age'], bins=np.arange(0, 90, 10))
 df_titanic['AgeClass']
 
@@ -479,14 +470,16 @@ df_titanic['AgeClass']
 # # Second Case study: air quality in Paris.
 # (Source: Airparif)
 
-# %%
+```python
+
 
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
 path_target = "./20080421_20160927-PA13_auto.csv"
 download(url, path_target, replace=False)
 
 
-# %%
+```python
+
 
 !head -26 ./20080421_20160927-PA13_auto.csv
 
@@ -497,7 +490,8 @@ download(url, path_target, replace=False)
 # # Times series help:
 # https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
 
-# %%
+```python
+
 
 polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
                           comment='#',
@@ -505,7 +499,8 @@ polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
                           converters={'heure': str})
 
 
-# %%
+```python
+
 pd.options.display.max_rows = 30
 polution_df.head(25)
 
@@ -520,7 +515,8 @@ polution_df.head(25)
 # `polution_df.replace('n/d', np.nan, inplace=True)`
 #
 
-# %%
+```python
+
 
 # check types
 polution_df.dtypes
@@ -533,18 +529,21 @@ polution_df.info()
 
 # ### First issue non conventional hours
 
-# %%
+```python
+
 # start by changing to integer type (e.g. int8)
 polution_df['heure'] = polution_df['heure'].astype(np.int8)
 polution_df['heure']
 
-# %%
+```python
+
 # no data is from 1 to 24... not conventional so let's make it from 0 to 23
 polution_df['heure'] = polution_df['heure'] - 1
 polution_df['heure']
 
 
-# %%
+```python
+
 # and back to strings:
 polution_df['heure'] = polution_df['heure'].astype('str')
 polution_df['heure']
@@ -553,7 +552,8 @@ polution_df['heure']
 # ### Time processing
 #
 
-# %%
+```python
+
 
 # https://www.tutorialspoint.com/python/time_strptime.htm
 
@@ -565,12 +565,14 @@ time_improved = pd.to_datetime(polution_df['date'] +
 time_improved
 
 
-# %%
+```python
+
 
 polution_df['date'] + ' ' + polution_df['heure'] + ':00'
 
 
-# %%
+```python
+
 
 # create correct timing format in the dataframe
 polution_df['DateTime'] = time_improved
@@ -580,12 +582,14 @@ del polution_df['heure']
 del polution_df['date']
 
 
-# %%
+```python
+
 
 polution_df
 
 
-# %%
+```python
+
 
 # visualize the data set now that the time is well formated:
 polution_ts = polution_df.set_index(['DateTime'])
@@ -593,12 +597,14 @@ polution_ts = polution_ts.sort_index(ascending=True)
 polution_ts.head(12)
 
 
-# %%
+```python
+
 
 polution_ts.describe()
 
 
-# %%
+```python
+
 # raw version
 # sns.color_palette("colorblind")
 # cmap = sns.light_palette("Navy", as_cmap=True)
@@ -615,7 +621,8 @@ axes[1].set_ylabel("Concentration (µg/m³)")
 
 plt.show()
 
-# %%
+```python
+
 fig, axes = plt.subplots(2, 1, figsize=(10, 5), sharex=True)
 
 # axes[0].plot(polution_ts['O3'].resample('d').mean(), '-')
@@ -641,7 +648,8 @@ plt.show()
 # Provide the same plots as before, but with dayly best and worst on the same
 # figures (and use different color and/or style)
 
-# %%
+```python
+
 
 # ### Is the polution getting better along the years or not?
 
@@ -653,7 +661,8 @@ plt.ylabel("Concentration (µg/m³)")
 plt.xlabel("Year")
 
 
-# %%
+```python
+
 
 # Load colors
 sns.set_palette("GnBu_d", n_colors=7)
@@ -674,7 +683,8 @@ polution_week_03 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
 plt.show()
 
 
-# %%
+```python
+
 
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
@@ -702,7 +712,8 @@ plt.tight_layout()
 
 
 
-# %%
+```python
+
 
 import calendar
 polution_ts['month'] = polution_ts.index.month  # Janvier=0, .... Decembre=11
@@ -711,7 +722,8 @@ polution_ts['month'] = polution_ts['month'].apply(lambda x:
 polution_ts.head()
 
 
-# %%
+```python
+
 
 # days = []
 
@@ -721,7 +733,8 @@ polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
     'O3'].mean().unstack(level=0)
 
 
-# %%
+```python
+
 sns.set_palette("Paired", n_colors=12)
 
 fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
@@ -756,67 +769,78 @@ plt.tight_layout()
 # Possible visualization
 # https://koumoul.com/en/datasets/accidents-velos
 
-# %%
+```python
+
 
 url = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = "./bicycle_db.csv"
 download(url, path_target, replace=True)
 
 
-# %%
+```python
+
 
 # df: data frame
 df_bikes = pd.read_csv("bicycle_db.csv", na_values="",
                        converters={'data': str, 'heure': str})
 
 
-# %%
+```python
+
 
 get_ipython().system('head -5 ./bicycle_db.csv')
 
 
-# %%
+```python
+
 
 pd.options.display.max_columns = 40
 df_bikes.head()
 
 
-# %%
+```python
+
 
 df_bikes['existence securite'].unique()
 
 
-# %%
+```python
+
 
 df_bikes['gravite accident'].unique()
 
 
 # ### Handle missing values in `heure`
 
-# %%
+```python
+
 
 df_bikes['date'].hasnans
 
 
-# %%
+```python
+
 
 df_bikes['heure'].hasnans
 
 
-# %%
+```python
+
 
 pd.options.display.max_rows = 20
 df_bikes.iloc[400:402]
 
 
-# %%
+```python
+
 
 # remove missing hours cases by np.nan
 df_bikes['heure'] = df_bikes['heure'].replace('', np.nan)
 df_bikes.iloc[400:402]
 
 
-# %%
+```python
+
 
 df_bikes.dropna(subset=['heure'], inplace=True)
 df_bikes.iloc[399:402]
@@ -827,12 +851,14 @@ df_bikes.iloc[399:402]
 # hint sort the data.
 # You can sort the data by time, , say with df.sort('Time') )
 
-# %%
+```python
+
 
 df_bikes['date'] + ' ' + df_bikes['heure'] + ':00'
 
 
-# %%
+```python
+
 
 # ADAPT OLD to create the df_bikes['Time']
 
@@ -844,7 +870,8 @@ time_improved = pd.to_datetime(df_bikes['date'] +
 # create correct timing format in the dataframe
 
 
-# %%
+```python
+
 
 df_bikes['Time'] = time_improved
 df_bikes.set_index('Time', inplace=True)
@@ -853,12 +880,14 @@ del df_bikes['heure']
 del df_bikes['date']
 
 
-# %%
+```python
+
 
 df_bikes.info()
 
 
-# %%
+```python
+
 
 df_bike2 = df_bikes[['gravite accident', 'existence securite',
                              'age', 'sexe']]
@@ -872,7 +901,8 @@ df_bike2.dropna(inplace=True)
 # Beware preprocessing needed to use `pd.crosstab`,  `pivot_table` to avoid
 # issues.
 
-# %%
+```python
+
 
 group = df_bike2.pivot_table(columns='existence securite',
                              index=['gravite accident', 'sexe'],
@@ -880,14 +910,16 @@ group = df_bike2.pivot_table(columns='existence securite',
 group
 
 
-# %%
+```python
+
 
 # pd.crosstab?
 pd.crosstab(df_bike2['existence securite'],
             df_bike2['gravite accident'], normalize='index') * 100
 
 
-# %%
+```python
+
 
 pd.crosstab(df_bike2['existence securite'],
             df_bike2['gravite accident'], values=df_bike2['age'],
@@ -898,7 +930,8 @@ pd.crosstab(df_bike2['existence securite'],
 # Are men and women dying equally on a bike?  </font>
 # Peform an analysis to check differences between men and woman survival ?
 
-# %%
+```python
+
 
 idx_dead = df_bikes['gravite accident'] == '3 - Tué'
 df_deads = df_bikes[idx_dead]
@@ -906,12 +939,14 @@ df_gravite = df_deads.groupby('sexe').size() / idx_dead.sum()
 df_gravite
 
 
-# %%
+```python
+
 
 df_bikes.groupby('sexe').size()  / df_bikes.shape[0]
 
 
-# %%
+```python
+
 
 pd.crosstab(df_bike2['sexe'],
             df_bike2['gravite accident'],
@@ -925,12 +960,14 @@ pd.crosstab(df_bike2['sexe'],
 # ### <font color='red'> EXERCISE : Accident during the week?  </font>
 # Peform an analysis to check when the accidents are occuring during the week.
 
-# %%
+```python
+
 
 df_bikes
 
 
-# %%
+```python
+
 
 # Chargement des couleurs
 sns.set_palette("GnBu_d", n_colors=7)
@@ -956,7 +993,8 @@ plt.legend()
 plt.tight_layout()
 
 
-# %%
+```python
+
 
 df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count()
@@ -965,7 +1003,8 @@ df_bikes.groupby(['weekday', df_bikes.index.hour])[
 # ### <font color='red'> EXERCISE : Accident during the year?  </font>
 # Peform an analysis to check when the accidents are occuring during the week.
 
-# %%
+```python
+
 
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
@@ -996,7 +1035,8 @@ plt.tight_layout()
 # ### <font color='red'> EXERCISE : Accidents by departement  </font>
 # Peform an analysis to check when the accidents are occuring by departement.
 
-# %%
+```python
+
 
 import pygal
 # First install if needed for maps:
@@ -1009,7 +1049,8 @@ path_target = "./dpt_population.csv"
 url = "https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/download/?format=csv&timezone=Europe/Berlin&lang=en&use_labels_for_header=true&csv_separator=%3B"
 download(url, path_target, replace=False)
 
-# %%
+```python
+
 # Departement area: https://www.regions-et-departements.fr/departements-francais#departements_fichiers
 path_target = "./dpt_area.csv"
 url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
@@ -1052,4 +1093,5 @@ fr_chart.add('Accidents', gd.to_dict())
 fr_chart.render_in_browser()
 # fr_chart.render_to_file('./chatr.svg')  # Write the chart in a specified file
 
-# %%
+```python
+

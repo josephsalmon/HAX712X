@@ -347,6 +347,10 @@ file.close()
 ```python
 from mpmath import mp
 import numpy as np
+
+if not os.path.isdir("script"):
+    os.mkdir("script")
+
 for i in range(2, 50):
 
 
