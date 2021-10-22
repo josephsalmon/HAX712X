@@ -112,8 +112,8 @@ for specified matrix $A$ and vector $b$.
  A = np.array([[1, 0, 3], [4, 5, 12], [7, 8, 9]], dtype=np.float)
 # A = np.random.randn(500, 500)
 # b = np.ones((500, 1))
-b = np.array([[1, 2, 3]], dtype=np.float).T
-b = np.array([[1, 2, 3]], dtype=np.float).T
+b = np.array([[1, 2, 3]], dtype=np.float64).T
+# b = np.array([[1, 2, 3]], dtype=np.float64).T
 
 print(A)
 print(b)
@@ -241,9 +241,7 @@ plt.plot(x_max, f(x_max), "|", markersize=20)
 plt.show()
 
 
-x_argmins = np.zeros(xs.size)
-x = optimize.fmin_bfgs(f, x0=-4)
-mask = np.zeros(xs.size)
+
 ```
 
 ### <font color='red'> EXERCISE : Bassin of attraction</font>
@@ -443,15 +441,41 @@ plt.show()
 ```
 ### Blurring (fr: floutage)
 
+# Blurring (fr: floutage)
+
+
+
 ```python
-img_flou = ndimage.gaussian_filter(img, sigma=2)
-plt.figure()
-plt.imshow(img_flou, cmap=plt.cm.gray)
-plt.axis("off")
+img_flou = ndimage.gaussian_filter(img, sigma=20)
+fix, ax = plt.subplots()
+ax.imshow(img_flou, cmap=plt.cm.gray)
+ax.axis("off")
 plt.show()
+
 ```
 
+Widget on blurring bandwidth:
 
+```python
+%matplotlib widget
+import ipywidgets as widgets
+
+# set up plot
+img_flou = ndimage.gaussian_filter(img, sigma=20)
+fix, ax = plt.subplots()
+ax.axis("off")
+plt.show()
+ 
+@widgets.interact(sigma=(0.1, 200, 0.1))
+def update(sigma=2):
+    """Remove old lines from plot and plot new one"""
+    # [l.remove() for l in ax.lines]
+    img_flou = ndimage.gaussian_filter(img, sigma)
+    ax.imshow(img_flou, cmap=plt.cm.gray)
+
+```
+
+## Changing colors in an image
 
 ```python
 from download import download

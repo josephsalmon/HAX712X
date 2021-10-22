@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from ipywidgets import interact  # widget manipulation
+# widget manipulation
 from ipywidgets import widgets, interact, interactive, fixed, interact_manual
 
 from download import download  # download data / avoid re-downloading
