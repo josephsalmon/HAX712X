@@ -225,7 +225,7 @@ To set a new variable (in bash)
 $ export ENV_NAME=toto:tata
 ```
 
-List are often separated by `:`. To append a new value at the end
+Lists are often separated by `:`. To append a new value at the end
 
 ```bash
 $ export ENV_NAME=${ENV_NAME}:tutu
