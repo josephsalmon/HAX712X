@@ -22,6 +22,7 @@ print('fill')
 
 ```python
 %timeit a = np.empty(n); a.fill(val)
+# This is a `magic` command, works only in interactive case (Ipython, Notebook, Jupyter lab etc.)
 # Alternative: uncomment below
 # get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')
 ```
