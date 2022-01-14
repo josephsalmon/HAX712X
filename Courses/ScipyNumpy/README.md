@@ -12,12 +12,12 @@ before anything, to call the generator `rng`.
 
 | Code                 | Result        |
 |----------------------|-----------|
-| <pre> x = np.zeros(9) </pre>         | <image src = "./CheatSheet/figures/create-zeros-1.png" width="100px"></image>        |
-| <pre> x = np.ones(9)</pre>          | <image src = "./CheatSheet/figures/create-ones-1.png" width="100px"></image>         |
-| <pre> x = np.full(9, 0.5)</pre>          | <image src = "./CheatSheet/figures/create-full-1.png" width="100px"></image>         |
-| <pre> x = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0])</pre> |  <image src = "./CheatSheet/figures/create-list-1.png" width="100px"></image>|
-| <pre> x = np.arange(9)</pre>        | <image src = "./CheatSheet/figures/create-arange-1.png" width="100px"></image>           |
-| <pre> x = rng.random(9)</pre>        | <image src = "./CheatSheet/figures/create-uniform-1.png" width="100px"></image>           |
+| <pre> x = np.zeros(9) </pre>         | <image src = "./CheatSheet/figures/create-zeros-1.png" width="200px"></image>        |
+| <pre> x = np.ones(9)</pre>          | <image src = "./CheatSheet/figures/create-ones-1.png" width="200px"></image>         |
+| <pre> x = np.full(9, 0.5)</pre>          | <image src = "./CheatSheet/figures/create-full-1.png" width="200px"></image>         |
+| <pre> x = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0])</pre> |  <image src = "./CheatSheet/figures/create-list-1.png" width="200px"></image>|
+| <pre> x = np.arange(9)</pre>        | <image src = "./CheatSheet/figures/create-arange-1.png" width="200px"></image>           |
+| <pre> x = rng.random(9)</pre>        | <image src = "./CheatSheet/figures/create-uniform-1.png" width="200px"></image>           |
 
 
 ### Creation: matrix cases
