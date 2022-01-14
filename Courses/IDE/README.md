@@ -4,6 +4,7 @@ An [Integrated development environment (IDE)](https://en.wikipedia.org/wiki/Inte
 
 ## References
 
+- <https://realpython.com/advanced-visual-studio-code-python/>
 - <https://code.visualstudio.com/> or <https://vscodium.com/>
 - <https://www.jetbrains.com/pycharm/>
 - <https://pyzo.org/>

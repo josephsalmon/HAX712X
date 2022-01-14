@@ -45,7 +45,7 @@ Useful links (non exhaustive list):
 ## Timing
 - **Mid-term** project snapshot: Due date  **Monday November 15, 23:59**. This will include the creation of a ```github``` repository (README.md, etc.), a short description on how the work is split and a detailed work program for the project including how the task are attributed (coding).
 
-- Due date (final project) :  The ```github``` repository should be completed before **Thursday 9 December (23:59)**. Nothing pushed after the deadline will be taken into account. The oral presentation (video shorter than 20mn) should also be recorded before the deadline.
+- Due date (final project) :  The ```github``` repository should be completed before **Thursday 9 December (23:59)**. Nothing pushed after the deadline will be taken into account. The oral presentation (max: 20mn) will be in-person **Monday 13 December 8:00AM** (room 36.02).
 
 
 ## Elements expected /  Grading
