@@ -12,7 +12,7 @@ before anything, to call the generator `rng`.
 
 | Code                 | Result        |
 |----------------------|-----------|
-| ```python x = np.zeros(9)```         | <image src = "./CheatSheet/figures/create-zeros-1.png" width="100px"></image>        |
+| <pre> x = np.zeros(9) </pre>         | <image src = "./CheatSheet/figures/create-zeros-1.png" width="100px"></image>        |
 | `x = np.ones(9)`          | <image src = "./CheatSheet/figures/create-ones-1.png" width="100px"></image>         |
 | `x = np.full(9, 0.5)`          | <image src = "./CheatSheet/figures/create-full-1.png" width="100px"></image>         |
 | `x = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0])` |  <image src = "./CheatSheet/figures/create-list-1.png" width="100px"></image>|
