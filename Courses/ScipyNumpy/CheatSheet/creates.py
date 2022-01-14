@@ -42,7 +42,7 @@ def show_array3(Z, name):
         plt.imshow(
             Z[Z.shape[0] - i],
             cmap="Oranges",
-            extent=[0, cols, 0, rows],
+            extent=[0, 1.5 * cols, 0, 1.5 * rows],
             vmin=0,
             vmax=max(1, Z.max()),
             interpolation="nearest",
@@ -55,6 +55,7 @@ def show_array3(Z, name):
     plt.savefig("figures/%s" % name, dpi=16)
 
 
+#%%
 # Vectors
 
 rows, cols = 5, 9
@@ -65,16 +66,19 @@ show_array2(x, "create-list-1.png")
 x = np.zeros(cols) + 0.1
 show_array2(x, "create-zeros-1.png")
 
+x = np.full(cols, 0.5)
+show_array2(x, "create-full-1.png")
+
 x = np.ones(cols) + 0.1
 show_array2(x, "create-ones-1.png")
 
 x = np.arange(cols)
 show_array2(x, "create-arange-1.png")
 
-x = rng.random(0, 1, cols)
+x = rng.random(cols)
 show_array2(x, "create-uniform-1.png")
 
-
+#%%
 # Matrices
 
 M = np.zeros((rows, cols)) + 0.1
@@ -85,9 +89,9 @@ show_array2(M, "create-ones-2.png")
 
 M = np.array(
     [
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.0, 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     ]
@@ -95,13 +99,22 @@ M = np.array(
 M += 0.1
 show_array2(M, "create-list-2.png")
 
-M = np.arange(rows * cols).reshape(rows, cols)
+M = np.arange(rows * cols).reshape(rows, cols) + 0.1
 show_array2(M, "create-arange-2.png")
 
-M = np.random.uniform(0, 1, (rows, cols))
+M = rng.random((rows, cols))
 show_array2(M, "create-uniform-2.png")
 
+M = np.eye(rows, cols) + 0.1
+show_array2(M, "create-eye-2.png")
 
+M = np.diag(np.arange(5)) + 0.1
+show_array2(M, "create-diag-2.png")
+
+M = np.diag(np.arange(3), k=1) + 0.1
+show_array2(M, "create-diagk-2.png")
+
+# %%
 # Tensors
 T = np.zeros((3, 5, 9)) + 0.1
 show_array3(T, "create-zeros-3.png")
@@ -114,5 +127,7 @@ show_array3(T, "create-arange-3.png")
 
 T = np.random.uniform(0, 1, (3, rows, cols))
 show_array3(T, "create-uniform-3.png")
+
+# %%
 
 # %%
