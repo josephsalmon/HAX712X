@@ -1,10 +1,3 @@
-<style>
-table, td, th {
-        border: 1px solid black;
-        }
-
-</style>
-
 # Numpy cheat sheet
 
 
