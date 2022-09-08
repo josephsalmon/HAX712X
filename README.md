@@ -26,15 +26,15 @@ We will mostly focus on basic programming concepts, as well as on discovering th
 Beyond `pandas` ninja skills, we will also introduce modern practices for coders : (unitary) tests, version control, documentation generation, etc.
 
 
-1. BC : (10/09/2021) [Introduction to linux essentials and command line tools: regexp, grep, find, rename](Courses/Bash/)
+1. BC : (09/09/2022) [Introduction to linux essentials and command line tools: regexp, grep, find, rename](Courses/Bash/)
 
-2. BC : (17/09/2021) [IDE: VScode](Courses/IDE/), [Python virtual env: Anaconda](Courses/Venv/), [Python virtual environment](Courses/Venv/), terminal, etc.
+2. BC : (16/09/2022) [IDE: VScode](Courses/IDE/), [Python virtual env: Anaconda](Courses/Venv/), [Python virtual environment](Courses/Venv/), terminal, etc.
 
-3. BC : (24/09/2021) [Git: a first introduction, `github`, ssh key creation, various git commands, conflict, pull request](Courses/Git/); see also [Bonus/](Bonus/), [hands on git](Courses/Git/)
+3. BC : (23/09/2022) [Git: a first introduction, `github`, ssh key creation, various git commands, conflict, pull request](Courses/Git/); see also [Bonus/](Bonus/), [hands on git](Courses/Git/)
 
-4. BC (quiz 1) + JS : (01/10/2021) [Create a Python Module](Courses/Python-modules/), [classes (`__init__`, `__call__`, etc...), operator overloading, files handling](Courses/Classes_n_Exceptions/),
+4. BC (quiz 1) + JS : (30/09/2022) [Create a Python Module](Courses/Python-modules/), [classes (`__init__`, `__call__`, etc...), operator overloading, files handling](Courses/Classes_n_Exceptions/),
 
-5. JS : (08/20/2021)  [unit tests](Courses/Tests-CI/)
+5. JS : (07/10/2022)  [unit tests](Courses/Tests-CI/)
 
 6. JS : (15/10/2021)  [Pandas: first steps / missing data](Courses/Pandas/)
 
@@ -53,8 +53,8 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 ### Tests (20 % of the final grade)
 Short quiz of 20 min each (on Moodle). This will be a personal work.
 
-- Quiz 1 BC (**01/10/2021**, 10%)
-- Quiz 2 JS (**29/10/2021**, 10%)
+- Quiz 1 BC (**30/09/2022**, 10%)
+- Quiz 2 JS (**29/10/2022**, 10%)
 
 
 ### Project 80% (= oral 30% + code/report 50%) of the final grade
