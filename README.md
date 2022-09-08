@@ -42,7 +42,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 8. JS (quiz 2) : (28/10/2022) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
 
-9. BC : (18/11/2021) [Documentation with Sphinx](Courses/Docs/)
+9. BC : (18/11/2022) [Documentation with Sphinx](Courses/Docs/)
 
 10. JS + BC : (09/12/2022) The end:  Project presentations
 
