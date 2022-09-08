@@ -34,17 +34,17 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 4. BC (quiz 1) + JS : (30/09/2022) [Create a Python Module](Courses/Python-modules/), [classes (`__init__`, `__call__`, etc...), operator overloading, files handling](Courses/Classes_n_Exceptions/),
 
-5. JS : (07/10/2022)  [unit tests](Courses/Tests-CI/)
+5. JS : (03/10/2022 + 07/10/2022)  [unit tests](Courses/Tests-CI/)
 
-6. JS : (15/10/2021)  [Pandas: first steps / missing data](Courses/Pandas/)
+6. JS : (10/10/2022 + 14/10/2022)  [Pandas: first steps / missing data](Courses/Pandas/)
 
-7. JS : (22/10/2021) [`scipy, numpy`: Images/channel](Courses/Scipy/)
+7. JS : (17/10/2022 + 21/10/2022) [`scipy, numpy`: Images/channel](Courses/Scipy/)
 
-8. JS (quiz 2) : (29/10/2021) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
+8. JS (quiz 2) : (28/10/2022) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
 
-9. BC : (19/11/2021) [Documentation with Sphinx](Courses/Docs/)
+9. BC : (18/11/2021) [Documentation with Sphinx](Courses/Docs/)
 
-10. JS + BC : (13/12/2021) The end:  Project presentations
+10. JS + BC : (09/12/2022) The end:  Project presentations
 
 
 ## Grading
@@ -54,7 +54,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 Short quiz of 20 min each (on Moodle). This will be a personal work.
 
 - Quiz 1 BC (**30/09/2022**, 10%)
-- Quiz 2 JS (**29/10/2022**, 10%)
+- Quiz 2 JS (**28/10/2022**, 10%)
 
 
 ### Project 80% (= oral 30% + code/report 50%) of the final grade
