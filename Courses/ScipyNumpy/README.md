@@ -73,7 +73,7 @@ M[2, 2] = 1
 
 Start from a zero matrix:
 ```Python
-Z = np.zeros((5, 9))
+M = np.zeros((5, 9))
 ```
 
 <image src = "./CheatSheet/figures/slice-M.svg" width="200px"></image> 
