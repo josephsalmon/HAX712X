@@ -4,7 +4,10 @@
 
 # Instructions
 
-The project will be two-fold: handle datasets from the French electricity consumption with the motivation to create a visualization inspired by the image below, and to predict electricity consumption on a future day.
+The project will be two-fold: handle datasets from the French electricity consumption with the motivation to create
+
+1. a visualization inspired by the image below,
+2. to predict electricity consumption on a future day.
 
 <img src=https://www.upenergie.com/wp-content/uploads/2022/04/la-consommation-delectricite-en-quelques-chiffres.png>
 
@@ -90,6 +93,8 @@ Useful packages (non-exhaustive list):
 - The ultimate goal is to provide a Python module that can be imported with `pip` and containing your work.
 A description of the procedure will be needed (imagine you are addressing to a user not aware of your package).
 An example of project, made in 2020, is available at <https://github.com/tanglef/chaoseverywhere>.
+
+- Your python module should have two submodules corresponding to the two main tasks (prediction and visualization)
 
 - The project must be stored on a `github` repository.
 
