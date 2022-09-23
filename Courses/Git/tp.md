@@ -25,7 +25,7 @@ See the following link for more details: <https://help.github.com/en/github/auth
 
 ### On Windows
 
-Please see the tutorial at <https://vladmihalcea.com/tutorials/git/windows-git-ssh-authentication-to-github/>
+Please see the tutorial at <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitHub-SSH-Windows-Example>
 
 # Setting up your Github account
 
