@@ -285,7 +285,7 @@ Create a sub-class `GaussianBis` where you check if the user has provided float 
 Print a custom explicit error message if it is not the case.
 
 ```python
-class Gaussian:
+class GaussianBis:
     # XXX TODO
 ```
 ---
