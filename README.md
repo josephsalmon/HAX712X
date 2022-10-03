@@ -34,7 +34,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 4. BC (quiz 1) + JS : (30/09/2022) [Create a Python Module](Courses/Python-modules/), [classes (`__init__`, `__call__`, etc...), operator overloading, files handling](Courses/Classes_n_Exceptions/),
 
-5. JS : (03/10/2022 + 07/10/2022)  [unit tests](Courses/Tests-CI/)
+5. JS : (03/10/2022 + 07/10/2022)  [unit tests](Courses/Test/)
 
 6. JS : (10/10/2022 + 14/10/2022)  [Pandas: first steps / missing data](Courses/Pandas/)
 
