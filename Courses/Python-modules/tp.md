@@ -224,7 +224,7 @@ $ pip search some-package-name
 ### <font color='red'>Exercise: </font>
 
 
-  1. Install the modules `download`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
+  1. Install the modules `pooch`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
   2. List all the package in your venv using pip.
 
 ----
