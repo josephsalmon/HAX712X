@@ -179,7 +179,7 @@ The documentation can be found at <https://pytest-cov.readthedocs.io/en/latest/>
 3. Add some unit tests to `biketrauma` in a new sub-directory `./biketrauma/tests/`:
     - Create a first `test_df()` that test if the Côtes-d'or département has 459 accidents. And a second `test_df_log()` testing that the log of the number of accident in the département 92 is close to `7.651120176`.
 
-    - Create a `test_dl()` function that tests the `md5sum` hash of the downloaded file (a.k.a. `bicycle_db.csv`). It should be `ee8c4e0e7989bc6aac7876d7501bbf4d`. You can use this piece of code to compute the md5sum:
+    - Create a `test_dl()` function that tests the `md5sum` hash of the downloaded file (a.k.a. `bicycle_db.csv`). You may use the `pooch` package or you can use this piece of code to compute the md5sum:
 
 ```python
 import hashlib
