@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import pooch
 from biketrauma.io import url_db, path_target
