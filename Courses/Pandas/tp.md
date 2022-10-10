@@ -8,6 +8,7 @@ For R users, you might also want to read <https://pandas.pydata.org/docs/getting
 ## Introduction
 
 ```python
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -15,7 +16,7 @@ import seaborn as sns
 # widget manipulation
 from ipywidgets import widgets, interact, interactive, fixed, interact_manual
 
-from download import download  # download data / avoid re-downloading
+import pooch  # download data / avoid re-downloading
 from IPython import get_ipython
 
 pd.options.display.max_rows = 8
@@ -23,11 +24,12 @@ pd.options.display.max_rows = 8
 
 ### Dataset 1: Titanic dataset
 
-First, it is important to download automatically remote files for reproducibility (and avoiding typing manually names, )
+First, it is important to download automatically remote files for reproducibility (and avoiding typing names manually)
 ```python
 url = "http://josephsalmon.eu/enseignement/datasets/titanic.csv"
 path_target = "./titanic.csv"
-download(url, path_target, replace=False)  # if needed `pip install download`
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)  # if needed `pip install pooch`
 ```
 
 Reading the file as a `pandas` dataframe:
@@ -476,7 +478,9 @@ df_titanic['AgeClass']
 
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
 path_target = "./20080421_20160927-PA13_auto.csv"
-download(url, path_target, replace=False)
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+
 
 
 ```python
@@ -775,7 +779,9 @@ plt.tight_layout()
 
 url = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = "./bicycle_db.csv"
-download(url, path_target, replace=True)
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+
 
 
 ```python
@@ -1048,14 +1054,17 @@ import pygal
 # Departement population: https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/table/?disjunctive.departement&location=7,47.12995,3.41125&basemap=jawg.streets
 path_target = "./dpt_population.csv"
 url = "https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/download/?format=csv&timezone=Europe/Berlin&lang=en&use_labels_for_header=true&csv_separator=%3B"
-download(url, path_target, replace=False)
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+
 
 ```python
 
 # Departement area: https://www.regions-et-departements.fr/departements-francais#departements_fichiers
 path_target = "./dpt_area.csv"
 url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
-download(url, path_target, replace=False)
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 df_dtp_pop = pd.read_csv("dpt_population.csv", sep=";", low_memory=False)
 df_dtp_area = pd.read_csv("dpt_area.csv", sep="\t", low_memory=False, skiprows=[102, 103, 104])
