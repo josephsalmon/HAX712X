@@ -1,11 +1,13 @@
+import os
 import pandas as pd
-from download import download
+import pooch
 from biketrauma.io import url_db, path_target
 
 
 class Load_db:
   def __init__(self, url=url_db, target_name=path_target):
-    download(url, target_name, replace=False)
+    path, fname = os.path.split(path_target)
+    pooch.retrieve(url, path=path, fname=fname, known_hash=None)
   
   @staticmethod
   def save_as_df():
