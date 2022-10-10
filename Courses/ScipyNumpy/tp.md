@@ -478,12 +478,11 @@ def update(sigma=2):
 ## Changing colors in an image
 
 ```python
-from download import download
+import pooch
 import os
 
 url = "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/486px-Flag_of_Brazil.svg.png"
-name_img = "486px-Flag_of_Brazil.svg.png"
-download(url, os.path.join(os.getcwd(), name_img))
+name_img =pooch.retrieve(url, known_hash=None)
 
 img = (255 * plt.imread(name_img)).astype(int)
 img = img.copy()
