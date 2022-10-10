@@ -1,6 +1,6 @@
 # Project guidelines
 
-- Work by groups of 3 or 4 students, assigned at random (list on the Moodle website).
+- Work by groups of 2, 3 or 4 students, assigned at random (list on the Moodle website).
 
 # Instructions
 
