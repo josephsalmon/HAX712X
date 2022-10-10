@@ -154,7 +154,7 @@ df_titanic.describe()
     ```
 
 
-## <font color='red'> EXERCISE : density over histogram </font>.
+## <font color='red'> EXERCISE : density over histogram</font>.
 Plot the density estimate over the histogram
 
 
