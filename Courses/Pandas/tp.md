@@ -466,11 +466,11 @@ df_titanic_raw.groupby('Sex').mean()['Pclass']
 ```python
 df_titanic['AgeClass'] = pd.cut(df_titanic['Age'], bins=np.arange(0, 90, 10))
 df_titanic['AgeClass']
-
+```
 
 ###############################################################################
 
-# # Second Case study: air quality in Paris.
+## Second Case study: air quality in Paris.
 # (Source: Airparif)
 
 ```python
