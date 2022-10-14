@@ -492,7 +492,7 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 # get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
 
 
-# # Times series help:
+## Times series help:
 # https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
 
 ```python
@@ -510,9 +510,9 @@ pd.options.display.max_rows = 30
 polution_df.head(25)
 
 
-# ## Preprocess the data
+### Preprocess the data
 
-# ### <font color='red'> EXERCISE : handling missing values </font>
+### <font color='red'> EXERCISE : handling missing values </font>
 #
 # What is the meaning of "na_values="n/d" above?
 #
@@ -554,8 +554,7 @@ polution_df['heure'] = polution_df['heure'].astype('str')
 polution_df['heure']
 
 
-# ### Time processing
-#
+### Time processing
 
 ```python
 
