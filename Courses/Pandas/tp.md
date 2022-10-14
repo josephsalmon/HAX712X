@@ -344,7 +344,7 @@ age.mean()
 df_titanic_raw[age < 2]
 ```
 
-```
+```python
 df_titanic_raw = df_titanic_raw.reset_index()  # come back to original index
 ```
 
@@ -360,7 +360,7 @@ df_titanic_raw['Embarked'].value_counts(normalize=False, sort=True,
 pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
 ```
-Comments: not all passagers from Cherbourg are  Gallic...
+Comments: not all passagers from Cherbourg are Gaulois...
 
 
 ```python
