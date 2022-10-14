@@ -373,7 +373,7 @@ df_titanic_raw['Survived'].sum() / df_titanic_raw['Survived'].count()
 df_titanic['Survived'].mean()
 ```
 
-**Q:What was the proportion of women on the boat?**
+**Q: What was the proportion of women on the boat?**
 
 
 # See also the command:
@@ -421,7 +421,9 @@ sns.catplot(x='Pclass', y='Age', hue='Survived', data=df_titanic_raw,
 # Access values by line/columns etc.
 
 - `iloc`
+```python
 df_titanic_raw.iloc[0:2, 1:8]
+```
 
 - `loc`
 
@@ -468,32 +470,29 @@ df_titanic['AgeClass'] = pd.cut(df_titanic['Age'], bins=np.arange(0, 90, 10))
 df_titanic['AgeClass']
 ```
 
-###############################################################################
 
-## Second Case study: air quality in Paris.
-# (Source: Airparif)
+# Second Case study: air quality in Paris (Source: Airparif)
 
 ```python
-
-
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
 path_target = "./20080421_20160927-PA13_auto.csv"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
-
+```
 
 
 ```python
-
-
 !head -26 ./20080421_20160927-PA13_auto.csv
+```
 
-# Alternatively :
-# get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
+Alternatively :
 
+```python
+get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
+```
 
 ## Times series help:
-# https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
+https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
 
 ```python
 
@@ -505,114 +504,95 @@ polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
 
 
 ```python
-
 pd.options.display.max_rows = 30
 polution_df.head(25)
+```
+
+## Preprocess the data
+
+## <font color='red'> EXERCISE : handling missing values </font>
+What is the meaning of "na_values="n/d" above?
+Note that an alternative can be obtained with the command
+`polution_df.replace('n/d', np.nan, inplace=True)`
 
 
-### Preprocess the data
 
-### <font color='red'> EXERCISE : handling missing values </font>
-#
-# What is the meaning of "na_values="n/d" above?
-#
-# Note that an alternative can be obtained with the command
-# `polution_df.replace('n/d', np.nan, inplace=True)`
-#
 
 ```python
-
-
 # check types
 polution_df.dtypes
 
 # check all
 polution_df.info()
+```
 
-# For more info on the object nature (inherited from numpy), see
-# https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object
+For more info on the object nature (inherited from numpy), see
+https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object
 
-# ### First issue non conventional hours
+## Issues with non-conventional hours/day format
 
+Start by changing to integer type (e.g., `int8`):
 ```python
-
-# start by changing to integer type (e.g. int8)
 polution_df['heure'] = polution_df['heure'].astype(np.int8)
 polution_df['heure']
-
+```
+No data is from 1 to 24... not conventional so let's make it from 0 to 23
 ```python
-
-# no data is from 1 to 24... not conventional so let's make it from 0 to 23
 polution_df['heure'] = polution_df['heure'] - 1
 polution_df['heure']
-
+```
+and back to strings:
 
 ```python
-
-# and back to strings:
 polution_df['heure'] = polution_df['heure'].astype('str')
 polution_df['heure']
-
+```
 
 ### Time processing
+https://www.tutorialspoint.com/python/time_strptime.htm
 
 ```python
-
-
-# https://www.tutorialspoint.com/python/time_strptime.htm
-
 time_improved = pd.to_datetime(polution_df['date'] +
                                ' ' + polution_df['heure'] + ':00',
                                format='%d/%m/%Y %H:%M')
 
 # Where d = day, m=month, Y=year, H=hour, M=minutes
 time_improved
+```
 
 
 ```python
-
-
 polution_df['date'] + ' ' + polution_df['heure'] + ':00'
+```
 
+Create correct timing format in the dataframe
 
 ```python
-
-
-# create correct timing format in the dataframe
 polution_df['DateTime'] = time_improved
 
-# remove useles columns
-del polution_df['heure']
-del polution_df['date']
-
-
-```python
-
-
+del polution_df['heure']  # remove useless column
+del polution_df['date']  # remove useless column
 polution_df
+```
 
+
+Visualize the data set now that the time is well formated:
 
 ```python
-
-
-# visualize the data set now that the time is well formated:
 polution_ts = polution_df.set_index(['DateTime'])
 polution_ts = polution_ts.sort_index(ascending=True)
 polution_ts.head(12)
+```
 
 
 ```python
-
-
 polution_ts.describe()
-
+```
 
 ```python
-
 # raw version
 # sns.color_palette("colorblind")
 # cmap = sns.light_palette("Navy", as_cmap=True)
-
 fig, axes = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
 
 axes[0].plot(polution_ts['O3'])
@@ -622,23 +602,18 @@ axes[0].set_ylabel("Concentration (µg/m³)")
 axes[1].plot(polution_ts['NO2'])
 axes[1].set_title("Nitrogen polution: daily average in Paris")
 axes[1].set_ylabel("Concentration (µg/m³)")
-
 plt.show()
+```
 
 ```python
-
 fig, axes = plt.subplots(2, 1, figsize=(10, 5), sharex=True)
 
-# axes[0].plot(polution_ts['O3'].resample('d').mean(), '-')
 axes[0].plot(polution_ts['O3'].resample('d').max(), '--')
 axes[0].plot(polution_ts['O3'].resample('d').min(),'-.')
-
 
 axes[0].set_title("Ozone polution: daily average in Paris")
 axes[0].set_ylabel("Concentration (µg/m³)")
 
-# axes[1].plot(polution_ts['NO2'].resample('d').mean())
-# axes[1].plot(polution_ts['NO2'].resample('d').mean())
 axes[1].plot(polution_ts['NO2'].resample('d').max(),  '--')
 axes[1].plot(polution_ts['NO2'].resample('d').min(),  '-.')
 
@@ -646,50 +621,43 @@ axes[1].set_title("Nitrogen polution: daily average in Paris")
 axes[1].set_ylabel("Concentration (µg/m³)")
 
 plt.show()
+```
 
 
-# ### <font color='red'> EXERCISE : worst of the day  </font>
-# Provide the same plots as before, but with dayly best and worst on the same
-# figures (and use different color and/or style)
+### <font color='red'> EXERCISE : worst of the day </font>
+ Provide the same plots as before, but with daily best and worst on the same
+ figures (and use different color and/or style)
+
+Q: Is the polution getting better along the years or not?
 
 ```python
-
-
-# ### Is the polution getting better along the years or not?
-
 ax = polution_ts['2008':].resample('Y').mean().plot(figsize=(4, 4))
 # Sample by year (A pour Annual) or Y for Year
 plt.ylim(0, 50)
 plt.title("Pollution evolution: \n yearly average in Paris")
 plt.ylabel("Concentration (µg/m³)")
 plt.xlabel("Year")
+```
 
 
 ```python
-
-
 # Load colors
 sns.set_palette("GnBu_d", n_colors=7)
 polution_ts['weekday'] = polution_ts.index.weekday  # Monday=0, Sunday=6
 polution_ts['weekend'] = polution_ts['weekday'].isin([5, 6])
 
-# days = ['Lundi', 'Mardi', 'Mercredi',
-#         'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-
 days = ['Monday', 'Tuesday', 'Wednesday',
         'Thursday', 'Friday', 'Saturday', 'Sunday']
-
 
 polution_week_no2 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
     'NO2'].mean().unstack(level=0)
 polution_week_03 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
     'O3'].mean().unstack(level=0)
 plt.show()
+```
 
 
 ```python
-
-
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_week_no2.plot(ax=axes[0])
@@ -713,32 +681,29 @@ axes[0].legend().set_visible(False)
 axes[1].legend(labels=days, loc='lower left', bbox_to_anchor=(1, 0.1))
 
 plt.tight_layout()
+```
 
 
 
 ```python
-
-
 import calendar
 polution_ts['month'] = polution_ts.index.month  # Janvier=0, .... Decembre=11
 polution_ts['month'] = polution_ts['month'].apply(lambda x:
                                                   calendar.month_abbr[x])
 polution_ts.head()
+```
 
 
 ```python
-
-
-# days = []
 
 polution_month_no2 = polution_ts.groupby(['month', polution_ts.index.hour])[
     'NO2'].mean().unstack(level=0)
 polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
     'O3'].mean().unstack(level=0)
+```
 
 
 ```python
-
 sns.set_palette("Paired", n_colors=12)
 
 fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
@@ -763,15 +728,15 @@ axes[0].legend().set_visible(False)
 # ax.legend()
 axes[1].legend(labels=calendar.month_name[1:], loc='lower left',
                bbox_to_anchor=(1, 0.1))
-
 plt.tight_layout()
+```
 
 
-# # Third example (your turn: explore the bike accident dataset on you own)
-# https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/
-#
-# Possible visualization
-# https://koumoul.com/en/datasets/accidents-velos
+## Third example (your turn: explore a dataset on bike accidents on your own)
+ https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/
+
+ Possible visualization:
+ https://koumoul.com/en/datasets/accidents-velos
 
 ```python
 
@@ -780,92 +745,70 @@ url = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = "./bicycle_db.csv"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
 
 
 
 ```python
-
-
 # df: data frame
 df_bikes = pd.read_csv("bicycle_db.csv", na_values="",
                        converters={'data': str, 'heure': str})
+```
 
 
 ```python
-
-
 get_ipython().system('head -5 ./bicycle_db.csv')
-
+```
 
 ```python
-
-
 pd.options.display.max_columns = 40
 df_bikes.head()
 
 
 ```python
-
-
 df_bikes['existence securite'].unique()
+```
 
 
 ```python
-
-
 df_bikes['gravite accident'].unique()
+```
 
-
-# ### Handle missing values in `heure`
+### Handle missing values in `heure`
 
 ```python
-
-
 df_bikes['date'].hasnans
-
-
-```python
-
-
 df_bikes['heure'].hasnans
-
+```
 
 ```python
-
-
 pd.options.display.max_rows = 20
 df_bikes.iloc[400:402]
+```
 
-
+Remove missing hours cases by `np.nan`:
 ```python
-
-
-# remove missing hours cases by np.nan
 df_bikes['heure'] = df_bikes['heure'].replace('', np.nan)
 df_bikes.iloc[400:402]
+```
 
 
 ```python
-
-
 df_bikes.dropna(subset=['heure'], inplace=True)
 df_bikes.iloc[399:402]
+```
 
 
-# ### <font color='red'> EXERCISE : Dates?  </font>
-# Can you find the starting day and the ending day of the study automatically?
-# hint sort the data.
-# You can sort the data by time, , say with df.sort('Time') )
+### <font color='red'> EXERCISE : Dates?  </font>
+Can you find the starting day and the ending day of the study automatically?
+Hint: sort the data; you can sort the data by time, say with df.sort('Time')
 
 ```python
-
-
 df_bikes['date'] + ' ' + df_bikes['heure'] + ':00'
+```
 
 
 ```python
-
-
 # ADAPT OLD to create the df_bikes['Time']
 
 time_improved = pd.to_datetime(df_bikes['date'] +
@@ -874,107 +817,91 @@ time_improved = pd.to_datetime(df_bikes['date'] +
 
 # Where d = day, m=month, Y=year, H=hour, M=minutes
 # create correct timing format in the dataframe
-
+```
 
 ```python
-
-
 df_bikes['Time'] = time_improved
 df_bikes.set_index('Time', inplace=True)
 # remove useles columns
 del df_bikes['heure']
 del df_bikes['date']
-
+```
 
 ```python
-
-
 df_bikes.info()
-
+```
 
 ```python
-
-
 df_bike2 = df_bikes[['gravite accident', 'existence securite',
                              'age', 'sexe']]
 df_bike2['existence securite'] = df_bike2['existence securite'].replace(np.nan, "Inconnu")
 df_bike2.dropna(inplace=True)
+```
 
 
-# ### <font color='red'> EXERCISE : Is the helmet saving your life?  </font>
-# Peform an analysis so that you can check the benefit or not of wearing
-# helmet to save your life.
-# Beware preprocessing needed to use `pd.crosstab`,  `pivot_table` to avoid
-# issues.
+### <font color='red'> EXERCISE : Is the helmet saving your life?  </font>
+Peform an analysis so that you can check the benefit or not of wearing
+helmet to save your life.
+Beware preprocessing needed to use `pd.crosstab`, `pivot_table` to avoid
+issues.
 
 ```python
-
 
 group = df_bike2.pivot_table(columns='existence securite',
                              index=['gravite accident', 'sexe'],
                              aggfunc={'age': 'count'}, margins=True)
 group
+```
 
 
 ```python
-
-
-# pd.crosstab?
 pd.crosstab(df_bike2['existence securite'],
             df_bike2['gravite accident'], normalize='index') * 100
-
+```
 
 ```python
-
-
 pd.crosstab(df_bike2['existence securite'],
             df_bike2['gravite accident'], values=df_bike2['age'],
             aggfunc='count', normalize='index') * 100
+```
 
-
-# ### <font color='red'> EXERCISE :
-# Are men and women dying equally on a bike?  </font>
-# Peform an analysis to check differences between men and woman survival ?
+### <font color='red'> EXERCISE :
+Are men and women dying equally on a bike ? </font>
+Peform an analysis to check differences between men and woman survival ?
 
 ```python
-
-
 idx_dead = df_bikes['gravite accident'] == '3 - Tué'
 df_deads = df_bikes[idx_dead]
 df_gravite = df_deads.groupby('sexe').size() / idx_dead.sum()
 df_gravite
+```
 
 
 ```python
-
-
 df_bikes.groupby('sexe').size()  / df_bikes.shape[0]
-
+```
 
 ```python
-
-
 pd.crosstab(df_bike2['sexe'],
             df_bike2['gravite accident'],
             values=df_bike2['age'], aggfunc='count',
             normalize='columns', margins=True) * 100
+```
 
 
-# ### To conclude:
-# Note: information on the level of bike practice by men/women is missing...
+### To conclude:
+Note: information on the level of bike practice by men/women is missing...
 
-# ### <font color='red'> EXERCISE : Accident during the week?  </font>
-# Peform an analysis to check when the accidents are occuring during the week.
+### <font color='red'> EXERCISE : Accident during the week?  </font>
+Peform an analysis to check when the accidents are occuring during the week.
+
 
 ```python
-
-
 df_bikes
-
-
 ```python
 
 
+```python
 # Chargement des couleurs
 sns.set_palette("GnBu_d", n_colors=7)
 
@@ -984,8 +911,6 @@ accidents_week = df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count().unstack(level=0)
 
 fig, axes = plt.subplots(1, 1, figsize=(7, 7))
-
-
 accidents_week.plot(ax=axes)
 axes.set_ylabel("Accidents")
 axes.set_xlabel("Heure de la journée")
@@ -997,27 +922,23 @@ axes.set_xticklabels(np.arange(0, 24), rotation=45)
 axes.legend(labels=days, loc='lower left', bbox_to_anchor=(1, 0.1))
 plt.legend()
 plt.tight_layout()
+```
 
 
 ```python
-
-
 df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count()
+```
 
-
-# ### <font color='red'> EXERCISE : Accident during the year?  </font>
-# Peform an analysis to check when the accidents are occuring during the week.
+### <font color='red'> EXERCISE : Accident during the year?  </font>
+Peform an analysis to check when the accidents are occuring during the week.
 
 ```python
-
-
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
 
-sns.set_palette("GnBu_d", n_colors=12)
-# sns.set_palette("colorblind", n_colors=12)
+sns.set_palette("GnBu_d", n_colors=12)  # sns.set_palette("colorblind",...)
 
 df_bikes_month = df_bikes.groupby(['month', df_bikes.index.hour])[
     'age'].count().unstack(level=0)
@@ -1036,14 +957,13 @@ axes.legend(labels=calendar.month_name[1:], loc='lower left',
             bbox_to_anchor=(1, 0.1))
 
 plt.tight_layout()
+```
 
 
-# ### <font color='red'> EXERCISE : Accidents by departement  </font>
-# Peform an analysis to check when the accidents are occuring by departement.
+### <font color='red'> EXERCISE : Accidents by departement </font>
+Peform an analysis to check when the accidents are occuring by departement.
 
 ```python
-
-
 import pygal
 # First install if needed for maps:
 # pip install pygal
@@ -1055,10 +975,9 @@ path_target = "./dpt_population.csv"
 url = "https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/download/?format=csv&timezone=Europe/Berlin&lang=en&use_labels_for_header=true&csv_separator=%3B"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
-
+```
 
 ```python
-
 # Departement area: https://www.regions-et-departements.fr/departements-francais#departements_fichiers
 path_target = "./dpt_area.csv"
 url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
@@ -1071,14 +990,10 @@ df_dtp_area['NUMÉRO']
 
 
 df_dtp_area.set_index('NUMÉRO', inplace=True)
-
 df_dtp_pop.set_index('Code Département', inplace=True)
 df_dtp_pop.sort_index(inplace=True)
 
-
 fr_chart = pygal.maps.fr.Departments(human_readable=True)
-
-# display = "ration_tue"
 display = "ratio_accident"
 
 
@@ -1101,6 +1016,5 @@ gd.dropna(inplace=True)   # anoying NA due to 1 vs 01 in datasets
 fr_chart.add('Accidents', gd.to_dict())
 fr_chart.render_in_browser()
 # fr_chart.render_to_file('./chatr.svg')  # Write the chart in a specified file
-
-```python
+```
 
