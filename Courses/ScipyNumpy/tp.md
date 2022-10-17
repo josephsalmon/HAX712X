@@ -1,4 +1,4 @@
- SciPy - scientific library in `python`
+ # SciPy - scientific library in `python`
 
     Joseph Salmon : joseph.salmon@umontpellier.fr
 
