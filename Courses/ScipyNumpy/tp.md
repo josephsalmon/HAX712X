@@ -104,7 +104,7 @@ fig.show("notebook")
 
  Documentation : http://docs.scipy.org/doc/scipy/reference/linalg.html
 
-#### Solving linear systems:
+### Solving linear systems:
 Find $x$ such that: $A x = b$
 for specified matrix $A$ and vector $b$.
 
@@ -156,18 +156,15 @@ eigen values and eigen vectors of the matrix A above.
 
 *Hint* : use https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html
 
-# If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
-# this is more robust, and leverages the structures (you know they are real!)
+If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
+this is more robust, and leverages the structures (you know they are real!)
 
-# %%
+### Matrix operations
 
-
-# #### Matrix operations
-# %%
 linalg.inv(A)  # Inversion, consider NEVER using it though  :)
 linalg.det(A)  # determinant
 
-# normes
+### Norms
 print(linalg.norm(A, ord="fro"))  # fro for Frobenius
 print((np.sum(A ** 2)) ** 0.5)
 print(linalg.norm(A, ord=2))
@@ -196,7 +193,7 @@ rng.random()
 
 ```
 
-Visualization of the various possible distribution are available here (see widgets): <https://github.com/josephsalmon/Random-Widgets>
+Visualization of various popular distributions are available here (see widgets): <https://github.com/josephsalmon/Random-Widgets>
 
 
 ## Optimization
@@ -207,7 +204,8 @@ Doc : http://scipy-lectures.github.com/advanced/mathematical_optimization/index.
 ```python
 from scipy import optimize
 ```
-### Find a (local!) minima;
+
+### Finding a (local!) minima
 
 ```python
 def f(x):
@@ -224,7 +222,7 @@ plt.plot(xs, f(xs))
 plt.show()
 ```
 
-# `fmin_bfgs` (see https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm)
+Default solver for minimization/maximization: `fmin_bfgs` (see https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm)
 
 
 ```python
@@ -239,9 +237,6 @@ plt.plot(x_min, f(x_min), "o", markersize=10, color="orange")
 plt.plot(x_min2, f(x_min2), "o", markersize=10, color="red")
 plt.plot(x_max, f(x_max), "|", markersize=20)
 plt.show()
-
-
-
 ```
 
 ### <font color='red'> EXERCISE : Bassin of attraction</font>
@@ -286,8 +281,7 @@ plt.legend()
 plt.show()
 ```
 
-
-#### Parameters estimation
+### Parameters estimation
 
 ```python
 from scipy.optimize import curve_fit
@@ -311,8 +305,6 @@ plt.legend()
 
 (a, b, c), _ = curve_fit(f, x, yn)
 print(a, b, c)
-
-# curve_fit?
 ```
 
 Displaying
@@ -326,7 +318,7 @@ plt.legend()
 plt.show()
 ```
 
-Rem: for polynomial one can directly use `numpy`
+Rem: for polynomial fitting, one can directly use `numpy`
 
 ```python
 x = np.linspace(0, 1, 10)
@@ -373,7 +365,7 @@ plt.show()
 ```
 
 
-### Images
+## Images
 
 ```python
 from scipy import ndimage, misc
@@ -441,10 +433,6 @@ plt.show()
 ```
 ### Blurring (fr: floutage)
 
-# Blurring (fr: floutage)
-
-
-
 ```python
 img_flou = ndimage.gaussian_filter(img, sigma=20)
 fix, ax = plt.subplots()
@@ -465,7 +453,7 @@ img_flou = ndimage.gaussian_filter(img, sigma=20)
 fix, ax = plt.subplots()
 ax.axis("off")
 plt.show()
- 
+
 @widgets.interact(sigma=(0.1, 200, 0.1))
 def update(sigma=2):
     """Remove old lines from plot and plot new one"""
@@ -475,7 +463,7 @@ def update(sigma=2):
 
 ```
 
-## Changing colors in an image
+### Changing colors in an image
 
 ```python
 import pooch
@@ -509,7 +497,7 @@ plt.tight_layout()
 ### <font color='red'> EXERCISE : Make the Brazilian italianer</font>
 (green white red)
 
-# XXX TODO
+### XXX TODO
 
 ```python
 find_white_green = img[:, :, 1] > 200
@@ -532,7 +520,7 @@ http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf
 
 
 
-## Further lectures
+## Addionnal lectures
 * http://www.scipy.org - The official web page for the SciPy project.
 * http://docs.scipy.org/doc/scipy/reference/tutorial/index.html - A tutorial on how to get started using SciPy.
 * https://github.com/scipy/scipy/ - The SciPy source code.
