@@ -38,7 +38,7 @@ Beyond `pandas` ninja skills, we will also introduce modern practices for coders
 
 6. JS : (10/10/2022 + 14/10/2022)  [Pandas: first steps / missing data](Courses/Pandas/)
 
-7. JS : (17/10/2022 + 21/10/2022) [`scipy, numpy`: Images/channel](Courses/Scipy/)
+7. JS : (17/10/2022 + 21/10/2022) [`scipy, numpy`: Images/channel](Courses/ScipyNumpy/)
 
 8. JS (quiz 2) : (28/10/2022) [Sparse matrices,](Courses/TimeMemory/) [graphs and memory](Courses/TimeMemory/)
 
