@@ -127,16 +127,18 @@ its adjacency matrix:
 
  ## Definition: *adjacency matrix*:
  Suppose that $G=(V,E)$ is a graph, where $\left|V\right|=n$.
- Suppose that the vertices of $G$ are arbitrarily numbered $v_1,\ldots,v_n$.
+ Suppose that the vertices of $G$ are arbitrarily numbered $v_1,\ldots,v_n.$
  The adjacency matrix $A$ of $G$ is the matrix $n \times n$ of general term:
 
- $$a_{ij}=
+ ```math
+ A_{{i,j}}=
  \left\{
      \begin{array}{rl}
  	     1, & \text{if } (v_i,v_j) \in E \\
          0, & \text{o.w.}
       \end{array}
- \right.$$
+ \right.
+```
 
 ### <font color='red'> EXERCISE : Create a linear model that can handle sparse matrices, in particular how would you do the usual pre-processing step of standardizing the columns of the design matrix?
  </font>
@@ -187,23 +189,23 @@ print(A.todense())
 nx.shortest_path(G, 'C', 'B', weight='weight')
 ```
 
-## Definition : *incidence matrice*
+## Definition : *incidence matrix*
 Let $G = (V,E)$ be a (non-oriented) graph with $n$ vertices,
 $V = [1,\dots,n]$, and $p$ edges, $E = [1,\dots,p]$.
 The graph can be represented by its vertex-edge incidence matrix
 $D^\top \in \mathbb{R}^{p \times n}$ defined by
 
-$$(D^\top)_{e,v} =
-  sign(x) =
+```math
+(D^\top)_{{e,v}} =
 \left\{
      \begin{array}{rl}
     + 1, & \text{if } v = \min(i,j) \\
     -1, & \text{si } v = \max(i,j) \\
     0, & \text{sinon}
   \end{array}
-  \right.$$
-
-where $e = i,j$.
+  \right.
+```
+where $e = (i,j)$.
 
 ## Definition : *Laplacian matrix*
 The matrix $L=D D^\top$ is the so-called graph Laplacian of $G$
@@ -375,7 +377,7 @@ print('Size of full matrix with zeros: {0:3.2f}  MB'.format(M.nbytes/(1024**2)))
 ```
 
 
-# ## Graphe sparsity
+### Graph sparsity
 
 ```python
 print(" {0:.2} % of edges only are needed to represent the graph of Montpellier".format(100 * G.number_of_edges() / G.number_of_nodes() ** 2))
@@ -446,7 +448,7 @@ illustrate_pdb(12)
 ```
 
 
-`pdb`. Une invite de commande se lance alors quand on a un soucis, et on peut alors reprendre la main voir ce qu'il se passe.
+`pdb`. A terminal is laucnhed when a problem occurs, and one can then take over and see what's going on.
 
 ```python
 get_ipython().run_line_magic('pdb', '')
