@@ -63,7 +63,7 @@ Use the time module:
 start = time.time()
 a = np.ones(n) * val
 end = time.time()
-print("Temps passé pour exécuter la commande: {0:.5f} s.".format(end - start))
+print("Time to execute the command: {0:.5f} s.".format(end - start))
 ```
 
 
