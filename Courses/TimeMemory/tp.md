@@ -114,8 +114,10 @@ print(f'Q: Is the matrix mat_rnd is sparse?\nA: {isspmatrix(mat_rnd)}')
 
 
 # matrix vector product: as usual (also can use np.dot())
+```python
 v = np.random.rand(n2)
 mat_rnd@v
+```
 
 ## Graphs and sparsity
 A classical framework for the application of sparse matrices is with
@@ -190,12 +192,17 @@ Let $G = (V,E)$ be a (non-oriented) graph with $n$ vertices,
 $V = [1,\dots,n]$, and $p$ edges, $E = [1,\dots,p]$.
 The graph can be represented by its vertex-edge incidence matrix
 $D^\top \in \mathbb{R}^{p \times n}$ defined by
+
 $$(D^\top)_{e,v} =
-  \begin{cases}
+  sign(x) =
+\left\{
+     \begin{array}{rl}
     + 1, & \text{if } v = \min(i,j) \\
     -1, & \text{si } v = \max(i,j) \\
     0, & \text{sinon}
-  \end{cases}$$
+  \end{array}
+  \right.$$
+
 where $e = i,j$.
 
 ## Definition : *Laplacian matrix*
@@ -207,7 +214,7 @@ print(isspmatrix(D))
 print(D.todense())
 ```
 
-## Visualisation interactive de graphe
+## Interactive graph visualisation 
 
 ```python
 import matplotlib.pylab as plt
