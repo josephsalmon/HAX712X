@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 ## Time / computation: usage of `%timeit`
- Other *magic*  comme are  %timeit, %matplotlib, %autoreload:
+ Other *magic* are %timeit, %matplotlib, %autoreload:
 cf.
 https://ipython.org/ipython-doc/3/interactive/magics.html
 https://ipython.org/ipython-doc/3/config/extensions/autoreload.html
@@ -70,7 +70,7 @@ print("Time to execute the command: {0:.5f} s.".format(end - start))
 
 ## Sparse matrices, graphs and memory
 Sparse matrices are useful to to handle potentially huge matrices,
-that have only few non zero coefficients.
+that have only few non-zero coefficients.
 http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices
 
 https://rushter.com/blog/scipy-sparse-matrices/
