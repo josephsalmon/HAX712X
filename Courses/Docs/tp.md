@@ -157,7 +157,7 @@ Set up the documentation for [`biketrauma`](https://github.com/HMMA238-2020/bike
 
 1. Install the sphinx package with `pip`
 2. Create a `doc` folder and `cd` into it
-3. Launch `sphinx-quickstart`.
+3. Launch `sphinx-quickstart --sep`.
 ----
 
 ## Defining documentation structure
