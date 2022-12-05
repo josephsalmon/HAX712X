@@ -495,13 +495,11 @@ get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
 https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
 
 ```python
-
-
 polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
                           comment='#',
                           na_values="n/d",
                           converters={'heure': str})
-
+```
 
 ```python
 pd.options.display.max_rows = 30
