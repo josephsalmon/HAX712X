@@ -59,7 +59,7 @@ Useful packages (non-exhaustive list):
 ## Timing
 - **Mid-term** project snapshot: Due date  **November 15, 23:59**. This will include the creation of a ```github``` repository (README.md, etc.), a short description on how the work is shared in the team and a detailed work program for the project including the tasks' attribution (coding).
 
-- **Preliminary presentation** : An oral presentation with *Beamer* (duration: 5mn), in-person on date/place TBC (December 2 (13:15 to 14:45).
+- **Preliminary presentation** : An oral presentation with *Beamer* (duration: 5mn), in-person on date/place TBC (December 2, 11:30 to 13:00).
 
 - Due date (final project) : The ```github``` repository should be completed before **Tuesday 6 December (23:59)**. Nothing pushed after the deadline will be taken into account. The oral presentation (max: 20mn) will be in-person **Friday 9 December (8:00AM)** (room: 36.4).
 

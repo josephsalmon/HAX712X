@@ -157,7 +157,7 @@ Set up the documentation for [`biketrauma`](https://github.com/HMMA238-2020/bike
 
 1. Install the sphinx package with `pip`
 2. Create a `doc` folder and `cd` into it
-3. Launch `sphinx-quickstart`.
+3. Launch `sphinx-quickstart --sep`.
 ----
 
 ## Defining documentation structure
@@ -192,7 +192,7 @@ The documents to include are given as document names, which in short means that 
 ----
 ### <font color='red'>Exercise:</font>
 
-1. Update the `index.rst`: by adding an image located at <https://aenkg.info/img/a167ed14c4655893357e586ec3d6704f.jpg> just below the title of the page
+1. Update the `index.rst`: by adding an image located at <https://images.squarespace-cdn.com/content/v1/5bfc8dbab40b9d7dd9054f41/1552517309368-BH3HUZSZCR1UF45LTS4E/cycling-injuries-revealed-info-graphic-E.jpg?format=750w> just below the title of the page
 2. Install the `read_the_doc` theme as explained [here](https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html#via-python-package). Interested people can read <http://www.sphinx-doc.org/en/stable/theming.html>.
 3. Create the corresponding directory and files in order to add: 
      - An `Installation` section with few sentences and code snippet that explain how to install `biketrauma`
