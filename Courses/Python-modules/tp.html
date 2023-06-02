@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.124">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HAX712X: Software development for data sciences - Creating a python module</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Creating a <code>python</code> module</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">HAX712X: Software development for data sciences</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Courses</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Bash/tp.html" class="sidebar-item-text sidebar-link">Introduction to bash</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/CI/tp.html" class="sidebar-item-text sidebar-link">Continuous Integration (CI)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Docs/tp.html" class="sidebar-item-text sidebar-link">Documentation with Sphinx</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Setting up your local git identity</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">Integrated development environment</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Pandas/tp.html" class="sidebar-item-text sidebar-link">Pandas</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Python-modules/tp.html" class="sidebar-item-text sidebar-link">Creating a <code>python</code> module</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">Animation display with <code>python</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Test/tp.html" class="sidebar-item-text sidebar-link">Unit Tests</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/TimeMemory/tp.html" class="sidebar-item-text sidebar-link">Time and memory efficiency</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-a-python-module" id="toc-what-is-a-python-module" class="nav-link active" data-scroll-target="#what-is-a-python-module">What is a <code>python</code> module?</a>
+  <ul>
+  <li><a href="#a-module-could-be-a-single-file" id="toc-a-module-could-be-a-single-file" class="nav-link" data-scroll-target="#a-module-could-be-a-single-file">A module could be a single file</a></li>
+  <li><a href="#or-a-module-could-be-a-directory" id="toc-or-a-module-could-be-a-directory" class="nav-link" data-scroll-target="#or-a-module-could-be-a-directory">… or a module could be a directory</a></li>
+  <li><a href="#the-dir-function" id="toc-the-dir-function" class="nav-link" data-scroll-target="#the-dir-function">The <code>dir()</code> function</a></li>
+  <li><a href="#namespaces" id="toc-namespaces" class="nav-link" data-scroll-target="#namespaces">Namespaces</a></li>
+  <li><a href="#the-module-search-path" id="toc-the-module-search-path" class="nav-link" data-scroll-target="#the-module-search-path">The Module Search Path</a></li>
+  <li><a href="#checking-if-a-module-exists" id="toc-checking-if-a-module-exists" class="nav-link" data-scroll-target="#checking-if-a-module-exists">Checking if a module exists</a></li>
+  <li><a href="#lazy-import" id="toc-lazy-import" class="nav-link" data-scroll-target="#lazy-import">Lazy import</a></li>
+  <li><a href="#compiled-python-files" id="toc-compiled-python-files" class="nav-link" data-scroll-target="#compiled-python-files">“Compiled” <code>python</code> files</a></li>
+  </ul></li>
+  <li><a href="#the-python-package-index-pypi-repository" id="toc-the-python-package-index-pypi-repository" class="nav-link" data-scroll-target="#the-python-package-index-pypi-repository">The Python Package Index (Pypi) repository</a>
+  <ul>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><font color="red">Exercise</font></a></li>
+  <li><a href="#pip" id="toc-pip" class="nav-link" data-scroll-target="#pip">Pip</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><font color="red">Exercise</font></a></li>
+  </ul></li>
+  <li><a href="#creating-a-python-module" id="toc-creating-a-python-module" class="nav-link" data-scroll-target="#creating-a-python-module">Creating a <code>python</code> module</a>
+  <ul>
+  <li><a href="#picking-a-name" id="toc-picking-a-name" class="nav-link" data-scroll-target="#picking-a-name">Picking A Name</a></li>
+  <li><a href="#module-structure" id="toc-module-structure" class="nav-link" data-scroll-target="#module-structure">Module structure</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><font color="red">Exercise:</font></a></li>
+  <li><a href="#sub-modules" id="toc-sub-modules" class="nav-link" data-scroll-target="#sub-modules">Sub-modules</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><font color="red">Exercise</font></a></li>
+  <li><a href="#adding-additional-files" id="toc-adding-additional-files" class="nav-link" data-scroll-target="#adding-additional-files">Adding additional files</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><font color="red">Exercise</font></a></li>
+  <li><a href="#package-the-module-with-setuptools" id="toc-package-the-module-with-setuptools" class="nav-link" data-scroll-target="#package-the-module-with-setuptools">Package the module with <code>setuptools</code></a></li>
+  <li><a href="#add-requirement-file" id="toc-add-requirement-file" class="nav-link" data-scroll-target="#add-requirement-file">Add requirement file</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><font color="red">Exercise:</font></a></li>
+  <li><a href="#upload-on-pypi" id="toc-upload-on-pypi" class="nav-link" data-scroll-target="#upload-on-pypi">Upload on PyPI</a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><font color="red">Exercise</font></a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Creating a <code>python</code> module</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="what-is-a-python-module" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-python-module">What is a <code>python</code> module?</h2>
+<p>You already know it: this is a set of <code>python</code> functions and statements, and this is what you import at the beginning of your <code>python</code> functions.</p>
+<section id="a-module-could-be-a-single-file" class="level3">
+<h3 class="anchored" data-anchor-id="a-module-could-be-a-single-file">A module could be a single file</h3>
+<p>Indeed, a module can simply be a single file:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fibo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This does not enter the names of the functions defined in <code>fibo</code> directly in the current symbol table though; it only enters the module name <code>fibo</code> there. Using the module name you can access the functions:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fibo.fib(<span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 </code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fibo.fib2(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fibo.<span class="va">__name__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>'fibo'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fibo.<span class="va">__file__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'/home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Python-modules/fibo.py'</code></pre>
+</div>
+</div>
+<p>When importing a module, several methods are (automatically) defined. Their names are usually prefixed and suffixed by the symbol <code>__</code>, e.g.,</p>
+</section>
+<section id="or-a-module-could-be-a-directory" class="level3">
+<h3 class="anchored" data-anchor-id="or-a-module-could-be-a-directory">… or a module could be a directory</h3>
+<p>You can also import a full directory (containing many <code>python</code> files stored in sub-folder). Python looks for a folder located in <code>sys.path</code> list. You have already imported the <code>numpy</code> module, for numerical analysis with <code>python</code>:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]).reshape(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]).mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0 1]
+ [2 3]]
+1.5</code></pre>
+</div>
+</div>
+<p>In fact, you have imported the following folder:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.__path__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Depending on your installation you might obtain <code>['/usr/lib/python3.9/site-packages/numpy']</code> or <code>['/home/username/anaconda3/lib/python3.7/site-packages/numpy']</code> if you installed with anaconda.</p>
+<p>More precisely <strong>this</strong> file</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">'/usr/lib/python3.9/site-packages/numpy/__init__.py'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'/home/username/anaconda3/lib/python3.7/site-packages/numpy/__init__.py'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Any (sub-)directory of your python module should contain an <code>__init__.py</code> file!</p>
+<p><strong>Useful tips:</strong></p>
+<ul>
+<li><p>The <code>__init__.py</code> file can contain a list of function to be loaded when the module is imported. It allows to expose functions to user in a concise way.</p></li>
+<li><p>You can also import modules with relative path, using <code>.</code>, <code>..</code>, <code>...</code>, etc. See: <a href="https://realpython.com/absolute-vs-relative-python-imports/" class="uri">https://realpython.com/absolute-vs-relative-python-imports/</a></p></li>
+</ul>
+</section>
+<section id="the-dir-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-dir-function">The <code>dir()</code> function</h3>
+<p>The built-in function <code>dir()</code> is used to find out which names a module defines. It returns a sorted list of strings:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fibo, numpy</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(fibo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>['__builtins__',
+ '__cached__',
+ '__doc__',
+ '__file__',
+ '__loader__',
+ '__name__',
+ '__package__',
+ '__spec__',
+ 'fib',
+ 'fib2']</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fibo.<span class="fu">__dir__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>&lt;function __dir__&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>['ALLOW_THREADS',
+ 'AxisError',
+ 'BUFSIZE',
+ 'CLIP',
+ 'ComplexWarning',
+ 'DataSource',
+ 'ERR_CALL',
+ 'ERR_DEFAULT',
+ 'ERR_IGNORE',
+ 'ERR_LOG',
+ 'ERR_PRINT',
+ 'ERR_RAISE',
+ 'ERR_WARN',
+ 'FLOATING_POINT_SUPPORT',
+ 'FPE_DIVIDEBYZERO',
+ 'FPE_INVALID',
+ 'FPE_OVERFLOW',
+ 'FPE_UNDERFLOW',
+ 'False_',
+ 'Inf',
+ 'Infinity',
+ 'MAXDIMS',
+ 'MAY_SHARE_BOUNDS',
+ 'MAY_SHARE_EXACT',
+ 'ModuleDeprecationWarning',
+ 'NAN',
+ 'NINF',
+ 'NZERO',
+ 'NaN',
+ 'PINF',
+ 'PZERO',
+ 'RAISE',
+ 'RankWarning',
+ 'SHIFT_DIVIDEBYZERO',
+ 'SHIFT_INVALID',
+ 'SHIFT_OVERFLOW',
+ 'SHIFT_UNDERFLOW',
+ 'ScalarType',
+ 'Tester',
+ 'TooHardError',
+ 'True_',
+ 'UFUNC_BUFSIZE_DEFAULT',
+ 'UFUNC_PYVALS_NAME',
+ 'VisibleDeprecationWarning',
+ 'WRAP',
+ '_CopyMode',
+ '_NoValue',
+ '_UFUNC_API',
+ '__NUMPY_SETUP__',
+ '__all__',
+ '__builtins__',
+ '__cached__',
+ '__config__',
+ '__deprecated_attrs__',
+ '__dir__',
+ '__doc__',
+ '__expired_functions__',
+ '__file__',
+ '__getattr__',
+ '__git_version__',
+ '__loader__',
+ '__name__',
+ '__package__',
+ '__path__',
+ '__spec__',
+ '__version__',
+ '_add_newdoc_ufunc',
+ '_distributor_init',
+ '_financial_names',
+ '_from_dlpack',
+ '_globals',
+ '_mat',
+ '_pytesttester',
+ '_version',
+ 'abs',
+ 'absolute',
+ 'add',
+ 'add_docstring',
+ 'add_newdoc',
+ 'add_newdoc_ufunc',
+ 'alen',
+ 'all',
+ 'allclose',
+ 'alltrue',
+ 'amax',
+ 'amin',
+ 'angle',
+ 'any',
+ 'append',
+ 'apply_along_axis',
+ 'apply_over_axes',
+ 'arange',
+ 'arccos',
+ 'arccosh',
+ 'arcsin',
+ 'arcsinh',
+ 'arctan',
+ 'arctan2',
+ 'arctanh',
+ 'argmax',
+ 'argmin',
+ 'argpartition',
+ 'argsort',
+ 'argwhere',
+ 'around',
+ 'array',
+ 'array2string',
+ 'array_equal',
+ 'array_equiv',
+ 'array_repr',
+ 'array_split',
+ 'array_str',
+ 'asanyarray',
+ 'asarray',
+ 'asarray_chkfinite',
+ 'ascontiguousarray',
+ 'asfarray',
+ 'asfortranarray',
+ 'asmatrix',
+ 'asscalar',
+ 'atleast_1d',
+ 'atleast_2d',
+ 'atleast_3d',
+ 'average',
+ 'bartlett',
+ 'base_repr',
+ 'binary_repr',
+ 'bincount',
+ 'bitwise_and',
+ 'bitwise_not',
+ 'bitwise_or',
+ 'bitwise_xor',
+ 'blackman',
+ 'block',
+ 'bmat',
+ 'bool8',
+ 'bool_',
+ 'broadcast',
+ 'broadcast_arrays',
+ 'broadcast_shapes',
+ 'broadcast_to',
+ 'busday_count',
+ 'busday_offset',
+ 'busdaycalendar',
+ 'byte',
+ 'byte_bounds',
+ 'bytes0',
+ 'bytes_',
+ 'c_',
+ 'can_cast',
+ 'cast',
+ 'cbrt',
+ 'cdouble',
+ 'ceil',
+ 'cfloat',
+ 'char',
+ 'character',
+ 'chararray',
+ 'choose',
+ 'clip',
+ 'clongdouble',
+ 'clongfloat',
+ 'column_stack',
+ 'common_type',
+ 'compare_chararrays',
+ 'compat',
+ 'complex128',
+ 'complex256',
+ 'complex64',
+ 'complex_',
+ 'complexfloating',
+ 'compress',
+ 'concatenate',
+ 'conj',
+ 'conjugate',
+ 'convolve',
+ 'copy',
+ 'copysign',
+ 'copyto',
+ 'core',
+ 'corrcoef',
+ 'correlate',
+ 'cos',
+ 'cosh',
+ 'count_nonzero',
+ 'cov',
+ 'cross',
+ 'csingle',
+ 'ctypeslib',
+ 'cumprod',
+ 'cumproduct',
+ 'cumsum',
+ 'datetime64',
+ 'datetime_as_string',
+ 'datetime_data',
+ 'deg2rad',
+ 'degrees',
+ 'delete',
+ 'deprecate',
+ 'deprecate_with_doc',
+ 'diag',
+ 'diag_indices',
+ 'diag_indices_from',
+ 'diagflat',
+ 'diagonal',
+ 'diff',
+ 'digitize',
+ 'disp',
+ 'divide',
+ 'divmod',
+ 'dot',
+ 'double',
+ 'dsplit',
+ 'dstack',
+ 'dtype',
+ 'e',
+ 'ediff1d',
+ 'einsum',
+ 'einsum_path',
+ 'emath',
+ 'empty',
+ 'empty_like',
+ 'equal',
+ 'errstate',
+ 'euler_gamma',
+ 'exp',
+ 'exp2',
+ 'expand_dims',
+ 'expm1',
+ 'extract',
+ 'eye',
+ 'fabs',
+ 'fastCopyAndTranspose',
+ 'fft',
+ 'fill_diagonal',
+ 'find_common_type',
+ 'finfo',
+ 'fix',
+ 'flatiter',
+ 'flatnonzero',
+ 'flexible',
+ 'flip',
+ 'fliplr',
+ 'flipud',
+ 'float128',
+ 'float16',
+ 'float32',
+ 'float64',
+ 'float_',
+ 'float_power',
+ 'floating',
+ 'floor',
+ 'floor_divide',
+ 'fmax',
+ 'fmin',
+ 'fmod',
+ 'format_float_positional',
+ 'format_float_scientific',
+ 'format_parser',
+ 'frexp',
+ 'frombuffer',
+ 'fromfile',
+ 'fromfunction',
+ 'fromiter',
+ 'frompyfunc',
+ 'fromregex',
+ 'fromstring',
+ 'full',
+ 'full_like',
+ 'gcd',
+ 'generic',
+ 'genfromtxt',
+ 'geomspace',
+ 'get_array_wrap',
+ 'get_include',
+ 'get_printoptions',
+ 'getbufsize',
+ 'geterr',
+ 'geterrcall',
+ 'geterrobj',
+ 'gradient',
+ 'greater',
+ 'greater_equal',
+ 'half',
+ 'hamming',
+ 'hanning',
+ 'heaviside',
+ 'histogram',
+ 'histogram2d',
+ 'histogram_bin_edges',
+ 'histogramdd',
+ 'hsplit',
+ 'hstack',
+ 'hypot',
+ 'i0',
+ 'identity',
+ 'iinfo',
+ 'imag',
+ 'in1d',
+ 'index_exp',
+ 'indices',
+ 'inexact',
+ 'inf',
+ 'info',
+ 'infty',
+ 'inner',
+ 'insert',
+ 'int0',
+ 'int16',
+ 'int32',
+ 'int64',
+ 'int8',
+ 'int_',
+ 'intc',
+ 'integer',
+ 'interp',
+ 'intersect1d',
+ 'intp',
+ 'invert',
+ 'is_busday',
+ 'isclose',
+ 'iscomplex',
+ 'iscomplexobj',
+ 'isfinite',
+ 'isfortran',
+ 'isin',
+ 'isinf',
+ 'isnan',
+ 'isnat',
+ 'isneginf',
+ 'isposinf',
+ 'isreal',
+ 'isrealobj',
+ 'isscalar',
+ 'issctype',
+ 'issubclass_',
+ 'issubdtype',
+ 'issubsctype',
+ 'iterable',
+ 'ix_',
+ 'kaiser',
+ 'kernel_version',
+ 'kron',
+ 'lcm',
+ 'ldexp',
+ 'left_shift',
+ 'less',
+ 'less_equal',
+ 'lexsort',
+ 'lib',
+ 'linalg',
+ 'linspace',
+ 'little_endian',
+ 'load',
+ 'loadtxt',
+ 'log',
+ 'log10',
+ 'log1p',
+ 'log2',
+ 'logaddexp',
+ 'logaddexp2',
+ 'logical_and',
+ 'logical_not',
+ 'logical_or',
+ 'logical_xor',
+ 'logspace',
+ 'longcomplex',
+ 'longdouble',
+ 'longfloat',
+ 'longlong',
+ 'lookfor',
+ 'ma',
+ 'mask_indices',
+ 'mat',
+ 'math',
+ 'matmul',
+ 'matrix',
+ 'matrixlib',
+ 'max',
+ 'maximum',
+ 'maximum_sctype',
+ 'may_share_memory',
+ 'mean',
+ 'median',
+ 'memmap',
+ 'meshgrid',
+ 'mgrid',
+ 'min',
+ 'min_scalar_type',
+ 'minimum',
+ 'mintypecode',
+ 'mod',
+ 'modf',
+ 'moveaxis',
+ 'msort',
+ 'multiply',
+ 'nan',
+ 'nan_to_num',
+ 'nanargmax',
+ 'nanargmin',
+ 'nancumprod',
+ 'nancumsum',
+ 'nanmax',
+ 'nanmean',
+ 'nanmedian',
+ 'nanmin',
+ 'nanpercentile',
+ 'nanprod',
+ 'nanquantile',
+ 'nanstd',
+ 'nansum',
+ 'nanvar',
+ 'nbytes',
+ 'ndarray',
+ 'ndenumerate',
+ 'ndim',
+ 'ndindex',
+ 'nditer',
+ 'negative',
+ 'nested_iters',
+ 'newaxis',
+ 'nextafter',
+ 'nonzero',
+ 'not_equal',
+ 'numarray',
+ 'number',
+ 'obj2sctype',
+ 'object0',
+ 'object_',
+ 'ogrid',
+ 'oldnumeric',
+ 'ones',
+ 'ones_like',
+ 'os',
+ 'outer',
+ 'packbits',
+ 'pad',
+ 'partition',
+ 'percentile',
+ 'pi',
+ 'piecewise',
+ 'place',
+ 'poly',
+ 'poly1d',
+ 'polyadd',
+ 'polyder',
+ 'polydiv',
+ 'polyfit',
+ 'polyint',
+ 'polymul',
+ 'polynomial',
+ 'polysub',
+ 'polyval',
+ 'positive',
+ 'power',
+ 'printoptions',
+ 'prod',
+ 'product',
+ 'promote_types',
+ 'ptp',
+ 'put',
+ 'put_along_axis',
+ 'putmask',
+ 'quantile',
+ 'r_',
+ 'rad2deg',
+ 'radians',
+ 'random',
+ 'ravel',
+ 'ravel_multi_index',
+ 'real',
+ 'real_if_close',
+ 'rec',
+ 'recarray',
+ 'recfromcsv',
+ 'recfromtxt',
+ 'reciprocal',
+ 'record',
+ 'remainder',
+ 'repeat',
+ 'require',
+ 'reshape',
+ 'resize',
+ 'result_type',
+ 'right_shift',
+ 'rint',
+ 'roll',
+ 'rollaxis',
+ 'roots',
+ 'rot90',
+ 'round',
+ 'round_',
+ 'row_stack',
+ 's_',
+ 'safe_eval',
+ 'save',
+ 'savetxt',
+ 'savez',
+ 'savez_compressed',
+ 'sctype2char',
+ 'sctypeDict',
+ 'sctypes',
+ 'searchsorted',
+ 'select',
+ 'set_numeric_ops',
+ 'set_printoptions',
+ 'set_string_function',
+ 'setbufsize',
+ 'setdiff1d',
+ 'seterr',
+ 'seterrcall',
+ 'seterrobj',
+ 'setxor1d',
+ 'shape',
+ 'shares_memory',
+ 'short',
+ 'show_config',
+ 'sign',
+ 'signbit',
+ 'signedinteger',
+ 'sin',
+ 'sinc',
+ 'single',
+ 'singlecomplex',
+ 'sinh',
+ 'size',
+ 'sometrue',
+ 'sort',
+ 'sort_complex',
+ 'source',
+ 'spacing',
+ 'split',
+ 'sqrt',
+ 'square',
+ 'squeeze',
+ 'stack',
+ 'std',
+ 'str0',
+ 'str_',
+ 'string_',
+ 'subtract',
+ 'sum',
+ 'swapaxes',
+ 'sys',
+ 'take',
+ 'take_along_axis',
+ 'tan',
+ 'tanh',
+ 'tensordot',
+ 'test',
+ 'testing',
+ 'tile',
+ 'timedelta64',
+ 'trace',
+ 'tracemalloc_domain',
+ 'transpose',
+ 'trapz',
+ 'tri',
+ 'tril',
+ 'tril_indices',
+ 'tril_indices_from',
+ 'trim_zeros',
+ 'triu',
+ 'triu_indices',
+ 'triu_indices_from',
+ 'true_divide',
+ 'trunc',
+ 'typecodes',
+ 'typename',
+ 'ubyte',
+ 'ufunc',
+ 'uint',
+ 'uint0',
+ 'uint16',
+ 'uint32',
+ 'uint64',
+ 'uint8',
+ 'uintc',
+ 'uintp',
+ 'ulonglong',
+ 'unicode_',
+ 'union1d',
+ 'unique',
+ 'unpackbits',
+ 'unravel_index',
+ 'unsignedinteger',
+ 'unwrap',
+ 'use_hugepage',
+ 'ushort',
+ 'vander',
+ 'var',
+ 'vdot',
+ 'vectorize',
+ 'version',
+ 'void',
+ 'void0',
+ 'vsplit',
+ 'vstack',
+ 'warnings',
+ 'where',
+ 'who',
+ 'zeros',
+ 'zeros_like']</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>numpy.<span class="fu">__dir__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;function numpy.__dir__()&gt;</code></pre>
+</div>
+</div>
+<!-- The `0x7fe0a25e81e0` hexadecimal number is the `id` of the object: 
+
+::: {.cell execution_count=11}
+``` {.python .cell-code}
+hex(id(numpy.__dir__))
+```
+
+::: {.cell-output .cell-output-display execution_count=11}
+```
+'0x7ff7148fd0d0'
+```
+:::
+:::
+
+
+This is an integer (or long integer) that is guaranteed to be unique and constant for this object during its lifetime. Two objects with non-overlapping lifetimes may have the same id() value. (Implementation note: this is the address of the object.). See <https://docs.python.org/3/library/functions.html#id>
+-->
+<p>To list every element in your symbol table simply call <code>dir()</code>.</p>
+<p>Reference: <a href="https://docs.python.org/3/tutorial/modules.html#the-dir-function" class="uri">https://docs.python.org/3/tutorial/modules.html#the-dir-function</a></p>
+</section>
+<section id="namespaces" class="level3">
+<h3 class="anchored" data-anchor-id="namespaces">Namespaces</h3>
+<p>A namespace is a set of names (functions, variables, etc.). Different namespaces can co-exist at a given time but are completely isolated. In this way, you can control which function you are using.</p>
+<p>A namespace containing all the built-in names is created when we start the Python interpreter and exists as long we don’t exit.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cos(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'cos' is not defined</code></pre>
+</div>
+</div>
+<p>You need to import a package for mathematical functions:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, numpy <span class="im">as</span> np</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.cos(<span class="dv">3</span>), np.cos(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-0.9899924966004454 -0.9899924966004454</code></pre>
+</div>
+</div>
+<p>References: <a href="https://www.programiz.com/python-programming/namespace" class="uri">https://www.programiz.com/python-programming/namespace</a></p>
+</section>
+<section id="the-module-search-path" class="level3">
+<h3 class="anchored" data-anchor-id="the-module-search-path">The Module Search Path</h3>
+<p>When a module named <code>spam</code> is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named <code>spam.py</code> in a list of directories given by the variable <code>sys.path</code>. The variable <code>sys.path</code> is initialized from these locations:</p>
+<ul>
+<li><p>The directory containing the input script (or the current directory when no file is specified).</p></li>
+<li><p>The environment variable <code>PYTHONPATH</code> (a list of directory names, with the same syntax as the shell variable <code>PATH</code>).</p></li>
+</ul>
+<p>Reference: <a href="https://docs.python.org/3/tutorial/modules.html#the-module-search-path" class="uri">https://docs.python.org/3/tutorial/modules.html#the-module-search-path</a></p>
+</section>
+<section id="checking-if-a-module-exists" class="level3">
+<h3 class="anchored" data-anchor-id="checking-if-a-module-exists">Checking if a module exists</h3>
+<p>Find the loader for a module, optionally within the specified path.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>spam_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"spam"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>found <span class="op">=</span> spam_spec <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>found</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>False</code></pre>
+</div>
+</div>
+<p>Now</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7ff724570790&gt;, origin='/home/jsalmon/anaconda3/lib/python3.8/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/lib/python3.8/site-packages/numpy'])</code></pre>
+</div>
+</div>
+<p>should return more information and where the loader is.</p>
+<p>See <a href="https://docs.python.org/3/library/importlib.html#importlib.find_loader" class="uri">https://docs.python.org/3/library/importlib.html#importlib.find_loader</a> an <a href="https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it" class="uri">https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it</a></p>
+</section>
+<section id="lazy-import" class="level3">
+<h3 class="anchored" data-anchor-id="lazy-import">Lazy import</h3>
+<p>A module can contain executable statements as well as function definitions. These statements are intended to initialize the module. They are executed only the <strong>first time</strong> the module name is encountered in an <code>import</code> statement.</p>
+<p>To force a module to be reloaded, you can use <code>importlib.reload()</code>.</p>
+<p>See: <a href="https://docs.python.org/3/library/importlib.html#importlib.reload" class="uri">https://docs.python.org/3/library/importlib.html#importlib.reload</a></p>
+<p>Remark: when using <code>ipython</code> (interactive <code>python</code>, an ancestor of the <code>jupyter notebook</code>), one can use the “magic” command <code>%autoreload 2</code>, cf.&nbsp;<a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload" class="uri">https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload</a></p>
+</section>
+<section id="compiled-python-files" class="level3">
+<h3 class="anchored" data-anchor-id="compiled-python-files">“Compiled” <code>python</code> files</h3>
+<p>To speed up loading modules, <code>python</code> caches the compiled version of each module in the <code>__pycache__</code> directory under the name <code>module.version.pyc</code>, where the version encodes the format of the compiled file; it generally contains the <code>python</code> version number.</p>
+<p>For example, in <code>CPython</code> release 3.3 the compiled version of spam.py would be cached as <code>__pycache__/spam.cpython-33.pyc</code>. This naming convention allows compiled modules from different releases and different versions of <code>python</code> to coexist.</p>
+<p><strong>Useful git tip:</strong></p>
+<ul>
+<li>you should add <code>__pycache__</code> entry in your <code>.gitignore</code> file to avoid to add compiled <code>python</code> file to your project.</li>
+</ul>
+</section>
+</section>
+<section id="the-python-package-index-pypi-repository" class="level2">
+<h2 class="anchored" data-anchor-id="the-python-package-index-pypi-repository">The Python Package Index (Pypi) repository</h2>
+<p>The <code>python</code> Package Index, abbreviated as PyPI, is the official third-party software repository for <code>python</code>. PyPI primarily hosts <code>python</code> packages in the form of archives called <code>sdists</code> (source distributions) or pre-compiled “wheels”.</p>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise"><font color="red">Exercise</font></h3>
+<ol type="1">
+<li>Go to <a href="https://test.pypi.org/" class="uri">https://test.pypi.org/</a> and describe the aim of this repository.</li>
+</ol>
+</section>
+<section id="pip" class="level3">
+<h3 class="anchored" data-anchor-id="pip">Pip</h3>
+<p><code>pip</code> is a <em>de facto</em> standard package-management system used to install and manage software packages from PyPi.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install some-package-name</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip uninstall some-package-name</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip search some-package-name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1"><font color="red">Exercise</font></h3>
+<ol type="1">
+<li>Install the modules <code>pooch</code>, <code>setuptools</code>, <code>pandas</code>, <code>pygal</code> and <code>pygal_maps_fr</code>. Beware, you should use the option <code>--user</code> to force the installation in your home directory.</li>
+<li>List all the package in your venv using pip.</li>
+</ol>
+<p>It is possible to install a <strong>local</strong> module with pip</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where <code>/path/to/my/local/module</code> is the path to the module. But if some changes occur in the <code>/path/to/my/local/module</code> folder, the module will not be reloaded. This might be annoying during the development stage. To force <code>python</code> to reload the module at each change call, consider the <code>-e</code> option:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install <span class="at">-e</span> /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="creating-a-python-module" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-python-module">Creating a <code>python</code> module</h2>
+<p>References: <a href="https://python-packaging.readthedocs.io/en/latest/" class="uri">https://python-packaging.readthedocs.io/en/latest/</a></p>
+<section id="picking-a-name" class="level3">
+<h3 class="anchored" data-anchor-id="picking-a-name">Picking A Name</h3>
+<p>Python module/package names should generally follow the following constraints:</p>
+<ul>
+<li>All lowercase</li>
+<li>Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)</li>
+<li>Underscore-separated or no word separators at all, and do not use hyphens (i.e., use _ not -).</li>
+</ul>
+<p>We are going to create a module called <code>biketrauma</code> to visualize the <code>bicycle_db</code> used in the the following lectures that can be found at <a href="https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw" class="uri">https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw</a>.</p>
+</section>
+<section id="module-structure" class="level3">
+<h3 class="anchored" data-anchor-id="module-structure">Module structure</h3>
+<p>The initial directory structure for <code>biketrauma</code> should look like this:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packaging_tutorial/</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">biketrauma/</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">__init__.py</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The top level directory is the root of our Version Control System (e.g.&nbsp;git) repository <code>packaging_tutorial.git</code>. The sub-directory, <code>biketrauma</code>, is the actual Python module.</p>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2"><font color="red">Exercise:</font></h3>
+<p>We are going to create a new <code>python</code> module that can be used to visualize the bike dataset.</p>
+<ol type="1">
+<li>Create a new folder <code>~/packaging_tutorial/</code> and initialize a git in it.</li>
+<li>Create a <code>.gitignore</code> file to ignore <code>__pycache__</code>, <code>.vscode</code> directories and files containing the string <code>egg-info</code> or <code>dist</code> in their name as well.</li>
+<li>Push your work into a new repository on your github.</li>
+<li>Create a sub-folder <code>~/packaging_tutorial/biketrauma</code>. This is where our <code>python</code> module will be stored.</li>
+<li>Create a <code>~/packaging_tutorial/biketrauma/__init__.py</code> file where a string <code>__version__</code> defined at <code>0.0.1</code>.</li>
+<li>Create an empty sub-folder <code>~/packaging_tutorial/biketrauma/data</code> locally on your computer/session. How to add it to git? (Hint: <code>.gitkeep</code>)</li>
+<li>Create <strong>an empty</strong> <code>~/packaging_tutorial/setup.py</code> file.</li>
+<li>Commit and push into your repository.</li>
+</ol>
+<p>Read also: <a href="https://packaging.python.org/guides/single-sourcing-package-version/" class="uri">https://packaging.python.org/guides/single-sourcing-package-version/</a>.</p>
+</section>
+<section id="sub-modules" class="level3">
+<h3 class="anchored" data-anchor-id="sub-modules">Sub-modules</h3>
+<p>The final directory structure of our module will look like:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">packaging_tutorial/</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">biketrauma/</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="ex">__init__.py</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="ex">io/</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>          <span class="ex">preprocess/</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>          <span class="ex">vis/</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>          <span class="ex">data/</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">setup.py</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">script.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3"><font color="red">Exercise</font></h3>
+<p>Add some <code>python</code> files in the <code>modules_files</code> folder:</p>
+<ol type="1">
+<li>Add some sub-folders to <code>biketrauma</code> called <code>io</code> (for input/output), <code>preprocess</code>, <code>vis</code> (for visualization). Copy the <code>script.py</code> into the root folder.</li>
+<li>Populate the <code>preprocess</code> sub-module with the <code>get_accident.py</code> file (see the git repo of the course in the subfolder <code>Courses/Python-modules/modules_files</code>)</li>
+<li>Populate the <code>vis</code> sub-module with the <code>plot_location.py</code> file</li>
+<li>Populate the <code>io</code> sub-module with the file <code>Load_db.py</code> (it downloads the bike data-set). At the loading step your sub-module should create the variables</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>url_db <span class="op">=</span> <span class="st">"https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> os.path.join(os.path.dirname(os.path.realpath(<span class="va">__file__</span>)), <span class="st">".."</span>, <span class="st">"data"</span>, <span class="st">"bicycle_db.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="adding-additional-files" class="level3">
+<h3 class="anchored" data-anchor-id="adding-additional-files">Adding additional files</h3>
+<p>In order to load the functions in the <code>io</code>, <code>preprocess</code> and <code>vis</code> sub-modules, you can add the following lines to the <code>~/packaging_tutorial/biketrauma/__init__.py</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .io.Load_db <span class="im">import</span> Load_db</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .vis.plot_location <span class="im">import</span> plot_location</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .preprocess.get_accident <span class="im">import</span> get_accident</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-4" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4"><font color="red">Exercise</font></h3>
+<ol type="1">
+<li>Check that your module does work by launching the <code>script.py</code> script</li>
+<li>Create a file <code>format_date.py</code> in the <code>biketrauma.preprocess</code> module in which a function <code>format_date</code> format the date of the data-set in international format.</li>
+<li>This function should accessible with the command:</li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span><span class="im">import</span> biketrauma</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span>df <span class="op">=</span> biketrauma.Load_db().save_as_df()</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span>df_nicely_formated <span class="op">=</span> biketrauma.format_date(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="package-the-module-with-setuptools" class="level3">
+<h3 class="anchored" data-anchor-id="package-the-module-with-setuptools">Package the module with <code>setuptools</code></h3>
+<p>The main setup configuration file, <code>setup.py</code>, should contain a single call to <code>setuptools.setup()</code>, like so:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> setuptools <span class="im">import</span> setup</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> biketrauma <span class="im">import</span> __version__ <span class="im">as</span> current_version</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>setup(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  name<span class="op">=</span><span class="st">'biketrauma'</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  version<span class="op">=</span>current_version,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  description<span class="op">=</span><span class="st">'Visualization of a bicycle accident db'</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  url<span class="op">=</span><span class="st">'http://github.com/xxxxxxxxxxx.git'</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  author<span class="op">=</span><span class="st">'xxxxxxxxxxx'</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  author_email<span class="op">=</span><span class="st">'xxxxxxxxxx@xxxxxxxxxxxxx.xxx'</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  license<span class="op">=</span><span class="st">'MIT'</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  packages<span class="op">=</span>[<span class="st">'biketrauma'</span>,<span class="st">'biketrauma.io'</span>, <span class="st">'biketrauma.preprocess'</span>, <span class="st">'biketrauma.vis'</span>],</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  zip_safe<span class="op">=</span><span class="va">False</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To create a <code>sdist</code> package (a source distribution):</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial/</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will create <code>dist/biketrauma-0.0.1.tar.gz</code> inside the top-level directory. You can now install it with</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>See <a href="https://setuptools.readthedocs.io/en/latest/setuptools.html" class="uri">https://setuptools.readthedocs.io/en/latest/setuptools.html</a> and <a href="https://packaging.python.org/tutorials/packaging-projects/" class="uri">https://packaging.python.org/tutorials/packaging-projects/</a></p>
+</section>
+<section id="add-requirement-file" class="level3">
+<h3 class="anchored" data-anchor-id="add-requirement-file">Add requirement file</h3>
+<p>To get a list of the installed package in your current venv, you can use the following command:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use <code>pipreqs</code></p>
+</section>
+<section id="exercise-5" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5"><font color="red">Exercise:</font></h3>
+<ol type="1">
+<li>Create a minimal <code>requirements.txt</code> file with <code>pipreqs</code>. Add it to the <code>biketrauma</code> module.</li>
+</ol>
+</section>
+<section id="upload-on-pypi" class="level3">
+<h3 class="anchored" data-anchor-id="upload-on-pypi">Upload on PyPI</h3>
+<p><code>twine</code> is a utility for publishing Python packages on PyPI. We are going to use the test repository <a href="https://test.pypi.org/" class="uri">https://test.pypi.org/</a>.</p>
+</section>
+<section id="exercise-6" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-6"><font color="red">Exercise</font></h3>
+<ol type="1">
+<li>Create an account on the PyPI test repository</li>
+</ol>
+<p>This is quite easy to upload a python module on PyPI:</p>
+<ol type="1">
+<li>Create some distributions in the normal way:</li>
+</ol>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist bdist_wheel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Upload with twine to Test PyPI and verify things look right. Twine will automatically prompt for your username and password:</li>
+</ol>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload <span class="at">--repository-url</span> https://test.pypi.org/legacy/ dist/<span class="pp">*</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">username:</span> ...</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="ex">password:</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Upload to PyPI:</li>
+</ol>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload dist/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>More documentation on using <code>twine</code> to upload packages to PyPI is in the <a href="https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/">Python Packaging User Guide</a>.</p>
+<p>References: <a href="https://pypi.org/project/twine/" class="uri">https://pypi.org/project/twine/</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

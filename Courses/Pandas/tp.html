@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.124">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HAX712X: Software development for data sciences - Pandas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Pandas</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">HAX712X: Software development for data sciences</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Courses</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Bash/tp.html" class="sidebar-item-text sidebar-link">Introduction to bash</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/CI/tp.html" class="sidebar-item-text sidebar-link">Continuous Integration (CI)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Docs/tp.html" class="sidebar-item-text sidebar-link">Documentation with Sphinx</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Setting up your local git identity</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">Integrated development environment</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Pandas/tp.html" class="sidebar-item-text sidebar-link">Pandas</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Python-modules/tp.html" class="sidebar-item-text sidebar-link">Creating a <code>python</code> module</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">Animation display with <code>python</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Test/tp.html" class="sidebar-item-text sidebar-link">Unit Tests</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/TimeMemory/tp.html" class="sidebar-item-text sidebar-link">Time and memory efficiency</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul>
+  <li><a href="#dataset-1-titanic-dataset" id="toc-dataset-1-titanic-dataset" class="nav-link" data-scroll-target="#dataset-1-titanic-dataset">Dataset 1: Titanic dataset</a></li>
+  </ul></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a>
+  <ul>
+  <li><a href="#description-of-the-titanic.csv-dataset" id="toc-description-of-the-titanic.csv-dataset" class="nav-link" data-scroll-target="#description-of-the-titanic.csv-dataset">Description of the <code>titanic.csv</code> dataset</a></li>
+  </ul></li>
+  <li><a href="#simple-descriptive-statistics" id="toc-simple-descriptive-statistics" class="nav-link" data-scroll-target="#simple-descriptive-statistics">Simple descriptive statistics</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
+  <li><a href="#exercise-density-over-histogram." id="toc-exercise-density-over-histogram." class="nav-link" data-scroll-target="#exercise-density-over-histogram."><font color="red"> EXERCISE : density over histogram</font>.</a></li>
+  <li><a href="#widgets" id="toc-widgets" class="nav-link" data-scroll-target="#widgets">Widgets</a></li>
+  <li><a href="#groupby-function" id="toc-groupby-function" class="nav-link" data-scroll-target="#groupby-function"><code>Groupby</code> function</a></li>
+  <li><a href="#exercise-median-by-class" id="toc-exercise-median-by-class" class="nav-link" data-scroll-target="#exercise-median-by-class"><font color="red"> EXERCISE : median by class </font></a></li>
+  <li><a href="#perform-a-similar-analysis-with-the-median-for-the-price-per-class-in-pounds." id="toc-perform-a-similar-analysis-with-the-median-for-the-price-per-class-in-pounds." class="nav-link" data-scroll-target="#perform-a-similar-analysis-with-the-median-for-the-price-per-class-in-pounds.">Perform a similar analysis with the median for the price per class in pounds.</a>
+  <ul>
+  <li><a href="#catplot-a-visual-groupby" id="toc-catplot-a-visual-groupby" class="nav-link" data-scroll-target="#catplot-a-visual-groupby">Catplot: a visual groupby</a>
+  <ul>
+  <li><a href="#pd.crosstab" id="toc-pd.crosstab" class="nav-link" data-scroll-target="#pd.crosstab">pd.crosstab?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#extract-numpy-array-from-dataframe" id="toc-extract-numpy-array-from-dataframe" class="nav-link" data-scroll-target="#extract-numpy-array-from-dataframe">Extract numpy array from dataframe</a>
+  <ul>
+  <li><a href="#exercise-dropna" id="toc-exercise-dropna" class="nav-link" data-scroll-target="#exercise-dropna"><font color="red"> EXERCISE : dropna</font></a></li>
+  </ul></li>
+  <li><a href="#d-dataset-series-a-column-of-a-dataframe" id="toc-d-dataset-series-a-column-of-a-dataframe" class="nav-link" data-scroll-target="#d-dataset-series-a-column-of-a-dataframe">1D dataset : Series (a column of a DataFrame)</a>
+  <ul>
+  <li><a href="#attributes-series-indices-and-values" id="toc-attributes-series-indices-and-values" class="nav-link" data-scroll-target="#attributes-series-indices-and-values">Attributes <em>Series</em>: indices and values</a></li>
+  </ul></li>
+  <li><a href="#counting-values-for-categorical-variables" id="toc-counting-values-for-categorical-variables" class="nav-link" data-scroll-target="#counting-values-for-categorical-variables">Counting values for categorical variables</a></li>
+  <li><a href="#see-also-the-command" id="toc-see-also-the-command" class="nav-link" data-scroll-target="#see-also-the-command">See also the command:</a></li>
+  <li><a href="#data-import-et-export" id="toc-data-import-et-export" class="nav-link" data-scroll-target="#data-import-et-export">Data import et export</a></li>
+  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration">Exploration</a></li>
+  <li><a href="#pandas-pairs-well-with-seaborn" id="toc-pandas-pairs-well-with-seaborn" class="nav-link" data-scroll-target="#pandas-pairs-well-with-seaborn">Pandas pairs well with seaborn:</a></li>
+  <li><a href="#access-values-by-linecolumns-etc." id="toc-access-values-by-linecolumns-etc." class="nav-link" data-scroll-target="#access-values-by-linecolumns-etc.">Access values by line/columns etc.</a>
+  <ul>
+  <li><a href="#groupby" id="toc-groupby" class="nav-link" data-scroll-target="#groupby"><code>groupby</code></a></li>
+  <li><a href="#create-binned-values" id="toc-create-binned-values" class="nav-link" data-scroll-target="#create-binned-values">Create binned values</a></li>
+  </ul></li>
+  <li><a href="#second-case-study-air-quality-in-paris-source-airparif" id="toc-second-case-study-air-quality-in-paris-source-airparif" class="nav-link" data-scroll-target="#second-case-study-air-quality-in-paris-source-airparif">Second Case study: air quality in Paris (Source: Airparif)</a>
+  <ul>
+  <li><a href="#times-series-help" id="toc-times-series-help" class="nav-link" data-scroll-target="#times-series-help">Times series help:</a></li>
+  <li><a href="#preprocess-the-data" id="toc-preprocess-the-data" class="nav-link" data-scroll-target="#preprocess-the-data">Preprocess the data</a></li>
+  <li><a href="#exercise-handling-missing-values" id="toc-exercise-handling-missing-values" class="nav-link" data-scroll-target="#exercise-handling-missing-values"><font color="red"> EXERCISE : handling missing values </font></a></li>
+  <li><a href="#issues-with-non-conventional-hoursday-format" id="toc-issues-with-non-conventional-hoursday-format" class="nav-link" data-scroll-target="#issues-with-non-conventional-hoursday-format">Issues with non-conventional hours/day format</a>
+  <ul>
+  <li><a href="#time-processing" id="toc-time-processing" class="nav-link" data-scroll-target="#time-processing">Time processing</a></li>
+  <li><a href="#exercise-worst-of-the-day" id="toc-exercise-worst-of-the-day" class="nav-link" data-scroll-target="#exercise-worst-of-the-day"><font color="red"> EXERCISE : worst of the day </font></a></li>
+  </ul></li>
+  <li><a href="#third-example-your-turn-explore-a-dataset-on-bike-accidents-on-your-own" id="toc-third-example-your-turn-explore-a-dataset-on-bike-accidents-on-your-own" class="nav-link" data-scroll-target="#third-example-your-turn-explore-a-dataset-on-bike-accidents-on-your-own">Third example (your turn: explore a dataset on bike accidents on your own)</a>
+  <ul>
+  <li><a href="#handle-missing-values-in-heure" id="toc-handle-missing-values-in-heure" class="nav-link" data-scroll-target="#handle-missing-values-in-heure">Handle missing values in <code>heure</code></a></li>
+  <li><a href="#exercise-dates" id="toc-exercise-dates" class="nav-link" data-scroll-target="#exercise-dates"><font color="red"> EXERCISE : Dates? </font></a></li>
+  <li><a href="#exercise-is-the-helmet-saving-your-life" id="toc-exercise-is-the-helmet-saving-your-life" class="nav-link" data-scroll-target="#exercise-is-the-helmet-saving-your-life"><font color="red"> EXERCISE : Is the helmet saving your life? </font></a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><font color="red"> EXERCISE :</font></a></li><font color="red">
+  <li><a href="#to-conclude" id="toc-to-conclude" class="nav-link" data-scroll-target="#to-conclude">To conclude:</a></li>
+  <li><a href="#exercise-accident-during-the-week" id="toc-exercise-accident-during-the-week" class="nav-link" data-scroll-target="#exercise-accident-during-the-week"><font color="red"> EXERCISE : Accident during the week? </font></a></li>
+  <li><a href="#exercise-accident-during-the-year" id="toc-exercise-accident-during-the-year" class="nav-link" data-scroll-target="#exercise-accident-during-the-year"><font color="red"> EXERCISE : Accident during the year? </font></a></li>
+  <li><a href="#exercise-accidents-by-departement" id="toc-exercise-accidents-by-departement" class="nav-link" data-scroll-target="#exercise-accidents-by-departement"><font color="red"> EXERCISE : Accidents by departement </font></a></li>
+  </font></ul></li><font color="red">
+  </font></ul></li><font color="red">
+  </font></ul><font color="red">
+</font></nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Pandas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+<font color="red">
+<p>This lecture is extracted and adapted from the work by Joris Van den Bossche <a href="https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb" class="uri">https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb</a></p>
+<p>For R users, you might also want to read <a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html" class="uri">https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html</a> for a smooth start.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># widget manipulation</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipywidgets <span class="im">import</span> widgets, interact, interactive, fixed, interact_manual</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pooch  <span class="co"># download data / avoid re-downloading</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> get_ipython</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="dataset-1-titanic-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-1-titanic-dataset">Dataset 1: Titanic dataset</h3>
+<p>First, it is important to download automatically remote files for reproducibility (and avoid typing names manually)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://josephsalmon.eu/enseignement/datasets/titanic.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./titanic.csv"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pooch.retrieve(url, path<span class="op">=</span>path, fname<span class="op">=</span>fname, known_hash<span class="op">=</span><span class="va">None</span>)  <span class="co"># if needed `pip install pooch`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Reading the file as a <code>pandas</code> dataframe:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw <span class="op">=</span> pd.read_csv(<span class="st">"titanic.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Visualize the end of the dataset:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.tail(n<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Visualize the beginning of the dataset:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.head(n<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
+<p>It is common to encounter features/covariates with missing values. In <code>pandas</code> they were mostly handled as <code>np.nan</code> (not a number). In the future, they will be treated as <code>NA</code> (note available), in a similar way as in R; see for standard behavior and details <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html" class="uri">https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html</a>.</p>
+<p>Note that the main difference between <code>pd.NA</code> and <code>np.nan</code> is that <code>pd.NA</code> propagates even for comparisons:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pd.NA <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&lt;</span>A<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>whereas</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>np.nan <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span><span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Testing the presence of missing values</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pd.isna(pd.NA)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">True</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pd.isna(np.nan)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The simplest strategy (when you can / when you have enough samples) consists in removing all nans/NAs.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_titanic <span class="op">=</span> df_titanic_raw.dropna()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df_titanic.tail(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Useful info on the dataset (especially missing values!)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_titanic.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that cabin is mostly missing, also the age</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="description-of-the-titanic.csv-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-the-titanic.csv-dataset">Description of the <code>titanic.csv</code> dataset</h3>
+<p>More details can be found here: <a href="https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3info.txt" class="uri">https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3info.txt</a></p>
+<ul>
+<li><code>Survived</code>: Survival 0 = No, 1 = Yes</li>
+<li><code>Pclass</code>: Ticket class 1 = 1st, 2 = 2nd, 3 = 3rd</li>
+<li><code>Sex</code>: Sex male/female</li>
+<li><code>Age</code>: Age in years</li>
+<li><code>Sibsp</code>: # of siblings / spouses aboard the Titanic</li>
+<li><code>Parch</code>: # of parents / children aboard the Titanic</li>
+<li><code>Ticket</code>: Ticket number</li>
+<li><code>Fare</code>: Passenger fare</li>
+<li><code>Cabin</code>: Cabin number</li>
+<li><code>Embarked</code>: Port of Embarkation C = Cherbourg, Q = Queenstown, S = Southampton</li>
+<li><code>Name</code>: Name of the passenger</li>
+<li><code>PassengerId</code>: Number to identify passenger</li>
+</ul>
+<p>Note: an extended version of the dataset is available here for those interested <a href="https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt" class="uri">https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt</a>.</p>
+</section>
+</section>
+<section id="simple-descriptive-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="simple-descriptive-statistics">Simple descriptive statistics</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_titanic.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<ul>
+<li><p>Histograms (please avoid…often useless) <code>python     plt.figure(figsize=(5, 5))     plt.hist(df_titanic['Age'], density=True, bins=25)     plt.xlabel('Age')     plt.ylabel('Proportion')     plt.title("Passager age histogram")</code></p></li>
+<li><p>Kernel Density Estimate (KDE): :</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), num<span class="op">=</span><span class="st">'jfpwje'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE: kernel density estimate</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.kdeplot(df_titanic[<span class="st">'Age'</span>], shade<span class="op">=</span><span class="va">True</span>, cut<span class="op">=</span><span class="dv">0</span>, bw<span class="op">=</span><span class="fl">0.1</span>)  <span class="co"># bw: bandwith</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Proportion'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Age'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax.legend().set_visible(<span class="va">False</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Passager age kernel density estimate"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Swarmplot: <code>python     plt.figure(figsize=(10, 5), num='jfpwje')     # Swarmplot from seaborn package     ax = sns.swarmplot(data=df_titanic_raw, x='Sex', y='Age', hue='Survived',                     palette={0: 'r', 1: 'k'}, order=['female', 'male'])     plt.title("Passager age by gender/survival")     plt.legend()     plt.tight_layout()</code></p></li>
+</ul>
+</section>
+<section id="exercise-density-over-histogram." class="level2">
+<h2 class="anchored" data-anchor-id="exercise-density-over-histogram."><font color="red"> EXERCISE : density over histogram</font>.</h2>
+<p>Plot the density estimate over the histogram</p>
+</section>
+<section id="widgets" class="level2">
+<h2 class="anchored" data-anchor-id="widgets">Widgets</h2>
+<p>Interactive interaction with codes and output is nowdays easier and easier (see also Shiny app in R-software). In python one can use for that <code>widgets</code> and the <code>interact</code> package. We are going to visualize that on the simple KDE and histograms examples.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hist_explore(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    dataset<span class="op">=</span>df_titanic,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    variable<span class="op">=</span>df_titanic.columns,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    n_bins<span class="op">=</span><span class="dv">24</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.25</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    density<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    ax.hist(</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        dataset[variable], density<span class="op">=</span>density, bins<span class="op">=</span>n_bins, alpha<span class="op">=</span>alpha</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    )  <span class="co"># standardization</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Density level"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Dataset </span><span class="sc">{</span>dataset<span class="sc">.</span>attrs[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="ss"> Histogram for passengers' age"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>interact(</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    hist_explore,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    dataset<span class="op">=</span>fixed(df_titanic),</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    n_bins<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>),</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    density<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kde_explore(dataset<span class="op">=</span>df_titanic, variable<span class="op">=</span>df_titanic.columns, bw<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    sns.kdeplot(dataset[variable], bw_adjust<span class="op">=</span>bw, shade<span class="op">=</span><span class="va">True</span>, cut<span class="op">=</span><span class="dv">0</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Density level"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Dataset </span><span class="sc">{</span>dataset<span class="sc">.</span>attrs[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="ss"> KDE for passengers'  </span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>interact(kde_explore, dataset<span class="op">=</span>fixed(df_titanic), bw<span class="op">=</span>(<span class="fl">0.001</span>, <span class="dv">2</span>, <span class="fl">0.01</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="groupby-function" class="level2">
+<h2 class="anchored" data-anchor-id="groupby-function"><code>Groupby</code> function</h2>
+<p>How does the survival rate change w.r.t. to sex?</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.groupby(<span class="st">'Sex'</span>)[[<span class="st">'Survived'</span>]].aggregate(<span class="kw">lambda</span> x: x.mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>How does the survival rate change w.r.t. the class?</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_titanic.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_titanic.groupby(<span class="st">'Pclass'</span>)[<span class="st">'Survived'</span>].aggregate(<span class="kw">lambda</span> x:</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                                   x.mean()).plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Classe'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Taux de survie'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Taux de survie par classe'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-median-by-class" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-median-by-class"><font color="red"> EXERCISE : median by class </font></h2>
+</section>
+<section id="perform-a-similar-analysis-with-the-median-for-the-price-per-class-in-pounds." class="level1">
+<h1>Perform a similar analysis with the median for the price per class in pounds.</h1>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="catplot-a-visual-groupby" class="level2">
+<h2 class="anchored" data-anchor-id="catplot-a-visual-groupby">Catplot: a visual groupby</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(x<span class="op">=</span><span class="st">'Pclass'</span>, y<span class="op">=</span><span class="st">"Age"</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="st">"Sex"</span>, data<span class="op">=</span>df_titanic_raw, kind<span class="op">=</span><span class="st">"swarm"</span>, legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Age par classe"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Beware: large difference in sex ratio by class</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.groupby([<span class="st">'Sex'</span>, <span class="st">'Pclass'</span>])[[<span class="st">'Sex'</span>]].count()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.groupby([<span class="st">'Sex'</span>])[[<span class="st">'Sex'</span>]].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>More on groupby pandas-kungfu: cf.&nbsp;also pd.crosstab, etc. <a href="https://pbpython.com/groupby-agg.html" class="uri">https://pbpython.com/groupby-agg.html</a></p>
+<section id="pd.crosstab" class="level3">
+<h3 class="anchored" data-anchor-id="pd.crosstab">pd.crosstab?</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df_titanic_raw[<span class="st">'Sex'</span>],</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>            df_titanic_raw[<span class="st">'Pclass'</span>],</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>            values<span class="op">=</span>df_titanic_raw[<span class="st">'Sex'</span>],</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>            aggfunc<span class="op">=</span><span class="st">'count'</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>            normalize<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_titanic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_titanic.index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_titanic.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_titanic.dtypes</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df_titanic[<span class="st">'Name'</span>].astype(<span class="bu">str</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="extract-numpy-array-from-dataframe" class="level1">
+<h1>Extract numpy array from dataframe</h1>
+<p>useful for using packages on top of <code>pandas</code> (e.g., sklearn, though nowadays it works out of the box with <code>pandas</code>)</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>array_titanic <span class="op">=</span> df_titanic.values  <span class="co"># associated numpy array</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>array_titanic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="exercise-dropna" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-dropna"><font color="red"> EXERCISE : dropna</font></h3>
+<p>Perform the following operation: remove the columns Cabin from the raw dataset, and then remove the rows with missing age. https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># XXX </span><span class="al">TODO</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="d-dataset-series-a-column-of-a-dataframe" class="level1">
+<h1>1D dataset : Series (a column of a DataFrame)</h1>
+<p>A Series is a labelled 1D column of a kind.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fare <span class="op">=</span> df_titanic[<span class="st">'Fare'</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>fare</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="attributes-series-indices-and-values" class="level2">
+<h2 class="anchored" data-anchor-id="attributes-series-indices-and-values">Attributes <em>Series</em>: indices and values</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fare.values[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Contrarily to <em>numpy</em> arrays, you can index with other thing that integers:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw <span class="op">=</span> df_titanic_raw.set_index(<span class="st">'Name'</span>)  <span class="co"># you can only do it once !!</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> df_titanic_raw[<span class="st">'Age'</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>age[<span class="st">'Behr, Mr. Karl Howell'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>age.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw[age <span class="op">&lt;</span> <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw <span class="op">=</span> df_titanic_raw.reset_index()  <span class="co"># come back to original index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="counting-values-for-categorical-variables" class="level1">
+<h1>Counting values for categorical variables</h1>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw[<span class="st">'Embarked'</span>].value_counts(normalize<span class="op">=</span><span class="va">False</span>, sort<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                                        ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">70</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df_titanic[df_titanic[<span class="st">'Embarked'</span>] <span class="op">==</span> <span class="st">'C'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Comments: not all passagers from Cherbourg are Gaulois…</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw[<span class="st">'Survived'</span>].<span class="bu">sum</span>() <span class="op">/</span> df_titanic_raw[<span class="st">'Survived'</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_titanic[<span class="st">'Survived'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Q: What was the proportion of women on the boat?</strong></p>
+</section>
+<section id="see-also-the-command" class="level1">
+<h1>See also the command:</h1>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.groupby([<span class="st">'Sex'</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="data-import-et-export" class="level1">
+<h1>Data import et export</h1>
+<p>Pandas supports many formats: - CSV, text - SQL database - Excel - HDF5 - json - html - pickle - sas, stata - …</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>pd.read_csv?</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># http://josephsalmon.eu/enseignement/datasets/babies23.data</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>pd.read_csv(<span class="st">'babies23.data'</span>, skiprows<span class="op">=</span><span class="dv">38</span>, sep<span class="op">=</span><span class="st">'\s+'</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.read_csv?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exploration" class="level1">
+<h1>Exploration</h1>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pandas-pairs-well-with-seaborn" class="level1">
+<h1>Pandas pairs well with seaborn:</h1>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">"colorblind"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(x<span class="op">=</span><span class="st">'Pclass'</span>, y<span class="op">=</span><span class="st">'Age'</span>, hue<span class="op">=</span><span class="st">'Survived'</span>, data<span class="op">=</span>df_titanic_raw,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>            kind<span class="op">=</span><span class="st">"violin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="access-values-by-linecolumns-etc." class="level1">
+<h1>Access values by line/columns etc.</h1>
+<ul>
+<li><code>iloc</code></li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.iloc[<span class="dv">0</span>:<span class="dv">2</span>, <span class="dv">1</span>:<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>loc</code></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with original index:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df_titanic_raw.loc[128]</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with naming indexing</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>, <span class="st">'Fare'</span>]</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>, <span class="st">'Survived'</span>]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>, <span class="st">'Survived'</span>] <span class="op">=</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set back the original value</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.loc[<span class="st">'Bonnell, Miss. Elizabeth'</span>, <span class="st">'Survived'</span>] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="groupby" class="level2">
+<h2 class="anchored" data-anchor-id="groupby"><code>groupby</code></h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_titanic.groupby(<span class="st">'Sex'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>df_titanic_raw.groupby(<span class="st">'Sex'</span>).mean()[<span class="st">'Pclass'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-binned-values" class="level2">
+<h2 class="anchored" data-anchor-id="create-binned-values">Create binned values</h2>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>df_titanic[<span class="st">'AgeClass'</span>] <span class="op">=</span> pd.cut(df_titanic[<span class="st">'Age'</span>], bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">90</span>, <span class="dv">10</span>))</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df_titanic[<span class="st">'AgeClass'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="second-case-study-air-quality-in-paris-source-airparif" class="level1">
+<h1>Second Case study: air quality in Paris (Source: Airparif)</h1>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./20080421_20160927-PA13_auto.csv"</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>pooch.retrieve(url, path<span class="op">=</span>path, fname<span class="op">=</span>fname, known_hash<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span><span class="dv">26</span> .<span class="op">/</span><span class="dv">20080421_20160927</span><span class="op">-</span>PA13_auto.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively :</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>get_ipython().system(<span class="st">'head -26 ./20080421_20160927-PA13_auto.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="times-series-help" class="level2">
+<h2 class="anchored" data-anchor-id="times-series-help">Times series help:</h2>
+<p>https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>polution_df <span class="op">=</span> pd.read_csv(<span class="st">'20080421_20160927-PA13_auto.csv'</span>, sep<span class="op">=</span><span class="st">';'</span>,</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>                          comment<span class="op">=</span><span class="st">'#'</span>,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                          na_values<span class="op">=</span><span class="st">"n/d"</span>,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                          converters<span class="op">=</span>{<span class="st">'heure'</span>: <span class="bu">str</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>polution_df.head(<span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="preprocess-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="preprocess-the-data">Preprocess the data</h2>
+</section>
+<section id="exercise-handling-missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-handling-missing-values"><font color="red"> EXERCISE : handling missing values </font></h2>
+<p>What is the meaning of “na_values=”n/d” above? Note that an alternative can be obtained with the command <code>polution_df.replace('n/d', np.nan, inplace=True)</code></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check types</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>polution_df.dtypes</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># check all</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>polution_df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For more info on the object nature (inherited from numpy), see https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object</p>
+</section>
+<section id="issues-with-non-conventional-hoursday-format" class="level2">
+<h2 class="anchored" data-anchor-id="issues-with-non-conventional-hoursday-format">Issues with non-conventional hours/day format</h2>
+<p>Start by changing to integer type (e.g., <code>int8</code>):</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>].astype(np.int8)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>No data is from 1 to 24… not conventional so let’s make it from 0 to 23</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>] <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and back to strings:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>].astype(<span class="st">'str'</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="time-processing" class="level3">
+<h3 class="anchored" data-anchor-id="time-processing">Time processing</h3>
+<p>https://www.tutorialspoint.com/python/time_strptime.htm</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>time_improved <span class="op">=</span> pd.to_datetime(polution_df[<span class="st">'date'</span>] <span class="op">+</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                               <span class="st">' '</span> <span class="op">+</span> polution_df[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span>,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                               <span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y %H:%M'</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Where d = day, m=month, Y=year, H=hour, M=minutes</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>time_improved</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> polution_df[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Create correct timing format in the dataframe</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'DateTime'</span>] <span class="op">=</span> time_improved</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> polution_df[<span class="st">'heure'</span>]  <span class="co"># remove useless column</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> polution_df[<span class="st">'date'</span>]  <span class="co"># remove useless column</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>polution_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Visualize the data set now that the time is well formated:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>polution_ts <span class="op">=</span> polution_df.set_index([<span class="st">'DateTime'</span>])</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>polution_ts <span class="op">=</span> polution_ts.sort_index(ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>polution_ts.head(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>polution_ts.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># raw version</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sns.color_palette("colorblind")</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cmap = sns.light_palette("Navy", as_cmap=True)</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(polution_ts[<span class="st">'O3'</span>])</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Ozone polution: daily average in Paris"</span>)</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(polution_ts[<span class="st">'NO2'</span>])</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Nitrogen polution: daily average in Paris"</span>)</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(polution_ts[<span class="st">'O3'</span>].resample(<span class="st">'d'</span>).<span class="bu">max</span>(), <span class="st">'--'</span>)</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(polution_ts[<span class="st">'O3'</span>].resample(<span class="st">'d'</span>).<span class="bu">min</span>(),<span class="st">'-.'</span>)</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Ozone polution: daily average in Paris"</span>)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(polution_ts[<span class="st">'NO2'</span>].resample(<span class="st">'d'</span>).<span class="bu">max</span>(),  <span class="st">'--'</span>)</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(polution_ts[<span class="st">'NO2'</span>].resample(<span class="st">'d'</span>).<span class="bu">min</span>(),  <span class="st">'-.'</span>)</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Nitrogen polution: daily average in Paris"</span>)</span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-worst-of-the-day" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-worst-of-the-day"><font color="red"> EXERCISE : worst of the day </font></h3>
+<p>Provide the same plots as before, but with daily best and worst on the same figures (and use different color and/or style)</p>
+<p>Q: Is the polution getting better along the years or not?</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> polution_ts[<span class="st">'2008'</span>:].resample(<span class="st">'Y'</span>).mean().plot(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample by year (A pour Annual) or Y for Year</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Pollution evolution: </span><span class="ch">\n</span><span class="st"> yearly average in Paris"</span>)</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load colors</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">"GnBu_d"</span>, n_colors<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'weekday'</span>] <span class="op">=</span> polution_ts.index.weekday  <span class="co"># Monday=0, Sunday=6</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'weekend'</span>] <span class="op">=</span> polution_ts[<span class="st">'weekday'</span>].isin([<span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> [<span class="st">'Monday'</span>, <span class="st">'Tuesday'</span>, <span class="st">'Wednesday'</span>,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Thursday'</span>, <span class="st">'Friday'</span>, <span class="st">'Saturday'</span>, <span class="st">'Sunday'</span>]</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>polution_week_no2 <span class="op">=</span> polution_ts.groupby([<span class="st">'weekday'</span>, polution_ts.index.hour])[</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NO2'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>polution_week_03 <span class="op">=</span> polution_ts.groupby([<span class="st">'weekday'</span>, polution_ts.index.hour])[</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'O3'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>polution_week_no2.plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Profil journalier de la pollution au NO2: effet du weekend?"</span>)</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">60</span>)</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>polution_week_03.plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Profil journalier de la pollution au O3: effet du weekend?"</span>)</span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, <span class="dv">70</span>)</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend().set_visible(<span class="va">False</span>)</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.legend()</span></span>
+<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(labels<span class="op">=</span>days, loc<span class="op">=</span><span class="st">'lower left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb71-22"><a href="#cb71-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-23"><a href="#cb71-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> calendar</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'month'</span>] <span class="op">=</span> polution_ts.index.month  <span class="co"># Janvier=0, .... Decembre=11</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'month'</span>] <span class="op">=</span> polution_ts[<span class="st">'month'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x:</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>                                                  calendar.month_abbr[x])</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>polution_ts.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>polution_month_no2 <span class="op">=</span> polution_ts.groupby([<span class="st">'month'</span>, polution_ts.index.hour])[</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NO2'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>polution_month_03 <span class="op">=</span> polution_ts.groupby([<span class="st">'month'</span>, polution_ts.index.hour])[</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'O3'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">"Paired"</span>, n_colors<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>polution_month_no2.plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Profil journalier de la pollution au NO2: effet du weekend?"</span>)</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">90</span>)</span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>polution_month_03.plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Profil journalier de la pollution au O3: effet du weekend?"</span>)</span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, <span class="dv">90</span>)</span>
+<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend().set_visible(<span class="va">False</span>)</span>
+<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.legend()</span></span>
+<span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(labels<span class="op">=</span>calendar.month_name[<span class="dv">1</span>:], loc<span class="op">=</span><span class="st">'lower left'</span>,</span>
+<span id="cb74-24"><a href="#cb74-24" aria-hidden="true" tabindex="-1"></a>               bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb74-25"><a href="#cb74-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="third-example-your-turn-explore-a-dataset-on-bike-accidents-on-your-own" class="level2">
+<h2 class="anchored" data-anchor-id="third-example-your-turn-explore-a-dataset-on-bike-accidents-on-your-own">Third example (your turn: explore a dataset on bike accidents on your own)</h2>
+<p>https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/</p>
+<p>Possible visualization: https://koumoul.com/en/datasets/accidents-velos</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./bicycle_db.csv"</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>pooch.retrieve(url, path<span class="op">=</span>path, fname<span class="op">=</span>fname, known_hash<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df: data frame</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>df_bikes <span class="op">=</span> pd.read_csv(<span class="st">"bicycle_db.csv"</span>, na_values<span class="op">=</span><span class="st">""</span>,</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>                       converters<span class="op">=</span>{<span class="st">'data'</span>: <span class="bu">str</span>, <span class="st">'heure'</span>: <span class="bu">str</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>get_ipython().system(<span class="st">'head -5 ./bicycle_db.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_columns <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>df_bikes.head()</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'existence securite'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'gravite accident'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="handle-missing-values-in-heure" class="level3">
+<h3 class="anchored" data-anchor-id="handle-missing-values-in-heure">Handle missing values in <code>heure</code></h3>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'date'</span>].hasnans</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'heure'</span>].hasnans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>df_bikes.iloc[<span class="dv">400</span>:<span class="dv">402</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Remove missing hours cases by <code>np.nan</code>:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'heure'</span>] <span class="op">=</span> df_bikes[<span class="st">'heure'</span>].replace(<span class="st">''</span>, np.nan)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>df_bikes.iloc[<span class="dv">400</span>:<span class="dv">402</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df_bikes.dropna(subset<span class="op">=</span>[<span class="st">'heure'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>df_bikes.iloc[<span class="dv">399</span>:<span class="dv">402</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-dates" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-dates"><font color="red"> EXERCISE : Dates? </font></h3>
+<p>Can you find the starting day and the ending day of the study automatically? Hint: sort the data; you can sort the data by time, say with df.sort(‘Time’)</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> df_bikes[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ADAPT OLD to create the df_bikes['Time']</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>time_improved <span class="op">=</span> pd.to_datetime(df_bikes[<span class="st">'date'</span>] <span class="op">+</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>                               <span class="st">' '</span> <span class="op">+</span> df_bikes[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span>,</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>                               <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M'</span>)</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Where d = day, m=month, Y=year, H=hour, M=minutes</span></span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create correct timing format in the dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'Time'</span>] <span class="op">=</span> time_improved</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>df_bikes.set_index(<span class="st">'Time'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove useles columns</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> df_bikes[<span class="st">'heure'</span>]</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> df_bikes[<span class="st">'date'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>df_bikes.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>df_bike2 <span class="op">=</span> df_bikes[[<span class="st">'gravite accident'</span>, <span class="st">'existence securite'</span>,</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>                             <span class="st">'age'</span>, <span class="st">'sexe'</span>]]</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>df_bike2[<span class="st">'existence securite'</span>] <span class="op">=</span> df_bike2[<span class="st">'existence securite'</span>].replace(np.nan, <span class="st">"Inconnu"</span>)</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>df_bike2.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-is-the-helmet-saving-your-life" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-is-the-helmet-saving-your-life"><font color="red"> EXERCISE : Is the helmet saving your life? </font></h3>
+<p>Peform an analysis so that you can check the benefit or not of wearing helmet to save your life. Beware preprocessing needed to use <code>pd.crosstab</code>, <code>pivot_table</code> to avoid issues.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> df_bike2.pivot_table(columns<span class="op">=</span><span class="st">'existence securite'</span>,</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>                             index<span class="op">=</span>[<span class="st">'gravite accident'</span>, <span class="st">'sexe'</span>],</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>                             aggfunc<span class="op">=</span>{<span class="st">'age'</span>: <span class="st">'count'</span>}, margins<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df_bike2[<span class="st">'existence securite'</span>],</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>            df_bike2[<span class="st">'gravite accident'</span>], normalize<span class="op">=</span><span class="st">'index'</span>) <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df_bike2[<span class="st">'existence securite'</span>],</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>            df_bike2[<span class="st">'gravite accident'</span>], values<span class="op">=</span>df_bike2[<span class="st">'age'</span>],</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>            aggfunc<span class="op">=</span><span class="st">'count'</span>, normalize<span class="op">=</span><span class="st">'index'</span>) <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise"><font color="red"> EXERCISE :</font></h3><font color="red">
+</font><p><font color="red">Are men and women dying equally on a bike ? </font> Peform an analysis to check differences between men and woman survival ?</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>idx_dead <span class="op">=</span> df_bikes[<span class="st">'gravite accident'</span>] <span class="op">==</span> <span class="st">'3 - Tué'</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>df_deads <span class="op">=</span> df_bikes[idx_dead]</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>df_gravite <span class="op">=</span> df_deads.groupby(<span class="st">'sexe'</span>).size() <span class="op">/</span> idx_dead.<span class="bu">sum</span>()</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>df_gravite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>df_bikes.groupby(<span class="st">'sexe'</span>).size()  <span class="op">/</span> df_bikes.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df_bike2[<span class="st">'sexe'</span>],</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>            df_bike2[<span class="st">'gravite accident'</span>],</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>            values<span class="op">=</span>df_bike2[<span class="st">'age'</span>], aggfunc<span class="op">=</span><span class="st">'count'</span>,</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>            normalize<span class="op">=</span><span class="st">'columns'</span>, margins<span class="op">=</span><span class="va">True</span>) <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="to-conclude" class="level3">
+<h3 class="anchored" data-anchor-id="to-conclude">To conclude:</h3>
+<p>Note: information on the level of bike practice by men/women is missing…</p>
+</section>
+<section id="exercise-accident-during-the-week" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-accident-during-the-week"><font color="red"> EXERCISE : Accident during the week? </font></h3>
+<p>Peform an analysis to check when the accidents are occuring during the week.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>df_bikes</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des couleurs</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">"GnBu_d"</span>, n_colors<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'weekday'</span>] <span class="op">=</span> df_bikes.index.weekday  <span class="co"># Monday=0, Sunday=6</span></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>accidents_week <span class="op">=</span> df_bikes.groupby([<span class="st">'weekday'</span>, df_bikes.index.hour])[</span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sexe'</span>].count().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>accidents_week.plot(ax<span class="op">=</span>axes)</span>
+<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a>axes.set_ylabel(<span class="st">"Accidents"</span>)</span>
+<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>axes.set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a>axes.set_title(</span>
+<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Profil journalier des accidents: effet du weekend?"</span>)</span>
+<span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>axes.set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb95-21"><a href="#cb95-21" aria-hidden="true" tabindex="-1"></a>axes.set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb95-22"><a href="#cb95-22" aria-hidden="true" tabindex="-1"></a><span class="co"># axes.set_ylim(0, 6)</span></span>
+<span id="cb95-23"><a href="#cb95-23" aria-hidden="true" tabindex="-1"></a>axes.legend(labels<span class="op">=</span>days, loc<span class="op">=</span><span class="st">'lower left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb95-24"><a href="#cb95-24" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb95-25"><a href="#cb95-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>df_bikes.groupby([<span class="st">'weekday'</span>, df_bikes.index.hour])[</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sexe'</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-accident-during-the-year" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-accident-during-the-year"><font color="red"> EXERCISE : Accident during the year? </font></h3>
+<p>Peform an analysis to check when the accidents are occuring during the week.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'month'</span>] <span class="op">=</span> df_bikes.index.month  <span class="co"># Janvier=0, .... Decembre=11</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>df_bikes[<span class="st">'month'</span>] <span class="op">=</span> df_bikes[<span class="st">'month'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: calendar.month_abbr[x])</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>df_bikes.head()</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">"GnBu_d"</span>, n_colors<span class="op">=</span><span class="dv">12</span>)  <span class="co"># sns.set_palette("colorblind",...)</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>df_bikes_month <span class="op">=</span> df_bikes.groupby([<span class="st">'month'</span>, df_bikes.index.hour])[</span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'age'</span>].count().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>df_bikes_month.plot(ax<span class="op">=</span>axes)</span>
+<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>axes.set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
+<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>axes.set_xlabel(<span class="st">"Heure de la journée"</span>)</span>
+<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>axes.set_title(</span>
+<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Profil journalier de la pollution au NO2: effet du weekend?"</span>)</span>
+<span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a>axes.set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">24</span>))</span>
+<span id="cb97-18"><a href="#cb97-18" aria-hidden="true" tabindex="-1"></a>axes.set_xticklabels(np.arange(<span class="dv">0</span>, <span class="dv">24</span>), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb97-19"><a href="#cb97-19" aria-hidden="true" tabindex="-1"></a><span class="co"># axes.set_ylim(0, 90)</span></span>
+<span id="cb97-20"><a href="#cb97-20" aria-hidden="true" tabindex="-1"></a>axes.legend(labels<span class="op">=</span>calendar.month_name[<span class="dv">1</span>:], loc<span class="op">=</span><span class="st">'lower left'</span>,</span>
+<span id="cb97-21"><a href="#cb97-21" aria-hidden="true" tabindex="-1"></a>            bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb97-22"><a href="#cb97-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-23"><a href="#cb97-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-accidents-by-departement" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-accidents-by-departement"><font color="red"> EXERCISE : Accidents by departement </font></h3>
+<p>Peform an analysis to check when the accidents are occuring by departement.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pygal</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First install if needed for maps:</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install pygal</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="co"># andpip install pygal_maps_frpip install pygal_maps_fr</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install pygal_maps_fr</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Departement population: https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/table/?disjunctive.departement&amp;location=7,47.12995,3.41125&amp;basemap=jawg.streets</span></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./dpt_population.csv"</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/download/?format=csv&amp;timezone=Europe/Berlin&amp;lang=en&amp;use_labels_for_header=true&amp;csv_separator=%3B"</span></span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>pooch.retrieve(url, path<span class="op">=</span>path, fname<span class="op">=</span>fname, known_hash<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Departement area: https://www.regions-et-departements.fr/departements-francais#departements_fichiers</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./dpt_area.csv"</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://www.regions-et-departements.fr/fichiers/departements-francais.csv"</span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>pooch.retrieve(url, path<span class="op">=</span>path, fname<span class="op">=</span>fname, known_hash<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>df_dtp_pop <span class="op">=</span> pd.read_csv(<span class="st">"dpt_population.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>, low_memory<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>df_dtp_area <span class="op">=</span> pd.read_csv(<span class="st">"dpt_area.csv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, low_memory<span class="op">=</span><span class="va">False</span>, skiprows<span class="op">=</span>[<span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>])</span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>df_dtp_area[<span class="st">'NUMÉRO'</span>]</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>df_dtp_area.set_index(<span class="st">'NUMÉRO'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>df_dtp_pop.set_index(<span class="st">'Code Département'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>df_dtp_pop.sort_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>fr_chart <span class="op">=</span> pygal.maps.fr.Departments(human_readable<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>display <span class="op">=</span> <span class="st">"ratio_accident"</span></span>
+<span id="cb99-18"><a href="#cb99-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-19"><a href="#cb99-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-20"><a href="#cb99-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> display <span class="kw">is</span> <span class="st">"ratio_accident"</span>:</span>
+<span id="cb99-21"><a href="#cb99-21" aria-hidden="true" tabindex="-1"></a>    fr_chart.title <span class="op">=</span> <span class="st">'Accidents by departement'</span></span>
+<span id="cb99-22"><a href="#cb99-22" aria-hidden="true" tabindex="-1"></a>    gd <span class="op">=</span> df_bikes.groupby([<span class="st">'departement'</span>]).size()</span>
+<span id="cb99-23"><a href="#cb99-23" aria-hidden="true" tabindex="-1"></a>    gd <span class="op">=</span> (gd <span class="op">/</span> df_dtp_pop[<span class="st">'Population'</span>])  <span class="co"># mean accident per habitant</span></span>
+<span id="cb99-24"><a href="#cb99-24" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb99-25"><a href="#cb99-25" aria-hidden="true" tabindex="-1"></a>    fr_chart.title <span class="op">=</span> <span class="st">'Deaths by departement'</span></span>
+<span id="cb99-26"><a href="#cb99-26" aria-hidden="true" tabindex="-1"></a>    df_deads <span class="op">=</span> df_bikes[df_bikes[<span class="st">'gravite accident'</span>]<span class="op">==</span><span class="st">'3 - Tué'</span>]</span>
+<span id="cb99-27"><a href="#cb99-27" aria-hidden="true" tabindex="-1"></a>    df_gravite <span class="op">=</span> df_deads.groupby(<span class="st">'departement'</span>).size()</span>
+<span id="cb99-28"><a href="#cb99-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># gd = df_bikes.groupby(['departement']).aggregate(lambda: x-&gt;sum(x))</span></span>
+<span id="cb99-29"><a href="#cb99-29" aria-hidden="true" tabindex="-1"></a>    gd <span class="op">=</span> (df_gravite <span class="op">/</span> df_dtp_pop[<span class="st">'Population'</span>])  <span class="co"># mean deaths per habitant</span></span>
+<span id="cb99-30"><a href="#cb99-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-31"><a href="#cb99-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Area normalization</span></span>
+<span id="cb99-32"><a href="#cb99-32" aria-hidden="true" tabindex="-1"></a>normalization <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb99-33"><a href="#cb99-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> normalization <span class="kw">is</span> <span class="va">True</span>:</span>
+<span id="cb99-34"><a href="#cb99-34" aria-hidden="true" tabindex="-1"></a>    gd <span class="op">=</span> (gd <span class="op">/</span> df_dtp_area[<span class="st">'SUPERFICIE (km²)'</span>])</span>
+<span id="cb99-35"><a href="#cb99-35" aria-hidden="true" tabindex="-1"></a>gd.dropna(inplace<span class="op">=</span><span class="va">True</span>)   <span class="co"># anoying NA due to 1 vs 01 in datasets</span></span>
+<span id="cb99-36"><a href="#cb99-36" aria-hidden="true" tabindex="-1"></a>fr_chart.add(<span class="st">'Accidents'</span>, gd.to_dict())</span>
+<span id="cb99-37"><a href="#cb99-37" aria-hidden="true" tabindex="-1"></a>fr_chart.render_in_browser()</span>
+<span id="cb99-38"><a href="#cb99-38" aria-hidden="true" tabindex="-1"></a><span class="co"># fr_chart.render_to_file('./chatr.svg')  # Write the chart in a specified file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+</section>
+</section>
+
+</font></main><font color="red"> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</font></div><font color="red"> <!-- /content -->
+
+
+
+</font></body></html>

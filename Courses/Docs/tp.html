@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.124">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HAX712X: Software development for data sciences - Documentation with Sphinx</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Documentation with Sphinx</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">HAX712X: Software development for data sciences</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Courses</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Bash/tp.html" class="sidebar-item-text sidebar-link">Introduction to bash</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/CI/tp.html" class="sidebar-item-text sidebar-link">Continuous Integration (CI)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Docs/tp.html" class="sidebar-item-text sidebar-link">Documentation with Sphinx</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Setting up your local git identity</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">Integrated development environment</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Pandas/tp.html" class="sidebar-item-text sidebar-link">Pandas</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Python-modules/tp.html" class="sidebar-item-text sidebar-link">Creating a <code>python</code> module</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">Animation display with <code>python</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Test/tp.html" class="sidebar-item-text sidebar-link">Unit Tests</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/TimeMemory/tp.html" class="sidebar-item-text sidebar-link">Time and memory efficiency</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="//Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#restructuredtext" id="toc-restructuredtext" class="nav-link active" data-scroll-target="#restructuredtext">reStructuredText</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#syntax" id="toc-syntax" class="nav-link" data-scroll-target="#syntax">Syntax</a>
+  <ul>
+  <li><a href="#headers" id="toc-headers" class="nav-link" data-scroll-target="#headers">Headers</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images">Images</a></li>
+  <li><a href="#named-links-and-anonymous-links" id="toc-named-links-and-anonymous-links" class="nav-link" data-scroll-target="#named-links-and-anonymous-links">Named links and anonymous links</a></li>
+  <li><a href="#literal-blocks" id="toc-literal-blocks" class="nav-link" data-scroll-target="#literal-blocks">Literal blocks</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#set-up-the-doc" id="toc-set-up-the-doc" class="nav-link" data-scroll-target="#set-up-the-doc">Set up the doc</a></li>
+  <li><a href="#defining-documentation-structure" id="toc-defining-documentation-structure" class="nav-link" data-scroll-target="#defining-documentation-structure">Defining documentation structure</a>
+  <ul>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><font color="red">Exercise:</font></a></li>
+  </ul></li>
+  <li><a href="#api-doc-autodoc" id="toc-api-doc-autodoc" class="nav-link" data-scroll-target="#api-doc-autodoc">API doc (autodoc)</a></li>
+  <li><a href="#sphinx-gallery" id="toc-sphinx-gallery" class="nav-link" data-scroll-target="#sphinx-gallery">Sphinx-Gallery</a>
+  <ul>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
+  <li><a href="#structure-your-examples-files" id="toc-structure-your-examples-files" class="nav-link" data-scroll-target="#structure-your-examples-files">Structure your examples files</a></li>
+  <li><a href="#include-examples-in-your-toctree" id="toc-include-examples-in-your-toctree" class="nav-link" data-scroll-target="#include-examples-in-your-toctree">Include examples in your toctree</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Documentation with Sphinx</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="restructuredtext" class="level2">
+<h2 class="anchored" data-anchor-id="restructuredtext">reStructuredText</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Sphinx is an extension of <a href="https://docutils.sourceforge.io/rst.html">reStructuredText</a>. reStructuredText (<code>.RST</code>, <code>.ReST</code>, or <code>.reST</code>) is a file format for textual data used primarily in the Python programming language community for technical documentation, and similar to the Markdown format (<code>.md</code>) you are currently reading.</p>
+<p>It is part of the <a href="https://docutils.sourceforge.io/"><code>Docutils</code></a> project of the Python Doc-SIG (Documentation Special Interest Group), aimed at creating a set of tools for Python similar to <code>Javadoc</code> for Java or <code>Plain Old Documentation</code> (pod) for Perl or <a href="https://r-pkgs.org/vignettes.html"><code>vignette</code></a> for R.</p>
+<p><code>Docutils</code> can extract comments and information from Python programs, and format them into various forms of program documentation.</p>
+<p>In this sense, reStructuredText is a lightweight markup language designed to be both:</p>
+<ol type="1">
+<li>processable by documentation-processing software such as <code>Docutils</code>,</li>
+<li>easily readable by human programmers who are reading and writing Python source code.</li>
+</ol>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/ReStructuredText" class="uri">https://en.wikipedia.org/wiki/ReStructuredText</a>, <a href="https://en.wikipedia.org/wiki/Comparison_of_document-markup_languages" class="uri">https://en.wikipedia.org/wiki/Comparison_of_document-markup_languages</a> and <a href="https://en.wikipedia.org/wiki/Comparison_of_documentation_generators" class="uri">https://en.wikipedia.org/wiki/Comparison_of_documentation_generators</a></p>
+</section>
+<section id="syntax" class="level3">
+<h3 class="anchored" data-anchor-id="syntax">Syntax</h3>
+<p>A ReST file is a plain text file with a <code>.rst</code> extension. Alike Markdown (<code>.md</code>) it allows you to easily write formatted text.</p>
+<section id="headers" class="level4">
+<h4 class="anchored" data-anchor-id="headers">Headers</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Section Header</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>==============</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Subsection Header</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>-----------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="lists" class="level4">
+<h4 class="anchored" data-anchor-id="lists">Lists</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>- A bullet list item</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>- Second item</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  - A sub item (indentation matters!)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>- Spacing between items creates separate lists</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>- Third item</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>1) An enumerated list item</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>2) Second item</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>   a) Sub item that goes on at length and thus needs</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      to be wrapped. Note the indentation that must</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      match the beginning of the text, not the</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      enumerator.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      i) List items can even include</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>         paragraph breaks.</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>3) Third item</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>#) Another enumerated list item</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>#) Second item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="images" class="level4">
+<h4 class="anchored" data-anchor-id="images">Images</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. image:: </span>/path/to/image.jpg</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:height:</span> 100</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:width:</span> 200</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:scale:</span> 50</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:align:</span> center</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:alt:</span> ordinateur</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>   Caption text rendered below the image...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="named-links-and-anonymous-links" class="level4">
+<h4 class="anchored" data-anchor-id="named-links-and-anonymous-links">Named links and anonymous links</h4>
+<p>A sentence with links to `Wikipedia`_ and the `Linux kernel archive`_.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Wikipedia: </span><span class="ot">https://www.wikipedia.org/</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Linux kernel archive: </span><span class="ot">https://www.kernel.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Another sentence with an `anonymous link to the Python website`__.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">__</span> <span class="ot">https://www.python.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>N.B.: named links and anonymous links are enclosed in grave accents (`), and not in apostrophes (’).</p>
+<p>N.B.: it is possible to create references to label linked to an image, a section, in the <code>.rst</code> file etc…</p>
+</section>
+<section id="literal-blocks" class="level4">
+<h4 class="anchored" data-anchor-id="literal-blocks">Literal blocks</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">::</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">  some literal text</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>This may also be used inline at the end of a paragraph, like so<span class="dt">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>some more literal text</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. code:: python</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">   print("A literal block directive explicitly marked as python code")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="set-up-the-doc" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-the-doc">Set up the doc</h2>
+<p>Reference: this part is mainly from the Sphinx documentation <a href="http://www.sphinx-doc.org/en/stable/" class="uri">http://www.sphinx-doc.org/en/stable/</a>.</p>
+<p>The documentation is usually located in a <code>docs</code> or <code>doc</code> folder located at the root of a project. For instance in the <code>biketrauma</code> module we have:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packaging_tutorial/</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">biketrauma/</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">__init__.py</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="ex">vis/</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">io</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">tests/</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">doc/</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the Sphinx terminology, this <code>doc</code> folder is called the <a href="http://www.sphinx-doc.org/en/stable/glossary.html#term-source-directory">source directory</a>. It contains:</p>
+<ol type="1">
+<li>a configuration file <code>conf.py</code>&nbsp;with all the information needed to read the sources and build the doc. By building, it is meant the process of generating the doc (usually in <code>html</code>, <code>pdf</code>, etc.) from the ReST files.</li>
+<li>a directory structure containing <code>.md</code> or <code>.rst</code> files with the doc.</li>
+</ol>
+<p>To help you, Sphinx comes with a script called <code>sphinx-quickstart</code> that sets up a source directory and creates a default <code>conf.py</code> with the most useful configuration values from a few questions it asks you. To use this, run:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sphinx-quickstart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Answer each question asked. Be sure to say <strong>yes</strong> to the <code>autodoc</code> extension, as we will use this later. There is also an automatic API documentation (API: Application Programming Interface) generator called <code>sphinx-apidoc</code>; see <a href="http://www.sphinx-doc.org/en/stable/man/sphinx-apidoc.html"><code>sphinx-apidoc</code></a> for details.</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td>### <font color="red">Exercise:</font></td>
+</tr>
+<tr class="even">
+<td>Set up the documentation for <a href="https://github.com/HMMA238-2020/biketrauma"><code>biketrauma</code></a> python module.</td>
+</tr>
+<tr class="odd">
+<td>1. Install the sphinx package with <code>pip</code> 2. Create a <code>doc</code> folder and <code>cd</code> into it 3. Launch <code>sphinx-quickstart --sep</code>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="defining-documentation-structure" class="level2">
+<h2 class="anchored" data-anchor-id="defining-documentation-structure">Defining documentation structure</h2>
+<p>Let us assume you have run <code>sphinx-quickstart</code>. It has created a source directory with <code>conf.py</code> and a master document, <code>index.rst</code> (if you accepted the defaults parameters).</p>
+<p>The main function of the master document is to serve as a welcome page, and to contain the root of the “table of contents tree” (or <code>toctree</code>). This is one of the main things that Sphinx adds to reStructuredText, a way to connect multiple files to a single hierarchy of documents.</p>
+<p>The <code>toctree</code> directive initially is empty, and looks like so:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You add documents listing them in the content of the directive:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   usage/installation</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>   usage/quickstart</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>   ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is exactly how the <code>toctree</code> for this documentation looks. The documents to include are given as document names, which in short means that you leave off the file name extension and use forward slashes (/) as directory separators.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>### <font color="red">Exercise:</font></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>## Building the doc</td>
+</tr>
+<tr class="even">
+<td>During the configuration of Sphinx, a text file called <code>MakeFile</code> has been created: in software development, <code>Make</code> is a build automation tool that automatically builds executable programs and libraries from source code by reading files called <code>Makefiles</code> which specify how to derive the target program.</td>
+</tr>
+<tr class="odd">
+<td>Reference: <a href="https://en.wikipedia.org/wiki/Make_(software)" class="uri">https://en.wikipedia.org/wiki/Make_(software)</a></td>
+</tr>
+<tr class="even">
+<td><code>bash $ make html</code></td>
+</tr>
+<tr class="odd">
+<td>Then to access the web pages created:</td>
+</tr>
+<tr class="even">
+<td><code>bash $ firefox _build/html/index.html</code></td>
+</tr>
+<tr class="odd">
+<td>N.B.: there is also a <a href="http://www.sphinx-doc.org/en/stable/man/sphinx-build.html">sphinx-build</a> tool that can help you to build without make.</td>
+</tr>
+</tbody>
+</table>
+<section id="exercise" class="level3">
+<h3 class="anchored"><font color="red">Exercise:</font></h3>
+<ol type="1">
+<li>List all the <code>target</code> defined in the <code>Makefiles</code></li>
+<li><h2 id="build-your-doc-and-visualize-it-with-a-navigator" class="anchored" data-anchor-id="exercise">Build your doc and visualize it with a navigator</h2></li>
+</ol>
+</section>
+</section>
+<section id="api-doc-autodoc" class="level2">
+<h2 class="anchored" data-anchor-id="api-doc-autodoc">API doc (autodoc)</h2>
+<p>When documenting Python code, it is common to put a lot of documentation in the source files, in documentation strings. Sphinx supports the inclusion of <a href="https://www.python.org/dev/peps/pep-0257/"><code>docstrings</code></a> from your modules with an extension (an extension is a Python module that provides additional features for Sphinx projects) called <code>autodoc</code>.</p>
+<p>In order to use <code>autodoc</code>, you need to activate it in <code>conf.py</code> by putting the string <code>'sphinx.ext.autodoc'</code> into the list assigned to the extensions config value. Then, you have a few additional directives at your disposal.</p>
+<p>For example, to document the function <code>io.open()</code>, reading its signature and docstring from the source file, you’d write this:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. autofunction:: </span>io.open</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can also document whole classes or even modules automatically, using member options for the auto directives, like</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. automodule:: </span>io</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:members:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>autodoc</code> needs to import your modules in order to extract the docstrings. Therefore, you must add the appropriate path to <code>sys.path</code> in your <code>conf.py</code>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>### <font color="red">Exercise:</font></td>
+</tr>
+<tr class="even">
+<td>1. Write a docstring for the class <code>biketrauma.io.Load_db</code> and the function <code>plot_location</code> 2. Integrate these documentations in a section called <code>API</code> in the sphinx toctree.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sphinx-gallery" class="level2">
+<h2 class="anchored" data-anchor-id="sphinx-gallery">Sphinx-Gallery</h2>
+<p>Sphinx-Gallery is an extension able to create galleries of example in the <code>html</code> documentation directly from the scripts files of your project. See e.g., <a href="https://sphinx-gallery.github.io/stable/auto_examples/index.html" class="uri">https://sphinx-gallery.github.io/stable/auto_examples/index.html</a></p>
+<section id="configuration" class="level3">
+<h3 class="anchored" data-anchor-id="configuration">Configuration</h3>
+<p>Configuration and customization of sphinx-gallery is done primarily with a dictionary specified in your <code>conf.py</code> file. A typical sample</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">from</span> sphinx_gallery.sorting import FileNameSortKey</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sphinx_gallery_conf</span> = {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path to your examples scripts</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'examples_dirs'</span><span class="ex">:</span> [<span class="st">'../script'</span>,],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path where to save gallery generated examples</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gallery_dirs'</span><span class="ex">:</span> [<span class="st">'_auto_scripts'</span>],</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># order of the Gallery</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'within_subsection_order'</span><span class="ex">:</span> FileNameSortKey,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A list of the possible keys can be found here <a href="https://sphinx-gallery.github.io/stable/configuration.html" class="uri">https://sphinx-gallery.github.io/stable/configuration.html</a>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>### <font color="red">Exercise:</font></td>
+</tr>
+<tr class="even">
+<td>1. Install the sphinx-gallery extension with pip. 2. Update the <code>conf.py</code> of the <code>biketrauma</code> package with the dictionary containing the configuration of the sphinx-gallery.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="structure-your-examples-files" class="level3">
+<h3 class="anchored" data-anchor-id="structure-your-examples-files">Structure your examples files</h3>
+<p>Sphinx-Gallery parse the folder listed in the key <code>examples_dirs</code>. It expects each Python file to have two things:</p>
+<ol type="1">
+<li>A docstring, written in rST, that defines the header for the example. It must begin by defining a rST title. The title may contain any punctuation mark but cannot start with the same punctuation mark repeated more than 3 times. For example:</li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    """</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    "This" is my example-script</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    ===========================</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    This example doesn't do much, it just makes a simple plot</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    """</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Python code. This can be any valid Python code that you wish. Any <code>matplotlib</code> images that are generated will be saved to disk, and the rST generated will display these images with the built examples. By default only images generated by <code>matplotlib</code>, or packages based on <code>matplotlib</code> (e.g., <code>seaborn</code> or <code>yellowbrick</code>) are saved and displayed. However, you can change this to include other packages, see for instance Image scrapers (XXX TODO: add details on Image scrapers).</li>
+</ol>
+<p><strong>Warning:</strong> with default options, Sphinx-Gallery only execute the script files with a filename starting by <code>plot_</code>.</p>
+<p><strong>Warning:</strong> Sphinx-Gallery expect finding a <code>README.txt</code> (or <code>README.rst</code>) file in every folders containing examples.</p>
+</section>
+<section id="include-examples-in-your-toctree" class="level3">
+<h3 class="anchored" data-anchor-id="include-examples-in-your-toctree">Include examples in your toctree</h3>
+<p>For instance you can add those lines in the <code>index.rst</code></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:caption:</span> Previsions:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>   _auto_scripts/index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>to add a section containing all the examples.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>### <font color="red">Exercise:</font></td>
+</tr>
+<tr class="even">
+<td>1. Transform the <code>script.py</code> examples into an auto build example.</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
