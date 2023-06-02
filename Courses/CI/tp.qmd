@@ -2,7 +2,7 @@
 title: "Continuous Integration (CI)"
 ---
 
-In software engineering, continuous integration (CI) is the practice of merging all developers' working copies to a shared mainline on a regular basis. It is often split in 3 steps:
+In software engineering, continuous integration (CI) is the practice of merging all developers' working copies to a shared mainline on a regular basis. It is often split into 3 steps:
 
 1. automate the tests: run command on each commit (or each Pull Request), typically unit tests and integration tests.
 2. automate the build: when dealing with a compiled language, compile the source to generate binaries. I can also build the documentation.
@@ -35,7 +35,7 @@ Github has recently developed a high-level solution of CI. Before digging into t
 
 ```python
 $ pytest
-============================= test session starts ==============================
+=========================== test session starts ============================
 platform linux -- Python 3.7.6, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
 rootdir: /home/bcharlier/packaging_tutorial
 plugins: cov-2.8.1
@@ -43,13 +43,13 @@ collected 3 items
 
 biketrauma/tests/test_biketrauma.py ...                                  [100%]
 
-=============================== warnings summary ===============================
+============================ warnings summary ==============================
 /home/bcharlier/.local/lib/python3.7/site-packages/pygal/_compat.py:23
   /home/bcharlier/.local/lib/python3.7/site-packages/pygal/_compat.py:23: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
     from collections import Iterable
 
 -- Docs: https://docs.pytest.org/en/latest/warnings.html
-========================= 3 passed, 1 warning in 1.56s =========================
+======================= 3 passed, 1 warning in 1.56s ======================
 
 ```
 
@@ -57,13 +57,11 @@ biketrauma/tests/test_biketrauma.py ...                                  [100%]
 
 Setting up a CI is rather easy. It is sufficient to add a single text file `.github/workflows` in your project. `Github` has developed a graphical user interface to do it:
 
-1. In your github project repository: Go to Actions menu and then select `python package` workflow.
-2. Custom the `workflows` file depending on your needs. Beware: getting a correct configuration file is sometime tedious with CI system...
+1. In your GitHub project repository: Go to the Actions menu and then select `python package` workflow.
+2. Customize the `workflows` file depending on your needs. Beware: getting a correct configuration file is sometimes tedious with CI system...
 3. You can add a `badge` showing the result of CI to the end-user directly in your Readme.md
 
-----
-### <font color='red'>Exercise:</font>
+### <font color='red'>Exercise</font>
 
 1. Fork the `biketrauma` project <https://github.com/HMMA238-2020/biketrauma>
 2. Setup a CI with github on `biketrauma`
-----

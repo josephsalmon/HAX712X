@@ -156,14 +156,15 @@ df_titanic.describe()
     ```
 
 
-## <font color='red'> EXERCISE : density over histogram</font>.
+### <font color='red'> EXERCISE: density over histogram</font>
+
 Plot the density estimate over the histogram
 
 
 ## Widgets
-Interactive interaction with codes and output is nowdays easier and easier (see also Shiny app in R-software).
-In python one can use for that `widgets` and the `interact` package.
-We are going to visualize that on the simple KDE and histograms examples.
+Interactive interaction with codes and output is nowadays easier and easier (see also Shiny app in R-software).
+In python, one can use `widgets` and the `interact` package for this purpose.
+We are going to visualize that on the simple KDE and histogram examples.
 
 
 ```python
@@ -234,14 +235,11 @@ plt.show()
 
 
 
-## <font color='red'> EXERCISE : median by class </font>
-# Perform a similar analysis with the median for the price per class in pounds.
+### <font color='red'> EXERCISE: median by class</font>
 
-```python
+Perform a similar analysis with the median for the price per class in pounds.
 
-```
-
-## Catplot: a visual groupby
+## `Catplot`: a visual `groupby`
 
 ```python
 sns.catplot(x='Pclass', y="Age",
@@ -260,7 +258,7 @@ df_titanic_raw.groupby(['Sex'])[['Sex']].count()
 
 More on groupby pandas-kungfu: cf. also pd.crosstab, etc. <https://pbpython.com/groupby-agg.html>
 
-### pd.crosstab?
+### pd.crosstab
 
 ```python
 pd.crosstab(df_titanic_raw['Sex'],
@@ -291,15 +289,16 @@ df_titanic['Name'].astype(str)
 ```
 
 
-# Extract numpy array from dataframe
-useful for using packages on top of `pandas` (e.g., sklearn, though nowadays it works out of the box with `pandas`)
+### Extract `numpy` arrays from dataframes
+useful for using packages on top of `pandas` (*e.g.,* sklearn, though nowadays it works out of the box with `pandas`)
 
 ```python
 array_titanic = df_titanic.values  # associated numpy array
 array_titanic
 ```
 
-### <font color='red'> EXERCISE : dropna</font>
+### <font color='red'> EXERCISE: dropna</font>
+
 Perform the following operation: remove the columns Cabin from the raw
 dataset, and then remove the rows with missing age.
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html
@@ -310,9 +309,9 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop
 ```
 
 
-# 1D dataset : Series (a column of a DataFrame)
+### 1D dataset: Series (a column of a DataFrame)
 
-A Series is a labelled 1D column of a kind.
+A Series is a labeled 1D column of a kind.
 
 ```python
 fare = df_titanic['Fare']
@@ -326,7 +325,7 @@ fare
 fare.values[:10]
 ```
 
-Contrarily to *numpy* arrays, you can index with other thing that integers:
+Contrarily to *numpy* arrays, you can index with other formats than integers:
 
 ```python
 df_titanic_raw = df_titanic_raw.set_index('Name')  # you can only do it once !!
@@ -362,7 +361,7 @@ df_titanic_raw['Embarked'].value_counts(normalize=False, sort=True,
 pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
 ```
-Comments: not all passagers from Cherbourg are Gaulois...
+Comments: not all passengers from Cherbourg are Gaulois...
 
 
 ```python
@@ -385,7 +384,7 @@ df_titanic_raw.groupby(['Sex']).mean()
 
 # Data import et export
 
- Pandas supports many formats:
+The Pandas library supports many formats:
  - CSV, text
  - SQL database
  - Excel
@@ -402,7 +401,7 @@ pd.read_csv?
 pd.read_csv('babies23.data', skiprows=38, sep='\s+')
 # pd.read_csv?
 ```
-# Exploration
+### Exploration
 
 ```python
 df_titanic_raw.tail()
@@ -412,7 +411,7 @@ df_titanic_raw.tail()
 df_titanic_raw.head()
 ```
 
-# Pandas pairs well with seaborn:
+### `seaborn` visualization with `pandas`:
 ```python
 sns.set_palette("colorblind")
 sns.catplot(x='Pclass', y='Age', hue='Survived', data=df_titanic_raw,
@@ -420,7 +419,7 @@ sns.catplot(x='Pclass', y='Age', hue='Survived', data=df_titanic_raw,
 ```
 
 
-# Access values by line/columns etc.
+### Access values by line/columns etc.
 
 - `iloc`
 ```python
@@ -465,7 +464,7 @@ df_titanic.groupby('Sex').mean()
 df_titanic_raw.groupby('Sex').mean()['Pclass']
 ```
 
-## Create binned values
+### Create binned values
 
 ```python
 df_titanic['AgeClass'] = pd.cut(df_titanic['Age'], bins=np.arange(0, 90, 10))
@@ -473,7 +472,7 @@ df_titanic['AgeClass']
 ```
 
 
-# Second Case study: air quality in Paris (Source: Airparif)
+## Second Case study: air quality in Paris (Source: Airparif)
 
 ```python
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
@@ -487,14 +486,14 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 !head -26 ./20080421_20160927-PA13_auto.csv
 ```
 
-Alternatively :
+Alternatively:
 
 ```python
 get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
 ```
 
-## Times series help:
-https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html
+Time series help:
+<https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html>
 
 ```python
 polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
@@ -508,9 +507,10 @@ pd.options.display.max_rows = 30
 polution_df.head(25)
 ```
 
-## Preprocess the data
+### Data preprocessing
 
-## <font color='red'> EXERCISE : handling missing values </font>
+### <font color='red'> EXERCISE : handling missing values </font>
+
 What is the meaning of "na_values="n/d" above?
 Note that an alternative can be obtained with the command
 `polution_df.replace('n/d', np.nan, inplace=True)`
@@ -626,9 +626,9 @@ plt.show()
 
 ### <font color='red'> EXERCISE : worst of the day </font>
  Provide the same plots as before, but with daily best and worst on the same
- figures (and use different color and/or style)
+ figures (and use different colors and/or styles)
 
-Q: Is the polution getting better along the years or not?
+Q: Is the pollution getting better over the years or not?
 
 ```python
 ax = polution_ts['2008':].resample('Y').mean().plot(figsize=(4, 4))
@@ -839,10 +839,10 @@ df_bike2.dropna(inplace=True)
 ```
 
 
-### <font color='red'> EXERCISE : Is the helmet saving your life?  </font>
-Peform an analysis so that you can check the benefit or not of wearing
+### <font color='red'> EXERCISE: Is the helmet saving your life? </font>
+Perform an analysis so that you can check the benefit or not of wearing a
 helmet to save your life.
-Beware preprocessing needed to use `pd.crosstab`, `pivot_table` to avoid
+Beware: preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
 issues.
 
 ```python
@@ -865,9 +865,9 @@ pd.crosstab(df_bike2['existence securite'],
             aggfunc='count', normalize='index') * 100
 ```
 
-### <font color='red'> EXERCISE :
-Are men and women dying equally on a bike ? </font>
-Peform an analysis to check differences between men and woman survival ?
+### <font color='red'> EXERCISE: Are men and women dying equally on a bike? </font>
+
+Perform an analysis to check differences between men's and women's survival.
 
 ```python
 idx_dead = df_bikes['gravite accident'] == '3 - Tué'
@@ -889,11 +889,11 @@ pd.crosstab(df_bike2['sexe'],
 ```
 
 
-### To conclude:
+### To conclude
 Note: information on the level of bike practice by men/women is missing...
 
-### <font color='red'> EXERCISE : Accident during the week?  </font>
-Peform an analysis to check when the accidents are occuring during the week.
+### <font color='red'> EXERCISE: Accident during the week?</font>
+Perform an analysis to check when the accidents are occurring during the week.
 
 
 ```python
@@ -930,8 +930,8 @@ df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count()
 ```
 
-### <font color='red'> EXERCISE : Accident during the year?  </font>
-Peform an analysis to check when the accidents are occuring during the week.
+### <font color='red'> EXERCISE: Accident during the year?</font>
+Perform an analysis to check when the accidents are occurring during the week.
 
 ```python
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
@@ -961,7 +961,7 @@ plt.tight_layout()
 
 
 ### <font color='red'> EXERCISE : Accidents by departement </font>
-Peform an analysis to check when the accidents are occuring by departement.
+Perform an analysis to check when the accidents are occurring by departement.
 
 ```python
 import pygal

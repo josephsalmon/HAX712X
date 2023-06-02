@@ -1,15 +1,15 @@
- # SciPy - scientific library in `python`
+---
+title: SciPy - scientific library in `python`
+---
 
-    Joseph Salmon : joseph.salmon@umontpellier.fr
-
- Adapted from
+ Adapted from the notebooks by
 
  - A. Gramfort (alexandre.gramfort@inria.fr) http://alexandre.gramfort.net/
  - J.R. Johansson (robert@riken.jp) http://dml.riken.jp/~rob/
 
- ## Introduction
+## Introduction
 
- SciPy build upon NumPy.
+ SciPy builds upon NumPy.
 
 
  Among others, SciPy deals with:
@@ -33,9 +33,9 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 ```
 
-# Animation display with `python`
+## Animation display with `python`
 
-## Animation with `matplotlib`
+### Animation with `matplotlib`
 VSCode backend cannot handle the example out of the box...
 Use that one in a terminal.
 
@@ -71,8 +71,9 @@ from IPython.display import HTML
 HTML(ani.to_jshtml())
 ```
 
-# Animation with `plotly'
-`matplotlib` works fine for advance tuning, but is harder for simple tasks.
+## Animation with `plotly`
+
+`matplotlib` works fine for advanced tuning, but is harder for simple tasks.
 So just try `plotly` for basic animations:
 
 ```python
@@ -97,12 +98,12 @@ fig = px.scatter(
 fig.show("notebook")
 ```
 
- ## Linear algebra
+## Linear algebra
 
- `scipy` for linear algebra : use `linalg`. It includes function for solving
- lineair systems, eigen value decomposition, SVD, Gaussian elimination (LU, Cholesky), etc.
+ `scipy` for linear algebra : use `linalg`. It includes functions for solving
+ linear systems, eigenvalues decomposition, SVD, Gaussian elimination (LU, Cholesky), etc.
 
- Documentation : http://docs.scipy.org/doc/scipy/reference/linalg.html
+ Documentation: http://docs.scipy.org/doc/scipy/reference/linalg.html
 
 ### Solving linear systems:
 Find $x$ such that: $A x = b$
@@ -125,7 +126,7 @@ print(b.shape)
 ```
 
 
-Check the result at given precision (different from ==)
+Check the result at a given precision (different from ==)
 
 ```python
 np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
@@ -135,7 +136,7 @@ np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
 
 #### Eigen values / vectors
 
-$A v_n = \lambda_n v_n$ with $v_n$ the $n$-th eigen vector and $\lambda_n$ the $n$-th eigen value. The associated `python` functions are `eigvals` abd `eig`:
+$A v_n = \lambda_n v_n$ with $v_n$ the $n$-th eigen vector and $\lambda_n$ the $n$-th eigen value. The associated `python` functions are `eigvals` and `eig`:
 
 ```python
 A = np.random.randn(3, 3)
@@ -152,12 +153,12 @@ np.allclose(A, evecs @ np.diag(evals) @ evecs.T)
 ### <font color='red'> EXERCISE : Eigen values/vectors</font>
 
 Verify numerically that the output from `linalg.eig` are indeed approximately
-eigen values and eigen vectors of the matrix A above.
+eigen values and eigen vectors of matrix A above.
 
 *Hint* : use https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html
 
 If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
-this is more robust, and leverages the structures (you know they are real!)
+this is more robust and leverages the structures (you know they are real!)
 
 ### Matrix operations
 
@@ -173,7 +174,7 @@ print(linalg.norm(A, ord=np.inf))
 
 
 ### <font color='red'> EXERCISE : Norms computation</font>
-Check numerically what is the instruction  `linalg.norm(A, ord=np.inf)`
+Check numerically what is the instruction `linalg.norm(A, ord=np.inf)`
 really computing.
 Double check with the help, and a numerical test.
 
@@ -183,7 +184,7 @@ A = np.random.randn(3, 3)
 print(linalg.norm(A, ord=np.inf))
 ```
 
-# Random generation, distributions, etc.
+## Random generation, distributions, etc.
 (see more on this at <https://albertcthomas.github.io/good-practices-random-number-generators/> or <https://numpy.org/doc/1.18/reference/random/legacy.html#numpy.random.RandomState>)
 
 ```python
@@ -198,14 +199,14 @@ Visualization of various popular distributions are available here (see widgets):
 
 ## Optimization
 **Goal**: find functions minima or maxima
-Doc : http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html
+Documentation: http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html
 
 
 ```python
 from scipy import optimize
 ```
 
-### Finding a (local!) minima
+### Finding (local!) minima
 
 ```python
 def f(x):
@@ -515,13 +516,13 @@ plt.imshow(img)
 plt.show()
 ```
 
-# More for colors/ images:
-http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf
+# More on colors/ images:
+<http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf>
 
 
 
-## Addionnal lectures
-* http://www.scipy.org - The official web page for the SciPy project.
-* http://docs.scipy.org/doc/scipy/reference/tutorial/index.html - A tutorial on how to get started using SciPy.
-* https://github.com/scipy/scipy/ - The SciPy source code.
-* http://scipy-lectures.github.io
+## Additional lectures
+* <http://www.scipy.org> - The official web page for the SciPy project.
+* <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html> - A tutorial on how to get started using SciPy.
+* <https://github.com/scipy/scipy/> - The SciPy source code.
+* <http://scipy-lectures.github.io>
