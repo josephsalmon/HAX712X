@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HAX712X: Software development for data sciences – tp</title>
+<title>HAX712X: Software development for data sciences - Time and memory efficiency</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,6 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../Courses/Venv/tp.html" rel="next">
+<link href="../../Courses/Test/tp.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -147,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">HAX712X: Software development for data sciences</h1>
+      <h1 class="quarto-secondary-nav-title">Time and memory efficiency</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -195,12 +197,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Setting up your local git identity</a>
+  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Git: version control</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">Integrated development environment</a>
+  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">IDE: Integrated Development Environment</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -215,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">Animation display with <code>python</code></a>
+  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">SciPy - scientific library in <code>python</code></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -233,65 +235,105 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Courses/ClassesExceptions/tp.html" class="sidebar-item-text sidebar-link">Classes and Exceptions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Projects/2021-2022/README.html" class="sidebar-item-text sidebar-link">2021-2022</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Projects/2022-2023/README.html" class="sidebar-item-text sidebar-link">2022-2023</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#time-and-memory-efficiency" id="toc-time-and-memory-efficiency" class="nav-link active" data-scroll-target="#time-and-memory-efficiency">Time and memory efficiency</a>
-  <ul>
-  <li><a href="#time-computation-usage-of-timeit" id="toc-time-computation-usage-of-timeit" class="nav-link" data-scroll-target="#time-computation-usage-of-timeit">Time / computation: usage of <code>%timeit</code></a></li>
+  <li><a href="#timecomputation-usage-of-timeit" id="toc-timecomputation-usage-of-timeit" class="nav-link active" data-scroll-target="#timecomputation-usage-of-timeit">Time/computation: usage of <code>%timeit</code></a></li>
   <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives">Alternatives</a></li>
-  <li><a href="#sparse-matrices-graphs-and-memory" id="toc-sparse-matrices-graphs-and-memory" class="nav-link" data-scroll-target="#sparse-matrices-graphs-and-memory">Sparse matrices, graphs and memory</a></li>
-  <li><a href="#most-common-formats" id="toc-most-common-formats" class="nav-link" data-scroll-target="#most-common-formats">Most common formats:</a></li>
-  </ul></li>
-  <li><a href="#matrix-vector-product-as-usual-also-can-use-np.dot" id="toc-matrix-vector-product-as-usual-also-can-use-np.dot" class="nav-link" data-scroll-target="#matrix-vector-product-as-usual-also-can-use-np.dot">matrix vector product: as usual (also can use np.dot())</a>
+  <li><a href="#sparse-matrices-graphs-and-memory" id="toc-sparse-matrices-graphs-and-memory" class="nav-link" data-scroll-target="#sparse-matrices-graphs-and-memory">Sparse matrices, graphs and memory</a>
   <ul>
+  <li><a href="#most-common-formats" id="toc-most-common-formats" class="nav-link" data-scroll-target="#most-common-formats">Most common formats</a></li>
   <li><a href="#graphs-and-sparsity" id="toc-graphs-and-sparsity" class="nav-link" data-scroll-target="#graphs-and-sparsity">Graphs and sparsity</a>
   <ul>
-  <li><a href="#exercise-create-a-linear-model-that-can-handle-sparse-matrices-in-particular-how-would-you-do-the-usual-pre-processing-step-of-standardizing-the-columns-of-the-design-matrix" id="toc-exercise-create-a-linear-model-that-can-handle-sparse-matrices-in-particular-how-would-you-do-the-usual-pre-processing-step-of-standardizing-the-columns-of-the-design-matrix" class="nav-link" data-scroll-target="#exercise-create-a-linear-model-that-can-handle-sparse-matrices-in-particular-how-would-you-do-the-usual-pre-processing-step-of-standardizing-the-columns-of-the-design-matrix"><font color="red"> EXERCISE : Create a linear model that can handle sparse matrices, in particular how would you do the usual pre-processing step of standardizing the columns of the design matrix?</font></a></li><font color="red">
-  <li><a href="#exercise-edges" id="toc-exercise-edges" class="nav-link" data-scroll-target="#exercise-edges"><font color="red"> EXERCISE : edges </font></a></li>
-  </font></ul></li><font color="red">
+  <li><a href="#definition-adjacency-matrix" id="toc-definition-adjacency-matrix" class="nav-link" data-scroll-target="#definition-adjacency-matrix">Definition: <em>adjacency matrix</em></a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><font color="red"> EXERCISE </font></a></li>
+  <li><a href="#exercise-edges" id="toc-exercise-edges" class="nav-link" data-scroll-target="#exercise-edges"><font color="red"> EXERCISE: edges </font></a></li>
+  </ul></li>
   <li><a href="#definition-incidence-matrix" id="toc-definition-incidence-matrix" class="nav-link" data-scroll-target="#definition-incidence-matrix">Definition : <em>incidence matrix</em></a></li>
   <li><a href="#definition-laplacian-matrix" id="toc-definition-laplacian-matrix" class="nav-link" data-scroll-target="#definition-laplacian-matrix">Definition : <em>Laplacian matrix</em></a></li>
-  <li><a href="#interactive-graph-visualisation" id="toc-interactive-graph-visualisation" class="nav-link" data-scroll-target="#interactive-graph-visualisation">Interactive graph visualisation</a></li>
-  <li><a href="#possible-visualization-with-javascript-not-so-stable-though-can-be-skipped." id="toc-possible-visualization-with-javascript-not-so-stable-though-can-be-skipped." class="nav-link" data-scroll-target="#possible-visualization-with-javascript-not-so-stable-though-can-be-skipped.">Possible visualization with Javascript… not so stable though, can be skipped.</a></li>
-  </font></ul></li><font color="red">
-  <li><a href="#planars-graphs-and-maps" id="toc-planars-graphs-and-maps" class="nav-link" data-scroll-target="#planars-graphs-and-maps">Planars graphs and maps :</a></li>
-  <li><a href="#special-case-for-osmnx-on-windows-follow-the-next-step-in-order" id="toc-special-case-for-osmnx-on-windows-follow-the-next-step-in-order" class="nav-link" data-scroll-target="#special-case-for-osmnx-on-windows-follow-the-next-step-in-order">Special case for <code>osmnx</code> on <code>Windows</code> follow the next step in order:</a></li>
+  <li><a href="#interactive-graph-visualisation" id="toc-interactive-graph-visualisation" class="nav-link" data-scroll-target="#interactive-graph-visualisation">Interactive graph visualisation</a>
+  <ul>
+  <li><a href="#planars-graphs-and-mapss" id="toc-planars-graphs-and-mapss" class="nav-link" data-scroll-target="#planars-graphs-and-mapss">Planars graphs and mapss</a></li>
+  </ul></li>
   <li><a href="#visualize-shorthest-path-between-two-points." id="toc-visualize-shorthest-path-between-two-points." class="nav-link" data-scroll-target="#visualize-shorthest-path-between-two-points.">Visualize shorthest path between two points.</a>
   <ul>
   <li><a href="#graph-sparsity" id="toc-graph-sparsity" class="nav-link" data-scroll-target="#graph-sparsity">Graph sparsity</a></li>
   <li><a href="#for-more-on-profiling" id="toc-for-more-on-profiling" class="nav-link" data-scroll-target="#for-more-on-profiling">For more on profiling</a></li>
-  <li><a href="#debugging-package-pdb" id="toc-debugging-package-pdb" class="nav-link" data-scroll-target="#debugging-package-pdb">Debugging : package <code>pdb</code></a></li>
+  <li><a href="#debugging-package-pdb" id="toc-debugging-package-pdb" class="nav-link" data-scroll-target="#debugging-package-pdb">Debugging: package <code>pdb</code></a></li>
   </ul></li>
-  </font></ul><font color="red">
-</font></nav>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/TimeMemory/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Time and memory efficiency</h1>
+</div>
 
-<font color="red">
-<section id="time-and-memory-efficiency" class="level1">
-<h1>Time and memory efficiency</h1>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="time-computation-usage-of-timeit" class="level2">
-<h2 class="anchored" data-anchor-id="time-computation-usage-of-timeit">Time / computation: usage of <code>%timeit</code></h2>
-<p>Other <em>magic</em> are %timeit, %matplotlib, %autoreload: cf. https://ipython.org/ipython-doc/3/interactive/magics.html https://ipython.org/ipython-doc/3/config/extensions/autoreload.html</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> <span class="fl">5.4</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'fill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="timecomputation-usage-of-timeit" class="level2">
+<h2 class="anchored" data-anchor-id="timecomputation-usage-of-timeit">Time/computation: usage of <code>%timeit</code></h2>
+<p><em>magic</em> commands are commands such as: %timeit, %matplotlib, %autoreload; see for instance</p>
+<ul>
+<li><a href="https://ipython.org/ipython-doc/3/interactive/magics.html" class="uri">https://ipython.org/ipython-doc/3/interactive/magics.html</a></li>
+<li><a href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html" class="uri">https://ipython.org/ipython-doc/3/config/extensions/autoreload.html</a></li>
+</ul>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> <span class="fl">5.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.empty(n)<span class="op">;</span> a.fill(val)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a `magic` command, works only in interactive case (Ipython, Notebook, Jupyter lab etc.)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a `magic` command, that works only in interactive cases (Ipython, Notebook, Jupyter lab etc.)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative: uncomment below</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'empty'</span>)</span>
@@ -313,12 +355,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="sparse-matrices-graphs-and-memory" class="level2">
 <h2 class="anchored" data-anchor-id="sparse-matrices-graphs-and-memory">Sparse matrices, graphs and memory</h2>
-<p>Sparse matrices are useful to to handle potentially huge matrices, that have only few non-zero coefficients. http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices</p>
-<p>https://rushter.com/blog/scipy-sparse-matrices/ http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy/ <strong>Examples</strong>: - natural language processing: we encode the presence of a word from a dictionary (let’s say the set of French words) and we put 0 / 1 in case of absence / presence of a word. - One-hot encoding, used to represent categorical data as sparse binary vectors. - the discretization of a physical system where very distant influences are set to zero (e.g.&nbsp;heat diffusion, fluid mechanics, electro/magnetism, etc.) - graphs: graphs are naturally represented by adjacency or incidence matrices (cf.&nbsp;below), and therefore beyond the graphs, maps!</p>
-</section>
-<section id="most-common-formats" class="level2">
-<h2 class="anchored" data-anchor-id="most-common-formats">Most common formats:</h2>
-<p>https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse - coo_matrix(arg1[, shape, dtype, copy]): A sparse matrix in COOrdinate format. - csc_matrix(arg1[, shape, dtype, copy]): Compressed Sparse Column matrix - csr_matrix(arg1[, shape, dtype, copy]): Compressed Sparse Row matrix</p>
+<p>Sparse matrices are useful to handle potentially huge matrices, that have only a few non-zero coefficients:</p>
+<ul>
+<li><p><a href="http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices" class="uri">http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices</a></p></li>
+<li><p><a href="https://rushter.com/blog/scipy-sparse-matrices/" class="uri">https://rushter.com/blog/scipy-sparse-matrices/</a></p></li>
+<li><p><a href="http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy" class="uri">http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy</a></p></li>
+</ul>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li>natural language processing: we encode the presence of a word from a dictionary (let’s say the set of French words) and we put 0 / 1 in case of absence/presence of a word.</li>
+<li>One-hot encoding, used to represent categorical data as sparse binary vectors.</li>
+<li>the discretization of a physical system where very distant influences are set to zero (e.g.&nbsp;heat diffusion, fluid mechanics, electro/magnetism, etc.)</li>
+<li>graphs: graphs are naturally represented by adjacency or incidence matrices (cf.&nbsp;below), and therefore beyond the graphs, maps!</li>
+</ul>
+<section id="most-common-formats" class="level3">
+<h3 class="anchored" data-anchor-id="most-common-formats">Most common formats</h3>
+<ul>
+<li>coo_matrix(arg1[, shape, dtype, copy]): A sparse matrix in COOrdinate format.</li>
+<li>csc_matrix(arg1[, shape, dtype, copy]): Compressed Sparse Column matrix</li>
+<li>csr_matrix(arg1[, shape, dtype, copy]): Compressed Sparse Row matrix</li>
+</ul>
+<p><a href="https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse" class="uri">https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse</a></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> sparse</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse <span class="im">import</span> isspmatrix</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -332,226 +389,227 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                      random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mat_rnd.toarray())</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Q: Is the matrix mat_rnd is sparse?</span><span class="ch">\n</span><span class="ss">A: </span><span class="sc">{</span>isspmatrix(mat_rnd)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="matrix-vector-product-as-usual-also-can-use-np.dot" class="level1">
-<h1>matrix vector product: as usual (also can use np.dot())</h1>
+<p>A matrix-vector product: as usual (also can use <code>np.dot()</code>)</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.random.rand(n2)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mat_rnd<span class="op">@</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="graphs-and-sparsity" class="level2">
-<h2 class="anchored" data-anchor-id="graphs-and-sparsity">Graphs and sparsity</h2>
+</section>
+<section id="graphs-and-sparsity" class="level3">
+<h3 class="anchored" data-anchor-id="graphs-and-sparsity">Graphs and sparsity</h3>
 <p>A classical framework for the application of sparse matrices is with graphs: although the number of nodes can be huge, each node of a graph is in general not connected to all nodes. If we represent a graph by its adjacency matrix:</p>
-<p>## Definition: <em>adjacency matrix</em>: Suppose that <span class="math inline">G=(V,E)</span> is a graph, where <span class="math inline">\left|V\right|=n</span>. Suppose that the vertices of <span class="math inline">G</span> are arbitrarily numbered <span class="math inline">v_1,\ldots,v_n.</span> The adjacency matrix <span class="math inline">A</span> of <span class="math inline">G</span> is the matrix <span class="math inline">n \times n</span> of general term:</p>
-<pre class="math"><code>A_{{i,j}}=
+<section id="definition-adjacency-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="definition-adjacency-matrix">Definition: <em>adjacency matrix</em></h4>
+<p>Suppose that <span class="math inline">G=(V,E)</span> is a graph, where <span class="math inline">\left|V\right|=n</span>. Suppose that the vertices of <span class="math inline">G</span> are arbitrarily numbered <span class="math inline">v_1,\ldots,v_n.</span> The adjacency matrix <span class="math inline">A</span> of <span class="math inline">G</span> is the matrix <span class="math inline">n \times n</span> of general term:</p>
+<p><span class="math display">
+A_{{i,j}}=
 \left\{
-    \begin{array}{rl}
-        1, &amp; \text{if } (v_i,v_j) \in E \\
-        0, &amp; \text{o.w.}
-     \end{array}
-\right.</code></pre>
-<section id="exercise-create-a-linear-model-that-can-handle-sparse-matrices-in-particular-how-would-you-do-the-usual-pre-processing-step-of-standardizing-the-columns-of-the-design-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-create-a-linear-model-that-can-handle-sparse-matrices-in-particular-how-would-you-do-the-usual-pre-processing-step-of-standardizing-the-columns-of-the-design-matrix"><font color="red"> EXERCISE : Create a linear model that can handle sparse matrices, in particular how would you do the usual pre-processing step of standardizing the columns of the design matrix?</font></h3><font color="red">
-</font><p><font color="red"></font></p>
+     \begin{array}{rl}
+         1, &amp; \text{if } (v_i,v_j) \in E \\
+         0, &amp; \text{o.w.}
+      \end{array}
+\right.
+</span></p>
+</section>
+</section>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise"><font color="red"> EXERCISE </font></h3>
+<p>Create a linear model that can handle sparse matrices, in particular, how would you do the usual pre-processing step of standardizing the columns of the design matrix?</p>
 <p>Usage depends on the nature and structure of the data: - <code>csc_matrix</code> is more efficient for <code>slicing</code> by column - <code>csr_matrix</code> is more efficient for the row case.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>nx.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'C'</span>, weight<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'B'</span>, <span class="st">'D'</span>, weight<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'C'</span>, <span class="st">'D'</span>, weight<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'D'</span>, <span class="st">'A'</span>, weight<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>my_seed <span class="op">=</span> <span class="dv">44</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx(G, with_labels<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                 pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed))</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> nx.get_edge_attributes(G, <span class="st">"weight"</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edge_labels(G,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                             pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed),</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>                             edge_labels<span class="op">=</span>labels)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edges(G, pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed),</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                       width<span class="op">=</span><span class="bu">list</span>(labels.values()))</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>nx.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'C'</span>, weight<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'B'</span>, <span class="st">'D'</span>, weight<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'C'</span>, <span class="st">'D'</span>, weight<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'D'</span>, <span class="st">'A'</span>, weight<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>my_seed <span class="op">=</span> <span class="dv">44</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx(G, with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                 pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> nx.get_edge_attributes(G, <span class="st">"weight"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edge_labels(G,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                             pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                             edge_labels<span class="op">=</span>labels)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edges(G, pos<span class="op">=</span>nx.spring_layout(G, seed<span class="op">=</span>my_seed),</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                       width<span class="op">=</span><span class="bu">list</span>(labels.values()))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="exercise-edges" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-edges"><font color="red"> EXERCISE : edges </font></h3>
+<h3 class="anchored" data-anchor-id="exercise-edges"><font color="red"> EXERCISE: edges </font></h3>
 <ol type="1">
 <li>show edges weights on the graph</li>
 <li>change the edge width to be proportional to the edge weights</li>
 </ol>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(A))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(A.todense())</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>nx.shortest_path(G, <span class="st">'C'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="st">'weight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(A))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(A.todense())</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>nx.shortest_path(G, <span class="st">'C'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="st">'weight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="definition-incidence-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="definition-incidence-matrix">Definition : <em>incidence matrix</em></h2>
 <p>Let <span class="math inline">G = (V,E)</span> be a (non-oriented) graph with <span class="math inline">n</span> vertices, <span class="math inline">V = [1,\dots,n]</span>, and <span class="math inline">p</span> edges, <span class="math inline">E = [1,\dots,p]</span>. The graph can be represented by its vertex-edge incidence matrix <span class="math inline">D^\top \in \mathbb{R}^{p \times n}</span> defined by</p>
-<pre class="math"><code>(D^\top)_{{e,v}} =
+<p><span class="math display">
+(D^\top)_{{e,v}} =
 \left\{
      \begin{array}{rl}
     + 1, &amp; \text{if } v = \min(i,j) \\
     -1, &amp; \text{si } v = \max(i,j) \\
     0, &amp; \text{sinon}
   \end{array}
-  \right.</code></pre>
+  \right.
+</span></p>
 <p>where <span class="math inline">e = (i,j)</span>.</p>
 </section>
 <section id="definition-laplacian-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="definition-laplacian-matrix">Definition : <em>Laplacian matrix</em></h2>
 <p>The matrix <span class="math inline">L=D D^\top</span> is the so-called graph Laplacian of <span class="math inline">G</span></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(D))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(D.todense())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(D))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(D.todense())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="interactive-graph-visualisation" class="level2">
 <h2 class="anchored" data-anchor-id="interactive-graph-visualisation">Interactive graph visualisation</h2>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))<span class="op">;</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx(g, ax<span class="op">=</span>ax)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>fig, ax = plt.subplots()
-
-A = nx.adjacency_matrix(g).T
-
-print(A.todense())
-ax = plt.spy(A)
-
-print((g.number_of_edges() / g.number_of_nodes()**2) * 100)</code></pre>
-</section>
-<section id="possible-visualization-with-javascript-not-so-stable-though-can-be-skipped." class="level2">
-<h2 class="anchored" data-anchor-id="possible-visualization-with-javascript-not-so-stable-though-can-be-skipped.">Possible visualization with Javascript… not so stable though, can be skipped.</h2>
-<pre><code># https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/
-# https://github.com/brandomr/ner2sna
-
-# %%
-
-from IPython.display import HTML
-
-
-# %%
-
-get_ipython().run_cell_magic('HTML', '', "\n&lt;iframe height=400px width=100% src='force.html'&gt;&lt;/iframe&gt;")</code></pre>
-</section>
-</section>
-<section id="planars-graphs-and-maps" class="level1">
-<h1>Planars graphs and maps :</h1>
-<p>Open Street Map interfaced with Networkx, using the package <code>osmnx</code>: !!! Known bug: https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library and https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx so pick version 0.14 at least <code>conda install osmnx&gt;=0.14</code> or <code>pip install osmnx&gt;=0.10</code> For Windows users there might be some trouble with installing the <code>fiona</code> package, see: https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda and https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os/</p>
-</section>
-<section id="special-case-for-osmnx-on-windows-follow-the-next-step-in-order" class="level1">
-<h1>Special case for <code>osmnx</code> on <code>Windows</code> follow the next step in order:</h1>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))<span class="op">;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx(g, ax<span class="op">=</span>ax)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(g).T</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(A.todense())</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.spy(A)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((g.number_of_edges() <span class="op">/</span> g.number_of_nodes()<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Remark: a possible visualization with Javascript (not so stable though, can be skipped)</p>
 <ul>
-<li><code>pip install osmnx</code></li>
-<li><code>pip install Rtree</code></li>
-<li><code>conda install -c conda-forge libspatialindex=1.9.3</code></li>
-<li><code>pip install osmnx</code></li>
-<li>Install all packages required up to <code>fiona</code>.</li>
-<li><code>conda install -c conda-forge geopandas</code></li>
-<li>say yes to everything</li>
-<li>Once done, launch <code>pip install osmnx==1.0.1</code> You will also need to install the package <code>folium</code></li>
+<li><a href="https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/" class="uri">https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/</a></li>
+<li><a href="https://github.com/brandomr/ner2sna" class="uri">https://github.com/brandomr/ner2sna</a></li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>map_osm <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>map_osm.add_child(folium.RegularPolygonMarker(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>],</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                  fill_color<span class="op">=</span><span class="st">'#132b5e'</span>, radius<span class="op">=</span><span class="dv">5</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>map_osm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ox.utils.config(use_cache<span class="op">=</span><span class="va">True</span>)  <span class="co"># caching large download</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ox.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ox.graph_from_place(<span class="st">'Montpellier, France'</span>, network_type<span class="op">=</span><span class="st">'bike'</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb edges: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_edges()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb nodes: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_nodes()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ox.plot_graph(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    get_ipython().run_cell_magic(<span class="st">'HTML'</span>, <span class="st">''</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">&lt;iframe height=400px width=100</span><span class="sc">% s</span><span class="st">rc='force.html'&gt;&lt;/iframe&gt;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="planars-graphs-and-mapss" class="level3">
+<h3 class="anchored" data-anchor-id="planars-graphs-and-mapss">Planars graphs and mapss</h3>
+<p>Open Street Map interfaced with <code>networkx</code>, using the package <code>osmnx</code>!!!</p>
+<p><strong>Known bug</strong>: - <a href="https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library" class="uri">https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library</a> and - <a href="https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx" class="uri">https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx</a> so pick version 0.14 at least <code>conda install osmnx&gt;=0.14</code> or <code>pip install osmnx&gt;=0.10</code>.</p>
+<p>For <strong>Windows users</strong>, there might be some trouble with installing the <code>fiona</code> package, see:</p>
+<ul>
+<li><p><a href="https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda" class="uri">https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda</a></p></li>
+<li><p><a href="https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os" class="uri">https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os</a></p></li>
+</ul>
+<p>Special case for <code>osmnx</code> on <strong>Windows</strong> follow the next step in order: * <code>pip install osmnx</code> * <code>pip install Rtree</code> * <code>conda install -c conda-forge libspatialindex=1.9.3</code> * <code>pip install osmnx</code> * Install all packages required up to <code>fiona</code>. * <code>conda install -c conda-forge geopandas</code> * say yes to everything * Once done, launch <code>pip install osmnx==1.0.1</code> You will also need to install the package <code>folium</code></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>map_osm <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>map_osm.add_child(folium.RegularPolygonMarker(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>],</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                  fill_color<span class="op">=</span><span class="st">'#132b5e'</span>, radius<span class="op">=</span><span class="dv">5</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>map_osm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ox.utils.config(use_cache<span class="op">=</span><span class="va">True</span>)  <span class="co"># caching large download</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ox.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ox.graph_from_place(<span class="st">'Montpellier, France'</span>, network_type<span class="op">=</span><span class="st">'bike'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb edges: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_edges()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb nodes: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_nodes()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ox.plot_graph(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 </section>
 <section id="visualize-shorthest-path-between-two-points." class="level1">
 <h1>Visualize shorthest path between two points.</h1>
 <p>https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>origin <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Place Eugène Bataillon, Montpellier, France'</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>destination <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Maison du Lez, Montpellier, France'</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>origin_node <span class="op">=</span> ox.get_nearest_node(G, origin)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>destination_node <span class="op">=</span> ox.get_nearest_node(G, destination)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(origin)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(destination)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>route <span class="op">=</span> nx.shortest_path(G, origin_node, destination_node)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># XXX double check if weights are taken into account.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ox.plot_graph_route(G, route)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ox.plot_route_folium(G, route, weight<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span><span class="st">'#AA1111'</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Adapted from : https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>G.is_multigraph()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">False</span>, edges<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">True</span>, edges<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check columns</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges.columns)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nodes.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> np.zeros(<span class="dv">1</span>, dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>mem <span class="op">=</span> np.prod(D.shape) <span class="op">*</span> element.data.nbytes <span class="op">/</span> (<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of full matrix with zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(mem))</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of sparse matrix: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(D.data.nbytes<span class="op">/</span>(<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>) ))</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ratio  of full matrix size / sparse: </span><span class="sc">{0:3.2f}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> D.data.nbytes <span class="op">/</span> (<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span> <span class="op">*</span> mem)))</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(D))</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>```python</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="op">**</span>Alternatively<span class="op">**</span>: you can uncomment the following line,</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> check that the size of a similar matrix, <span class="cf">with</span> non<span class="op">-</span>sparse</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span> would be.</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>```<span class="op">&gt;&gt;&gt;</span> Size of full matrix <span class="cf">with</span> zeros: <span class="dv">4</span> gB```</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>Creation a matrix of similar size. BEWARE CREATE HUGE MATRIX:</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>```python</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.random.randn(G.number_of_nodes(), G.number_of_nodes())</span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of full matrix with zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(M.nbytes<span class="op">/</span>(<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>origin <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Place Eugène Bataillon, Montpellier, France'</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>destination <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Maison du Lez, Montpellier, France'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>origin_node <span class="op">=</span> ox.get_nearest_node(G, origin)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>destination_node <span class="op">=</span> ox.get_nearest_node(G, destination)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(origin)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(destination)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>route <span class="op">=</span> nx.shortest_path(G, origin_node, destination_node)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># XXX double check if weights are taken into account.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ox.plot_graph_route(G, route)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ox.plot_route_folium(G, route, weight<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span><span class="st">'#AA1111'</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Adapted from: <a href="https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/" class="uri">https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/</a></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>G.is_multigraph()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">False</span>, edges<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">True</span>, edges<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check columns</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges.columns)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nodes.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> np.zeros(<span class="dv">1</span>, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>mem <span class="op">=</span> np.prod(D.shape) <span class="op">*</span> element.data.nbytes <span class="op">/</span> (<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of full matrix with zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(mem))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of sparse matrix: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(D.data.nbytes<span class="op">/</span>(<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>) ))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ratio  of full matrix size / sparse: </span><span class="sc">{0:3.2f}</span><span class="st">%'</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> D.data.nbytes <span class="op">/</span> (<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span> <span class="op">*</span> mem)))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(D))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="op">**</span>Alternatively<span class="op">**</span>: you can uncomment the following line,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> check that the size of a similar matrix, <span class="cf">with</span> non<span class="op">-</span>sparse</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span> would be.</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>```<span class="op">&gt;&gt;&gt;</span> Size of full matrix <span class="cf">with</span> zeros: <span class="dv">4</span> gB```</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>Create a matrix of similar size. BEWARE CREATE HUGE MATRIX:</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.random.randn(G.number_of_nodes(), G.number_of_nodes())</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of full matrix with zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(M.nbytes<span class="op">/</span>(<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="graph-sparsity" class="level3">
 <h3 class="anchored" data-anchor-id="graph-sparsity">Graph sparsity</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" </span><span class="sc">{0:.2}</span><span class="st"> </span><span class="sc">% o</span><span class="st">f edges only are needed to represent the graph of Montpellier"</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> G.number_of_edges() <span class="op">/</span> G.number_of_nodes() <span class="op">**</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" </span><span class="sc">{0:.2}</span><span class="st"> </span><span class="sc">% o</span><span class="st">f edges only are needed to represent the graph of Montpellier"</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> G.number_of_edges() <span class="op">/</span> G.number_of_nodes() <span class="op">**</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To go further on the visualization of geographical graphs: 1. https://geoffboeing.com/2016/11/osmnx-python-street-networks/ 2. https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html 3. https://automating-gis-processes.github.io/2018/</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> geopandas.read_file(geopandas.datasets.get_path(<span class="st">'nybb'</span>))</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df.plot(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), alpha<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> geopandas.read_file(geopandas.datasets.get_path(<span class="st">'nybb'</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df.plot(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), alpha<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="for-more-on-profiling" class="level2">
 <h2 class="anchored" data-anchor-id="for-more-on-profiling">For more on profiling</h2>
-<p>In Python <code>snakeviz</code> could help, see https://jiffyclub.github.io/snakeviz/ In R, <code>profvis</code> is equivalent, see https://rstudio.github.io/profvis/</p>
+<ul>
+<li>In Python <code>snakeviz</code> could help, see <a href="https://jiffyclub.github.io/snakeviz/" class="uri">https://jiffyclub.github.io/snakeviz/</a></li>
+<li>In R, <code>profvis</code> is equivalent, see <a href="https://rstudio.github.io/profvis/" class="uri">https://rstudio.github.io/profvis/</a></li>
+</ul>
 </section>
 <section id="debugging-package-pdb" class="level2">
-<h2 class="anchored" data-anchor-id="debugging-package-pdb">Debugging : package <code>pdb</code></h2>
-<p>inspired by https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/ Let us use <code>import pdb; pdb.set_trace()</code> to enter a code and inspect it. Push the key <code>c</code> and then <code>enter</code> to go next. See also: https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa.</p>
-<p>A first recommendation is to use the Python debugger in your IDE. For VScode: see for instance https://www.youtube.com/watch?v=w8QHoVam1-I</p>
-<p>A possibility for pure Python or IPython is to use the <code>pdb</code> package and the command <code>pdb.set_trace()</code>. A command prompt launches when an error is met, and you can check the current status of the environnement. Useful shortcuts are available (e.g., touche c, touche j etc.) here: https://docs.python.org/3/library/pdb.html)</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> function_debile(x):</span>
+<h2 class="anchored" data-anchor-id="debugging-package-pdb">Debugging: package <code>pdb</code></h2>
+<p>inspired by https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/ Let us use <code>import pdb; pdb.set_trace()</code> to enter a code and inspect it. Push the key <code>c</code> and then <code>enter</code> to go next. See also: <a href="https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa" class="uri">https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa</a>.</p>
+<p>A first recommendation is to use the Python debugger in your IDE. For VScode: see for instance <a href="https://www.youtube.com/watch?v=w8QHoVam1-I" class="uri">https://www.youtube.com/watch?v=w8QHoVam1-I</a>s.</p>
+<p>Pure Python or IPython can use the <code>pdb</code> package and the command <code>pdb.set_trace()</code>. A command prompt launches when an error is met, and you can check the current status of the environment. Useful shortcuts are available (<em>e.g.,</em> touche c, touche j etc.) here: <a href="https://docs.python.org/3/library/pdb.html" class="uri">https://docs.python.org/3/library/pdb.html</a>)</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> function_debile(x):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">+=</span> x</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>function_debile(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> illustrate_pdb(x):</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">+=</span> x</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>function_debile(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> illustrate_pdb(x):</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pdb<span class="op">;</span> pdb.set_trace()</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">+=</span> x</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>illustrate_pdb(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>pdb</code>. A terminal is laucnhed when a problem occurs, and one can then take over and see what’s going on.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>get_ipython().run_line_magic(<span class="st">'pdb'</span>, <span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>```python def blobl_func(x): answer = 0 for i in range(x, -1, -1): print(i) answer += 1 / i</p>
-<pre><code>return answer</code></pre>
-<p>blobl_func(4) ```python</p>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pdb<span class="op">;</span> pdb.set_trace()</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">+=</span> x</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>illustrate_pdb(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>pdb</code>. A terminal is launched when a problem occurs, and one can then take over and see what’s going on.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>get_ipython().run_line_magic(<span class="st">'pdb'</span>, <span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> blobl_func(x):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(x, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>        answer <span class="op">+=</span> <span class="dv">1</span> <span class="op">/</span> i</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>blobl_func(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
 </section>
 
-</font></main><font color="red"> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -822,8 +880,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</font></div><font color="red"> <!-- /content -->
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Courses/Test/tp.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Unit Tests</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Courses/Venv/tp.html" class="pagination-link">
+        <span class="nav-page-text">Virtual Python Environment</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
 
 
 
-</font></body></html>
+</body></html>

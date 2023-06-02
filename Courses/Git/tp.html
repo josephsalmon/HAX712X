@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HAX712X: Software development for data sciences - Setting up your local git identity</title>
+<title>HAX712X: Software development for data sciences - Git: version control</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,6 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../Courses/IDE/tp.html" rel="next">
+<link href="../../Courses/Docs/tp.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -131,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Setting up your local git identity</h1>
+      <h1 class="quarto-secondary-nav-title">Git: version control</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -179,12 +181,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link active">Setting up your local git identity</a>
+  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link active">Git: version control</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">Integrated development environment</a>
+  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">IDE: Integrated Development Environment</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -199,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">Animation display with <code>python</code></a>
+  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">SciPy - scientific library in <code>python</code></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -217,15 +219,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Courses/ClassesExceptions/tp.html" class="sidebar-item-text sidebar-link">Classes and Exceptions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Projects/2021-2022/README.html" class="sidebar-item-text sidebar-link">2021-2022</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Projects/2022-2023/README.html" class="sidebar-item-text sidebar-link">2022-2023</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#git" id="toc-git" class="nav-link active" data-scroll-target="#git">Git</a></li>
+  <li><a href="#git-setting-your-environnement" id="toc-git-setting-your-environnement" class="nav-link active" data-scroll-target="#git-setting-your-environnement">Git: setting your environnement</a></li>
   <li><a href="#create-an-ssh-key" id="toc-create-an-ssh-key" class="nav-link" data-scroll-target="#create-an-ssh-key">Create an SSH key</a>
   <ul>
   <li><a href="#unix-system" id="toc-unix-system" class="nav-link" data-scroll-target="#unix-system">Unix system</a></li>
@@ -253,24 +283,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><font color="red"> Exercise</font></a></li>
   <li><a href="#pull-request" id="toc-pull-request" class="nav-link" data-scroll-target="#pull-request">Pull request</a></li>
   </ul></li>
-  <li><a href="#branch-merging-and-solving-conflict" id="toc-branch-merging-and-solving-conflict" class="nav-link" data-scroll-target="#branch-merging-and-solving-conflict">Branch Merging and Solving conflict</a>
+  <li><a href="#branch-merging-and-solving-conflicts" id="toc-branch-merging-and-solving-conflicts" class="nav-link" data-scroll-target="#branch-merging-and-solving-conflicts">Branch Merging and Solving conflicts</a>
   <ul>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><font color="red">Exercise</font></a></li>
   </ul></li>
   </ul></li>
   <li><a href="#to-go-further" id="toc-to-go-further" class="nav-link" data-scroll-target="#to-go-further">To go further</a></li>
   </ul>
-</nav>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/Git/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Setting up your local git identity</h1>
+<h1 class="title d-none d-lg-block">Git: version control</h1>
 </div>
 
 
@@ -285,11 +312,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="git" class="level2">
-<h2 class="anchored" data-anchor-id="git">Git</h2>
+<section id="git-setting-your-environnement" class="level2">
+<h2 class="anchored" data-anchor-id="git-setting-your-environnement">Git: setting your environnement</h2>
 <p>On a terminal, specify the email address with which you will make your commits:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.email <span class="dt">\"</span>prenom.nom@domaine.fr<span class="dt">\"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Adapt the email address</strong> prenom.nom@domaine.fr <strong>to your case!</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.email <span class="st">"prenom.nom@domaine.fr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Of course <strong>Adapt the email address</strong> prenom.nom@domaine.fr <strong>to your case!</strong></p>
 </section>
 <section id="create-an-ssh-key" class="level2">
 <h2 class="anchored" data-anchor-id="create-an-ssh-key">Create an SSH key</h2>
@@ -311,20 +338,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>GitHub is a web hosting service for remote repositories using git. GitHub includes additional features for collaboration, such as bug tracking, requests to add features or task management. Unfortunately,s GitHub does not natively include a Continuous Integration system. Note that there are other git-based hosting websites such as GitLab or BitBucket.</p>
 <section id="create-a-github-account" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-github-account">Create a GitHub account</h3>
-<p>Please go to <a href="https://github.com/" class="uri">https://github.com/</a> and follow the instructions for creating or activating of your account.</p>
+<p>Please go to <a href="https://github.com/" class="uri">https://github.com/</a> and follow the instructions for creating or activating your account.</p>
 </section>
 <section id="add-your-ssh-key" class="level3">
 <h3 class="anchored" data-anchor-id="add-your-ssh-key">Add your SSH key</h3>
 <p>To display your public key, simply type in a terminal,</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat ~/.ssh/id_rsa.pub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Copy the result into the clipboard and add your key into your GitHub account. See <a href="https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account" class="uri">https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account</a></p>
+<p>Copy the result into the clipboard and add your key to your GitHub account. See <a href="https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account" class="uri">https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account</a></p>
 <p>To check your installation, please follow the instructions <a href="https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection" class="uri">https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection</a></p>
 </section>
 <section id="create-a-remote-repository" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-remote-repository">Create a remote repository</h2>
 <p>Let us create a remote repository hosted on your GitHub account.</p>
 <p>On GitHub, click on the <code>+</code> symbol at the top right of the page, then <code>New repository</code>. Give the name <code>FirstRepo</code> to your new project and a short description.</p>
-<p>Create a <strong>public</strong> repository, meaning that everyone can access to your code (read only). Finish by clicking on <code>Create repository</code>.</p>
+<p>Create a <strong>public</strong> repository, meaning that everyone can access your code (read-only). Finish by clicking on <code>Create repository</code>.</p>
 <p>Follow the instructions provided by GitHub to create your local copy of the repository: 1. Create a new folder called <code>FirstRepo</code> in your <code>home</code> directory and <code>cd</code> to it 2. Then execute the following command</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"# FirstRepo"</span> <span class="op">&gt;&gt;</span> README.md</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
@@ -363,32 +390,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="debugging" class="level2">
 <h2 class="anchored" data-anchor-id="debugging">Debugging</h2>
-<p>A bug has appeared into the python module after some commit. An issue has been opened in the bug tracking system at <a href="https://github.com/bcharlier/HAX712-2022/issues" class="uri">https://github.com/bcharlier/HAX712-2022/issues</a>. Your goal is to find the problem… and then to fix it on your <strong>forked repository</strong>. Finally, you will be able to submit a Pull Request to the original repository to share your fix.</p>
+<p>A bug has appeared in the python module after a commit. An issue has been opened in the bug tracking system at <a href="https://github.com/bcharlier/HAX712-2022/issues" class="uri">https://github.com/bcharlier/HAX712-2022/issues</a>. Your goal is to find the problem… and then to fix it on your <strong>forked repository</strong>. Finally, you will be able to submit a Pull Request to the original repository to share your fix.</p>
 <section id="identification-of-the-bad-commit" class="level3">
 <h3 class="anchored" data-anchor-id="identification-of-the-bad-commit">Identification of the bad commit</h3>
 <p>Your goal is to identify the commit(s) that caused the bug. Use <code>git log</code>, <code>git diff</code>, <code>git checkout</code> to identify the commit responsible for the problem.</p>
 </section>
 <section id="create-a-new-branch-to-fix-the-problem" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-new-branch-to-fix-the-problem">Create a new branch to fix the problem</h3>
-<p>In order to fix a complex bug or add a new feature, it is often necessary to modify several parts of the code. We create a branch, where we make all the commits dedicated to solve the bug. The idea is to maintain a stable version, in the branch <code>master</code>, separated from the developing version, which may contain bugs.</p>
+<p>To fix a complex bug or add a new feature, it is often necessary to modify several parts of the code. We create a branch, where we make all the commits dedicated to solvings the bug. The idea is to maintain a stable version, in the branch <code>master</code>, separated from the developing version, which may contain bugs.</p>
 </section>
 <section id="exercise-2" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2"><font color="red"> Exercise</font></h3>
 <ol type="1">
 <li>Create a local branch <code>Fix_EOL_Error</code></li>
 <li>Push this local branch to your remote repo.</li>
-<li>Checkout to the <code>Fix_EOL_Error</code> branch, fix the bugs. The branch <code>master</code> will not be affected.</li>
+<li>Checkout to the <code>Fix_EOL_Error</code> branch, and fix the bugs. The branch <code>master</code> will not be affected.</li>
 <li>Merge the fix into the branch <code>master</code></li>
 <li>suppress the local branch <code>Fix_EOL_Error</code> and the remote <code>origin/Fix_EOL_Error</code> branch</li>
 </ol>
 </section>
 <section id="pull-request" class="level3">
 <h3 class="anchored" data-anchor-id="pull-request">Pull request</h3>
-<p>Your work about bug fixing may interest the original author of the project. On GitHub, open a pull-request. Pull-requests are a set of commits which can be integrated directly by the author of the project in its repository, and are thus a powerful tool for working with others.</p>
+<p>Your work about bug fixing may interest the original author of the project. On GitHub, open a pull-request. Pull-requests are a set of commits that can be integrated directly by the author of the project in its repository, and are thus a powerful tool for working with others.</p>
 </section>
 </section>
-<section id="branch-merging-and-solving-conflict" class="level2">
-<h2 class="anchored" data-anchor-id="branch-merging-and-solving-conflict">Branch Merging and Solving conflict</h2>
+<section id="branch-merging-and-solving-conflicts" class="level2">
+<h2 class="anchored" data-anchor-id="branch-merging-and-solving-conflicts">Branch Merging and Solving conflicts</h2>
 <section id="exercise-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3"><font color="red">Exercise</font></h3>
 <ol type="1">
@@ -397,9 +424,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Where are located the conflicts? They are shown with the following decorator.</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> HEAD</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on current branch</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the current branch</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">=======</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on branch to be merged</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the branch to be merged</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> NonGaussian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Resolve them by plotting the two histograms on the same plot. Namely, produce a figure like this:<img src="plot.png" class="img-fluid" alt="plot"></li>
@@ -685,6 +712,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Courses/Docs/tp.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Documentation with Sphinx</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Courses/IDE/tp.html" class="pagination-link">
+        <span class="nav-page-text">IDE: Integrated Development Environment</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
