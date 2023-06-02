@@ -1,4 +1,7 @@
-# Creating a `python` module
+---
+title: Creating a `python` module
+echo: true
+---
 
 ## What is a `python` module?
 
@@ -8,62 +11,49 @@ You already know it: this is a set of `python` functions and statements, and thi
 
 Indeed, a module can simply be a single file:
 
-```python
->>> import fibo
+```{python}
+import fibo
 ```
 
 This does not enter the names of the functions defined in `fibo` directly in the current symbol table though; it only enters the module name `fibo` there.
 Using the module name you can access the functions:
 
-```python
->>> fibo.fib(1000)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
->>> fibo.fib2(100)
-[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
->>> fibo.__name__
-'fibo'
->>> fibo.__file__
->>> fibo.fib(1000)
-0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
->>> fibo.fib2(100)
-[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+```{python}
+fibo.fib(1000)
 ```
-
+```{python}
+fibo.fib2(100)
+```
+```{python}
+fibo.__name__
+```
+```{python}
+fibo.__file__
+```
 When importing a module, several methods are (automatically) defined.
 Their names are usually prefixed and suffixed by the symbol `__`, e.g.,
-
-```python
->>> fibo.__name__
-'fibo'
->>> fibo.__file__
-'/home/.../HAX712X/Courses/Python-modules/fibo.py'
-```
 
 ### ... or a module could be a directory
 
 You can also import a full directory (containing many `python` files stored in sub-folder). Python looks for a folder located in `sys.path` list. 
 You have already imported the `numpy` module, for numerical analysis with `python`:
 
-```python
->>> import numpy as np
->>> np.array([0, 1, 2, 3]).reshape(2, 2)
-array([[0, 1],
-       [2, 3]])
->>> np.array([0, 1, 2, 3]).mean()
-1.5
+```{python}
+import numpy as np
+print(np.array([0, 1, 2, 3]).reshape(2, 2))
+print(np.array([0, 1, 2, 3]).mean())
 ```
 
 In fact, you have imported the following folder:
 
 ```python
->>> np.__path__
-['/usr/lib/python3.9/site-packages/numpy']
+np.__path__
 ```
-or possibly if you used anaconda to install `python`:
-```python
->>> np.__path__
-['/home/username/anaconda3/lib/python3.7/site-packages/numpy']
-```
+Depending on your installation you might obtain
+`['/usr/lib/python3.9/site-packages/numpy']`
+or 
+`['/home/username/anaconda3/lib/python3.7/site-packages/numpy']`
+if you installed with anaconda.
 
 More precisely **this** file
 
@@ -95,24 +85,29 @@ See: <https://realpython.com/absolute-vs-relative-python-imports/>
 The built-in function `dir()` is used to find out which names a module defines.
 It returns a sorted list of strings:
 
-```python
->>> import fibo, numpy
->>> dir(fibo)
-['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'fib', 'fib2']
->>> fibo.__dir__
-<built-in function __dir__>
->>> dir(numpy)
-['ALLOW_THREADS',...,'zeros_like']
->>> numpy.__dir__
-<function __dir__ at 0x7fe0a25e81e0>
+```{python}
+import fibo, numpy
+dir(fibo)
 ```
-The `0x7fe0a25e81e0` hexadecimal number is the `id` of the object:
 
-```python
->>> hex(id(numpy.__dir__))
-0x7fe0a25e81e0
+```{python}
+fibo.__dir__
 ```
-This is an integer (or long integer) which is guaranteed to be unique and constant for this object during its lifetime. Two objects with non-overlapping lifetimes may have the same id() value. (Implementation note: this is the address of the object.). See <https://docs.python.org/3/library/functions.html#id>
+```{python}
+dir(numpy)
+```
+```{python}
+numpy.__dir__
+```
+
+<!-- The `0x7fe0a25e81e0` hexadecimal number is the `id` of the object: 
+
+```{python}
+hex(id(numpy.__dir__))
+```
+
+This is an integer (or long integer) that is guaranteed to be unique and constant for this object during its lifetime. Two objects with non-overlapping lifetimes may have the same id() value. (Implementation note: this is the address of the object.). See <https://docs.python.org/3/library/functions.html#id>
+-->
 
 To list every element in your symbol table simply call `dir()`.
 
@@ -121,20 +116,18 @@ Reference: <https://docs.python.org/3/tutorial/modules.html#the-dir-function>
 ### Namespaces
 
 A namespace is a set of names (functions, variables, etc.).
-Different namespaces can co-exist at a given time but are completely isolated. In this way you can control which function you are using.
+Different namespaces can co-exist at a given time but are completely isolated. In this way, you can control which function you are using.
 
 A namespace containing all the built-in names is created when we start the Python interpreter and exists as long we don't exit.
 
-```python
->>> cos(3)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'cos' is not defined
->>> import math, numpy as np
->>> math.cos(3)
--0.9899924966004454
->>> np.cos(3)
--0.9899924966004454
+```{python}
+#| error: true
+cos(3)
+```
+You need to import a package for mathematical functions:
+```{python}
+import math, numpy as np
+print(math.cos(3), np.cos(3))
 ```
 
 References: <https://www.programiz.com/python-programming/namespace>
@@ -154,20 +147,18 @@ Reference: <https://docs.python.org/3/tutorial/modules.html#the-module-search-pa
 
 Find the loader for a module, optionally within the specified path.
 
-```python
->>> import importlib
->>> spam_spec = importlib.util.find_spec("spam")
->>> found = spam_spec is not None
->>> found
-False
+```{python}
+import importlib
+spam_spec = importlib.util.find_spec("spam")
+found = spam_spec is not None
+found
 ```
 Now 
 
-```python
->>> import numpy
->>> numpy_spec = importlib.util.find_spec("numpy")
->>> numpy_spec
-ModuleSpec(name='numpy', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7fe6bd502460>, origin='/usr/lib/python3.9/site-packages/numpy/__init__.py', submodule_search_locations=['/usr/lib/python3.9/site-packages/numpy'])
+```{python}
+import numpy
+numpy_spec = importlib.util.find_spec("numpy")
+print(numpy_spec)
 ```
 should return more information and where the loader is.
 
@@ -203,31 +194,26 @@ This naming convention allows compiled modules from different releases and diffe
 The `python` Package Index, abbreviated as PyPI, is the official third-party software repository for `python`.
 PyPI primarily hosts `python` packages in the form of archives called `sdists` (source distributions) or pre-compiled "wheels".
 
-----
-### <font color='red'>Exercise:</font>
+
+### <font color='red'>Exercise</font>
 
 1. Go to <https://test.pypi.org/> and describe the aim of this repository.
 
 ### Pip
 
 `pip` is a *de facto* standard package-management system used to install and manage software packages from PyPi.
-
 ```bash
 $ pip install some-package-name
 $ pip uninstall some-package-name
 $ pip search some-package-name
 ```
 
-----
-
-----
-### <font color='red'>Exercise: </font>
+### <font color='red'>Exercise</font>
 
 
   1. Install the modules `pooch`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
   2. List all the package in your venv using pip.
 
-----
 
 It is possible to install a **local** module with pip
 
@@ -274,7 +260,7 @@ packaging_tutorial/
 
 The top level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual Python module.
 
----
+
 ### <font color='red'>Exercise:</font>
 
  We are going to create a new `python` module that can be used to visualize the bike dataset.
@@ -291,7 +277,6 @@ The top level directory is the root of our Version Control System (e.g. git) rep
 
 Read also: <https://packaging.python.org/guides/single-sourcing-package-version/>.
 
----
 
 ### Sub-modules
 
@@ -312,8 +297,7 @@ The final directory structure of our module will look like:
       script.py
 ```
 
-----
-### <font color='red'>Exercise: </font>
+### <font color='red'>Exercise</font>
 
 Add some `python` files in the `modules_files` folder:
 
@@ -325,32 +309,29 @@ Add some `python` files in the `modules_files` folder:
 url_db = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "data", "bicycle_db.csv")
 ```
-----
 
 ### Adding additional files
 
 In order to load the functions in the `io`, `preprocess` and `vis` sub-modules, you can add the following lines to the `~/packaging_tutorial/biketrauma/__init__.py`:
+
 
 ```python
 from .io.Load_db import Load_db
 from .vis.plot_location import plot_location
 from .preprocess.get_accident import get_accident
 ```
-
-----
-### <font color='red'>Exercise: </font>
+### <font color='red'>Exercise</font>
 
   1. Check that your module does work by launching the `script.py` script
   2. Create a file `format_date.py` in the `biketrauma.preprocess` module in which a function `format_date` format the date of the data-set in international format.
   3. This function should accessible with the command:
 
 ```python
-import biketrauma
-
-df = biketrauma.Load_db().save_as_df()
-df_nicely_formated = biketrauma.format_date(df)
+>>>import biketrauma
+>>>df = biketrauma.Load_db().save_as_df()
+>>>df_nicely_formated = biketrauma.format_date(df)
 ```
----
+
 
 ### Package the module with `setuptools`
 
@@ -397,20 +378,19 @@ $ pip freeze > requirements.txt
 ```
 Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use `pipreqs`
 
----
+
 ### <font color='red'>Exercise:</font>
 
 
 1. Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrauma` module.
 
----
 
 ### Upload on PyPI
 
 `twine` is a utility for publishing Python packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
 
----
-### <font color='red'>Exercise: </font>
+
+### <font color='red'>Exercise</font>
 
 
   1. Create an account on the PyPI test repository
@@ -437,7 +417,7 @@ password: ...
 ```bash
 $ twine upload dist/*
 ```
----
+
 
 More documentation on using `twine` to upload packages to PyPI is in the [Python Packaging User Guide](https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/).
 
