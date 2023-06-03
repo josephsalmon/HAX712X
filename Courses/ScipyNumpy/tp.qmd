@@ -26,7 +26,7 @@ title: SciPy - scientific library in `python`
 * IO (input/output) ([scipy.io](http://docs.scipy.org/doc/scipy/reference/io.html))
 
 
-```python
+```{python}
 from scipy import linalg
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,7 +39,7 @@ from matplotlib.animation import FuncAnimation
 VSCode backend cannot handle the example out of the box...
 Use that one in a terminal.
 
-```python
+```{python}
 fig, ax = plt.subplots()
 xdata, ydata = [], []
 (ln,) = plt.plot([], [], "ro")
@@ -64,10 +64,14 @@ ani = FuncAnimation(
 plt.show()
 ```
 
-Yet,  a workaround exists:
-from IPython.display import HTML
+Yet, workarounds exist:
 
-```python
+```{python}
+from IPython.display import HTML
+HTML(ani.to_html5_video())
+```
+```{python}
+from IPython.display import HTML
 HTML(ani.to_jshtml())
 ```
 
@@ -76,7 +80,7 @@ HTML(ani.to_jshtml())
 `matplotlib` works fine for advanced tuning, but is harder for simple tasks.
 So just try `plotly` for basic animations:
 
-```python
+```{python}
 import plotly.express as px
 from plotly.offline import plot
 
@@ -103,14 +107,14 @@ fig.show("notebook")
  `scipy` for linear algebra : use `linalg`. It includes functions for solving
  linear systems, eigenvalues decomposition, SVD, Gaussian elimination (LU, Cholesky), etc.
 
- Documentation: http://docs.scipy.org/doc/scipy/reference/linalg.html
+ Documentation: <http://docs.scipy.org/doc/scipy/reference/linalg.html>
 
 ### Solving linear systems:
 Find $x$ such that: $A x = b$
 for specified matrix $A$ and vector $b$.
 
-```python
- A = np.array([[1, 0, 3], [4, 5, 12], [7, 8, 9]], dtype=np.float)
+```{python}
+ A = np.array([[1, 0, 3], [4, 5, 12], [7, 8, 9]], dtype=float)
 # A = np.random.randn(500, 500)
 # b = np.ones((500, 1))
 b = np.array([[1, 2, 3]], dtype=np.float64).T
@@ -128,7 +132,7 @@ print(b.shape)
 
 Check the result at a given precision (different from ==)
 
-```python
+```{python}
 np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
 ```
 **Remark**: NEVER (or you should really know why) invert a matrix.
@@ -155,31 +159,32 @@ np.allclose(A, evecs @ np.diag(evals) @ evecs.T)
 Verify numerically that the output from `linalg.eig` are indeed approximately
 eigen values and eigen vectors of matrix A above.
 
-*Hint* : use https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html
+*Hint*: use <https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html>
 
 If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
 this is more robust and leverages the structures (you know they are real!)
 
 ### Matrix operations
-
-linalg.inv(A)  # Inversion, consider NEVER using it though  :)
-linalg.det(A)  # determinant
+- `linalg.trace(A)`  # trace
+- `linalg.det(A)`    # determinant
+- `linalg.inv(A)`    # Inverse, consider NEVER using it though  :)
 
 ### Norms
+```{python}
 print(linalg.norm(A, ord="fro"))  # fro for Frobenius
 print((np.sum(A ** 2)) ** 0.5)
 print(linalg.norm(A, ord=2))
 print((linalg.eigvalsh(A.T @ A) ** 0.5))
 print(linalg.norm(A, ord=np.inf))
-
+```
 
 ### <font color='red'> EXERCISE : Norms computation</font>
 Check numerically what is the instruction `linalg.norm(A, ord=np.inf)`
-really computing.
-Double check with the help, and a numerical test.
+computing.
+Double check with the help and a numerical test.
 
 
-```python
+```{python}
 A = np.random.randn(3, 3)
 print(linalg.norm(A, ord=np.inf))
 ```
@@ -187,11 +192,10 @@ print(linalg.norm(A, ord=np.inf))
 ## Random generation, distributions, etc.
 (see more on this at <https://albertcthomas.github.io/good-practices-random-number-generators/> or <https://numpy.org/doc/1.18/reference/random/legacy.html#numpy.random.RandomState>)
 
-```python
+```{python}
 seed = 12345
 rng = np.random.default_rng(seed)  # can be called without a seed
 rng.random()
-
 ```
 
 Visualization of various popular distributions are available here (see widgets): <https://github.com/josephsalmon/Random-Widgets>
@@ -199,10 +203,10 @@ Visualization of various popular distributions are available here (see widgets):
 
 ## Optimization
 **Goal**: find functions minima or maxima
-Documentation: http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html
+Documentation: <http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html>
 
 
-```python
+```{python}
 from scipy import optimize
 ```
 
@@ -223,7 +227,7 @@ plt.plot(xs, f(xs))
 plt.show()
 ```
 
-Default solver for minimization/maximization: `fmin_bfgs` (see https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm)
+Default solver for minimization/maximization: `fmin_bfgs` (see <https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm>)
 
 
 ```python
@@ -241,7 +245,7 @@ plt.show()
 ```
 
 ### <font color='red'> EXERCISE : Bassin of attraction</font>
-Draw the points on the curves with 2 different colors :
+Draw the points on the curves with two different colors :
 - orange for the points leading to find the left local minima
 - red for the points leading to the right local minima.
 
@@ -284,7 +288,7 @@ plt.show()
 
 ### Parameters estimation
 
-```python
+```{python}
 from scipy.optimize import curve_fit
 
 
@@ -302,7 +306,7 @@ plt.figure()
 plt.plot(x, yn, ".")
 plt.plot(x, y, "k", label="$f$")
 plt.legend()
-
+plt.show()
 
 (a, b, c), _ = curve_fit(f, x, yn)
 print(a, b, c)
@@ -310,7 +314,7 @@ print(a, b, c)
 
 Displaying
 
-```python
+```{python}
 plt.figure()
 plt.plot(x, yn, ".", label="data")
 plt.plot(x, y, "k", label="True $f$")
@@ -321,7 +325,7 @@ plt.show()
 
 Rem: for polynomial fitting, one can directly use `numpy`
 
-```python
+```{python}
 x = np.linspace(0, 1, 10)
 y = np.sin(x * np.pi / 2.0)
 line = np.polyfit(x, y, deg=10)
@@ -368,7 +372,7 @@ plt.show()
 
 ## Images
 
-```python
+```{python}
 from scipy import ndimage, misc
 
 img = misc.face()
@@ -427,7 +431,7 @@ plt.show()
 
 ### Convert a color image in grayscale
 
-```python
+```{python}
 plt.figure()
 plt.imshow(np.mean(img, axis=2), cmap=plt.cm.gray)
 plt.show()
@@ -445,7 +449,7 @@ plt.show()
 
 Widget on blurring bandwidth:
 
-```python
+```{python}
 %matplotlib widget
 import ipywidgets as widgets
 
@@ -461,12 +465,11 @@ def update(sigma=2):
     # [l.remove() for l in ax.lines]
     img_flou = ndimage.gaussian_filter(img, sigma)
     ax.imshow(img_flou, cmap=plt.cm.gray)
-
 ```
 
 ### Changing colors in an image
 
-```python
+```{python}
 import pooch
 import os
 
