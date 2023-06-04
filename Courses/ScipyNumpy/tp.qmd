@@ -528,21 +528,30 @@ plt.tight_layout()
 ```
 
 ### <font color='red'> EXERCISE : Make the Brazilian italianer</font>
-(green white red)
+Create a version of the Brazilian flag as follows:
 
-### XXX TODO
+```{python}
+#| eval: true
+#| echo: false
 
-```python
 find_white_green = img[:, :, 1] > 200
+find_light_green = (img[:, :, 1] <= 200) * (img[:, :, 1] > 50)
+find_dark_green = img[:, :, 1] <= 50
 
 # red part
 img[:, :, 0][find_dark_green] = 255
+img[:, :, 1][find_dark_green] = 0
+img[:, :, 2][find_dark_green] = 0
 
 #  white part
+img[:, :, 0][find_white_green] = 255
 img[:, :, 1][find_white_green] = 255
+img[:, :, 2][find_white_green] = 255
 
 # blue part
-img[:, :, 2][find_light_green] = 255
+img[:, :, 0][find_light_green] = 0
+img[:, :, 1][find_light_green] = 210
+img[:, :, 2][find_light_green] = 0
 
 plt.imshow(img)
 plt.show()
