@@ -1,11 +1,12 @@
 ---
 title: SciPy - scientific library in `python`
+jupyter: python3
 ---
 
  Adapted from the notebooks by
 
- - A. Gramfort (alexandre.gramfort@inria.fr) http://alexandre.gramfort.net/
- - J.R. Johansson (robert@riken.jp) http://dml.riken.jp/~rob/
+ - [A. Gramfort](http://alexandre.gramfort.net/)
+ - [J. R. Johansson](https://jrjohansson.github.io/)
 
 ## Introduction
 
@@ -27,19 +28,22 @@ title: SciPy - scientific library in `python`
 
 
 ```{python}
+%matplotlib notebook
 from scipy import linalg
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from IPython.display import HTML, display
 ```
 
 ## Animation display with `python`
 
 ### Animation with `matplotlib`
-VSCode backend cannot handle the example out of the box...
-Use that one in a terminal.
+
+You can use `FuncAnimation` to animate a sequence of images:
 
 ```{python}
+%%capture
 fig, ax = plt.subplots()
 xdata, ydata = [], []
 (ln,) = plt.plot([], [], "ro")
@@ -57,23 +61,46 @@ def update(frame):
     ln.set_data(xdata, ydata)
     return (ln,)
 
+ani = FuncAnimation(
+    fig,
+    update,
+    interval=50,
+    frames=np.linspace(0, 2 * np.pi, 100),
+    init_func=init,
+    blit=True,
+)
+```
+
+```{python}
+display(HTML(ani.to_html5_video()))
+```
+
+Another version exists (using JavaScript):
+
+```{python}
+
+%%capture
+fig, ax = plt.subplots()
+xdata, ydata = [], []
+(ln,) = plt.plot([], [], "bo")
 
 ani = FuncAnimation(
-    fig, update, frames=np.linspace(0, 2 * np.pi, 128), init_func=init, blit=True
+    fig,
+    update,
+    interval=50,
+    frames=np.linspace(0, 2 * np.pi, 100),
+    init_func=init,
+    blit=True,
 )
-plt.show()
 ```
 
-Yet, workarounds exist:
+```{python}
+display(HTML(ani.to_jshtml()))
+```
 
-```{python}
-from IPython.display import HTML
-HTML(ani.to_html5_video())
-```
-```{python}
-from IPython.display import HTML
-HTML(ani.to_jshtml())
-```
+
+More information: <http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/>
+
 
 ## Animation with `plotly`
 
@@ -102,6 +129,8 @@ fig = px.scatter(
 fig.show("notebook")
 ```
 
+See more here:
+<http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/>
 ## Linear algebra
 
  `scipy` for linear algebra : use `linalg`. It includes functions for solving
@@ -142,7 +171,7 @@ np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
 
 $A v_n = \lambda_n v_n$ with $v_n$ the $n$-th eigen vector and $\lambda_n$ the $n$-th eigen value. The associated `python` functions are `eigvals` and `eig`:
 
-```python
+```{python}
 A = np.random.randn(3, 3)
 A = A + A.T
 evals, evecs = linalg.eig(A)
@@ -212,7 +241,7 @@ from scipy import optimize
 
 ### Finding (local!) minima
 
-```python
+```{python}
 def f(x):
     return 4 * x ** 3 + (x - 2) ** 2 + x ** 4
 
@@ -230,7 +259,7 @@ plt.show()
 Default solver for minimization/maximization: `fmin_bfgs` (see <https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm>)
 
 
-```python
+```{python}
 x_min = optimize.fmin_bfgs(f, x0=-4)
 x_max = optimize.fmin_bfgs(mf, x0=-2)
 x_min2 = optimize.fmin_bfgs(f, x0=2)
@@ -252,7 +281,7 @@ Draw the points on the curves with two different colors :
 ### Find the zeros of a function
 Find $x$ such that $f(x) = 0$, with `fsolve`.
 
-```python
+```{python}
 omega_c = 3.0
 
 def f(omega):
@@ -301,7 +330,6 @@ x = np.linspace(0, 4, 50)
 y = f(x, 2.5, 1.3, 0.5)  # true signal
 yn = y + 0.2 * np.random.randn(len(x))  # noisy added
 
-
 plt.figure()
 plt.plot(x, yn, ".")
 plt.plot(x, y, "k", label="$f$")
@@ -339,7 +367,7 @@ plt.show()
 
 ## Interpolation
 
-```python
+```{python}
 from scipy.interpolate import interp1d, CubicSpline
 
 
@@ -394,7 +422,7 @@ plt.show()
 
 ### RGB decomposition
 
-```python
+```{python}
 fig, ax = plt.subplots(3, 2)
 fig.set_size_inches(9, 6.5)
 n_1, n_2, n_3 = img.shape
@@ -412,7 +440,7 @@ plt.tight_layout()
 ```
 
 
-```python
+```{python}
 print(img.flags)  # cannot edit...
 img_compressed = img.copy()
 img_compressed.setflags(write=1)
@@ -447,9 +475,10 @@ plt.show()
 
 ```
 
-Widget on blurring bandwidth:
-
+Widget on blurring bandwidth (cannot be rendered online for the moment, only locally)
+ 
 ```{python}
+#| eval: false
 %matplotlib widget
 import ipywidgets as widgets
 
@@ -527,5 +556,5 @@ plt.show()
 ## Additional lectures
 * <http://www.scipy.org> - The official web page for the SciPy project.
 * <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html> - A tutorial on how to get started using SciPy.
+* <http://scipy-lectures.github.io> -  Scipy lectures
 * <https://github.com/scipy/scipy/> - The SciPy source code.
-* <http://scipy-lectures.github.io>
