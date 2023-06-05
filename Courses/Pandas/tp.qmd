@@ -18,6 +18,7 @@ import seaborn as sns
 import pooch  # download data / avoid re-downloading
 from IPython import get_ipython
 
+
 sns.set_palette("colorblind")
 pd.options.display.max_rows = 8
 ```
@@ -51,7 +52,7 @@ df_titanic_raw.head(n=5)
 
 
 
-## Missing values
+### Missing values
 It is common to encounter features/covariates with missing values.
 In `pandas` they were mostly handled as `np.nan` (not a number).
 In the future, they will be treated as `NA` (note available), in a similar way as in R; see for standard behavior and details <https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html>.
@@ -109,12 +110,12 @@ More details can be found here: <https://biostat.app.vumc.org/wiki/pub/Main/Data
 Note: an extended version of the dataset is available here for those interested <https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt>.
 
 
-## Simple descriptive statistics
+### Simple descriptive statistics
 ```{python}
 df_titanic.describe()
 ```
 
-## Visualization
+### Visualization
 
 - Histograms (please avoid...often useless)
 ```{python}
@@ -157,12 +158,12 @@ plt.tight_layout()
 
 Plot the density estimate over the histogram
 
-## Widgets
+### Widgets
 Interactive interaction with codes and output is nowadays easier and easier (see also Shiny app in R-software).
 In python, one can use `widgets` and the `interact` package for this purpose.
 We are going to visualize that on the simple KDE and histogram examples.
 
-## XXX -> to pyplot
+### XXX -> to pyplot
 
 ```python
 def hist_explore(
@@ -205,7 +206,7 @@ interact(kde_explore, dataset=fixed(df_titanic), bw=(0.001, 2, 0.01))
 
 ```
 
-## `Groupby` function
+### `Groupby` function
 How does the survival rate change w.r.t. to sex?
 
 ```{python}
@@ -236,7 +237,7 @@ plt.show()
 
 Perform a similar analysis with the median for the price per class in pounds.
 
-## `catplot`: a visual `groupby`
+### `catplot`: a visual `groupby`
 
 
 
@@ -364,7 +365,7 @@ fare
 ```
 
 
-## Attributes *Series*: indices and values
+### Attributes *Series*: indices and values
 
 ```{python}
 fare.values[:10]
@@ -494,7 +495,7 @@ df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived'] = 1
 df_titanic_raw = df_titanic_raw.reset_index()  # come back to original index
 ```
 
-## `groupby`
+### `groupby`
 
 ```{python}
 df_titanic.groupby(['Sex'])[['Survived', 'Age', 'Fare', 'Pclass']].mean()
@@ -512,7 +513,7 @@ ax.tick_params(axis='x', labelrotation=90)
 ```
 
 
-## Second Case study: air quality in Paris (Source: Airparif)
+### Second Case study: air quality in Paris (Source: Airparif)
 
 ```{python}
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
@@ -572,7 +573,7 @@ polution_df.info()
 For more info on the object nature (inherited from numpy), see
 https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object
 
-## Issues with non-conventional hours/day format
+### Issues with non-conventional hours/day format
 
 Start by changing to integer type (e.g., `int8`):
 ```{python}
@@ -689,9 +690,6 @@ sns.set_palette("GnBu_d", n_colors=7)
 polution_ts['weekday'] = polution_ts.index.weekday  # Monday=0, Sunday=6
 polution_ts['weekend'] = polution_ts['weekday'].isin([5, 6])
 
-days = ['Monday', 'Tuesday', 'Wednesday',
-        'Thursday', 'Friday', 'Saturday', 'Sunday']
-
 polution_week_no2 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
     'NO2'].mean().unstack(level=0)
 polution_week_03 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
@@ -701,6 +699,7 @@ plt.show()
 
 
 ```{python}
+import calendar
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_week_no2.plot(ax=axes[0])
@@ -721,7 +720,7 @@ axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[1].set_ylim(0, 70)
 axes[0].legend().set_visible(False)
 # ax.legend()
-axes[1].legend(labels=days, loc='lower left', bbox_to_anchor=(1, 0.1))
+axes[1].legend(labels=[day for day in calendar.day_name], loc='lower left', bbox_to_anchor=(1, 0.1))
 
 plt.tight_layout()
 ```
@@ -729,7 +728,6 @@ plt.tight_layout()
 
 
 ```{python}
-import calendar
 polution_ts['month'] = polution_ts.index.month  # Janvier=0, .... Decembre=11
 polution_ts['month'] = polution_ts['month'].apply(lambda x:
                                                   calendar.month_abbr[x])
@@ -781,8 +779,6 @@ plt.tight_layout()
  https://koumoul.com/en/datasets/accidents-velos
 
 ```{python}
-
-
 url = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = "./bicycle_db.csv"
 path, fname = os.path.split(path_target)
@@ -793,8 +789,8 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 ```{python}
 # df: data frame
-df_bikes = pd.read_csv("bicycle_db.csv", na_values="",
-                       converters={'data': str, 'heure': str})
+df_bikes = pd.read_csv("bicycle_db.csv", na_values="", low_memory=False,
+                       dtype={'data': str, 'heure': str, 'departement': str})
 ```
 
 
@@ -942,14 +938,14 @@ Perform an analysis to check when the accidents are occurring during the week.
 
 ```{python}
 df_bikes
-```{python}
+```
 
 
 ```{python}
 # Chargement des couleurs
 sns.set_palette("GnBu_d", n_colors=7)
 
-df_bikes['weekday'] = df_bikes.index.weekday  # Monday=0, Sunday=6
+df_bikes['weekday'] = df_bikes.index.day_of_week  # Monday=0, Sunday=6
 
 accidents_week = df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count().unstack(level=0)
@@ -963,8 +959,10 @@ axes.set_title(
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
 # axes.set_ylim(0, 6)
-axes.legend(labels=days, loc='lower left', bbox_to_anchor=(1, 0.1))
-plt.legend()
+axes.legend(
+    labels=[day for day in calendar.day_name],
+    loc='upper left',
+    )
 plt.tight_layout()
 ```
 
@@ -1004,11 +1002,11 @@ plt.tight_layout()
 ```
 
 
-### <font color='red'> EXERCISE : Accidents by departement </font>
-Perform an analysis to check when the accidents are occurring by departement.
+### <font color='red'> EXERCISE : Accidents by department </font>
+Perform an analysis to check when the accidents are occurring for each department.
 
 ```{python}
-import pygal
+# import pygal
 # First install if needed for maps:
 # pip install pygal
 # andpip install pygal_maps_frpip install pygal_maps_fr
@@ -1036,12 +1034,48 @@ df_dtp_area['NUMÉRO']
 df_dtp_area.set_index('NUMÉRO', inplace=True)
 df_dtp_pop.set_index('Code Département', inplace=True)
 df_dtp_pop.sort_index(inplace=True)
+liste_dp = df_dtp_pop.index
 
+gd = df_bikes.groupby(['departement']).size()
+
+data = {'code': gd.index,
+        'n_accidents': gd.values}
+df = pd.DataFrame(data)
+df['code'] = df['code'].apply(lambda x: str(x).zfill(3))
+df.sort_values(by=['code'], inplace=True)
+df['code'] = liste_dp
+df['n_accidents'] = df['n_accidents'].values * 10000./ df_dtp_pop['Population'].values
+
+import plotly.express as px
+import geopandas
+departement = geopandas.read_file('departement_avec_outremer_rapprochée.geojson')
+fig = px.choropleth_mapbox(
+    df,
+    geojson=departement,
+    locations="code",
+    color=df["n_accidents"],
+    range_color=(0, 15.),
+    color_continuous_scale="rdbu",
+    center={'lat': 47, 'lon': 2},
+    zoom=4,
+    mapbox_style="carto-positron",
+)
+fig.show()
+```
+
+sources:
+
+https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit
+
+https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19
+
+https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr
+<!--
 fr_chart = pygal.maps.fr.Departments(human_readable=True)
 display = "ratio_accident"
 
 
-if display is "ratio_accident":
+if display == "ratio_accident":
     fr_chart.title = 'Accidents by departement'
     gd = df_bikes.groupby(['departement']).size()
     gd = (gd / df_dtp_pop['Population'])  # mean accident per habitant
@@ -1054,10 +1088,11 @@ else:
 
 # Area normalization
 normalization = True
-if normalization is True:
+if normalization == True:
     gd = (gd / df_dtp_area['SUPERFICIE (km²)'])
 gd.dropna(inplace=True)   # anoying NA due to 1 vs 01 in datasets
 fr_chart.add('Accidents', gd.to_dict())
-fr_chart.render_in_browser()
+# fr_chart.render()
 # fr_chart.render_to_file('./chatr.svg')  # Write the chart in a specified file
 ```
+--->
