@@ -12,6 +12,7 @@ For R users, you might also want to read <https://pandas.pydata.org/docs/getting
 ```{python}
 import os
 import numpy as np
+import calendar
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -145,7 +146,6 @@ plt.tight_layout()
 - Swarmplot:
 ```{python}
 plt.figure(figsize=(5, 5))
-# Swarmplot from seaborn package
 ax = sns.swarmplot(data=df_titanic_raw, x='Sex', y='Age', hue='Survived',
                 palette={0: 'r', 1: 'k'}, order=['female', 'male'])
 plt.title("Passager age by gender/survival")
@@ -570,8 +570,8 @@ polution_df.dtypes
 polution_df.info()
 ```
 
-For more info on the object nature (inherited from numpy), see
-https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object
+For more info on the object nature (inherited from `numpy`), see
+<https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object>
 
 ### Issues with non-conventional hours/day format
 
@@ -593,14 +593,19 @@ polution_df['heure']
 ```
 
 ### Time processing
-https://www.tutorialspoint.com/python/time_strptime.htm
+
+Note that we use here the following conventions:
+ - d = day
+ - m=month
+ - Y=year
+ - H=hour
+ - M=minutes
 
 ```{python}
 time_improved = pd.to_datetime(polution_df['date'] +
                                ' ' + polution_df['heure'] + ':00',
                                format='%d/%m/%Y %H:%M')
 
-# Where d = day, m=month, Y=year, H=hour, M=minutes
 time_improved
 ```
 
@@ -613,12 +618,11 @@ Create correct timing format in the dataframe
 
 ```{python}
 polution_df['DateTime'] = time_improved
-
-del polution_df['heure']  # remove useless column
-del polution_df['date']  # remove useless column
+ # remove useless columns:
+del polution_df['heure']
+del polution_df['date']
 polution_df
 ```
-
 
 Visualize the data set now that the time is well formatted:
 
@@ -634,9 +638,6 @@ polution_ts.describe()
 ```
 
 ```{python}
-# raw version
-# sns.color_palette("colorblind")
-# cmap = sns.light_palette("Navy", as_cmap=True)
 fig, axes = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
 
 axes[0].plot(polution_ts['O3'])
@@ -666,7 +667,7 @@ axes[1].set_ylabel("Concentration (µg/m³)")
 
 plt.show()
 ```
-
+Source: <https://www.tutorialspoint.com/python/time_strptime.htm>
 
 ### <font color='red'> EXERCISE : worst of the day </font>
  Provide the same plots as before, but with daily best and worst on the same
@@ -675,14 +676,15 @@ plt.show()
 Q: Is the pollution getting better over the years or not?
 
 ```{python}
-ax = polution_ts['2008':].resample('Y').mean().plot(figsize=(4, 4))
+fig, ax = plt.subplots(1, 1)
+polution_ts['2008':].resample('Y').mean().plot(ax=ax)
 # Sample by year (A pour Annual) or Y for Year
 plt.ylim(0, 50)
 plt.title("Pollution evolution: \n yearly average in Paris")
 plt.ylabel("Concentration (µg/m³)")
 plt.xlabel("Year")
+plt.show()
 ```
-
 
 ```{python}
 # Load colors
@@ -699,22 +701,21 @@ plt.show()
 
 
 ```{python}
-import calendar
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_week_no2.plot(ax=axes[0])
 axes[0].set_ylabel("Concentration (µg/m³)")
-axes[0].set_xlabel("Heure de la journée")
+axes[0].set_xlabel("Intraday evolution")
 axes[0].set_title(
-    "Profil journalier de la pollution au NO2: effet du weekend?")
+    "Daily NO2 concentration: weekend effect?")
 axes[0].set_xticks(np.arange(0, 24))
 axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[0].set_ylim(0, 60)
 
 polution_week_03.plot(ax=axes[1])
 axes[1].set_ylabel("Concentration (µg/m³)")
-axes[1].set_xlabel("Heure de la journée")
-axes[1].set_title("Profil journalier de la pollution au O3: effet du weekend?")
+axes[1].set_xlabel("Intraday evolution")
+axes[1].set_title("Daily O3 concentration: effet du weekend?")
 axes[1].set_xticks(np.arange(0, 24))
 axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[1].set_ylim(0, 70)
@@ -746,7 +747,7 @@ polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
 ```{python}
 sns.set_palette("Paired", n_colors=12)
 
-fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
+fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_month_no2.plot(ax=axes[0])
 axes[0].set_ylabel("Concentration (µg/m³)")
@@ -862,7 +863,7 @@ time_improved = pd.to_datetime(df_bikes['date'] +
 ```{python}
 df_bikes['Time'] = time_improved
 df_bikes.set_index('Time', inplace=True)
-# remove useles columns
+# remove useless columns
 del df_bikes['heure']
 del df_bikes['date']
 ```
@@ -872,10 +873,12 @@ df_bikes.info()
 ```
 
 ```{python}
-df_bike2 = df_bikes[['gravite accident', 'existence securite',
-                             'age', 'sexe']]
-df_bike2['existence securite'] = df_bike2['existence securite'].replace(np.nan, "Inconnu")
+df_bike2 = df_bikes.loc[
+    :, ["gravite accident", "existence securite", "age", "sexe"]
+]
+df_bike2["existence securite"].replace({"Inconnu": np.nan}, inplace=True)
 df_bike2.dropna(inplace=True)
+
 ```
 
 
@@ -1027,49 +1030,68 @@ path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 df_dtp_pop = pd.read_csv("dpt_population.csv", sep=";", low_memory=False)
-df_dtp_area = pd.read_csv("dpt_area.csv", sep="\t", low_memory=False, skiprows=[102, 103, 104])
-df_dtp_area['NUMÉRO']
+
+df_dtp_pop['Code Département'].replace('2A', '20A',inplace=True)
+df_dtp_pop['Code Département'].replace('2B', '20B',inplace=True)
+df_dtp_pop.sort_values(by=['Code Département'], inplace=True)
+
+df_bikes['departement'].replace('2A', '20A',inplace=True)
+df_bikes['departement'].replace('2B', '20B',inplace=True)
+df_bikes.sort_values(by=['departement'], inplace=True)
 
 
-df_dtp_area.set_index('NUMÉRO', inplace=True)
-df_dtp_pop.set_index('Code Département', inplace=True)
-df_dtp_pop.sort_index(inplace=True)
-liste_dp = df_dtp_pop.index
-
-gd = df_bikes.groupby(['departement']).size()
+gd = df_bikes.groupby(['departement'], as_index=True, sort=True).size()
 
 data = {'code': gd.index,
-        'n_accidents': gd.values}
+        '# Accidents per million': gd.values}
 df = pd.DataFrame(data)
-df['code'] = df['code'].apply(lambda x: str(x).zfill(3))
-df.sort_values(by=['code'], inplace=True)
-df['code'] = liste_dp
-df['n_accidents'] = df['n_accidents'].values * 10000./ df_dtp_pop['Population'].values
+df['# Accidents per million'] = df['# Accidents per million'].values * 10000./ df_dtp_pop['Population'].values
+```
 
+```{python}
 import plotly.express as px
 import geopandas
 departement = geopandas.read_file('departement_avec_outremer_rapprochée.geojson')
+departement['code'].replace('2A', '20A', inplace=True)
+departement['code'].replace('2B', '20B', inplace=True)
+
+departement.sort_values(by=['code'], inplace=True)
+
+a = ['0'+ str(i) for i in range(1, 10)]
+b = [str(i) for i in range(1, 10)]
+dict_replace = dict(zip(a, b))
+
+departement['code'].replace(dict_replace, inplace=True)
+df['code'].replace(dict_replace, inplace=True)
+
+departement['code'].replace('20A', '2A', inplace=True)
+departement['code'].replace('20B', '2B', inplace=True)
+df['code'].replace('20A', '2A',inplace=True)
+df['code'].replace('20B', '2B',inplace=True)
+
+departement.set_index('code', inplace=True)
+
 fig = px.choropleth_mapbox(
     df,
     geojson=departement,
     locations="code",
-    color=df["n_accidents"],
-    range_color=(0, 15.),
+    color="# Accidents per million",
+    range_color=(0, df['# Accidents per million'].max()),
     color_continuous_scale="rdbu",
     center={'lat': 47, 'lon': 2},
-    zoom=4,
-    mapbox_style="carto-positron",
+    zoom=3.25,
+    mapbox_style="white-bg",
 )
 fig.show()
 ```
 
-sources:
+Sources:
 
-https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit
+<https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit>
 
-https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19
+<https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19>
 
-https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr
+<https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr>
 <!--
 fr_chart = pygal.maps.fr.Departments(human_readable=True)
 display = "ratio_accident"
