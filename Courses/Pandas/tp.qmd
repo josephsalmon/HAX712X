@@ -7,8 +7,6 @@ This lecture is extracted and adapted from the work by Joris Van den Bossche
 
 For R users, you might also want to read <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html> for a smooth start.
 
-## Introduction
-
 ```{python}
 import os
 import numpy as np
@@ -24,7 +22,7 @@ sns.set_palette("colorblind")
 pd.options.display.max_rows = 8
 ```
 
-### Dataset 1: Titanic dataset
+## Dataset 1: Titanic dataset
 
 First, it is important to download automatically remote files for reproducibility (and avoid typing names manually)
 ```{python}
@@ -120,8 +118,8 @@ df_titanic.describe()
 
 - Histograms (please avoid...often useless)
 ```{python}
-plt.figure(figsize=(5, 5))
-plt.hist(df_titanic['Age'], density=True, bins=25)
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+ax.hist(df_titanic['Age'], density=True, bins=25)
 plt.xlabel('Age')
 plt.ylabel('Proportion')
 plt.title("Passager age histogram")
@@ -130,25 +128,32 @@ plt.title("Passager age histogram")
 - Kernel Density Estimate (KDE):  :
 
 ```{python}
-plt.figure(figsize=(5, 5))
-# KDE: kernel density estimate
-ax = sns.kdeplot(df_titanic['Age'],
-                 fill=True,
-                 cut=0,
-                 bw_adjust=0.1)  # bw: bandwith
-plt.xlabel('Proportion')
-plt.ylabel('Age')
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+sns.kdeplot(
+    df_titanic["Age"], ax=ax, fill=True, cut=0, bw_adjust=0.1
+)
+plt.xlabel("Proportion")
+plt.ylabel("Age")
 plt.title("Passager age kernel density estimate")
 plt.tight_layout()
+
 ```
+Note: the bandwidbw_adjustth (here `bw_adjust`) controls the smoothing level.
 
 - Swarmplot:
 ```{python}
-plt.figure(figsize=(5, 5))
-ax = sns.swarmplot(data=df_titanic_raw, x='Sex', y='Age', hue='Survived',
-                palette={0: 'r', 1: 'k'}, order=['female', 'male'])
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+sns.swarmplot(
+    data=df_titanic_raw,
+    ax=ax,
+    x="Sex",
+    y="Age",
+    hue="Survived",
+    palette={0: "r", 1: "k"},
+    order=["female", "male"],
+)
 plt.title("Passager age by gender/survival")
-plt.legend(labels=['Died', 'Survived'])
+plt.legend(labels=["Died", "Survived"], loc="upper left")
 plt.tight_layout()
 ```
 
@@ -221,9 +226,10 @@ df_titanic.columns
 
 
 ```{python}
-plt.figure()
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
 df_titanic.groupby('Pclass')['Survived'].aggregate(lambda x:
-                                                   x.mean()).plot(kind='bar')
+                                                   x.mean()).plot(ax=ax,kind='bar')
 plt.xlabel('Classe')
 plt.ylabel('Taux de survie')
 plt.title('Taux de survie par classe')
