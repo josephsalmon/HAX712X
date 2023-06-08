@@ -35,7 +35,7 @@ Their names are usually prefixed and suffixed by the symbol `__`, e.g.,
 
 ### ... or a module could be a directory
 
-You can also import a full directory (containing many `python` files stored in sub-folder). Python looks for a folder located in `sys.path` list. 
+You can also import a full directory (containing many `python` files stored in sub-folder). Python looks for a folder located in `sys.path` list.
 You have already imported the `numpy` module, for numerical analysis with `python`:
 
 ```{python}
@@ -51,7 +51,7 @@ np.__path__
 ```
 Depending on your installation you might obtain
 `['/usr/lib/python3.9/site-packages/numpy']`
-or 
+or
 `['/home/username/anaconda3/lib/python3.7/site-packages/numpy']`
 if you installed with anaconda.
 
@@ -78,7 +78,11 @@ Any (sub-)directory of your python module should contain an `__init__.py` file!
 It allows to expose functions to user in a concise way.
 
 - You can also import modules with relative path, using `.`, `..`, `...`, etc.
-See: <https://realpython.com/absolute-vs-relative-python-imports/>
+
+
+**References**:
+
+- [Absolute vs Relative Imports in Python](https://realpython.com/absolute-vs-relative-python-imports/) by Mbithe Nzomo.
 
 ### The `dir()` function
 
@@ -111,7 +115,9 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 
 To list every element in your symbol table simply call `dir()`.
 
-Reference: <https://docs.python.org/3/tutorial/modules.html#the-dir-function>
+**References**:
+
+- [Python doc the dir function](https://docs.python.org/3/tutorial/modules.html#the-dir-function)
 
 ### Namespaces
 
@@ -130,7 +136,9 @@ import math, numpy as np
 print(math.cos(3), np.cos(3))
 ```
 
-References: <https://www.programiz.com/python-programming/namespace>
+**References**:
+
+- [Python Namespace and Scope tutorial](https://www.programiz.com/python-programming/namespace)
 
 ### The Module Search Path
 
@@ -141,7 +149,9 @@ If not found, it then searches for a file named `spam.py` in a list of directori
 
 - The environment variable `PYTHONPATH` (a list of directory names, with the same syntax as the shell variable `PATH`).
 
-Reference: <https://docs.python.org/3/tutorial/modules.html#the-module-search-path>
+**References**:
+
+-[Python documentation, The Module Search Path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path)
 
 ### Checking if a module exists
 
@@ -163,7 +173,10 @@ print(numpy_spec)
 should return more information and where the loader is.
 
 
-See <https://docs.python.org/3/library/importlib.html#importlib.find_loader> an <https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it>
+**References**:
+
+- [Python doc on find_loader](https://docs.python.org/3/library/importlib.html#importlib.find_loader)
+- [How to check if a Python module exists without importing it](https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it) on Stackoverflow
 
 ### Lazy import
 
@@ -173,14 +186,18 @@ They are executed only the **first time** the module name is encountered in an `
 
 To force a module to be reloaded, you can use `importlib.reload()`.
 
-See: <https://docs.python.org/3/library/importlib.html#importlib.reload>
+**References**:
+- [Python doc on reload](https://docs.python.org/3/library/importlib.html#importlib.reload)
 
 Remark: when using `ipython` (interactive `python`, an ancestor of the `jupyter notebook`), one can use the "magic" command
-`%autoreload 2`, cf. <https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload>
+`%autoreload 2`
+
+**References**:
+- [IPython autoreload](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload)
 
 ### "Compiled" `python` files
 
-To speed up loading modules, `python` caches the compiled version of each module in the  `__pycache__` directory under the name `module.version.pyc`, where the version encodes the format of the compiled file; it generally contains the `python` version number. 
+To speed up loading modules, `python` caches the compiled version of each module in the  `__pycache__` directory under the name `module.version.pyc`, where the version encodes the format of the compiled file; it generally contains the `python` version number.
 
 For example, in `CPython` release 3.3 the compiled version of spam.py would be cached as `__pycache__/spam.cpython-33.pyc`.
 This naming convention allows compiled modules from different releases and different versions of `python` to coexist.
@@ -195,9 +212,12 @@ The `python` Package Index, abbreviated as PyPI, is the official third-party sof
 PyPI primarily hosts `python` packages in the form of archives called `sdists` (source distributions) or pre-compiled "wheels".
 
 
-### <font color='red'>Exercise</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: pypi
 
 1. Go to <https://test.pypi.org/> and describe the aim of this repository.
+
+:::
 
 ### Pip
 
@@ -208,12 +228,12 @@ $ pip uninstall some-package-name
 $ pip search some-package-name
 ```
 
-### <font color='red'>Exercise</font>
-
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: 
 
   1. Install the modules `pooch`, `setuptools`, `pandas`, `pygal` and `pygal_maps_fr`. Beware, you should use the option `--user` to force the installation in your home directory.
   2. List all the package in your venv using pip.
-
+:::
 
 It is possible to install a **local** module with pip
 
@@ -232,7 +252,9 @@ $ pip install -e /path/to/my/local/module
 
 ## Creating a `python` module
 
-References: <https://python-packaging.readthedocs.io/en/latest/>
+**References**:
+
+- [How To Package Your Python Code](https://python-packaging.readthedocs.io/en/latest/)
 
 ### Picking A Name
 
@@ -242,7 +264,7 @@ Python module/package names should generally follow the following constraints:
 - Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)
 - Underscore-separated or no word separators at all, and do not use hyphens (i.e., use _ not -).
 
-We are going to create a module called `biketrauma` to visualize the `bicycle_db` used in the the following lectures that can be found at <https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw>.
+We are going to create a module called `biketrauma` to visualize the `bicycle_db` (source [here](https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw)) used in the some of these lectures.
 
 
 ### Module structure
@@ -261,7 +283,8 @@ packaging_tutorial/
 The top level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual Python module.
 
 
-### <font color='red'>Exercise:</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: packaging
 
  We are going to create a new `python` module that can be used to visualize the bike dataset.
 
@@ -275,8 +298,8 @@ The top level directory is the root of our Version Control System (e.g. git) rep
   7. Create **an empty** `~/packaging_tutorial/setup.py` file.
   8. Commit and push into your repository.
 
-Read also: <https://packaging.python.org/guides/single-sourcing-package-version/>.
-
+**References**: [Single-sourcing the package version¶](https://packaging.python.org/guides/single-sourcing-package-version/).
+:::
 
 ### Sub-modules
 
@@ -297,7 +320,8 @@ The final directory structure of our module will look like:
       script.py
 ```
 
-### <font color='red'>Exercise</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: modules
 
 Add some `python` files in the `modules_files` folder:
 
@@ -305,10 +329,13 @@ Add some `python` files in the `modules_files` folder:
   2. Populate the `preprocess` sub-module with the `get_accident.py` file (see the git repo of the course in the subfolder `Courses/Python-modules/modules_files`)
   3. Populate the `vis` sub-module with the `plot_location.py` file
   4. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike data-set). At the loading step your sub-module should create the variables
+:::
+
 ```python
 url_db = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
 path_target = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "data", "bicycle_db.csv")
 ```
+
 
 ### Adding additional files
 
@@ -320,7 +347,8 @@ from .io.Load_db import Load_db
 from .vis.plot_location import plot_location
 from .preprocess.get_accident import get_accident
 ```
-### <font color='red'>Exercise</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: 
 
   1. Check that your module does work by launching the `script.py` script
   2. Create a file `format_date.py` in the `biketrauma.preprocess` module in which a function `format_date` format the date of the data-set in international format.
@@ -331,7 +359,7 @@ from .preprocess.get_accident import get_accident
 >>>df = biketrauma.Load_db().save_as_df()
 >>>df_nicely_formated = biketrauma.format_date(df)
 ```
-
+:::
 
 ### Package the module with `setuptools`
 
@@ -367,7 +395,9 @@ This will create `dist/biketrauma-0.0.1.tar.gz` inside the top-level directory. 
 $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 ```
 
-See <https://setuptools.readthedocs.io/en/latest/setuptools.html> and <https://packaging.python.org/tutorials/packaging-projects/>
+**References**:
+- [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
+- [Packaging Python Projects¶](https://packaging.python.org/tutorials/packaging-projects/)
 
 ### Add requirement file
 
@@ -379,21 +409,21 @@ $ pip freeze > requirements.txt
 Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use `pipreqs`
 
 
-### <font color='red'>Exercise:</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: requirements
 
-
-1. Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrauma` module.
-
+Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrauma` module.
+:::
 
 ### Upload on PyPI
 
 `twine` is a utility for publishing Python packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
 
 
-### <font color='red'>Exercise</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: 
 
-
-  1. Create an account on the PyPI test repository
+1. Create an account on the PyPI test repository
 
 This is quite easy to upload a python module on PyPI:
 
@@ -417,8 +447,10 @@ password: ...
 ```bash
 $ twine upload dist/*
 ```
+:::
 
+**References**:
 
-More documentation on using `twine` to upload packages to PyPI is in the [Python Packaging User Guide](https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/).
-
-References: <https://pypi.org/project/twine/>
+- [Python Packaging User Guide](https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/)
+More documentation on using `twine` to upload packages to PyPI is in the .
+- [Twrine, uploads of source](https://pypi.org/project/twine/)

@@ -10,10 +10,7 @@ jupyter: python3
 
 ## Introduction
 
- SciPy builds upon NumPy.
-
-
- Among others, SciPy deals with:
+SciPy builds upon NumPy. Among others, SciPy deals with:
 
 * Integration ([scipy.integrate](http://docs.scipy.org/doc/scipy/reference/integrate.html))
 * Optimization ([scipy.optimize](http://docs.scipy.org/doc/scipy/reference/optimize.html))
@@ -98,8 +95,9 @@ ani = FuncAnimation(
 display(HTML(ani.to_jshtml()))
 ```
 
+**References**:
 
-More information: <http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/>
+- [Matplotlib Animations / JavaScript Widgets](http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/) by Louis Tiao
 
 
 ## Animation with `plotly`
@@ -129,14 +127,15 @@ fig = px.scatter(
 fig.show("notebook")
 ```
 
-See more here:
-<http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/>
+
 ## Linear algebra
 
  `scipy` for linear algebra : use `linalg`. It includes functions for solving
  linear systems, eigenvalues decomposition, SVD, Gaussian elimination (LU, Cholesky), etc.
 
- Documentation: <http://docs.scipy.org/doc/scipy/reference/linalg.html>
+**References**:
+
+- [Scipy documentation](http://docs.scipy.org/doc/scipy/reference/linalg.html)
 
 ### Solving linear systems:
 Find $x$ such that: $A x = b$
@@ -183,12 +182,13 @@ print(evals, "\n ------\n", evecs)
 np.allclose(A, evecs @ np.diag(evals) @ evecs.T)
 
 ```
-### <font color='red'> EXERCISE : Eigen values/vectors</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE:  Eigen values/vectors
 
 Verify numerically that the output from `linalg.eig` are indeed approximately
 eigen values and eigen vectors of matrix A above.
 
-*Hint*: use <https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html>
+*Hint*: use [Scipy documentation on allclose](https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html)
 
 If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
 this is more robust and leverages the structures (you know they are real!)
@@ -207,11 +207,13 @@ print((linalg.eigvalsh(A.T @ A) ** 0.5))
 print(linalg.norm(A, ord=np.inf))
 ```
 
-### <font color='red'> EXERCISE : Norms computation</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE:  Norms computation
+
 Check numerically what is the instruction `linalg.norm(A, ord=np.inf)`
 computing.
 Double check with the help and a numerical test.
-
+:::
 
 ```{python}
 A = np.random.randn(3, 3)
@@ -219,7 +221,12 @@ print(linalg.norm(A, ord=np.inf))
 ```
 
 ## Random generation, distributions, etc.
-(see more on this at <https://albertcthomas.github.io/good-practices-random-number-generators/> or <https://numpy.org/doc/1.18/reference/random/legacy.html#numpy.random.RandomState>)
+**References**:
+
+- [Good practices with numpy random number generators](https://albertcthomas.github.io/good-practices-random-number-generators/) by Albert Thomas
+- [Numpy documentation on RandomState](https://numpy.org/doc/1.18/reference/random/legacy.html#numpy.random.RandomState)
+- [Random Widgets](https://github.com/josephsalmon/Random-Widgets), by Joseph Salmon: Visualization of various popular distributions.
+
 
 ```{python}
 seed = 12345
@@ -227,13 +234,14 @@ rng = np.random.default_rng(seed)  # can be called without a seed
 rng.random()
 ```
 
-Visualization of various popular distributions are available here (see widgets): <https://github.com/josephsalmon/Random-Widgets>
 
 
 ## Optimization
 **Goal**: find functions minima or maxima
-Documentation: <http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html>
 
+References:
+
+- [Scipy Lectures](http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html) on mathematical optimization.
 
 ```{python}
 from scipy import optimize
@@ -256,7 +264,7 @@ plt.plot(xs, f(xs))
 plt.show()
 ```
 
-Default solver for minimization/maximization: `fmin_bfgs` (see <https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm>)
+Default solver for minimization/maximization: `fmin_bfgs` (see [Wikipedia on BFGS](https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm))
 
 
 ```{python}
@@ -273,10 +281,13 @@ plt.plot(x_max, f(x_max), "|", markersize=20)
 plt.show()
 ```
 
-### <font color='red'> EXERCISE : Bassin of attraction</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE:
+
 Draw the points on the curves with two different colors :
 - orange for the points leading to find the left local minima
 - red for the points leading to the right local minima.
+:::
 
 ### Find the zeros of a function
 Find $x$ such that $f(x) = 0$, with `fsolve`.
@@ -424,7 +435,7 @@ plt.show()
 
 ```{python}
 fig, ax = plt.subplots(3, 2)
-fig.set_size_inches(9, 6.5)
+fig.set_size_inches(7, 4.5)
 n_1, n_2, n_3 = img.shape
 
 ax[0, 0].imshow(img[:, :, 0], cmap=plt.cm.Reds)
@@ -512,7 +523,7 @@ plt.imshow(img[:, :, 2], cmap=plt.cm.gray)
 
 
 fig, ax = plt.subplots(3, 2)
-fig.set_size_inches(9, 6.5)
+fig.set_size_inches(7, 4.5)
 n_1, n_2, n_3 = img.shape
 
 ax[0, 0].imshow(img[:, :, 0], cmap=plt.cm.Reds)
@@ -527,7 +538,9 @@ ax[2, 1].hist(img[:, :, 2].reshape(n_1 * n_2), np.arange(0, 256), density=True)
 plt.tight_layout()
 ```
 
-### <font color='red'> EXERCISE : Make the Brazilian italianer</font>
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: Make the Brazilian italianer
+
 Create a version of the Brazilian flag as follows:
 
 ```{python}
@@ -556,14 +569,12 @@ img[:, :, 2][find_light_green] = 0
 plt.imshow(img)
 plt.show()
 ```
+:::
 
-# More on colors/ images:
-<http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf>
+**References**:
 
-
-
-## Additional lectures
-* <http://www.scipy.org> - The official web page for the SciPy project.
-* <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html> - A tutorial on how to get started using SciPy.
-* <http://scipy-lectures.github.io> -  Scipy lectures
-* <https://github.com/scipy/scipy/> - The SciPy source code.
+- [Course on images/slides](http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf) by Joseph Salmon
+- [Official SciPy web page](http://www.scipy.org)
+- [SciPy User Guide](http://docs.scipy.org/doc/scipy/reference/tutorial/index.html)
+- [Scipy lectures](http://scipy-lectures.github.io) 
+- [The SciPy source code](https://github.com/scipy/scipy/)

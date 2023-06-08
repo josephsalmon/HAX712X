@@ -10,12 +10,15 @@ import matplotlib.pyplot as plt
 ```
 
 ## Time/computation: usage of `%timeit`
+**References**:
 
-*magic* commands are commands such as: %timeit, %matplotlib, %autoreload;
-see for instance
+- [Built-in magic commands](https://ipython.org/ipython-doc/3/interactive/magics.html)
+- [autoreload](https://ipython.org/ipython-doc/3/config/extensions/autoreload.html)
 
-- <https://ipython.org/ipython-doc/3/interactive/magics.html>
-- <https://ipython.org/ipython-doc/3/config/extensions/autoreload.html>
+
+*magic* commands are IPython commands such as: %timeit, %matplotlib, %autoreload;
+
+
 
 ```{python}
 n = 1000
@@ -68,18 +71,16 @@ end = time.time()
 print("Time to execute the command: {0:.5f} s.".format(end - start))
 ```
 
-
-
 ## Sparse matrices, graphs and memory
 
 Sparse matrices are useful to handle potentially huge matrices,
 that have only a few non-zero coefficients:
 
-- <http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices>
+- [Scipy Lectures: why sparse matrices](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices)
 
-- <https://rushter.com/blog/scipy-sparse-matrices/>
+- [Sparse data structures in Python](https://rushter.com/blog/scipy-sparse-matrices/), by Artem Golubin 
 
-- <http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy>
+- [Introduction to Sparse Matrices in Python with SciPy](http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy), by by cmdlinetips
 
 **Examples**:
 
@@ -252,22 +253,23 @@ print((g.number_of_edges() / g.number_of_nodes()**2) * 100)
 
 Remark: a possible visualization with Javascript (not so stable though, can be skipped)
 
-- <https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/>
-- <https://github.com/brandomr/ner2sna>
+- [Interactive Networks with Networkx and D3](https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/)
+- [ner2sna: Entity Extraction and Network Analysis](https://github.com/brandomr/ner2sna)
 
 ```python
     from IPython.display import HTML
     get_ipython().run_cell_magic('HTML', '', "\n<iframe height=400px width=100% src='force.html'></iframe>")
 ```
 
-### Planars graphs and mapss
+### Planars graphs and maps
 
 Open Street Map interfaced with `networkx`, using the package `osmnx`!!!
 
 **Known bug**:
-- <https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library>
-and
-- <https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx>
+- [Cannot import name 'CRS' from 'pyproj' in osmnx](https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library)
+
+- [TypeError: argument of type 'CRS' is not iterable" with osmnx](https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx)
+
 so pick version 0.14 at least
 ```conda install osmnx>=0.14```
 or
@@ -277,9 +279,9 @@ or
 For **Windows users**, there might be some trouble with installing the
 `fiona` package, see:
 
-- <https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda>
+- [installing geopandas:" A GDAL API version must be specified (anaconda)](https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda)
 
-- <https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os>
+- [Install fiona on Windows](https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os)
 
 Special case for `osmnx` on **Windows** follow the next step in order:
 * `pip install osmnx`
@@ -322,8 +324,10 @@ print(f"nb nodes: {G.number_of_nodes()}")
 ```python
 ox.plot_graph(G)
 ```
-# Visualize shorthest path between two points.
-https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/
+## Visualize shortest path between two points
+**References**:
+
+- [OpenStreetMap Roads Data Using osmnx](https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/)
 
 ```python
 origin = ox.geocoder.geocode('Place Eugène Bataillon, Montpellier, France')
@@ -398,10 +402,11 @@ print(" {0:.2} % of edges only are needed to represent the graph of Montpellier"
 ```
 
 
-To go further on the visualization of geographical graphs:
-1. https://geoffboeing.com/2016/11/osmnx-python-street-networks/
-2. https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html
-3. https://automating-gis-processes.github.io/2018/
+**References**:
+
+- [OSMnx: Python for Street Networks](https://geoffboeing.com/2016/11/osmnx-python-street-networks/)
+- [Network analysis in Python](https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html)
+- [https://autogis-site.readthedocs.io/en/latest/index.html](https://autogis-site.readthedocs.io/en/latest/index.html)
 
 ```python
 import geopandas
@@ -414,29 +419,27 @@ ax = df.plot(figsize=(10, 10), alpha=0.5, edgecolor='k')
 plt.show()
 ```
 ## For more on profiling
-- In Python `snakeviz` could help, see <https://jiffyclub.github.io/snakeviz/>
-- In R, `profvis` is equivalent, see <https://rstudio.github.io/profvis/>
+- [`snakeviz`, in Python](https://jiffyclub.github.io/snakeviz/)
+- [`profvis`, in R](https://rstudio.github.io/profvis/)
 
 ## Debugging: package `pdb`
-inspired by
-https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/
-Let us use
-`import pdb; pdb.set_trace()`
-to enter a code and inspect it.
+**References**:
+
+- [Debugging Jupyter notebooks ](https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/) by David Hamann
+- [Advanced Python Debugging with pdb](https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa) by Steven Kryskalla
+- [Debug Python with VSCode](https://www.youtube.com/watch?v=w8QHoVam1-I)
+
+Let us use `import pdb; pdb.set_trace()` to enter a code and inspect it.
 Push the key `c` and then `enter` to go next.
-See also:
-<https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa>.
 
 A first recommendation is to use the Python debugger in your IDE.
-For VScode: see for instance <https://www.youtube.com/watch?v=w8QHoVam1-I>.
 
 
 Pure Python or IPython can use the `pdb` package and the
 command `pdb.set_trace()`.
 A command prompt launches when an error is met, and you can check the current
 status of the environment.
-Useful shortcuts are available (*e.g.,* touche c, touche j etc.) here:
-<https://docs.python.org/3/library/pdb.html>)
+Useful shortcuts are available (*e.g.,* touche c, touche j etc.), with at full list is [here](https://docs.python.org/3/library/pdb.html).s
 
 ```python
 def function_debile(x):
