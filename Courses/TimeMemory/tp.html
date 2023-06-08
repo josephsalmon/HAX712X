@@ -285,14 +285,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#definition-laplacian-matrix" id="toc-definition-laplacian-matrix" class="nav-link" data-scroll-target="#definition-laplacian-matrix">Definition : <em>Laplacian matrix</em></a></li>
   <li><a href="#interactive-graph-visualisation" id="toc-interactive-graph-visualisation" class="nav-link" data-scroll-target="#interactive-graph-visualisation">Interactive graph visualisation</a>
   <ul class="collapse">
-  <li><a href="#planars-graphs-and-mapss" id="toc-planars-graphs-and-mapss" class="nav-link" data-scroll-target="#planars-graphs-and-mapss">Planars graphs and mapss</a></li>
+  <li><a href="#planars-graphs-and-maps" id="toc-planars-graphs-and-maps" class="nav-link" data-scroll-target="#planars-graphs-and-maps">Planars graphs and maps</a></li>
   </ul></li>
-  <li><a href="#visualize-shorthest-path-between-two-points." id="toc-visualize-shorthest-path-between-two-points." class="nav-link" data-scroll-target="#visualize-shorthest-path-between-two-points.">Visualize shorthest path between two points.</a>
+  <li><a href="#visualize-shortest-path-between-two-points" id="toc-visualize-shortest-path-between-two-points" class="nav-link" data-scroll-target="#visualize-shortest-path-between-two-points">Visualize shortest path between two points</a>
   <ul class="collapse">
   <li><a href="#graph-sparsity" id="toc-graph-sparsity" class="nav-link" data-scroll-target="#graph-sparsity">Graph sparsity</a></li>
+  </ul></li>
   <li><a href="#for-more-on-profiling" id="toc-for-more-on-profiling" class="nav-link" data-scroll-target="#for-more-on-profiling">For more on profiling</a></li>
   <li><a href="#debugging-package-pdb" id="toc-debugging-package-pdb" class="nav-link" data-scroll-target="#debugging-package-pdb">Debugging: package <code>pdb</code></a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/TimeMemory/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -321,11 +321,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="timecomputation-usage-of-timeit" class="level2">
 <h2 class="anchored" data-anchor-id="timecomputation-usage-of-timeit">Time/computation: usage of <code>%timeit</code></h2>
-<p><em>magic</em> commands are commands such as: %timeit, %matplotlib, %autoreload; see for instance</p>
+<p><strong>References</strong>:</p>
 <ul>
-<li><a href="https://ipython.org/ipython-doc/3/interactive/magics.html" class="uri">https://ipython.org/ipython-doc/3/interactive/magics.html</a></li>
-<li><a href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html" class="uri">https://ipython.org/ipython-doc/3/config/extensions/autoreload.html</a></li>
+<li><a href="https://ipython.org/ipython-doc/3/interactive/magics.html">Built-in magic commands</a></li>
+<li><a href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html">autoreload</a></li>
 </ul>
+<p><em>magic</em> commands are IPython commands such as: %timeit, %matplotlib, %autoreload;</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> <span class="fl">5.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -355,9 +356,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="sparse-matrices-graphs-and-memory">Sparse matrices, graphs and memory</h2>
 <p>Sparse matrices are useful to handle potentially huge matrices, that have only a few non-zero coefficients:</p>
 <ul>
-<li><p><a href="http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices" class="uri">http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices</a></p></li>
-<li><p><a href="https://rushter.com/blog/scipy-sparse-matrices/" class="uri">https://rushter.com/blog/scipy-sparse-matrices/</a></p></li>
-<li><p><a href="http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy" class="uri">http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy</a></p></li>
+<li><p><a href="http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices">Scipy Lectures: why sparse matrices</a></p></li>
+<li><p><a href="https://rushter.com/blog/scipy-sparse-matrices/">Sparse data structures in Python</a>, by Artem Golubin</p></li>
+<li><p><a href="http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy">Introduction to Sparse Matrices in Python with SciPy</a>, by by cmdlinetips</p></li>
 </ul>
 <p><strong>Examples</strong>:</p>
 <ul>
@@ -486,19 +487,23 @@ A_{{i,j}}=
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((g.number_of_edges() <span class="op">/</span> g.number_of_nodes()<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Remark: a possible visualization with Javascript (not so stable though, can be skipped)</p>
 <ul>
-<li><a href="https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/" class="uri">https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/</a></li>
-<li><a href="https://github.com/brandomr/ner2sna" class="uri">https://github.com/brandomr/ner2sna</a></li>
+<li><a href="https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/">Interactive Networks with Networkx and D3</a></li>
+<li><a href="https://github.com/brandomr/ner2sna">ner2sna: Entity Extraction and Network Analysis</a></li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    get_ipython().run_cell_magic(<span class="st">'HTML'</span>, <span class="st">''</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">&lt;iframe height=400px width=100</span><span class="sc">% s</span><span class="st">rc='force.html'&gt;&lt;/iframe&gt;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="planars-graphs-and-mapss" class="level3">
-<h3 class="anchored" data-anchor-id="planars-graphs-and-mapss">Planars graphs and mapss</h3>
+<section id="planars-graphs-and-maps" class="level3">
+<h3 class="anchored" data-anchor-id="planars-graphs-and-maps">Planars graphs and maps</h3>
 <p>Open Street Map interfaced with <code>networkx</code>, using the package <code>osmnx</code>!!!</p>
-<p><strong>Known bug</strong>: - <a href="https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library" class="uri">https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library</a> and - <a href="https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx" class="uri">https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx</a> so pick version 0.14 at least <code>conda install osmnx&gt;=0.14</code> or <code>pip install osmnx&gt;=0.10</code>.</p>
+<p><strong>Known bug</strong>: - <a href="https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library">Cannot import name ‘CRS’ from ‘pyproj’ in osmnx</a></p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx">TypeError: argument of type ‘CRS’ is not iterable” with osmnx</a></li>
+</ul>
+<p>so pick version 0.14 at least <code>conda install osmnx&gt;=0.14</code> or <code>pip install osmnx&gt;=0.10</code>.</p>
 <p>For <strong>Windows users</strong>, there might be some trouble with installing the <code>fiona</code> package, see:</p>
 <ul>
-<li><p><a href="https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda" class="uri">https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda</a></p></li>
-<li><p><a href="https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os" class="uri">https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os</a></p></li>
+<li><p><a href="https://stackoverflow.com/questions/54734667/error-installing-geopandas-a-gdal-api-version-must-be-specified-in-anaconda">installing geopandas:” A GDAL API version must be specified (anaconda)</a></p></li>
+<li><p><a href="https://jingwen-z.github.io/how-to-install-python-module-fiona-on-windows-os">Install fiona on Windows</a></p></li>
 </ul>
 <p>Special case for <code>osmnx</code> on <strong>Windows</strong> follow the next step in order: * <code>pip install osmnx</code> * <code>pip install Rtree</code> * <code>conda install -c conda-forge libspatialindex=1.9.3</code> * <code>pip install osmnx</code> * Install all packages required up to <code>fiona</code>. * <code>conda install -c conda-forge geopandas</code> * say yes to everything * Once done, launch <code>pip install osmnx==1.0.1</code> You will also need to install the package <code>folium</code></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -515,9 +520,12 @@ A_{{i,j}}=
 <div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ox.plot_graph(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="visualize-shorthest-path-between-two-points." class="level1">
-<h1>Visualize shorthest path between two points.</h1>
-<p>https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/</p>
+<section id="visualize-shortest-path-between-two-points" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-shortest-path-between-two-points">Visualize shortest path between two points</h2>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/">OpenStreetMap Roads Data Using osmnx</a></li>
+</ul>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>origin <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Place Eugène Bataillon, Montpellier, France'</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>destination <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Maison du Lez, Montpellier, France'</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -562,24 +570,36 @@ A_{{i,j}}=
 <section id="graph-sparsity" class="level3">
 <h3 class="anchored" data-anchor-id="graph-sparsity">Graph sparsity</h3>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" </span><span class="sc">{0:.2}</span><span class="st"> </span><span class="sc">% o</span><span class="st">f edges only are needed to represent the graph of Montpellier"</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> G.number_of_edges() <span class="op">/</span> G.number_of_nodes() <span class="op">**</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To go further on the visualization of geographical graphs: 1. https://geoffboeing.com/2016/11/osmnx-python-street-networks/ 2. https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html 3. https://automating-gis-processes.github.io/2018/</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://geoffboeing.com/2016/11/osmnx-python-street-networks/">OSMnx: Python for Street Networks</a></li>
+<li><a href="https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html">Network analysis in Python</a></li>
+<li><a href="https://autogis-site.readthedocs.io/en/latest/index.html">https://autogis-site.readthedocs.io/en/latest/index.html</a></li>
+</ul>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> geopandas.read_file(geopandas.datasets.get_path(<span class="st">'nybb'</span>))</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df.plot(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), alpha<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
 <section id="for-more-on-profiling" class="level2">
 <h2 class="anchored" data-anchor-id="for-more-on-profiling">For more on profiling</h2>
 <ul>
-<li>In Python <code>snakeviz</code> could help, see <a href="https://jiffyclub.github.io/snakeviz/" class="uri">https://jiffyclub.github.io/snakeviz/</a></li>
-<li>In R, <code>profvis</code> is equivalent, see <a href="https://rstudio.github.io/profvis/" class="uri">https://rstudio.github.io/profvis/</a></li>
+<li><a href="https://jiffyclub.github.io/snakeviz/"><code>snakeviz</code>, in Python</a></li>
+<li><a href="https://rstudio.github.io/profvis/"><code>profvis</code>, in R</a></li>
 </ul>
 </section>
 <section id="debugging-package-pdb" class="level2">
 <h2 class="anchored" data-anchor-id="debugging-package-pdb">Debugging: package <code>pdb</code></h2>
-<p>inspired by https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/ Let us use <code>import pdb; pdb.set_trace()</code> to enter a code and inspect it. Push the key <code>c</code> and then <code>enter</code> to go next. See also: <a href="https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa" class="uri">https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa</a>.</p>
-<p>A first recommendation is to use the Python debugger in your IDE. For VScode: see for instance <a href="https://www.youtube.com/watch?v=w8QHoVam1-I" class="uri">https://www.youtube.com/watch?v=w8QHoVam1-I</a>.</p>
-<p>Pure Python or IPython can use the <code>pdb</code> package and the command <code>pdb.set_trace()</code>. A command prompt launches when an error is met, and you can check the current status of the environment. Useful shortcuts are available (<em>e.g.,</em> touche c, touche j etc.) here: <a href="https://docs.python.org/3/library/pdb.html" class="uri">https://docs.python.org/3/library/pdb.html</a>)</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/">Debugging Jupyter notebooks</a> by David Hamann</li>
+<li><a href="https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa">Advanced Python Debugging with pdb</a> by Steven Kryskalla</li>
+<li><a href="https://www.youtube.com/watch?v=w8QHoVam1-I">Debug Python with VSCode</a></li>
+</ul>
+<p>Let us use <code>import pdb; pdb.set_trace()</code> to enter a code and inspect it. Push the key <code>c</code> and then <code>enter</code> to go next.</p>
+<p>A first recommendation is to use the Python debugger in your IDE.</p>
+<p>Pure Python or IPython can use the <code>pdb</code> package and the command <code>pdb.set_trace()</code>. A command prompt launches when an error is met, and you can check the current status of the environment. Useful shortcuts are available (<em>e.g.,</em> touche c, touche j etc.), with at full list is <a href="https://docs.python.org/3/library/pdb.html">here</a>.s</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> function_debile(x):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="dv">42</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">+=</span> x</span>
@@ -604,7 +624,6 @@ A_{{i,j}}=
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>blobl_func(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
