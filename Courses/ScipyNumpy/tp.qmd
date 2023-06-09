@@ -1,9 +1,5 @@
 ---
 title: SciPy - scientific library in Python
-jupyter: python3
-format: 
-  html:
-      out.width: 50%
 
 ---
 
@@ -73,31 +69,16 @@ ani = FuncAnimation(
 ```
 
 ```{python}
-#| out.width: 50%
-display(HTML(ani.to_html5_video()))
-```
-
-Another version exists (using JavaScript):
-
-```{python}
-
-%%capture
-fig, ax = plt.subplots()
-xdata, ydata = [], []
-(ln,) = plt.plot([], [], "bo")
-
-ani = FuncAnimation(
-    fig,
-    update,
-    interval=50,
-    frames=np.linspace(0, 2 * np.pi, 100),
-    init_func=init,
-    blit=True,
-)
-```
-
-```{python}
+#| layout-ncol: 1
 display(HTML(ani.to_jshtml()))
+```
+
+Rem: another version exists, using html5 video:
+
+```{python}
+#| eval: false
+
+display(HTML(ani.to_html5_video()))
 ```
 
 **References**:
@@ -255,6 +236,7 @@ from scipy import optimize
 ### Finding (local!) minima
 
 ```{python}
+#| layout-ncol: 1
 def f(x):
     return 4 * x ** 3 + (x - 2) ** 2 + x ** 4
 
@@ -273,6 +255,7 @@ Default solver for minimization/maximization: `fmin_bfgs` (see [Wikipedia on BFG
 
 
 ```{python}
+#| layout-ncol: 1
 x_min = optimize.fmin_bfgs(f, x0=-4)
 x_max = optimize.fmin_bfgs(mf, x0=-2)
 x_min2 = optimize.fmin_bfgs(f, x0=2)
@@ -298,6 +281,7 @@ Draw the points on the curves with two different colors :
 Find $x$ such that $f(x) = 0$, with `fsolve`.
 
 ```{python}
+#| layout-ncol: 1
 omega_c = 3.0
 
 def f(omega):
@@ -334,6 +318,7 @@ plt.show()
 ### Parameters estimation
 
 ```{python}
+#| layout-ncol: 1
 from scipy.optimize import curve_fit
 
 
@@ -359,6 +344,7 @@ print(a, b, c)
 Displaying
 
 ```{python}
+#| layout-ncol: 1
 plt.figure()
 plt.plot(x, yn, ".", label="data")
 plt.plot(x, y, "k", label="True $f$")
@@ -370,6 +356,7 @@ plt.show()
 Rem: for polynomial fitting, one can directly use `numpy`
 
 ```{python}
+#| layout-ncol: 1
 x = np.linspace(0, 1, 10)
 y = np.sin(x * np.pi / 2.0)
 line = np.polyfit(x, y, deg=10)
@@ -384,6 +371,7 @@ plt.show()
 ## Interpolation
 
 ```{python}
+#| layout-ncol: 1
 from scipy.interpolate import interp1d, CubicSpline
 
 
@@ -417,6 +405,8 @@ plt.show()
 ## Images
 
 ```{python}
+#| layout-ncol: 1
+
 from scipy import ndimage, datasets
 
 img = datasets.face()
@@ -439,6 +429,8 @@ plt.show()
 ### RGB decomposition
 
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(3, 2)
 fig.set_size_inches(7, 4.5)
 n_1, n_2, n_3 = img.shape
@@ -457,6 +449,8 @@ plt.tight_layout()
 
 
 ```{python}
+#| layout-ncol: 1
+
 print(img.flags)  # cannot edit...
 img_compressed = img.copy()
 img_compressed.setflags(write=1)
@@ -476,13 +470,15 @@ plt.show()
 ### Convert a color image in grayscale
 
 ```{python}
+#| layout-ncol: 1
+
 plt.figure()
 plt.imshow(np.mean(img, axis=2), cmap=plt.cm.gray)
 plt.show()
 ```
 ### Blurring (fr: floutage)
 
-```python
+```s
 img_flou = ndimage.gaussian_filter(img, sigma=20)
 fix, ax = plt.subplots()
 ax.imshow(img_flou, cmap=plt.cm.gray)
@@ -515,6 +511,8 @@ def update(sigma=2):
 ### Changing colors in an image
 
 ```{python}
+#| layout-ncol: 1
+
 import pooch
 import os
 
@@ -549,6 +547,7 @@ plt.tight_layout()
 Create a version of the Brazilian flag as follows:
 
 ```{python}
+#| layout-ncol: 1
 #| eval: true
 #| echo: false
 

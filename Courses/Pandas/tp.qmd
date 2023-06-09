@@ -1,9 +1,9 @@
 ---
 title: "Pandas"
-jupyter: python3
 format:
   html:
       out.width: 50%
+
 ---
 
 This lecture is extracted and adapted from the [Pandas tutorial](https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb) by Joris Van den Bossche.
@@ -11,6 +11,7 @@ This lecture is extracted and adapted from the [Pandas tutorial](https://github.
 For R users, you might also want to read [Pandas: Comparison with R / R libraries](https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html) for a smooth start in Pandas.
 
 ```{python}
+%matplotlib inline
 import os
 import numpy as np
 import calendar
@@ -122,16 +123,21 @@ df_titanic.describe()
 
 - Histograms (please avoid...often useless)
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
 ax.hist(df_titanic['Age'], density=True, bins=25)
 plt.xlabel('Age')
 plt.ylabel('Proportion')
 plt.title("Passager age histogram")
+plt.show()
 ```
 
 - Kernel Density Estimate (KDE):  :
 
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
 sns.kdeplot(
     df_titanic["Age"], ax=ax, fill=True, cut=0, bw_adjust=0.1
@@ -140,12 +146,14 @@ plt.xlabel("Proportion")
 plt.ylabel("Age")
 plt.title("Passager age kernel density estimate")
 plt.tight_layout()
-
+plt.show()
 ```
-Note: the bandwidth paremeter (here encoded as`bw_adjust`) controls the smoothing level.
+Note: the bandwidth parameter (here encoded as`bw_adjust`) controls the smoothing level.
 
 - Swarmplot:
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
 sns.swarmplot(
     data=df_titanic_raw,
@@ -159,6 +167,8 @@ sns.swarmplot(
 plt.title("Passager age by gender/survival")
 plt.legend(labels=["Died", "Survived"], loc="upper left")
 plt.tight_layout()
+plt.show()
+
 ```
 
 
@@ -170,7 +180,7 @@ Plot the density estimate over the histogram
 
 ### Widgets
 Interactive interaction with codes and output is nowadays easier and easier (see also Shiny app in R-software).
-In python, one can use `widgets` and the `interact` package for this purpose.
+In Python, one can use `widgets` and the `interact` package for this purpose.
 We are going to visualize that on the simple KDE and histogram examples.
 
 ### XXX -> to pyplot
@@ -232,6 +242,8 @@ df_titanic.columns
 
 
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
 
 df_titanic.groupby('Pclass')['Survived'].aggregate(lambda x:
@@ -253,6 +265,8 @@ Perform a similar analysis with the median for the price per class in pounds.
 ### `catplot`: a visual `groupby`
 
 ```{python}
+#| layout-ncol: 1
+
 ax=sns.catplot(
     x="Pclass",
     y="Age",
@@ -263,9 +277,12 @@ ax=sns.catplot(
     s=8,
 )
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
+plt.show()
 ```
 
 ```{python}
+#| layout-ncol: 1
+
 ax=sns.catplot(
     x="Pclass",
     y="Age",
@@ -277,9 +294,12 @@ ax=sns.catplot(
     s=11,
 )
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
+plt.show()
 ```
 
 ```{python}
+#| layout-ncol: 1
+
 ax=sns.catplot(
     x="Sex",
     y="Age",
@@ -293,9 +313,12 @@ ax=sns.catplot(
     height=5,
     aspect=0.35
 )
+plt.show()
 ```
 
 ```{python}
+#| layout-ncol: 1
+
 ax=sns.catplot(x='Pclass',
             y='Age',
             hue="Sex",
@@ -305,6 +328,7 @@ ax=sns.catplot(x='Pclass',
             alpha=0.8,
 )
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
+plt.show()
 ```
 
 Beware: large difference in sex ratio by class
@@ -523,6 +547,7 @@ df_titanic.groupby(['Sex'])[['Survived', 'Age', 'Fare', 'Pclass']].mean()
 ### Create binned values
 
 ```{python}
+#| layout-ncol: 1
 bins=np.arange(0, 100, 10)
 current_palette = sns.color_palette()
 
@@ -659,6 +684,8 @@ polution_ts.describe()
 ```
 
 ```{python}
+#| layout-ncol: 1
+
 fig, axes = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
 
 axes[0].plot(polution_ts['O3'])
@@ -672,6 +699,8 @@ plt.show()
 ```
 
 ```{python}
+#| layout-ncol: 1
+
 fig, axes = plt.subplots(2, 1, figsize=(10, 5), sharex=True)
 
 axes[0].plot(polution_ts['O3'].resample('d').max(), '--')
@@ -699,6 +728,8 @@ Q: Is the pollution getting better over the years or not?
 :::
 
 ```{python}
+#| layout-ncol: 1
+
 fig, ax = plt.subplots(1, 1)
 polution_ts['2008':].resample('Y').mean().plot(ax=ax)
 # Sample by year (A pour Annual) or Y for Year
@@ -709,8 +740,9 @@ plt.xlabel("Year")
 plt.show()
 ```
 
+Loading colors:
 ```{python}
-# Load colors
+#| layout-ncol: 1
 sns.set_palette("GnBu_d", n_colors=7)
 polution_ts['weekday'] = polution_ts.index.weekday  # Monday=0, Sunday=6
 polution_ts['weekend'] = polution_ts['weekday'].isin([5, 6])
@@ -724,6 +756,8 @@ plt.show()
 
 
 ```{python}
+#| layout-ncol: 1
+
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_week_no2.plot(ax=axes[0])
@@ -738,7 +772,7 @@ axes[0].set_ylim(0, 60)
 polution_week_03.plot(ax=axes[1])
 axes[1].set_ylabel("Concentration (µg/m³)")
 axes[1].set_xlabel("Intraday evolution")
-axes[1].set_title("Daily O3 concentration: effet du weekend?")
+axes[1].set_title("Daily O3 concentration: weekend effect?")
 axes[1].set_xticks(np.arange(0, 24))
 axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[1].set_ylim(0, 70)
@@ -747,6 +781,7 @@ axes[0].legend().set_visible(False)
 axes[1].legend(labels=[day for day in calendar.day_name], loc='lower left', bbox_to_anchor=(1, 0.1))
 
 plt.tight_layout()
+plt.show()
 ```
 
 
@@ -768,15 +803,17 @@ polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
 
 
 ```{python}
+#| layout-ncol: 1
+
 sns.set_palette("Paired", n_colors=12)
 
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
 polution_month_no2.plot(ax=axes[0])
 axes[0].set_ylabel("Concentration (µg/m³)")
-axes[0].set_xlabel("Heure de la journée")
+axes[0].set_xlabel("Hour of the day")
 axes[0].set_title(
-    "Profil journalier de la pollution au NO2: effet du weekend?")
+    "Daily profile per month (NO2): weekend effect?")
 axes[0].set_xticks(np.arange(0, 24))
 axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[0].set_ylim(0, 90)
@@ -784,7 +821,7 @@ axes[0].set_ylim(0, 90)
 polution_month_03.plot(ax=axes[1])
 axes[1].set_ylabel("Concentration (µg/m³)")
 axes[1].set_xlabel("Heure de la journée")
-axes[1].set_title("Profil journalier de la pollution au O3: effet du weekend?")
+axes[1].set_title("Daily profile per month (O3): weekend effect?")
 axes[1].set_xticks(np.arange(0, 24))
 axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[1].set_ylim(0, 90)
@@ -793,11 +830,13 @@ axes[0].legend().set_visible(False)
 axes[1].legend(labels=calendar.month_name[1:], loc='lower left',
                bbox_to_anchor=(1, 0.1))
 plt.tight_layout()
+plt.show()
 ```
 
 
 ## Third example: explore a dataset on bike accidents in France
 **References**:
+
 - [Data original source](https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/)
 - [Possible visualization](https://koumoul.com/en/datasets/accidents-velos)
 
@@ -988,6 +1027,7 @@ df_bikes
 
 
 ```{python}
+#| layout-ncol: 1
 # Chargement des couleurs
 sns.set_palette("GnBu_d", n_colors=7)
 
@@ -1004,12 +1044,12 @@ axes.set_title(
     "Profil journalier des accidents: effet du weekend?")
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
-# axes.set_ylim(0, 6)
 axes.legend(
     labels=[day for day in calendar.day_name],
     loc='upper left',
     )
 plt.tight_layout()
+plt.show()
 ```
 
 
@@ -1026,6 +1066,8 @@ Perform an analysis to check when the accidents are occurring during the week.
 :::
 
 ```{python}
+#| layout-ncol: 1
+
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
@@ -1044,10 +1086,10 @@ axes.set_title(
     "Profil journalier de la pollution au NO2: effet du weekend?")
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
-axes.legend(labels=calendar.month_name[1:], loc='lower left',
-            bbox_to_anchor=(1, 0.1))
+axes.legend(labels=calendar.month_name[1:], loc='upper left')
 
 plt.tight_layout()
+plt.show()
 ```
 
 
@@ -1086,6 +1128,7 @@ df['# Accidents per million'] = df['# Accidents per million'].values * 10000./ d
 
 
 ```{python}
+#| layout-ncol: 1
 import plotly.express as px
 import geopandas
 departement = geopandas.read_file('departement_avec_outremer_rapprochée.geojson')
@@ -1119,6 +1162,14 @@ fig = px.choropleth_mapbox(
     zoom=3.25,
     mapbox_style="white-bg",
 )
+fig.update_traces(colorbar_orientation='h', selector=dict(type='choroplethmapbox'))
+fig.update_layout(
+    title_text = 'Accidents per million inhabitants by department',
+)
+fig.layout.coloraxis.colorbar.thickness = 20
+fig.layout.coloraxis.colorbar.orientation = 'h'
+fig.layout.coloraxis.colorbar.y = -0.2
+
 fig.show()
 ```
 
@@ -1130,6 +1181,7 @@ Perform an analysis to check when the accidents are occurring for each departmen
 
 ```{python}
 #| echo: false
+#| eval: false
 
 path_target = "./dpt_area.csv"
 url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
