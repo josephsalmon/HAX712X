@@ -1,28 +1,31 @@
-# Bonus
-**1 supplementary point** on the final grade of the course can be obtained for contributions improving the course material (practicals, Readme, etc.).
+---
+title: Bonus
+---
+
+**1 supplementary point** on the final grade of the course can be obtained for contributions to improving the course material (practicals, Readme, etc.).
 
 
 ## Bonus conditions
 
 - only .5 point is given for a contribution,
 - only the first contribution proposed on a theme is rewarded (no point given for followers!),
-- documented pull-requests (PR) are expected : details are expected to help judging what the proposition improves/corrects,
-- for typos at least 5 corrections are expected to receive .5 point. The corrections should be gathered in a **single PR**.
+- documented pull-requests (PR) are expected: details are expected to help to judge what the proposition improves/corrects,
+- for typos. at least 5 corrections are expected to receive .5 points. The corrections should be gathered in a **single PR**.
 - each student can only get 1 point (maximum) through bonuses.
 
 
 ## Pull Request (PR)
-The pull request system is a standard way of proposing improvement and modifications in open source project. Here we use it for the opportunity to improve the course material.
+The pull request system is a standard way of proposing improvements and modifications in open-source projects. Here we use it for the opportunity to improve the course material.
 
 The principle is the following
 
-- Fork: Connect to your Github account (see [(tp.md]../Git/tp.md) for details) and fork the current repository by clicking on the "Fork" icon (note that HMMA238 was the old name of this course):
+- Fork: Connect to your Github account (see [(tp.md](../Git/tp.md) for details) and fork the current repository by clicking on the "Fork" icon (note that HMMA238 was the old name of this course):
 ![plot](fork.png)
 
-- Go to on your Github account and find the HAX712X repository. In what follows you should substitute my_github_id by your github identification; in the screenshots the examples are with **my_github_id=josephsalmon** and they should be adapted according to yours.
-The url is hence <https://github.com/my_github_id/HAX712X>.
+- Go to your Github account and find the HAX712X repository. In what follows you should substitute `my_github_id` with your github identification; in the screenshots, the examples are with **my_github_id=josephsalmon** and they should be adapted according to yours.
+The URL is hence <https://github.com/my_github_id/HAX712X>.
 
-- Get the cloning repository by clicking the "clone" button and choose either the `https` or `ssh` protocol (the later being recommended to avoid typing your password at each git pull/push):  ![plot](github_clone.png) .
+- Get the cloning repository by clicking the "clone" button and choose either the `https` or `ssh` protocol (the latter being recommended to avoid typing your password at each git pull/push):  ![plot](github_clone.png) .
 
 - Clone the repository on your local machine. On Linux this consists in typing the following line in a terminal:
 
@@ -30,7 +33,7 @@ The url is hence <https://github.com/my_github_id/HAX712X>.
 $ git clone git@github.com:my_github_id/HAX712X.git
 ```
 
-- Adding a remote : you need to configure a remote that points to the upstream repository. Before you can sync your fork with an upstream repository, you must do this step
+- Adding a remote: you need to configure a remote that points to the upstream repository. Before you can sync your fork with an upstream repository, you must do this step
 
 ```git remote add upstream https://github.com/josephsalmon/HAX712X.git```
 
@@ -46,7 +49,7 @@ $ git remote -v
 $ git checkout -b improving_git
 ```
 
-- Make local edit on some of the files in the project, and then commit and push the new branch `improving_git`:
+- Make local edits on some of the files in the project, and then commit and push the new branch `improving_git`:
 
 ```bash
 $ git commit -am "I edited some typos"
@@ -57,7 +60,7 @@ $ git push --set-upstream origin improving_git
 - Create Pull Request: go back in your browser to https://github.com/my_github_id/HAX712X  and click on Pull Request.
 
 
-- To keep your fork up to date / sync:
+- To keep your fork up to date/sync:
 
 ```bash
 $ git fetch upstream
@@ -71,17 +74,14 @@ $ git checkout master
 
 - To merge the upstream version (the one you see at https://github.com/josephsalmon/HAX712X.git)
 
-```bash 
+```bash
 $ git pull upstream master
 ```
 
 
 ## Additional material
 
-- for PR: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
-and 
-https://www.wikihow.com/Create-a-Pull-Request-on-Github
-
-
-- for synchronization of your fork with the (course) master:
-https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
+- [Gihtub help for PRs](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+- [wikiHow help for PRs](https://www.wikihow.com/Create-a-Pull-Request-on-Github)
+- [Github help for syncing a fork](
+https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
