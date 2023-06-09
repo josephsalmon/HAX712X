@@ -9,7 +9,8 @@ title: "SciPy"
 
 ## Introduction
 
-SciPy is a scientific library that builds upon NumPy. Among others, SciPy deals with:
+SciPy is a scientific library that builds upon NumPy.
+Among others, SciPy deals with:
 
 * Integration ([scipy.integrate](http://docs.scipy.org/doc/scipy/reference/integrate.html))
 * Optimization ([scipy.optimize](http://docs.scipy.org/doc/scipy/reference/optimize.html))
@@ -72,11 +73,10 @@ ani = FuncAnimation(
 display(HTML(ani.to_jshtml()))
 ```
 
-Rem: another version exists, using html5 video:
+Another way of displaying video exists, using html5 video:
 
 ```{python}
 #| eval: false
-
 display(HTML(ani.to_html5_video()))
 ```
 
@@ -127,19 +127,13 @@ Find $x$ such that: $A x = b$
 for specified matrix $A$ and vector $b$.
 
 ```{python}
- A = np.array([[1, 0, 3], [4, 5, 12], [7, 8, 9]], dtype=float)
-# A = np.random.randn(500, 500)
-# b = np.ones((500, 1))
+A = np.array([[1, 0, 3], [4, 5, 12], [7, 8, 9]], dtype=float)
 b = np.array([[1, 2, 3]], dtype=np.float64).T
-# b = np.array([[1, 2, 3]], dtype=np.float64).T
 
-print(A)
-print(b)
+print(A, b)
 
 x = linalg.solve(A, b)
-print(x)
-print(x.shape)
-print(b.shape)
+print(x, x.shape, b.shape)
 ```
 
 
@@ -151,7 +145,7 @@ np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
 **Remark**: NEVER (or you should really know why) invert a matrix.
 **ALWAYS** solve linear systems instead!
 
-#### Eigen values / vectors
+#### Eigen values/vectors
 
 $A v_n = \lambda_n v_n$ with $v_n$ the $n$-th eigen vector and $\lambda_n$ the $n$-th eigen value. The associated `python` functions are `eigvals` and `eig`:
 
@@ -269,11 +263,12 @@ plt.show()
 ```
 
 ::: {.callout-important appearance='default' icon="false"}
-## EXERCISE:
+## EXERCISE: Basin of attraction
 
 Draw the points on the curves with two different colors :
-- orange for the points leading to find the left local minima
-- red for the points leading to the right local minima.
+
+- orange: for the points leading to find the left local minima
+- red: for the points leading to the right local minima.
 :::
 
 ### Find the zeros of a function
@@ -285,7 +280,6 @@ omega_c = 3.0
 
 def f(omega):
     return np.tan(2 * np.pi * omega) - omega_c / omega
-
 
 
 x = np.linspace(1e-8, 3.2, 1000)
@@ -575,6 +569,8 @@ plt.show()
 :::
 
 **References**:
+
+- [Introduction to geopandas](https://geopandas.org/en/stable/getting_started/introduction.html)
 
 - [Course on images/slides](http://josephsalmon.eu/enseignement/Montpellier/HLMA310/matplotlib_slides.pdf) by Joseph Salmon
 - [Official SciPy web page](http://www.scipy.org)
