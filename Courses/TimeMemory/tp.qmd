@@ -150,6 +150,8 @@ $$
  \right.
 $$
 
+Note that instead of 1, the value could vary on a per-edge basis (cf. @fig-graph).
+
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE: Linear models & sparse matrices
 
@@ -177,20 +179,29 @@ G.add_edge('C', 'D', weight=4)
 G.add_edge('D', 'A', weight=2)
 ```
 
+and then visualize it:
+
 ```{python}
+#| label: fig-graph
+#| fig-cap: "Plot a simple graph" 
 #| layout-ncol: 1
 my_seed = 44
-nx.draw_networkx(G, with_labels=True, node_size=1000,
-                 pos=nx.spring_layout(G, seed=my_seed))
+nx.draw_networkx(
+    G, with_labels=True, node_size=1000, pos=nx.spring_layout(G, seed=my_seed)
+)
 
 labels = nx.get_edge_attributes(G, "weight")
-nx.draw_networkx_edge_labels(G,
-                             pos=nx.spring_layout(G, seed=my_seed),
-                             edge_labels=labels)
-nx.draw_networkx_edges(G, pos=nx.spring_layout(G, seed=my_seed),
-                       width=[5* i for i in list(labels.values())])
-plt.axis('off')
+nx.draw_networkx_edge_labels(
+    G, pos=nx.spring_layout(G, seed=my_seed), edge_labels=labels
+)
+nx.draw_networkx_edges(
+    G,
+    pos=nx.spring_layout(G, seed=my_seed),
+    width=[5 * i for i in list(labels.values())],
+)
+plt.axis("off")
 plt.show()
+
 ```
 
 
@@ -198,10 +209,9 @@ plt.show()
 ## EXERCISE: Displaying graphs
 
 1) show edges weights on the graph
-2) change the edge width to be proportional to the edge weights
 :::
 
-
+Note that a variant of adjacency matrix
 ```{python}
 #| layout-ncol: 1
 A = nx.adjacency_matrix(G)
