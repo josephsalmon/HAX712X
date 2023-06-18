@@ -145,7 +145,7 @@ np.allclose(A @ x, b, atol=1e-14, rtol=1e-15)
 **Remark**: NEVER (or you should really know why) invert a matrix.
 **ALWAYS** solve linear systems instead!
 
-#### Eigen values/vectors
+#### Eigenvalues/ Eigenvectors
 
 $A v_n = \lambda_n v_n$ with $v_n$ the $n$-th eigen vector and $\lambda_n$ the $n$-th eigen value. The associated `python` functions are `eigvals` and `eig`:
 
@@ -155,19 +155,22 @@ A = A + A.T
 evals, evecs = linalg.eig(A)
 print(evals, "\n ------\n", evecs)
 
-# V = [v_1, ... v_n] , columns = eigen vectors
-# A = V diag(s_1,...,s_n) V^T
-
 np.allclose(A, evecs @ np.diag(evals) @ evecs.T)
 
 ```
 ::: {.callout-important appearance='default' icon="false"}
-## EXERCISE:  Eigen values/vectors
+## EXERCISE:  Eigenvalues/Eigenvectors
 
 Verify numerically that the output from `linalg.eig` are indeed approximately
-eigen values and eigen vectors of matrix A above.
+eigenvalues and eigenvectors of matrix A above.
 
 *Hint*: use [Scipy documentation on allclose](https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html)
+:::
+
+
+
+
+#### Symmetric matrices
 
 If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
 this is more robust and leverages the structures (you know they are real!)
