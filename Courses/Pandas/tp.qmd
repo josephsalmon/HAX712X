@@ -856,6 +856,20 @@ df_bikes = pd.read_csv("bicycle_db.csv", na_values="", low_memory=False,
                        dtype={'data': str, 'heure': str, 'departement': str})
 ```
 
+In June 2023, the author decides to change the name of the columns... We define a dictionary to come back to legacy names...
+
+```{python}
+
+new2old = {
+"hrmn": "heure",
+"secuexist": "existence securite",
+"grav": "gravite accident",
+"dep": "departement"
+}
+
+df_bikes.rename(columns=new2old, inplace=True)
+
+```
 
 ```{python}
 #| eval: false
@@ -909,7 +923,7 @@ Can you find the starting day and the ending day of the study automatically?
 Hint: sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
 
 ```{python}
-df_bikes['date'] + ' ' + df_bikes['heure'] + ':00'
+df_bikes['date'] + ' ' + df_bikes['heure']
 ```
 
 
@@ -917,8 +931,9 @@ df_bikes['date'] + ' ' + df_bikes['heure'] + ':00'
 # ADAPT OLD to create the df_bikes['Time']
 
 time_improved = pd.to_datetime(df_bikes['date'] +
-                               ' ' + df_bikes['heure'] + ':00',
-                               format='%Y-%m-%d %H:%M')
+                               ' ' + df_bikes['heure'],
+                               format='%Y-%m-%d %H:%M',
+                               errors='coerce') # Warning : In June 2023, there is badly formated times...
 
 # Where d = day, m=month, Y=year, H=hour, M=minutes
 # create correct timing format in the dataframe
@@ -926,10 +941,12 @@ time_improved = pd.to_datetime(df_bikes['date'] +
 
 ```{python}
 df_bikes['Time'] = time_improved
+# remove rows with NaT
+df_bikes.dropna(subset=["Time"], inplace=True)
+# set new index 
 df_bikes.set_index('Time', inplace=True)
 # remove useless columns
-del df_bikes['heure']
-del df_bikes['date']
+df_bikes.drop(columns=['heure', 'date'], inplace=True)
 ```
 
 ```{python}
@@ -1115,7 +1132,8 @@ df_dtp_pop.sort_values(by=['Code Département'], inplace=True)
 df_bikes['departement'].replace('2A', '20A',inplace=True)
 df_bikes['departement'].replace('2B', '20B',inplace=True)
 df_bikes.sort_values(by=['departement'], inplace=True)
-
+# Clean extra departements
+df_bikes = df_bikes.loc[df_bikes['departement'].isin(df_dtp_pop['Code Département'].unique())]
 
 gd = df_bikes.groupby(['departement'], as_index=True, sort=True).size()
 
@@ -1125,13 +1143,20 @@ df = pd.DataFrame(data)
 df['# Accidents per million'] = df['# Accidents per million'].values * 10000./ df_dtp_pop['Population'].values
 ```
 
+```{python}
+path_target = "./departements-avec-outre-mer.geojson"
+url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
 
 
 ```{python}
 #| layout-ncol: 1
 import plotly.express as px
 import geopandas
-departement = geopandas.read_file('departement_avec_outremer_rapprochée.geojson')
+
+departement = geopandas.read_file('departements-avec-outre-mer.geojson')
 departement['code'].replace('2A', '20A', inplace=True)
 departement['code'].replace('2B', '20B', inplace=True)
 
