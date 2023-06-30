@@ -7,25 +7,30 @@ title: "Introduction to bash"
 
 ### Shell, terminal and console
 
-The **shell** is the program that processes commands and returns output, *e.g.*, Bash, zsh, etc...
+Every Operating System (Linux, MacOS, Windows, ...) come with a program able to interpret and run command line.  
 
-A **terminal** refers to a wrapper program that runs a shell.
+- The **shell** is the program that processes commands and returns output, *e.g.*, Bash, zsh, etc...
 
-The **console** is a special sort of terminal (low-level).
+- A **terminal** refers to a wrapper program that runs a shell.
 
-Reference:
+- The **console** is a special sort of terminal (low-level).
 
-- [super user: shell, console and terminal](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal)
+*Reference:* [super user: shell, console and terminal](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal)
 
 ### Prompt
 
-As you already know bash prompt is a `$` sign when you are a standard user. When you are an administrator (often called `root` user) the prompt is a `#`.
+As you already know, bash prompt is a `$` sign when you are a standard user. When you are an administrator (often called `root` user) the prompt is a `#`.
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: recognize different prompts 
+
+Find the different prompt for R, python and the terminal on windows
+:::
 
 ## The Unix directory structure
 
-Reference:
-
-- [The Linux Directory Structure, Explained](https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/), by Chris Hoffman.
+*Reference:* [The Linux Directory Structure, Explained](https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/), by Chris Hoffman.
 
 Some aliases:
 
@@ -84,8 +89,7 @@ $ man most
    $ export MANPAGER=less
    ```
 
-**References**: 
-[What are the differences between most, more and less?](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less) on StackExchange.
+*Reference:* [What are the differences between most, more and less?](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less) on StackExchange.
 
 ## Pattern matching (part I): Pathname expansion (a.k.a. globbing)
 
@@ -143,7 +147,7 @@ The `file` command can be used to display the information of a file (if not give
 
 ## Symbolic links
 
-A symbolic link or **symlink** is a special file containing a reference (a link) to another file or directory. For instance, try
+A symbolic link or **symlink** is a special file containing  and 2018reference (a link) to another file or directory. For instance, try
 
 ```bash
 $ ls -l /usr/bin
@@ -155,7 +159,7 @@ A symlink can be created with the command `ln`.
 $ ln -s target_path link_path
 ```
 
-Obiously, replace `target_path` and `link_path` by their corresponding values.
+**Obviously**, replace `target_path` and `link_path` by their corresponding values.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -217,9 +221,7 @@ $ chmod u+x toto.txt
 
 :::
 
-**References**:
-
-- [File system permission](https://en.wikipedia.org/wiki/File_system_permissions) on Wikipedia. See also `chown` and `chgrp`.
+*Reference:* [File system permission](https://en.wikipedia.org/wiki/File_system_permissions) on Wikipedia. See also `chown` and `chgrp`.
 
 ## Environment variables
 
@@ -250,9 +252,7 @@ $ export ENV_NAME=${ENV_NAME}:tutu
 $ echo ${ENV_NAME}
 ```
 
-**References**:
-
-- [How To Read and Set Environmental and Shell Variables on Linux](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps) by Justin Ellingwood.
+*Reference:* [How To Read and Set Environmental and Shell Variables on Linux](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps) by Justin Ellingwood.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -262,9 +262,7 @@ $ echo ${ENV_NAME}
    2. Is the order of the list important?
 :::
 
-**Useful tips:**
-
-   - To avoid setting up an env every time you open a terminal, you can append the `export MYENV=xxxxx` command to the `~/.bashrc` file.
+**Useful tips**: To avoid setting up an env every time you open a terminal, you can append the `export MYENV=xxxxx` command to the `~/.bashrc` file.
 
 
 ### Text editor
@@ -321,7 +319,7 @@ To show information about your processor use `lscpu` and to list the devices con
 
 Here we learn how to use `ps`, `top`, `htop`, `kill`, `pkill`, etc.
 
-References: [Tutorials Point: Unix/Linux - Process management](https://www.tutorialspoint.com/unix/unix-processes.html)
+*Reference:* [Tutorials Point: Unix/Linux - Process management](https://www.tutorialspoint.com/unix/unix-processes.html)
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -336,14 +334,15 @@ References: [Tutorials Point: Unix/Linux - Process management](https://www.tutor
 
 ### Get the data
 
-The dataset we are going to use is available on the [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/) plateform. We will focus on bicycles accident in France from 2005-2017.
+The dataset we are going to use is a modified version of the dataset available on the [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/) platform. We will focus on bicycles accident in France between 2011 and 2018.
 
 
 ::: {.callout-important appearance='default' icon="false"}
 ##  EXERCISE: downloading
 
    1. Create a folder `data_bicycle` and `cd` to it.
-   2. Download the `.csv` file available at the following [URL](https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw): as `bicycle_db.csv` (use the option `-O` of  `wget` or redirect the output of `curl` with `-o` operator described below). Details (in French) on the dataset are available on the [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/accidents-de-velo/).
+   2. Download the compressed database (this is a `.xz` file) available at the following [URL](https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.cvs.xz): as `bicycle_db.csv.xz` (use the option `-O` of  `wget`).
+   3. Uncompress the `.xz` file using the `xz` command (use documentation!)  
 :::
 
 ### Text commands: `tail`, `head`, `cat`, `wc` and `split`
@@ -372,7 +371,7 @@ $ man grep
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE: grep
 
-   1. Count the number of accidents in 2005 using the command `grep` (hint: remarks that each line **starts** with the string `"YYYY` where `YYYY` is the year)
+   1. Count the number of accidents in 2015 using the command `grep` (hint: remarks that each line **starts** with the string `"YYYY` where `YYYY` is the year)
    2. Display the line number of the accident occurring on a Wednesday, in October 2017 using a regular expression.
 :::
 
@@ -397,9 +396,7 @@ list all the **files** in `/usr/lib/` containing the `qt5` string in its name.
 :::
 
 
-**Reference**:
-
-[TecMint](https://www.tecmint.com/35-practical-examples-of-linux-find-command/), 35 Practical Examples of Linux Find Command
+*Reference:* [TecMint](https://www.tecmint.com/35-practical-examples-of-linux-find-command/), 35 Practical Examples of Linux Find Command
 
 ### The `args` command
 
@@ -411,14 +408,13 @@ TODO
 
 The I/O of any program launch through the bash is organized in three data streams:
 
-- STDIN (0): standard input (input)
-- STDOUT (1): standard output (data output by the command and printed in the terminal)
-- STDERR (2): standard error (reserved for error messages, also printed in the terminal)
+- `STDIN (0)`: standard input (input)
+- `STDOUT (1)`: standard output (data output by the command and printed in the terminal)
+- `STDERR (2)`: standard error (reserved for error messages, also printed in the terminal)
 
 Piping and redirection is the process used to connect these streams between programs and files.
 
-**References**:
-- [Piping and Redirection!](https://ryanstutorials.net/linuxtutorial/piping.php) by Ryan Chadwick.
+*Reference:* [Piping and Redirection!](https://ryanstutorials.net/linuxtutorial/piping.php) by Ryan Chadwick.
 
 ### Pipes
 
@@ -442,11 +438,12 @@ $ du | sort -nr | less
   1. Display the last 15 accidents occurring with `Vent fort` condition
   2. Display the type of crossing of the accident occurring with `Vent fort` in 2010. It should return
 
-    ```bash
-    Intersection en X
-    Intersection en T
-    Intersection en X
-    ```
+
+```bash
+Intersection en X
+Intersection en T
+Intersection en X
+```
 :::
 
 
@@ -497,33 +494,36 @@ A regular expression (shortened as `regex` or `regexp`; also referred to as `rat
  ```
  ([A-Z][a-zA-Z0-9_]*)+
  ```
-References:
+
+*References:*
 
 - [regexr](https://regexr.com/).
 - [Wikipedia](https://en.wikipedia.org/wiki/Regular_expression) on regular expressions.
--   `sed`, `awk` programs and the `perl` language. XXX
+-  The `sed`, `awk` programs and the `perl` language documentations.
 
 
 ::: {.callout-important appearance='default' icon="false"}
 ##  EXERCISE: regexp
 
    1. Go to <https://regex101.com/> and copy/paste the following list (in the `TEST STRING` frame):
-      ```
-      '01 !!!!!!!.flac'
-      '02 bad guy.flac'
-      '03 xanny.flac'
-      '04 you should see me in a crown.flac'
-      '05 all the good girls go to hell.flac'
-      '06 wish you were gay.flac'
-      "07 when the party's over.flac"
-      '08 8.flac'
-      '09 my strange addiction.flac'
-      '10 bury a friend.flac'
-      '11 ilomilo.flac'
-      '12 listen before i go.flac'
-      '13 i love you.flac'
-      '14 goodbye.flac'
-      ```
+
+```bash
+'01 !!!!!!!.flac'
+'02 bad guy.flac'
+'03 xanny.flac'
+'04 you should see me in a crown.flac'
+'05 all the good girls go to hell.flac'
+'06 wish you were gay.flac'
+"07 when the party's over.flac"
+'08 8.flac'
+'09 my strange addiction.flac'
+'10 bury a friend.flac'
+'11 ilomilo.flac'
+'12 listen before i go.flac'
+'13 i love you.flac'
+'14 goodbye.flac'
+```
+
    2. Why the name of the 7th song is double-quoted (" instead of ')?
 
    3. Capture with a regexp all the song names (between the track number and the extension). You should get this in the `MATCH INFORMATION` frame on the right:
