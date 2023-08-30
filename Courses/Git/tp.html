@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.124">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HAX712X: Software development for data sciences - Git: version control</title>
+<title>HAX712X: Software development for data sciences - Version control with Git</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,8 +64,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../Courses/CI/tp.html" rel="next">
-<link href="../../Courses/Venv/tp.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,11 +74,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -120,7 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -128,145 +98,131 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../../custom.scss">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Git: version control</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">HAX712X</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-courses" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Courses</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-courses">    
+        <li>
+    <a class="dropdown-item" href="../../Courses/Bash/tp.html" rel="" target="">
+ <span class="dropdown-text">Command-line tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Git/tp.html" rel="" target="">
+ <span class="dropdown-text">Version control with Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/IDE/tp.html" rel="" target="">
+ <span class="dropdown-text">Integrated Development Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Venv/tp.html" rel="" target="">
+ <span class="dropdown-text">Virtual Python Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/CI/tp.html" rel="" target="">
+ <span class="dropdown-text">Continuous Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Docs/tp.html" rel="" target="">
+ <span class="dropdown-text">Documentation with Sphinx</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../Courses/Python-modules/tp.html" rel="" target="">
+ <span class="dropdown-text">Creating a <code>python</code> module</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ClassesExceptions/tp.html" rel="" target="">
+ <span class="dropdown-text">Classes &amp; Exceptions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Test/tp.html" rel="" target="">
+ <span class="dropdown-text">Unit Tests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Pandas/tp.html" rel="" target="">
+ <span class="dropdown-text">Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ScipyNumpy/tp.html" rel="" target="">
+ <span class="dropdown-text">SciPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/TimeMemory/tp.html" rel="" target="">
+ <span class="dropdown-text">Time &amp; memory efficiency</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../Projects/2021-2022/README.html" rel="" target="">
+ <span class="dropdown-text">2021-2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/2022-2023/README.html" rel="" target="">
+ <span class="dropdown-text">2022-2023</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../Bonus/README.html" rel="" target="">
+ <span class="menu-text">Bonus</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/josephsalmon/HAX712X" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://moodle.umontpellier.fr/course/view.php?id=22454" rel="" target=""><i class="bi bi-bicycle" role="img" aria-label="Moodle">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../../">HAX712X: Software development for data sciences</a> 
-    </div>
-      </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">Overview</a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Courses</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Bash/tp.html" class="sidebar-item-text sidebar-link">Introduction to bash</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">IDE: Integrated Development Environment</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link active">Git: version control</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/CI/tp.html" class="sidebar-item-text sidebar-link">CI: Continuous Integration</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Python-modules/tp.html" class="sidebar-item-text sidebar-link">Creating a <code>python</code> module</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/ClassesExceptions/tp.html" class="sidebar-item-text sidebar-link">Classes &amp; Exceptions</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Test/tp.html" class="sidebar-item-text sidebar-link">Unit Tests</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Pandas/tp.html" class="sidebar-item-text sidebar-link">Pandas</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">SciPy</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/TimeMemory/tp.html" class="sidebar-item-text sidebar-link">Time &amp; memory efficiency</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Docs/tp.html" class="sidebar-item-text sidebar-link">Documentation with Sphinx</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Projects</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Projects/2021-2022/README.html" class="sidebar-item-text sidebar-link">2021-2022</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Projects/2022-2023/README.html" class="sidebar-item-text sidebar-link">2022-2023</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Bonus/README.html" class="sidebar-item-text sidebar-link">Bonus</a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#git-setting-your-environment" id="toc-git-setting-your-environment" class="nav-link active" data-scroll-target="#git-setting-your-environment">Git: setting your environment</a></li>
+  <li><a href="#setting-your-git-environment" id="toc-setting-your-git-environment" class="nav-link active" data-scroll-target="#setting-your-git-environment">Setting your Git environment</a></li>
   <li><a href="#create-an-ssh-key" id="toc-create-an-ssh-key" class="nav-link" data-scroll-target="#create-an-ssh-key">Create an SSH key</a>
   <ul class="collapse">
   <li><a href="#unix-system" id="toc-unix-system" class="nav-link" data-scroll-target="#unix-system">Unix system</a></li>
@@ -280,10 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#interact-with-other-users" id="toc-interact-with-other-users" class="nav-link" data-scroll-target="#interact-with-other-users">Interact with other users</a>
   <ul class="collapse">
-  <li><a href="#using-an-existing-repository" id="toc-using-an-existing-repository" class="nav-link" data-scroll-target="#using-an-existing-repository">Using an existing repository</a>
-  <ul class="collapse">
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><font color="red">Exercise</font></a></li>
-  </ul></li>
+  <li><a href="#using-an-existing-repository" id="toc-using-an-existing-repository" class="nav-link" data-scroll-target="#using-an-existing-repository">Using an existing repository</a></li>
   <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a>
   <ul class="collapse">
   <li><a href="#identification-of-the-bad-commit" id="toc-identification-of-the-bad-commit" class="nav-link" data-scroll-target="#identification-of-the-bad-commit">Identification of the bad commit</a></li>
@@ -301,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Git: version control</h1>
+<h1 class="title">Version control with Git</h1>
 </div>
 
 
@@ -316,38 +269,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="git-setting-your-environment" class="level2">
-<h2 class="anchored" data-anchor-id="git-setting-your-environment">Git: setting your environment</h2>
+<section id="setting-your-git-environment" class="level2">
+<h2 class="anchored" data-anchor-id="setting-your-git-environment">Setting your Git environment</h2>
 <p>On a terminal, specify the email address with which you will make your commits:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.email <span class="st">"prenom.nom@domaine.fr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Of course <strong>Adapt the email address</strong> prenom.nom@domaine.fr <strong>to your case!</strong></p>
+<p>Of course <strong>Adapt the email address</strong> prenom.nom@domaine.fr <strong>to your case!</strong>.</p>
+<p>You may also (optional) configure another option (yet mysterious)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> pull.rebase false</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-an-ssh-key" class="level2">
 <h2 class="anchored" data-anchor-id="create-an-ssh-key">Create an SSH key</h2>
 <section id="unix-system" class="level3">
 <h3 class="anchored" data-anchor-id="unix-system">Unix system</h3>
 <p>The SSH is needed to get a smooth authentication to the remote repository. In a terminal:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ssh-keygen <span class="at">-t</span> rsa <span class="at">-b</span> 4096 <span class="at">-C</span> prenom.nom@domaine.fr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ssh-keygen <span class="at">-t</span> rsa <span class="at">-b</span> 4096 <span class="at">-C</span> prenom.nom@domaine.fr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Accept the default option (keys saved in <code>~/.ssh</code> and no passphrase)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-add</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>References</strong>: - <a href="https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Github docs</a> on connecting with SSH.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-add</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Reference:</em> <a href="https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Github docs</a> on connecting with SSH.</p>
 </section>
 <section id="windows" class="level3">
 <h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p><strong>References</strong>: - <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitHub-SSH-Windows-Example">The Server Side</a>: How to SSH into GitHub on Windows example, by Cameron McKenzie</p>
+<p><em>Reference:</em> <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitHub-SSH-Windows-Example">The Server Side</a>: How to SSH into GitHub on Windows example, by Cameron McKenzie</p>
 </section>
 </section>
 <section id="setting-up-your-github-account" class="level1">
 <h1>Setting up your Github account</h1>
-<p>GitHub is a web hosting service for remote repositories using git. GitHub includes additional features for collaboration, such as bug tracking, requests to add features or task management. Unfortunately,s GitHub does not natively include a Continuous Integration system. Note that there are other git-based hosting websites such as GitLab or BitBucket.</p>
+<p>GitHub is a web hosting service for remote repositories using git. GitHub includes additional features for collaboration, such as bug tracking, requests to add features or task management.</p>
+<p>Note that there are other git-based hosting websites such as GitLab or BitBucket.</p>
 <section id="create-a-github-account" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-github-account">Create a GitHub account</h3>
-<p>Please go to <a href="https://github.com/" class="uri">https://github.com/</a> and follow the instructions for creating or activating your account.</p>
+<p>Please go to <a href="https://github.com/">Github</a> and follow the instructions for creating or activating your account.</p>
 </section>
 <section id="add-your-ssh-key" class="level3">
 <h3 class="anchored" data-anchor-id="add-your-ssh-key">Add your SSH key</h3>
 <p>To display your public key, simply type in a terminal,</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat ~/.ssh/id_rsa.pub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat ~/.ssh/id_rsa.pub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Copy the result into the clipboard and add your key to your GitHub account, following the procedure explaine on Github <a href="https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account">here</a>.</p>
 <p>To check your installation, please follow the instructions given on Github <a href="https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection">here</a></p>
 </section>
@@ -357,18 +313,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>On GitHub, click on the <code>+</code> symbol at the top right of the page, then <code>New repository</code>. Give the name <code>FirstRepo</code> to your new project and a short description.</p>
 <p>Create a <strong>public</strong> repository, meaning that everyone can access your code (read-only). Finish by clicking on <code>Create repository</code>.</p>
 <p>Follow the instructions provided by GitHub to create your local copy of the repository: 1. Create a new folder called <code>FirstRepo</code> in your <code>home</code> directory and <code>cd</code> to it 2. Then execute the following command</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"# FirstRepo"</span> <span class="op">&gt;&gt;</span> README.md</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"first commit"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:XXXXXXXXXXXXXXXXXX/FirstRepo.git</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"# FirstRepo"</span> <span class="op">&gt;&gt;</span> README.md</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"first commit"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:XXXXXXXXXXXXXXXXXX/FirstRepo.git</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: gitignore
 </div>
 </div>
@@ -376,8 +332,8 @@ EXERCISE: gitignore
 <ol type="1">
 <li>Create a text file called <code>.gitignore</code>&nbsp;with the following content:</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*.pdf</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">*~</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*.pdf</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">*~</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Create a commit and push it to your repository. What is the purpose of this file? See <a href="https://github.com/github/gitignore" class="uri">https://github.com/github/gitignore</a></li>
 </ol>
@@ -391,15 +347,24 @@ EXERCISE: gitignore
 <section id="using-an-existing-repository" class="level2">
 <h2 class="anchored" data-anchor-id="using-an-existing-repository">Using an existing repository</h2>
 <p>Browse the repository at <a href="https://github.com/bcharlier/HAX712X-2022" class="uri">https://github.com/bcharlier/HAX712X-2022</a>. What is this module able to do?</p>
-<section id="exercise" class="level3">
-<h3 class="anchored" data-anchor-id="exercise"><font color="red">Exercise</font></h3>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+EXERCISE: Forking a Git repo
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Fork the repository by following these steps:</p>
 <ol type="1">
 <li>On GitHub, click on the fork icon.</li>
 <li>A copy is added to your GitHub space. Clone it (this copy!) to get a local repository.</li>
 <li>In a terminal, inspect the output of the command <code>git remote get-url origin</code></li>
 </ol>
-</section>
+</div>
+</div>
 </section>
 <section id="debugging" class="level2">
 <h2 class="anchored" data-anchor-id="debugging">Debugging</h2>
@@ -411,12 +376,12 @@ EXERCISE: gitignore
 <section id="create-a-new-branch-to-fix-the-problem" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-new-branch-to-fix-the-problem">Create a new branch to fix the problem</h3>
 <p>To fix a complex bug or add a new feature, it is often necessary to modify several parts of the code. We create a branch, where we make all the commits dedicated to solving the bug. The idea is to maintain a stable version, in the branch <code>master</code>, separated from the developing version, which may contain bugs.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: branches
 </div>
 </div>
@@ -438,12 +403,12 @@ EXERCISE: branches
 </section>
 <section id="branch-merging-and-solving-conflicts" class="level2">
 <h2 class="anchored" data-anchor-id="branch-merging-and-solving-conflicts">Branch Merging and Solving conflicts</h2>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: Conflicts identification
 </div>
 </div>
@@ -453,12 +418,12 @@ EXERCISE: Conflicts identification
 <li>Try to merge the branch <code>NonGaussian</code> to the branch <code>master</code>.</li>
 <li>Where are located the conflicts? They are shown with the following decorator.</li>
 </ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> HEAD</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the current branch</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">=======</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the branch to be merged</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> NonGaussian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> HEAD</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the current branch</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">=======</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">some</span> code on the branch to be merged</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> NonGaussian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Resolve them by plotting the two histograms on the same plot. Namely, produce a figure like this:<img src="plot.png" class="img-fluid" alt="plot"></li>
 </ol>
@@ -468,7 +433,7 @@ EXERCISE: Conflicts identification
 </section>
 <section id="to-go-further" class="level1">
 <h1>To go further</h1>
-<p>Please visit <a href="https://learngitbranching.js.org/" class="uri">https://learngitbranching.js.org/</a>.</p>
+<p>Please visit <a href="https://learngitbranching.js.org/" class="uri">https://learngitbranching.js.org/</a></p>
 
 
 </section>
@@ -501,9 +466,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -744,18 +723,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../Courses/Venv/tp.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Virtual Python Environment</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../Courses/CI/tp.html" class="pagination-link">
-        <span class="nav-page-text">CI: Continuous Integration</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.124">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HAX712X: Software development for data sciences - Introduction to bash</title>
+<title>HAX712X: Software development for data sciences - Command-line tools</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,8 +64,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../Courses/IDE/tp.html" rel="next">
-<link href="../../index.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,11 +74,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -120,7 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -128,138 +98,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../../custom.scss">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Introduction to bash</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">HAX712X</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-courses" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Courses</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-courses">    
+        <li>
+    <a class="dropdown-item" href="../../Courses/Bash/tp.html" rel="" target="">
+ <span class="dropdown-text">Command-line tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Git/tp.html" rel="" target="">
+ <span class="dropdown-text">Version control with Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/IDE/tp.html" rel="" target="">
+ <span class="dropdown-text">Integrated Development Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Venv/tp.html" rel="" target="">
+ <span class="dropdown-text">Virtual Python Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/CI/tp.html" rel="" target="">
+ <span class="dropdown-text">Continuous Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Docs/tp.html" rel="" target="">
+ <span class="dropdown-text">Documentation with Sphinx</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../Courses/Python-modules/tp.html" rel="" target="">
+ <span class="dropdown-text">Creating a <code>python</code> module</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ClassesExceptions/tp.html" rel="" target="">
+ <span class="dropdown-text">Classes &amp; Exceptions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Test/tp.html" rel="" target="">
+ <span class="dropdown-text">Unit Tests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Pandas/tp.html" rel="" target="">
+ <span class="dropdown-text">Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ScipyNumpy/tp.html" rel="" target="">
+ <span class="dropdown-text">SciPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/TimeMemory/tp.html" rel="" target="">
+ <span class="dropdown-text">Time &amp; memory efficiency</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../Projects/2021-2022/README.html" rel="" target="">
+ <span class="dropdown-text">2021-2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/2022-2023/README.html" rel="" target="">
+ <span class="dropdown-text">2022-2023</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../Bonus/README.html" rel="" target="">
+ <span class="menu-text">Bonus</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/josephsalmon/HAX712X" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://moodle.umontpellier.fr/course/view.php?id=22454" rel="" target=""><i class="bi bi-bicycle" role="img" aria-label="Moodle">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../../">HAX712X: Software development for data sciences</a> 
-    </div>
-      </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">Overview</a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Courses</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Bash/tp.html" class="sidebar-item-text sidebar-link active">Introduction to bash</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/IDE/tp.html" class="sidebar-item-text sidebar-link">IDE: Integrated Development Environment</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Venv/tp.html" class="sidebar-item-text sidebar-link">Virtual Python Environment</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Git/tp.html" class="sidebar-item-text sidebar-link">Git: version control</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/CI/tp.html" class="sidebar-item-text sidebar-link">CI: Continuous Integration</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Python-modules/tp.html" class="sidebar-item-text sidebar-link">Creating a <code>python</code> module</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/ClassesExceptions/tp.html" class="sidebar-item-text sidebar-link">Classes &amp; Exceptions</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Test/tp.html" class="sidebar-item-text sidebar-link">Unit Tests</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Pandas/tp.html" class="sidebar-item-text sidebar-link">Pandas</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/ScipyNumpy/tp.html" class="sidebar-item-text sidebar-link">SciPy</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/TimeMemory/tp.html" class="sidebar-item-text sidebar-link">Time &amp; memory efficiency</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Courses/Docs/tp.html" class="sidebar-item-text sidebar-link">Documentation with Sphinx</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Projects</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Projects/2021-2022/README.html" class="sidebar-item-text sidebar-link">2021-2022</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Projects/2022-2023/README.html" class="sidebar-item-text sidebar-link">2022-2023</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../Bonus/README.html" class="sidebar-item-text sidebar-link">Bonus</a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -303,6 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#redirection" id="toc-redirection" class="nav-link" data-scroll-target="#redirection">Redirection</a></li>
   </ul></li>
   <li><a href="#pattern-matching-part-ii-regexp" id="toc-pattern-matching-part-ii-regexp" class="nav-link" data-scroll-target="#pattern-matching-part-ii-regexp">Pattern matching (part II): Regexp</a></li>
+  <li><a href="#secure-shell" id="toc-secure-shell" class="nav-link" data-scroll-target="#secure-shell">Secure Shell</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/Bash/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -311,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Introduction to bash</h1>
+<h1 class="title">Command-line tools</h1>
 </div>
 
 
@@ -330,25 +287,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="preamble">Preamble</h2>
 <section id="shell-terminal-and-console" class="level3">
 <h3 class="anchored" data-anchor-id="shell-terminal-and-console">Shell, terminal and console</h3>
-<p>The <strong>shell</strong> is the program that processes commands and returns output, <em>e.g.</em>, Bash, zsh, etc…</p>
-<p>A <strong>terminal</strong> refers to a wrapper program that runs a shell.</p>
-<p>The <strong>console</strong> is a special sort of terminal (low-level).</p>
-<p>Reference:</p>
+<p>Every Operating System (Linux, MacOS, Windows, …) come with a program able to interpret and run command line.</p>
 <ul>
-<li><a href="https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal">super user: shell, console and terminal</a></li>
+<li><p>The <strong>shell</strong> is the program that processes commands and returns output, <em>e.g.</em>, Bash, zsh, etc…</p></li>
+<li><p>A <strong>terminal</strong> refers to a wrapper program that runs a shell.</p></li>
+<li><p>The <strong>console</strong> is a special sort of terminal (low-level).</p></li>
 </ul>
+<p><em>Reference:</em> <a href="https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal">super user: shell, console and terminal</a></p>
 </section>
 <section id="prompt" class="level3">
 <h3 class="anchored" data-anchor-id="prompt">Prompt</h3>
-<p>As you already know bash prompt is a <code>$</code> sign when you are a standard user. When you are an administrator (often called <code>root</code> user) the prompt is a <code>#</code>.</p>
+<p>As you already know, bash prompt is a <code>$</code> sign when you are a standard user. When you are an administrator (often called <code>root</code> user) the prompt is a <code>#</code>.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+EXERCISE: recognize different prompts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find the different prompt for R, python and the terminal on windows</p>
+</div>
+</div>
 </section>
 </section>
 <section id="the-unix-directory-structure" class="level2">
 <h2 class="anchored" data-anchor-id="the-unix-directory-structure">The Unix directory structure</h2>
-<p>Reference:</p>
-<ul>
-<li><a href="https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/">The Linux Directory Structure, Explained</a>, by Chris Hoffman.</li>
-</ul>
+<p><em>Reference:</em> <a href="https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/">The Linux Directory Structure, Explained</a>, by Chris Hoffman.</p>
 <p>Some aliases:</p>
 <ul>
 <li><code>~</code> is an alias to your home directory.</li>
@@ -360,12 +327,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ../../home/../etc/../home/</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE:
 </div>
 </div>
@@ -398,7 +365,7 @@ EXERCISE:
 <li><p>to change the default paging program to <code>less</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> export MANPAGER=less</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
-<p><strong>References</strong>: <a href="https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less">What are the differences between most, more and less?</a> on StackExchange.</p>
+<p><em>Reference:</em> <a href="https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less">What are the differences between most, more and less?</a> on StackExchange.</p>
 </section>
 <section id="pattern-matching-part-i-pathname-expansion-a.k.a.-globbing" class="level2">
 <h2 class="anchored" data-anchor-id="pattern-matching-part-i-pathname-expansion-a.k.a.-globbing">Pattern matching (part I): Pathname expansion (a.k.a. globbing)</h2>
@@ -413,12 +380,12 @@ EXERCISE:
 <li>A way to express a choice of one or more strings: <code>{...,...}</code></li>
 <li>A way to escape any of the above special characters: <code>\</code></li>
 </ul>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: listing
 </div>
 </div>
@@ -435,12 +402,12 @@ EXERCISE: listing
 <section id="listing-files" class="level2">
 <h2 class="anchored" data-anchor-id="listing-files">Listing files</h2>
 <p>To list the files in a folder use the command <code>ls</code>.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: ls options
 </div>
 </div>
@@ -454,12 +421,12 @@ EXERCISE: ls options
 </div>
 </div>
 <p>The <code>file</code> command can be used to display the information of a file (if not given by the extension itself).</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: ls on a directory
 </div>
 </div>
@@ -473,17 +440,17 @@ EXERCISE: ls on a directory
 </section>
 <section id="symbolic-links" class="level2">
 <h2 class="anchored" data-anchor-id="symbolic-links">Symbolic links</h2>
-<p>A symbolic link or <strong>symlink</strong> is a special file containing a reference (a link) to another file or directory. For instance, try</p>
+<p>A symbolic link or <strong>symlink</strong> is a special file containing and 2018reference (a link) to another file or directory. For instance, try</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-l</span> /usr/bin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A symlink can be created with the command <code>ln</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ln <span class="at">-s</span> target_path link_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Obiously, replace <code>target_path</code> and <code>link_path</code> by their corresponding values.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<p><strong>Obviously</strong>, replace <code>target_path</code> and <code>link_path</code> by their corresponding values.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: symlink
 </div>
 </div>
@@ -525,12 +492,12 @@ EXERCISE: symlink
 </ol>
 <p>To change the permissions of a file, use the <code>chmod</code>. For instance, to add execution <code>x</code> right to the owner <code>u</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> chmod u+x toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: permissions
 </div>
 </div>
@@ -543,10 +510,7 @@ EXERCISE: permissions
 </ol>
 </div>
 </div>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/File_system_permissions">File system permission</a> on Wikipedia. See also <code>chown</code> and <code>chgrp</code>.</li>
-</ul>
+<p><em>Reference:</em> <a href="https://en.wikipedia.org/wiki/File_system_permissions">File system permission</a> on Wikipedia. See also <code>chown</code> and <code>chgrp</code>.</p>
 </section>
 <section id="environment-variables" class="level2">
 <h2 class="anchored" data-anchor-id="environment-variables">Environment variables</h2>
@@ -559,16 +523,13 @@ EXERCISE: permissions
 <p>Lists are often separated by <code>:</code>. To append a new value at the end</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> export ENV_NAME=<span class="va">${ENV_NAME}</span>:tutu</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">${ENV_NAME}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps">How To Read and Set Environmental and Shell Variables on Linux</a> by Justin Ellingwood.</li>
-</ul>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<p><em>Reference:</em> <a href="https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps">How To Read and Set Environmental and Shell Variables on Linux</a> by Justin Ellingwood.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: path
 </div>
 </div>
@@ -579,21 +540,18 @@ EXERCISE: path
 </ol>
 </div>
 </div>
-<p><strong>Useful tips:</strong></p>
-<ul>
-<li>To avoid setting up an env every time you open a terminal, you can append the <code>export MYENV=xxxxx</code> command to the <code>~/.bashrc</code>&nbsp;file.</li>
-</ul>
+<p><strong>Useful tips</strong>: To avoid setting up an env every time you open a terminal, you can append the <code>export MYENV=xxxxx</code> command to the <code>~/.bashrc</code>&nbsp;file.</p>
 <section id="text-editor" class="level3">
 <h3 class="anchored" data-anchor-id="text-editor">Text editor</h3>
 <p>In bash, many configuration files are in fact <strong>text files</strong>. You may need to choose a text editor to modify them. Very powerful (and thus complicated) text editors exist: <code>emacs</code>, <code>vim</code>, but we will focus on <code>nano</code> (<code>gedit</code> is another alternative):</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or <code>joe</code> (default on your system).</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: default editor
 </div>
 </div>
@@ -622,12 +580,12 @@ EXERCISE: default editor
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uname <span class="at">-a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To show the system hostname you may use <code>hostname</code> command.</p>
 <p>To show information about your processor use <code>lscpu</code> and to list the devices connected to your machine use <code>lspci</code>.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: hardware info
 </div>
 </div>
@@ -642,13 +600,13 @@ EXERCISE: hardware info
 <section id="process" class="level3">
 <h3 class="anchored" data-anchor-id="process">Process</h3>
 <p>Here we learn how to use <code>ps</code>, <code>top</code>, <code>htop</code>, <code>kill</code>, <code>pkill</code>, etc.</p>
-<p>References: <a href="https://www.tutorialspoint.com/unix/unix-processes.html">Tutorials Point: Unix/Linux - Process management</a></p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<p><em>Reference:</em> <a href="https://www.tutorialspoint.com/unix/unix-processes.html">Tutorials Point: Unix/Linux - Process management</a></p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: linux shortcuts
 </div>
 </div>
@@ -666,20 +624,22 @@ EXERCISE: linux shortcuts
 <h2 class="anchored" data-anchor-id="display-text-content">Display text content</h2>
 <section id="get-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="get-the-data">Get the data</h3>
-<p>The dataset we are going to use is available on the <a href="https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/">data.gouv.fr</a> plateform. We will focus on bicycles accident in France from 2005-2017.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<p>The dataset we are going to use is a modified version of the dataset available on the <a href="https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/">data.gouv.fr</a> platform. We will focus on bicycles accident in France between 2011 and 2018.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: downloading
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Create a folder <code>data_bicycle</code> and <code>cd</code> to it.</li>
-<li>Download the <code>.csv</code> file available at the following <a href="https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw">URL</a>: as <code>bicycle_db.csv</code> (use the option <code>-O</code> of <code>wget</code> or redirect the output of <code>curl</code> with <code>-o</code> operator described below). Details (in French) on the dataset are available on the <a href="https://www.data.gouv.fr/fr/datasets/accidents-de-velo/">data.gouv.fr</a>.</li>
+<li>Download the compressed database (this is a <code>.xz</code> file) available at the following <a href="https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.cvs.xz">URL</a>: as <code>bicycle_db.csv.xz</code> (use the option <code>-O</code> of <code>wget</code>).</li>
+<li>Uncompress the <code>.xz</code> file using the <code>xz</code> command (use documentation!)<br>
+</li>
 </ol>
 </div>
 </div>
@@ -687,12 +647,12 @@ EXERCISE: downloading
 <section id="text-commands-tail-head-cat-wc-and-split" class="level3">
 <h3 class="anchored" data-anchor-id="text-commands-tail-head-cat-wc-and-split">Text commands: <code>tail</code>, <code>head</code>, <code>cat</code>, <code>wc</code> and <code>split</code></h3>
 <p>Please read the manual of <code>tail</code>, <code>head</code>, <code>cat</code>, <code>wc</code> and <code>split</code></p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: data analysis in bash
 </div>
 </div>
@@ -709,18 +669,18 @@ EXERCISE: data analysis in bash
 <h3 class="anchored" data-anchor-id="the-grep-command">The <code>grep</code> command</h3>
 <p><code>grep</code> prints lines of a file matching a pattern (regex).</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man grep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: grep
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Count the number of accidents in 2005 using the command <code>grep</code> (hint: remarks that each line <strong>starts</strong> with the string <code>"YYYY</code> where <code>YYYY</code> is the year)</li>
+<li>Count the number of accidents in 2015 using the command <code>grep</code> (hint: remarks that each line <strong>starts</strong> with the string <code>"YYYY</code> where <code>YYYY</code> is the year)</li>
 <li>Display the line number of the accident occurring on a Wednesday, in October 2017 using a regular expression.</li>
 </ol>
 </div>
@@ -731,12 +691,12 @@ EXERCISE: grep
 <p>The <code>find</code> command search for files in a directory hierarchy. Read the manual. For instance:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> find /usr/lib/ <span class="at">-name</span> <span class="st">"*qt5*"</span> <span class="at">-type</span> f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>list all the <strong>files</strong> in <code>/usr/lib/</code> containing the <code>qt5</code> string in its name.</p>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: permission on files
 </div>
 </div>
@@ -747,8 +707,7 @@ EXERCISE: permission on files
 </ol>
 </div>
 </div>
-<p><strong>Reference</strong>:</p>
-<p><a href="https://www.tecmint.com/35-practical-examples-of-linux-find-command/">TecMint</a>, 35 Practical Examples of Linux Find Command</p>
+<p><em>Reference:</em> <a href="https://www.tecmint.com/35-practical-examples-of-linux-find-command/">TecMint</a>, 35 Practical Examples of Linux Find Command</p>
 </section>
 <section id="the-args-command" class="level3">
 <h3 class="anchored" data-anchor-id="the-args-command">The <code>args</code> command</h3>
@@ -760,29 +719,29 @@ EXERCISE: permission on files
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="streams.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">stream image</figcaption><p></p>
+<figcaption class="figure-caption">stream image</figcaption>
 </figure>
 </div>
 <p>The I/O of any program launch through the bash is organized in three data streams:</p>
 <ul>
-<li>STDIN (0): standard input (input)</li>
-<li>STDOUT (1): standard output (data output by the command and printed in the terminal)</li>
-<li>STDERR (2): standard error (reserved for error messages, also printed in the terminal)</li>
+<li><code>STDIN (0)</code>: standard input (input)</li>
+<li><code>STDOUT (1)</code>: standard output (data output by the command and printed in the terminal)</li>
+<li><code>STDERR (2)</code>: standard error (reserved for error messages, also printed in the terminal)</li>
 </ul>
 <p>Piping and redirection is the process used to connect these streams between programs and files.</p>
-<p><strong>References</strong>: - <a href="https://ryanstutorials.net/linuxtutorial/piping.php">Piping and Redirection!</a> by Ryan Chadwick.</p>
+<p><em>Reference:</em> <a href="https://ryanstutorials.net/linuxtutorial/piping.php">Piping and Redirection!</a> by Ryan Chadwick.</p>
 <section id="pipes" class="level3">
 <h3 class="anchored" data-anchor-id="pipes">Pipes</h3>
 <p>In bash, the pipe operator is denoted <code>|</code>. It allows one to compose (mathematically) the output of a program as an input of another one. For instance to display the 10 largest files given by <code>du</code> (disk use)</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or display it in a pager</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="kw">|</span> <span class="fu">less</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: head and tail
 </div>
 </div>
@@ -791,11 +750,9 @@ EXERCISE: head and tail
 <li>Display the last 15 accidents occurring with <code>Vent fort</code> condition</li>
 <li>Display the type of crossing of the accident occurring with <code>Vent fort</code>&nbsp;in 2010. It should return</li>
 </ol>
-<pre><code>```bash
-Intersection en X
-Intersection en T
-Intersection en X
-```</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en X</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en T</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -808,12 +765,12 @@ Intersection en X
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, the operator <code>&lt;</code> read from the file (RHS) and send the content to stdin (LHS)</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="op">&lt;</span> toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: csv creation
 </div>
 </div>
@@ -844,35 +801,54 @@ EXERCISE: csv creation
 </ul>
 <p>For instance, to capture all the words starting with a capital letter in a text, you may use the regexp:</p>
 <pre><code>([A-Z][a-zA-Z0-9_]*)+</code></pre>
-<p>References:</p>
+<p><em>References:</em></p>
 <ul>
 <li><a href="https://regexr.com/">regexr</a>.</li>
 <li><a href="https://en.wikipedia.org/wiki/Regular_expression">Wikipedia</a> on regular expressions.</li>
-<li><code>sed</code>, <code>awk</code> programs and the <code>perl</code> language. XXX</li>
+<li>The <code>sed</code>, <code>awk</code> programs and the <code>perl</code> language documentations.</li>
 </ul>
-<div class="callout callout-style-default callout-important no-icon callout-captioned">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 EXERCISE: regexp
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>Go to <a href="https://regex101.com/" class="uri">https://regex101.com/</a> and copy/paste the following list (in the <code>TEST STRING</code> frame): <code>'01 !!!!!!!.flac'       '02 bad guy.flac'       '03 xanny.flac'       '04 you should see me in a crown.flac'       '05 all the good girls go to hell.flac'       '06 wish you were gay.flac'       "07 when the party's over.flac"       '08 8.flac'       '09 my strange addiction.flac'       '10 bury a friend.flac'       '11 ilomilo.flac'       '12 listen before i go.flac'       '13 i love you.flac'       '14 goodbye.flac'</code></p></li>
+<li>Go to <a href="https://regex101.com/" class="uri">https://regex101.com/</a> and copy/paste the following list (in the <code>TEST STRING</code> frame):</li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="st">'01 !!!!!!!.flac'</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">'02 bad guy.flac'</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">'03 xanny.flac'</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">'04 you should see me in a crown.flac'</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">'05 all the good girls go to hell.flac'</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">'06 wish you were gay.flac'</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">"07 when the party's over.flac"</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">'08 8.flac'</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">'09 my strange addiction.flac'</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">'10 bury a friend.flac'</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">'11 ilomilo.flac'</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">'12 listen before i go.flac'</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">'13 i love you.flac'</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">'14 goodbye.flac'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
 <li><p>Why the name of the 7th song is double-quoted (” instead of ’)?</p></li>
 <li><p>Capture with a regexp all the song names (between the track number and the extension). You should get this in the <code>MATCH INFORMATION</code> frame on the right:</p></li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="regexp.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">result of regexp capture</figcaption><p></p>
+<figcaption class="figure-caption">result of regexp capture</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="secure-shell" class="level2">
+<h2 class="anchored" data-anchor-id="secure-shell">Secure Shell</h2>
 
 
 </section>
@@ -905,9 +881,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1148,18 +1138,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../Courses/IDE/tp.html" class="pagination-link">
-        <span class="nav-page-text">IDE: Integrated Development Environment</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
