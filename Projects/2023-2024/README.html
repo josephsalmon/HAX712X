@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HAX712X: Software development for data sciences - Project guidelines: 2023-2024</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../custom.scss">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">HAX712X</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-courses" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Courses</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-courses">    
+        <li>
+    <a class="dropdown-item" href="../../Courses/Bash/tp.html" rel="" target="">
+ <span class="dropdown-text">Command-line tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Git/tp.html" rel="" target="">
+ <span class="dropdown-text">Version control with Git</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/IDE/tp.html" rel="" target="">
+ <span class="dropdown-text">Integrated Development Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Venv/tp.html" rel="" target="">
+ <span class="dropdown-text">Virtual Python Environment</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/CI/tp.html" rel="" target="">
+ <span class="dropdown-text">Continuous Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Docs/tp.html" rel="" target="">
+ <span class="dropdown-text">Documentation with Sphinx</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../Courses/Python-modules/tp.html" rel="" target="">
+ <span class="dropdown-text">Creating a <code>python</code> module</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ClassesExceptions/tp.html" rel="" target="">
+ <span class="dropdown-text">Classes &amp; Exceptions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Test/tp.html" rel="" target="">
+ <span class="dropdown-text">Unit Tests</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/Pandas/tp.html" rel="" target="">
+ <span class="dropdown-text">Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/ScipyNumpy/tp.html" rel="" target="">
+ <span class="dropdown-text">SciPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Courses/TimeMemory/tp.html" rel="" target="">
+ <span class="dropdown-text">Time &amp; memory efficiency</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../Projects/README.html" rel="" target="">
+ <span class="dropdown-text">Guidelines</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/2021-2022/README.html" rel="" target="">
+ <span class="dropdown-text">2021-2022</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/2022-2023/README.html" rel="" target="">
+ <span class="dropdown-text">2022-2023</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/2023-2024/README.html" rel="" target="">
+ <span class="dropdown-text">2023-2024</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../Bonus/README.html" rel="" target="">
+ <span class="menu-text">Bonus</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/josephsalmon/HAX712X" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://moodle.umontpellier.fr/course/view.php?id=22454" rel="" target=""><i class="bi bi-bicycle" role="img" aria-label="Moodle">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#general-instructions" id="toc-general-instructions" class="nav-link active" data-scroll-target="#general-instructions">General instructions</a>
+  <ul class="collapse">
+  <li><a href="#intermediate-projects-20-10" id="toc-intermediate-projects-20-10" class="nav-link" data-scroll-target="#intermediate-projects-20-10">Intermediate projects (20 % + 10 %)</a></li>
+  <li><a href="#final-project-70" id="toc-final-project-70" class="nav-link" data-scroll-target="#final-project-70">Final project (70 %)</a></li>
+  <li><a href="#details-for-the-personal-project-weather-forecast-app" id="toc-details-for-the-personal-project-weather-forecast-app" class="nav-link" data-scroll-target="#details-for-the-personal-project-weather-forecast-app">Details for the personal project (weather forecast app)</a>
+  <ul class="collapse">
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#guidelines" id="toc-guidelines" class="nav-link" data-scroll-target="#guidelines">Guidelines</a></li>
+  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
+  </ul></li>
+  <li><a href="#detail-for-the-team-project" id="toc-detail-for-the-team-project" class="nav-link" data-scroll-target="#detail-for-the-team-project">Detail for the team project</a>
+  <ul class="collapse">
+  <li><a href="#intermediate-tasks" id="toc-intermediate-tasks" class="nav-link" data-scroll-target="#intermediate-tasks">Intermediate tasks</a></li>
+  <li><a href="#major-objectives" id="toc-major-objectives" class="nav-link" data-scroll-target="#major-objectives">Major objectives:</a></li>
+  <li><a href="#timing" id="toc-timing" class="nav-link" data-scroll-target="#timing">Timing</a></li>
+  <li><a href="#elements-expected-grading" id="toc-elements-expected-grading" class="nav-link" data-scroll-target="#elements-expected-grading">Elements expected / Grading</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Projects/2023-2024/README.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project guidelines: 2023-2024</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<ul>
+<li>Work in groups of 2, 3 or 4 students, assigned at random (list on the Moodle website).</li>
+</ul>
+<section id="general-instructions" class="level1">
+<h1>General instructions</h1>
+<p>For this course, the grading consists of two projects: one group project (group composition available on <a href="https://moodle.umontpellier.fr/course/view.php?id=22454">Moodle</a>) and a personal one.</p>
+<p>You need to create a GitHub account as the expected outputs for this course are GitHub repositories.</p>
+<section id="intermediate-projects-20-10" class="level2">
+<h2 class="anchored" data-anchor-id="intermediate-projects-20-10">Intermediate projects (20 % + 10 %)</h2>
+<ol type="1">
+<li><p>The first part is a personal project. We expect you to create a simple GitHub page, with information answering the guidelines. This part corresponds to <strong>20% of the final grade</strong>. The due date is <strong>November 16 (23:59)</strong>.</p></li>
+<li><p>The second part consists in starting the group project. It will consist of preliminary work and organization of the workload, git first steps for the group project. The groups will be available on <a href="https://moodle.umontpellier.fr/course/view.php?id=22454r">Moodle</a>. This part corresponds to <strong>10% of the final grade</strong>. The due date is <strong>October 16 (23:59)</strong></p></li>
+</ol>
+</section>
+<section id="final-project-70" class="level2">
+<h2 class="anchored" data-anchor-id="final-project-70">Final project (70 %)</h2>
+<p>The details of the projects might evolve before the allocation phase, and a precise grid will be given in the project section.</p>
+<p>The project repository <strong>must show a balanced contribution between group members</strong> and intra-group grade variation could be made to reflect issues on the intra-group workload balance. The due date is <strong>December 12 (23:59)</strong>.</p>
+</section>
+<section id="details-for-the-personal-project-weather-forecast-app" class="level2">
+<h2 class="anchored" data-anchor-id="details-for-the-personal-project-weather-forecast-app">Details for the personal project (weather forecast app)</h2>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>The main objective of this project is to create a simple website providing the weather forecast (in Montpellier) for the following 5 days. The data to be used for your project is to be obtained from <a href="https://open-meteo.com/en/docs/meteofrance-api">open-meteo.com</a>.</p>
+</section>
+<section id="guidelines" class="level3">
+<h3 class="anchored" data-anchor-id="guidelines">Guidelines</h3>
+<p>For this project, you need to create a GitHub repository (<em>e.g.</em>, <a href="https://github.com/tanglef/chaoseverywhere">https://github.com/tanglef/chaoseverywhere</a>) with your code, and then provide this URL in the following survey <a href="https://framaforms.org/hax712x-depot-git-personnel-1693995810">https://framaforms.org/hax712x-depot-git-personnel-1693995810</a>. You also have to create a simple webpage using <code>Quarto</code>, whose URL is accessible in your GitHub repository, The webpage created will automatically update the weather forecast in Montpellier. For instance, it could display something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="meteo.png" class="img-fluid figure-img" width="500"></p>
+<figcaption class="figure-caption">Weather Forecast (<u>source</u>: <a href="https://www.meteoblue.com/">meteoblue.com</a>)</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The closer you can reproduce something in the spirit of the previous illustration, the higher the grade.</p>
+</div>
+</div>
+<p>An additional constraint is that the app should be autonomous once created, and could be refreshed every day automatically (like a real weather forecast website!). An example to help you in this task is available <a href="https://josephsalmon.github.io/Tweets/economics/index.html">here</a> (and the <a href="https://github.com/josephsalmon/Tweets/blob/master/economics/index.qmd">associated source code</a>), updating time series on a monthly basis. The updated result must be obtained using a GitHub page and a GitHub action with <code>Quarto</code>; see <a href="https://quarto.org/docs/publishing/github-pages.html">https://quarto.org/docs/publishing/github-pages.html</a> for details, and also the associated <code>yml</code> <a href="https://github.com/josephsalmon/Tweets/blob/master/.github/workflows/publish.yml">here</a>.</p>
+<p>For the automatic update and scheduling, see the <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule">schedule</a> event description.</p>
+<p>Moreover, you will write a short description to explain your methodology (say equivalent to 1 or 2 pages long maximum).</p>
+<p>The code must be well formatted following back or pep8 format. Guidance on this can be obtained here <a href="https://www.freecodecamp.org/news/auto-format-your-python-code-with-black/">https://www.freecodecamp.org/news/auto-format-your-python-code-with-black/</a> or <a href="https://code.visualstudio.com/docs/python/formatting">here</a> for VSCode.</p>
+</section>
+<section id="grading" class="level3">
+<h3 class="anchored" data-anchor-id="grading">Grading</h3>
+<section id="important-aspects-required" class="level4">
+<h4 class="anchored" data-anchor-id="important-aspects-required">Important aspects required</h4>
+<ul>
+<li>a GitHub repository</li>
+<li>a GitHub web page containing SVG images representing the weather (format only please; see examples from <a href="https://freesvg.org/">freesvg.org</a>, <a href="https://search.creativecommons.org/">creativecommons</a>, <a href="http://www.clker.com/">clker</a>, <a href="https://openclipart.org/">openclipart</a>, etc.) along with the highest/lowest temperature for the day, wind average, and amount of precipitation, that automatically updates.</li>
+<li>a short description of the methodology used, below the forecast itself.</li>
+</ul>
+</section>
+<section id="grading-details" class="level4">
+<h4 class="anchored" data-anchor-id="grading-details">Grading details</h4>
+<table class="table-striped table">
+<caption></caption>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 38%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>General</th>
+<th>Details</th>
+<th>Points (out of 20)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Git</strong></td>
+<td>GitHub repository</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>GitHub page functional</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Display the expected information</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>GiHub page refreshed daily</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><strong>Work description</strong></td>
+<td>Clarity / Details</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Easy to reproduce with text</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><strong>Code</strong></td>
+<td>Comments/Pep8 or Black</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Graphical aspects and esthetic</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td></td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="detail-for-the-team-project" class="level2">
+<h2 class="anchored" data-anchor-id="detail-for-the-team-project">Detail for the team project</h2>
+<section id="intermediate-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="intermediate-tasks">Intermediate tasks</h3>
+<ul>
+<li>data <strong>cleaning steps</strong>: removing missing values if need be.</li>
+</ul>
+</section>
+<section id="major-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="major-objectives">Major objectives:</h3>
+<ul>
+<li>displays <strong>interactive maps</strong>.</li>
+</ul>
+<p>Useful packages (non-exhaustive list):</p>
+<ul>
+<li><code>osmnx</code></li>
+<li><code>plotly</code></li>
+<li><code>folium</code></li>
+<li><code>networkx</code></li>
+</ul>
+</section>
+<section id="timing" class="level3">
+<h3 class="anchored" data-anchor-id="timing">Timing</h3>
+<ul>
+<li><p><strong>Mid-term</strong> project snapshot: Due date <strong>November 15, 23:59</strong>. This will include the creation of a GitHub repository (<code>README.md</code>, etc.), a short description of how the work is shared in the team and a detailed work program for the project including the tasks’ attribution (coding).</p></li>
+<li><p><strong>Preliminary presentation</strong>: An oral presentation with <code>Quarto</code> (duration: 5mn), in-person on date/place TBC (December 2, 11:30 to 13:00).</p></li>
+<li><p>Due date (final project): The GitHub repository should be completed before <strong>Tuesday 6 December (23:59)</strong>. Nothing pushed after the deadline will be taken into account. The oral presentation (max: 20mn) will be in-person <strong>Friday 9 December (8:00AM)</strong> (room: TBD).</p></li>
+</ul>
+</section>
+<section id="elements-expected-grading" class="level3">
+<h3 class="anchored" data-anchor-id="elements-expected-grading">Elements expected / Grading</h3>
+<table class="table-striped table">
+<caption></caption>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 48%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>General</th>
+<th>Details</th>
+<th>Points (out of 20)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Mid-term</strong></td>
+<td>Git / branches</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Task affectation</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Dataset creation</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>Preliminary-term</strong></td>
+<td>Slides (structure, spelling)</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td><strong>Code</strong></td>
+<td>Science Technical Problem Resolution</td>
+<td>4.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Readme/Comments/Pep8</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Unit Tests/CI/Deploy: wheel</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Class (create at least 1 class)</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Reproducibility/Dataset loading</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Graphical aspects: Widgets, clickable map, etc.</td>
+<td>2.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Time/Memory efficiency</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Documentation</td>
+<td>1.5</td>
+</tr>
+<tr class="odd">
+<td><strong>Oral</strong></td>
+<td>Beamer (structure, spelling)</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Clarity / lively presentation / Rhythm / Show</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td></td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<section id="details" class="level4">
+<h4 class="anchored" data-anchor-id="details">Details</h4>
+<ul>
+<li>The ultimate goal is to provide a Python module that can be imported with <code>pip</code> and contains your work. A description of the procedure will be needed (imagine you are addressing to a user not aware of your package). An example of a project made in 2020, is available at <a href="https://github.com/tanglef/chaoseverywhere" class="uri">https://github.com/tanglef/chaoseverywhere</a>.</li>
+</ul>
+<!-- - Your Python module should have two submodules corresponding to the two main tasks (prediction and visualization) -->
+<ul>
+<li><p>The project must be stored on a <code>GitHub</code> repository.</p></li>
+<li><p>You have to choose a name for your project. Hereafter, it is denoted by <code>my_module_name</code>.</p></li>
+<li><p>It should contain all the aspects described below.</p></li>
+</ul>
+</section>
+<section id="science" class="level4">
+<h4 class="anchored" data-anchor-id="science">Science</h4>
+<p>Solve (even partially) the problem raised in your project description.</p>
+</section>
+<section id="project-structure" class="level4">
+<h4 class="anchored" data-anchor-id="project-structure">Project structure</h4>
+<ul>
+<li><p>All the code will be placed in a subdirectory called <code>/my_module_name</code> (choosing your module name accordingly).</p></li>
+<li><p>A slide deck in <a href="https://quarto.org/docs/presentations/">quarto</a> <!-- A presentation (in an open source format: like Beamer, with TeX, see for instance some templates here <https://github.com/josephsalmon/OrganizationFiles>,  or LibreOffice Impress) will be put in a `/beamer` directory. --> will be put in a <code>/slide</code> directory. The latter will be a short presentation of the work that will be orally presented during 15mn in front of a jury.</p></li>
+<li><p>A documentation (using <code>sphinx</code>) will be stored in a <code>/doc</code> subdirectory.</p></li>
+</ul>
+</section>
+<section id="git-aspects" class="level4">
+<h4 class="anchored" data-anchor-id="git-aspects">Git aspects</h4>
+<ul>
+<li><p>A (markdown) <code>readme.md</code> file introducing your work and the team member (first/last name + email).</p></li>
+<li><p>A <code>.gitignore</code> that prevents garbage files from being included in your project.</p></li>
+<li><p>Equilibrated commits in two branches should be done (<em>e.g.,</em> in the development branch and the master one), and merged for the milestone day.</p></li>
+</ul>
+</section>
+<section id="object-programming-aspects" class="level4">
+<h4 class="anchored" data-anchor-id="object-programming-aspects">Object programming aspects</h4>
+<ul>
+<li>You should code at least one <code>Python</code> class.</li>
+</ul>
+</section>
+<section id="datasets" class="level4">
+<h4 class="anchored" data-anchor-id="datasets">Dataset(s)</h4>
+<ul>
+<li>The data used should be available in a way that the end user does not need to perform a manual download of any kind (use the <code>download</code> package or variants for instance).</li>
+</ul>
+</section>
+<section id="graphical-aspects" class="level4">
+<h4 class="anchored" data-anchor-id="graphical-aspects">Graphical aspects</h4>
+<p>The repository will contain code of the following nature:</p>
+<!-- - A code producing a (possibly interactive) map.
+
+- histograms/kde/swarmplots/etc. plots illustrating the data. -->
+</section>
+<section id="timememory-evaluation" class="level4">
+<h4 class="anchored" data-anchor-id="timememory-evaluation">Time/memory evaluation</h4>
+<ul>
+<li>A full study of the time and memory footprint of the code produced will be provided for the whole pipeline used.</li>
+</ul>
+</section>
+<section id="documentation" class="level4">
+<h4 class="anchored" data-anchor-id="documentation">Documentation</h4>
+<ul>
+<li>Documentation should be added correctly for the functions written. Please use <code>sphinx</code>.</li>
+</ul>
+</section>
+<section id="test-and-ci" class="level4">
+<h4 class="anchored" data-anchor-id="test-and-ci">Test and CI</h4>
+<ul>
+<li>Provide unitary tests to check that the function you proposed satisfies the requirement you target.</li>
+<li>Implement a Continuous Integration solution with <code>github</code> that runs your unitary test at each commit.</li>
+</ul>
+</section>
+<section id="deploy" class="level4">
+<h4 class="anchored" data-anchor-id="deploy">Deploy</h4>
+<ul>
+<li>It should be possible to package your Python module using <code>wheel</code> (<em>i.e.</em>, you need to provide a <code>setup.py</code>, file).</li>
+</ul>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
