@@ -4,12 +4,14 @@
 
 ## Teachers
 
-- Joseph Salmon: joseph.salmon@umontpellier.fr,
-- Benjamin Charlier: benjamin.charlier@umontpellier.fr
+- Joseph Salmon: [joseph.salmon@umontpellier.fr](mailto:joseph.salmon@umontpellier.fr),
+- Benjamin Charlier: [benjamin.charlier@umontpellier.fr](mailto:benjamin.charlier@umontpellier.fr)
 
 This course material was improved with the help of some students including:
 
 - Amelie Vernay
 - Tanguy Lefort
 
-The associated website is available at the following URL: https://josephsalmon.github.io/HAX712X/
+## Website
+
+The associated website is available at the following URL: [https://josephsalmon.github.io/HAX712X/](https://josephsalmon.github.io/HAX712X/)
