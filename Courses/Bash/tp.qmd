@@ -38,7 +38,7 @@ Some aliases:
 - `.` is an alias to the current directory.
 - `..` is an alias to the parent directory.
 
-For instance
+For instance,
 
 ```bash
 $ cd ~
@@ -51,7 +51,7 @@ $ pwd
 ::: {.callout-important appearance='default' icon="false"}
 ##  EXERCISE:
 
-   1. What is the difference between `cd ./toto/tata`, `cd toto/tata` `cd ~/toto/tata` and `cd /toto/tata`
+   1. What is the difference between `cd ./toto/tata`, `cd toto/tata`, `cd ~/toto/tata` and `cd /toto/tata`
    2. Use the `which` command to determine which instance of Python is used when you use the `python` command. Same question with `python2`.
 :::
 
@@ -68,7 +68,7 @@ $ ls --help
 
 A paging program displays, one windowful at a time, the contents of a file on a terminal.
 It pauses after each windowful and prints on the window status line, the screen, the file name, the current line number, and the percentage of the file so far displayed.
-This is not an editor (no modification of the file can be done)
+This is not an editor (no modification of the file can be done).
 
 `more` (deprecated) `less` (best choice) `most` (default on your machine, more features than `less`, but bad keybindings).
 
@@ -225,9 +225,7 @@ $ chmod u+x toto.txt
 
 ## Environment variables
 
-An environment variable (in short env or envs) is a dynamic-named value that can affect the way running processes will behave on a computer.
-Many options of bash may be changed with `envs`.
-To print all the defined envs:
+An environment variable (in short *env* or *envs*) is a dynamic-named value that can affect the way running processes will behave on a computer. Many options of bash may be changed with the command `envs`. To print all the defined envs:
 
 ```bash
 $ printenv
@@ -338,11 +336,11 @@ The dataset we are going to use is a modified version of the dataset available o
 
 
 ::: {.callout-important appearance='default' icon="false"}
-##  EXERCISE: downloading
+##  EXERCISE: downloading uing command lines
 
-   1. Create a folder `data_bicycle` and `cd` to it.
-   2. Download the compressed database (this is a `.xz` file) available at the following [URL](https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.cvs.xz): as `bicycle_db.csv.xz` (use the option `-O` of  `wget`).
-   3. Uncompress the `.xz` file using the `xz` command (use documentation!)  
+   1. **Create a folder** `data_bicycle` and `cd` to it.
+   2. **Download** the compressed database (this is a `.xz` file) available at the following [URL](https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.cvs.xz): as `bicycle_db.csv.xz` (use the option `-O` of  `wget`).
+   3. **Uncompress** the `.xz` file using the `xz` command (use documentation!)  
 :::
 
 ### Text commands: `tail`, `head`, `cat`, `wc` and `split`
@@ -398,9 +396,6 @@ list all the **files** in `/usr/lib/` containing the `qt5` string in its name.
 
 *Reference:* [TecMint](https://www.tecmint.com/35-practical-examples-of-linux-find-command/), 35 Practical Examples of Linux Find Command
 
-### The `args` command
-
-TODO
 
 ## Pipes and redirections
 
@@ -471,6 +466,25 @@ $ wc -l < toto.txt
    1. Create a single file `bike2016.csv` containing all the accident that occurred in 2016.
    2. Append the accidents of year 2017 to the previous file and then rename it `bike2016_17.csv`.
 :::
+
+### The `xargs` command
+
+A Unix killer feature! `xargs` reads items from the standard input and executes a command given by the user on each component of this list. For instance, this command
+
+```bash
+echo 'one two three' | xargs mkdir
+```
+creates 3 folders named `one`, `two` and `three`. **Caveat:** if the list items contain *spaces* or *newline characters*, it can may behave badly the `xargs` command. There is a special options `-0` or `-d` to help the end user dealing with this.
+
+The most common usage of `xargs` is to use it with the `find` command. This uses `find` to search for files or directories and then uses `xargs` to operate on the results. Typical examples of this are changing the ownership of files or moving files.
+
+`find` and `xargs` can be used together to operate on files that match certain attributes. In the following example files older than two weeks in the temp folder are found and then piped to the `xargs` command which runs the `rm` command on each file and removes them.
+
+```bash
+find /tmp -mtime +14 | xargs rm
+```
+
+*Reference:* [Examples with `xargs`](https://shapeshed.com/unix-xargs/)
 
 ## Pattern matching (part II):  Regexp
 
