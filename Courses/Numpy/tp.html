@@ -230,6 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#creation-vector-cases" id="toc-creation-vector-cases" class="nav-link" data-scroll-target="#creation-vector-cases">Creation: vector cases</a></li>
   <li><a href="#creation-matrix-cases" id="toc-creation-matrix-cases" class="nav-link" data-scroll-target="#creation-matrix-cases">Creation: matrix cases</a></li>
+  <li><a href="#creation-with-mehsgrids" id="toc-creation-with-mehsgrids" class="nav-link" data-scroll-target="#creation-with-mehsgrids">Creation with mehsgrids</a></li>
   <li><a href="#creation-tensor-cases" id="toc-creation-tensor-cases" class="nav-link" data-scroll-target="#creation-tensor-cases">Creation: tensor cases</a></li>
   </ul></li>
   <li><a href="#matrix-reshaping" id="toc-matrix-reshaping" class="nav-link" data-scroll-target="#matrix-reshaping">Matrix reshaping</a></li>
@@ -433,6 +434,49 @@ Result
 
 </table>
 </section>
+<section id="creation-with-mehsgrids" class="level3">
+<h3 class="anchored" data-anchor-id="creation-with-mehsgrids">Creation with mehsgrids</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nx, ny <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, nx)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, ny)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>
+x
+</th>
+<th>
+y
+</th>
+<th>
+xx
+</th>
+<th>
+yy
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-x.svg" width="100x">
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-y.svg" width="38px">
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-xv.svg" width="200px">
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-yv.svg" width="200px">
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
 <section id="creation-tensor-cases" class="level3">
 <h3 class="anchored" data-anchor-id="creation-tensor-cases">Creation: tensor cases</h3>
 
@@ -480,6 +524,19 @@ Result
 <img src="../ScipyNumpy/CheatSheet/figures/create-uniform-3.svg" width="200px">
 </td>
 </tr>
+<tr>
+<td>
+<pre><br>
+n1, n2 = 5, 3
+my_ones = np.ones((n2, n1))
+my_ones = my_ones[:, :, np.newaxis]
+T = my_ones * np.linspace(0.01, 0.99, num=8)
+        </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/create-increasing-slice.svg" width="200px">
+</td>
+</tr>
 </tbody>
 
 </table>
@@ -488,8 +545,8 @@ Result
 <section id="matrix-reshaping" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-reshaping">Matrix reshaping</h2>
 <p>We start here with</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
 <img src="../ScipyNumpy/CheatSheet/figures/reshape-M.svg" width="200px">
 </center>
@@ -554,7 +611,7 @@ Result
 <section id="slicing" class="level2">
 <h2 class="anchored" data-anchor-id="slicing">Slicing</h2>
 <p>Start from a zero matrix:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">5</span>, <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">5</span>, <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
 <img src="../ScipyNumpy/CheatSheet/figures/slice-M.svg" width="200px">
 </center>
@@ -667,49 +724,63 @@ Result
 <section id="operations-on-matrices" class="level2">
 <h2 class="anchored" data-anchor-id="operations-on-matrices">Operations on matrices</h2>
 <p>Start from a simple matrix matrix:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">6</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, rows <span class="op">*</span> cols).reshape(rows, cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">6</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, rows <span class="op">*</span> cols).reshape(rows, cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
 <img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px">
 </center>
 <p>Starting from the previous matrix, we can apply the following operations:</p>
 
+<table>
+<thead>
+<tr>
+<th>
+Code
+</th>
+<th>
+Result
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre> M.T </pre>
+</td>
+<td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px">
-</center><p>Starting from the previous matrix, we can apply the following operations:</p><table>
-<thead>
-<tr>
-<th>
-Code
-</th>
-<th>
-Result
-</th>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-transposition.svg" height="200px">
+</center>
+</td>
 </tr>
-</thead>
-<tbody>
-
-
-
-</tbody></table><table>
-<thead>
 <tr>
-<th>
-Code
-</th>
-<th>
-Result
-</th>
+<td>
+<pre> M[::-1, :] </pre>
+</td>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-row.svg" width="200px">
+</center>
+</td>
 </tr>
-</thead>
-<tbody>
 <tr>
-</tr><tr>
+<td>
+<pre> M[:, ::-1] </pre>
+</td>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-col.svg" width="200px">
+</center>
+</td>
+</tr>
+<tr>
 <td>
 <pre>np.where(M &gt; 0.5, 0, 1) </pre>
 </td>
 <td>
+<center>
 <img src="../ScipyNumpy/CheatSheet/figures/Operations-where.svg" width="200px">
+</center>
 </td>
 </tr>
 <tr>
@@ -717,7 +788,9 @@ Result
 <pre>np.maximum(M, 0.5) </pre>
 </td>
 <td>
+<center>
 <img src="../ScipyNumpy/CheatSheet/figures/Operations-max.svg" width="200px">
+</center>
 </td>
 </tr>
 <tr>
@@ -725,7 +798,9 @@ Result
 <pre>np.minimum(M, 0.5) </pre>
 </td>
 <td>
+<center>
 <img src="../ScipyNumpy/CheatSheet/figures/Operations-min.svg" width="200px">
+</center>
 </td>
 </tr>
 <tr>
@@ -733,7 +808,9 @@ Result
 <pre>np.mean(M, axis=0) </pre>
 </td>
 <td>
+<center>
 <img src="../ScipyNumpy/CheatSheet/figures/Operations-mean0.svg" width="200px">
+</center>
 </td>
 </tr>
 <tr>
@@ -765,7 +842,7 @@ Note
 </section>
 <section id="broadcasting" class="level2">
 <h2 class="anchored" data-anchor-id="broadcasting">Broadcasting</h2>
-Broadcasting allow to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match.
+Broadcasting allows to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match, somehow.
 
 <table>
 <thead>
