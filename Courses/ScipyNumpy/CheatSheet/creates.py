@@ -129,6 +129,15 @@ T = rng.random((3, rows, cols))
 show_array3(T, "create-uniform-3.svg")
 
 # %%
+# Tensor constant per slice, and linearly increasing over the 3rd axis.)
+n_samples_max, n_repetitions_max = 5, 3
+my_ones = np.ones((n_repetitions_max, n_samples_max))
+my_ones = my_ones[:, :, np.newaxis]
+p_tensor = my_ones * np.linspace(0.01, 0.99, num=8)
+show_array3(p_tensor, "create-increasing-slice.svg")
+
+
+# %%
 # Slicing:
 
 rows, cols = 3, 4
@@ -248,3 +257,16 @@ op_row = np.linspace(0, 1, rows).reshape(rows, 1)
 show_array2(op_row, "Broadcast-row2.svg")
 
 show_array2(op_col + op_row, "Broadcast-col-row.svg")
+#  %%
+# Meshgrid
+nx, ny = (8, 3)
+x = np.linspace(0, 1, nx)
+y = np.linspace(0, 1, ny)
+xv, yv = np.meshgrid(x, y)
+show_array2(x, "meshgrid-x.svg")
+show_array2(y, "meshgrid-y.svg")
+
+show_array2(xv, "meshgrid-xv.svg")
+show_array2(yv, "meshgrid-yv.svg")
+
+# %%
