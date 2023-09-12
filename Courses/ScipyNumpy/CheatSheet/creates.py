@@ -138,7 +138,7 @@ show_array3(p_tensor, "create-increasing-slice.svg")
 
 
 # %%
-# Slicing:
+# Reshaping:
 
 rows, cols = 3, 4
 
@@ -219,6 +219,8 @@ show_array2(M, "slice-M[3::2,3::2].svg")
 rows, cols = 3, 6
 M = np.linspace(0, 1, rows * cols).reshape(rows, cols)
 
+show_array2(M.T, "Operations-transposition.svg")
+
 show_array2(M, "Operations-M.svg")
 
 show_array2(np.where(M.copy() > 0.5, 0, 1), "Operations-where.svg")
@@ -230,6 +232,10 @@ show_array2(np.minimum(M.copy(), 0.5), "Operations-min.svg")
 show_array2(np.mean(M.copy(), axis=0), "Operations-mean0.svg")
 
 show_array2(np.mean(M.copy(), axis=1), "Operations-mean1.svg")
+
+show_array2(M[::-1], "Operations-from-end.svg")
+
+
 
 
 # %%
