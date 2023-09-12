@@ -234,6 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#matrix-reshaping" id="toc-matrix-reshaping" class="nav-link" data-scroll-target="#matrix-reshaping">Matrix reshaping</a></li>
   <li><a href="#slicing" id="toc-slicing" class="nav-link" data-scroll-target="#slicing">Slicing</a></li>
+  <li><a href="#slicing-1" id="toc-slicing-1" class="nav-link" data-scroll-target="#slicing-1">Slicing</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   </ul>
@@ -659,6 +660,72 @@ Result
 </td>
 <td>
 <img src="../ScipyNumpy/CheatSheet/figures/slice-M[3::2,3::2].svg" width="200px">
+</td>
+</tr>
+</tbody>
+
+</table>
+</section>
+<section id="slicing-1" class="level2">
+<h2 class="anchored" data-anchor-id="slicing-1">Slicing</h2>
+<p>Start from a simple matrix matrix:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">6</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, rows <span class="op">*</span> cols).reshape(rows, cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px">
+</center>
+<p>Starting from the previous matrix, we can apply the following operations:</p>
+
+<table>
+<thead>
+<tr>
+<th>
+Code
+</th>
+<th>
+Result
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre>np.where(M &gt; 0.5, 0, 1) </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-where.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<pre>np.maximum(M, 0.5) </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-max.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<pre>np.minimum(M, 0.5) </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-min.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<pre>np.mean(M, axis=0) </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean0.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<pre>np.mean(M, axis=1) </pre>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="200px">
 </td>
 </tr>
 </tbody>
