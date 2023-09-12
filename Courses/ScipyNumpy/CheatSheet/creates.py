@@ -14,7 +14,7 @@ epsilon = 0.0
 def show_array2(Z, name):
     Z = np.atleast_2d(Z)
     rows, cols = Z.shape
-    fig = plt.figure(dpi=72)
+    fig = plt.figure(dpi=72, frameon=False)
     fig.figsize = (cols / 4.0, rows / 4.0)
     ax = plt.subplot(111)
     plt.imshow(
@@ -30,7 +30,9 @@ def show_array2(Z, name):
     for pos in sides:
         ax.spines[pos].set_edgecolor("k")
         ax.spines[pos].set_alpha(0.25)
-    plt.savefig("figures/%s" % name, dpi=72)
+    plt.savefig(
+        "figures/%s" % name, dpi=72, bbox_inches="tight", pad_inches=0.0
+    )
 
 
 def show_array3(Z, name):
@@ -53,7 +55,9 @@ def show_array3(Z, name):
         for pos in sides:
             ax.spines[pos].set_edgecolor("k")
             ax.spines[pos].set_alpha(0.25)
-    plt.savefig("figures/%s" % name, dpi=16)
+    plt.savefig(
+        "figures/%s" % name, dpi=72, bbox_inches="tight", pad_inches=0.0
+    )
 
 
 # %%
