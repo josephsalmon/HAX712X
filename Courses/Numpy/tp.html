@@ -235,6 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#matrix-reshaping" id="toc-matrix-reshaping" class="nav-link" data-scroll-target="#matrix-reshaping">Matrix reshaping</a></li>
   <li><a href="#slicing" id="toc-slicing" class="nav-link" data-scroll-target="#slicing">Slicing</a></li>
   <li><a href="#operations-on-matrices" id="toc-operations-on-matrices" class="nav-link" data-scroll-target="#operations-on-matrices">Operations on matrices</a></li>
+  <li><a href="#broadcasting" id="toc-broadcasting" class="nav-link" data-scroll-target="#broadcasting">Broadcasting</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   </ul>
@@ -511,7 +512,7 @@ Result
 <pre>M = M.reshape(4, 3)</pre>
 </td>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" height="200px">
 </td>
 </tr>
 <tr>
@@ -519,7 +520,7 @@ Result
 <pre>M = M.reshape(12, 1)</pre>
 </td>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" height="200px">
 </td>
 </tr>
 <tr>
@@ -535,7 +536,7 @@ Result
 <pre>M = M.reshape(6, 2)</pre>
 </td>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" height="200px">
 </td>
 </tr>
 <tr>
@@ -673,7 +674,24 @@ Result
 </center>
 <p>Starting from the previous matrix, we can apply the following operations:</p>
 
-<table>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px">
+</center><p>Starting from the previous matrix, we can apply the following operations:</p><table>
+<thead>
+<tr>
+<th>
+Code
+</th>
+<th>
+Result
+</th>
+</tr>
+</thead>
+<tbody>
+
+
+
+</tbody></table><table>
 <thead>
 <tr>
 <th>
@@ -686,6 +704,7 @@ Result
 </thead>
 <tbody>
 <tr>
+</tr><tr>
 <td>
 <pre>np.where(M &gt; 0.5, 0, 1) </pre>
 </td>
@@ -722,7 +741,9 @@ Result
 <pre>np.mean(M, axis=1) </pre>
 </td>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="200px">
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="66px">
+</center>
 </td>
 </tr>
 </tbody>
@@ -741,6 +762,82 @@ Note
 <p>For the last opertations note that the dimension of the matrices are reduced, so you create a vector as a result, with dimention <code>(6,)</code> or <code>(3,)</code> respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).</p>
 </div>
 </div>
+</section>
+<section id="broadcasting" class="level2">
+<h2 class="anchored" data-anchor-id="broadcasting">Broadcasting</h2>
+Broadcasting allow to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match.
+
+<table>
+<thead>
+<tr>
+<th>
+M
+</th>
+<th>
+N
+</th>
+<th>
+M+N
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr><tr>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
+</td>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar.svg" width="30px">
+</center>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar-res.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row.svg" width="200px">
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row-res.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
+</td>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col.svg" height="100px">
+</center>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-res.svg" width="200px">
+</td>
+</tr>
+<tr>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col2.svg" width="200px">
+</center>
+</td>
+<td>
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row2.svg" height="100px">
+</center>
+</td>
+<td>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-row.svg" width="200px">
+</td>
+</tr>
+</tbody>
+
+</table>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
