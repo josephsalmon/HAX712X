@@ -4,7 +4,7 @@ title: "Classes & Exceptions"
 
 ## Classes
 
-*Cslasses* are central elements in *Object-oriented programming (OOP)*
+*Classes* are central elements in *Object-oriented programming (OOP)*
 
 A class structure defines an object, its properties, and all the operations one can apply to it.
 
