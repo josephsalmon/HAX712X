@@ -183,11 +183,11 @@ Starting from the previous matrix, we can reshape it in different ways:
   <tbody>
         <tr>
             <td> <pre>M = M.reshape(4, 3)</pre> </td>
-            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" width="200px"></image> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" height="200px"></image> </td>
         </tr>
         <tr>
             <td> <pre>M = M.reshape(12, 1)</pre> </td>
-            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" width="200px"></image> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" height="200px"></image> </td>
         </tr>
         <tr>
             <td> <pre>M = M.reshape(1, 12)</pre> </td>
@@ -195,7 +195,7 @@ Starting from the previous matrix, we can reshape it in different ways:
         </tr>
         <tr>
             <td> <pre>M = M.reshape(6, 2)</pre> </td>
-            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" width="200px"></image> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" height="200px"></image> </td>
         </tr>
         <tr>
             <td> <pre>M = M.reshape(2, 6)</pre> </td>
@@ -298,7 +298,22 @@ Starting from the previous matrix, we can apply the following operations:
       <th>Result</th>
     </tr>
   </thead>
+  <tbody><center>
+<image src = "../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px"></image> 
+</center>
+
+
+Starting from the previous matrix, we can apply the following operations:
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Result</th>
+    </tr>
+  </thead>
   <tbody>
+        <tr>
         <tr>
             <td> <pre>np.where(M > 0.5, 0, 1) </pre> </td>
             <td> <image src = "../ScipyNumpy/CheatSheet/figures/Operations-where.svg" width="200px"></image> </td>
@@ -317,7 +332,7 @@ Starting from the previous matrix, we can apply the following operations:
         </tr>
         <tr>
             <td> <pre>np.mean(M, axis=1) </pre> </td>
-            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="200px"></image> </td>
+            <td> <center><image src = "../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="66px"></image> </center> </td>
         </tr>
     </tbody>
 </table>
@@ -327,6 +342,43 @@ Starting from the previous matrix, we can apply the following operations:
 
 For the last opertations note that the dimension of the matrices are reduced, so you create a vector as a result, with dimention `(6,)` or `(3,)` respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).
 :::
+
+## Broadcasting
+Broadcasting allow to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match.
+<table>
+  <thead>
+    <tr>
+      <th>M</th>
+      <th>N</th>
+      <th>M+N</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+        <tr>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px"></image> </td>
+            <td> <center><image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-scalar.svg" width="30px"></image> </center> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-scalar-res.svg" width="200px"></image> </td>
+        </tr>
+        <tr>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px"></image> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-row.svg" width="200px"></image> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-row-res.svg" width="200px"></image> </td>
+        </tr>
+        <tr>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px"></image> </td>
+            <td>  <center><image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-col.svg" height="100px"></image> </center> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-col-res.svg" width="200px"></image> </td>
+        </tr>
+        <tr>
+            <td> <center><image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-col2.svg" width="200px"></image></center> </td>
+            <td>  <center><image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-row2.svg" height="100px"></image> </center> </td>
+            <td> <image src = "../ScipyNumpy/CheatSheet/figures/Broadcast-col-row.svg" width="200px"></image> </td>
+        </tr>
+    </tbody>
+</table>
+
+
 
 ## Resources
 - This work is deeply inspired and adapted from the great work by Nicolas Rougier: [https://github.com/rougier/numpy-tutorial](https://github.com/rougier/numpy-tutorial)

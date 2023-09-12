@@ -224,3 +224,27 @@ show_array2(np.mean(M.copy(), axis=1), "Operations-mean1.svg")
 
 
 # %%
+# Broadcasting
+rows, cols = 3, 6
+M = rng.random((rows, cols)) / 2
+show_array2(M, "Broadcast-M.svg")
+
+show_array2(0.5, "Broadcast-scalar.svg")
+show_array2(M + 0.5, "Broadcast-scalar-res.svg")
+
+op = np.linspace(0, 1, cols).reshape(1, cols)
+show_array2(op, "Broadcast-row.svg")
+show_array2(M + op, "Broadcast-row-res.svg")
+
+
+op = np.linspace(0, 1, rows).reshape(rows, 1)
+show_array2(op, "Broadcast-col.svg")
+show_array2(M + op, "Broadcast-col-res.svg")
+
+op_col = np.linspace(0, 1, cols).reshape(1, cols)
+show_array2(op_col, "Broadcast-col2.svg")
+
+op_row = np.linspace(0, 1, rows).reshape(rows, 1)
+show_array2(op_row, "Broadcast-row2.svg")
+
+show_array2(op_col + op_row, "Broadcast-col-row.svg")
