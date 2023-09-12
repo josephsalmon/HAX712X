@@ -55,7 +55,7 @@ def show_array3(Z, name):
     plt.savefig("figures/%s" % name, dpi=16)
 
 
-#%%
+# %%
 # Vectors
 
 rows, cols = 5, 9
@@ -78,7 +78,7 @@ show_array2(x, "create-arange-1.svg")
 x = rng.random(cols)
 show_array2(x, "create-uniform-1.svg")
 
-#%%
+# %%
 # Matrices
 
 M = np.zeros((rows, cols)) + 0.1
@@ -203,5 +203,23 @@ show_array2(M, "slice-M[::2,::2].svg")
 M = np.zeros((rows, cols)) + 0.1
 M[3::2, 3::2] = 1
 show_array2(M, "slice-M[3::2,3::2].svg")
+
+# %%
+# Operations
+
+rows, cols = 3, 6
+M = np.linspace(0, 1, rows * cols).reshape(rows, cols)
+show_array2(M, "Operations-M.svg")
+
+show_array2(np.where(M.copy() > 0.5, 0, 1), "Operations-where.svg")
+
+show_array2(np.maximum(M.copy(), 0.5), "Operations-max.svg")
+
+show_array2(np.minimum(M.copy(), 0.5), "Operations-min.svg")
+
+show_array2(np.mean(M.copy(), axis=0), "Operations-mean0.svg")
+
+show_array2(np.mean(M.copy(), axis=1), "Operations-mean1.svg")
+
 
 # %%
