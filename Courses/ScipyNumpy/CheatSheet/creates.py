@@ -209,6 +209,7 @@ show_array2(M, "slice-M[3::2,3::2].svg")
 
 rows, cols = 3, 6
 M = np.linspace(0, 1, rows * cols).reshape(rows, cols)
+
 show_array2(M, "Operations-M.svg")
 
 show_array2(np.where(M.copy() > 0.5, 0, 1), "Operations-where.svg")
