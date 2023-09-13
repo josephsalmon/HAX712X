@@ -639,7 +639,7 @@ EXERCISE: downloading using command lines
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><strong>Create a folder</strong> <code>data_bicycle</code> and <code>cd</code> to it.</li>
-<li><strong>Download</strong> the compressed database (this is a <code>.xz</code> file) available at the following <a href="https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.cvs.xz">URL</a>: as <code>bicycle_db.csv.xz</code> (use the option <code>-O</code> of <code>wget</code>).</li>
+<li><strong>Download</strong> the compressed database (this is a <code>.xz</code> file) available at the following <a href="https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz">URL</a>: as <code>bicycle_db.csv.xz</code> (use the option <code>-O</code> of <code>wget</code>).</li>
 <li><strong>Uncompress</strong> the <code>.xz</code> file using the <code>xz</code> command (use documentation!)</li>
 </ol>
 </div>
@@ -744,23 +744,20 @@ EXERCISE: head and tail
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Display the last 15 accidents occurring with <code>Vent fort</code> condition</li>
-<li>Display the type of crossing of the accident occurring with <code>Vent fort</code>&nbsp;in 2010. It should return</li>
+<li>Display the lines with type of crossing being <code>Intersection en X</code> or <code>Intersection en T</code> of the accident occurring&nbsp;in 2015.</li>
 </ol>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en X</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en T</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Intersection</span> en X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="redirection" class="level3">
 <h3 class="anchored" data-anchor-id="redirection">Redirection</h3>
 <p>The operator <code>&gt;</code> redirects the <code>stdout</code> of a command (LHS) into a file (RHS). Warning! it erases the file content. The operator <code>&gt;&gt;</code> appends the output of the LHS to a file.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls /etc <span class="op">&gt;</span> toto.txt</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat toto.txt</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> toto.txt <span class="op">&gt;&gt;</span> toto.txt</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls /etc <span class="op">&gt;</span> toto.txt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat toto.txt</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> toto.txt <span class="op">&gt;&gt;</span> toto.txt</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, the operator <code>&lt;</code> reads from the file (RHS) and sends the content to stdin (LHS)</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="op">&lt;</span> toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="op">&lt;</span> toto.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -781,11 +778,11 @@ EXERCISE: CSV creation
 <section id="the-xargs-command" class="level3">
 <h3 class="anchored" data-anchor-id="the-xargs-command">The <code>xargs</code> command</h3>
 <p>A Unix killer feature! <code>xargs</code> reads items from the standard input and executes a command given by the user on each component of this list. For instance, this command</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'one two three'</span> <span class="kw">|</span> <span class="fu">xargs</span> mkdir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'one two three'</span> <span class="kw">|</span> <span class="fu">xargs</span> mkdir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>creates 3 folders named <code>one</code>, <code>two</code> and <code>three</code>. <strong>Caveat:</strong> If the list items contain <em>spaces</em> or <em>newline characters</em>, it may behave badly with the <code>xargs</code> command. There is a special option <code>-0</code> or <code>-d</code> to help the end user deal with this.</p>
 <p>The most common usage of <code>xargs</code> is to use it with the <code>find</code> command. This uses <code>find</code> to search for files or directories and then uses <code>xargs</code> to operate on the results. Typical examples of this are changing the ownership of files or moving files.</p>
 <p><code>find</code> and <code>xargs</code> can be used together to operate on files that match certain attributes. In the following example files older than two weeks in the temp folder are found and then piped to the <code>xargs</code> command which runs the <code>rm</code> command on each file and removes them.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> /tmp <span class="at">-mtime</span> +14 <span class="kw">|</span> <span class="fu">xargs</span> rm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> /tmp <span class="at">-mtime</span> +14 <span class="kw">|</span> <span class="fu">xargs</span> rm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>Reference:</em> <a href="https://shapeshed.com/unix-xargs/">Examples with <code>xargs</code></a></p>
 </section>
 </section>
@@ -826,20 +823,20 @@ EXERCISE: regexp
 <ol type="1">
 <li>Go to <a href="https://regex101.com/" class="uri">https://regex101.com/</a> and copy/paste the following list (in the <code>TEST STRING</code> frame):</li>
 </ol>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="st">'01 !!!!!!!.flac'</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="st">'02 bad guy.flac'</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="st">'03 xanny.flac'</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">'04 you should see me in a crown.flac'</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">'05 all the good girls go to hell.flac'</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">'06 wish you were gay.flac'</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">"07 when the party's over.flac"</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">'08 8.flac'</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="st">'09 my strange addiction.flac'</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">'10 bury a friend.flac'</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="st">'11 ilomilo.flac'</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="st">'12 listen before i go.flac'</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="st">'13 i love you.flac'</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="st">'14 goodbye.flac'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="st">'01 !!!!!!!.flac'</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">'02 bad guy.flac'</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">'03 xanny.flac'</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">'04 you should see me in a crown.flac'</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">'05 all the good girls go to hell.flac'</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">'06 wish you were gay.flac'</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">"07 when the party's over.flac"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">'08 8.flac'</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">'09 my strange addiction.flac'</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">'10 bury a friend.flac'</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="st">'11 ilomilo.flac'</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">'12 listen before i go.flac'</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">'13 i love you.flac'</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="st">'14 goodbye.flac'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li><p>Why the name of the 7th song is double-quoted (” instead of ’)?</p></li>
 <li><p>Capture with a regexp all the song names (between the track number and the extension). You should get this in the <code>MATCH INFORMATION</code> frame on the right:</p></li>
