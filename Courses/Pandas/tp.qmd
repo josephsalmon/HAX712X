@@ -58,7 +58,7 @@ df_titanic_raw.head(n=5)
 ### Missing values
 It is common to encounter features/covariates with missing values.
 In `pandas` they were mostly handled as `np.nan` (not a number).
-In the future, they will be treated as `NA` (note available), in a similar way as in R; see the [Pandas documentation on missing data](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html) for standard behavior and details.
+In the future, they will be treated as `NA` (Not Available), in a similar way as in R; see the [Pandas documentation on missing data](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html) for standard behavior and details.
 
 Note that the main difference between `pd.NA` and `np.nan` is that `pd.NA` propagates even for comparisons:
 
@@ -90,7 +90,7 @@ df_titanic.info()
 ```
 
 ```{python}
-# Check that cabin is mostly missing, also the age
+# Check that the `Cabin` information is mostly missing; the same hold for `Age`
 df_titanic_raw.info()
 ```
 
@@ -102,8 +102,8 @@ Details of the dataset are given [here](https://biostat.app.vumc.org/wiki/pub/Ma
 - `Pclass`: 	 Ticket class 	1 = 1st, 2 = 2nd, 3 = 3rd
 - `Sex`: 	     Sex male/female
 - `Age`: 	     Age in years
-- `Sibsp`: 	     # of siblings / spouses aboard the Titanic
-- `Parch`: 	     # of parents / children aboard the Titanic
+- `Sibsp`: 	     # of siblings/spouses aboard the Titanic
+- `Parch`: 	     # of parents/children aboard the Titanic
 - `Ticket`: 	 Ticket number
 - `Fare`: 	     Passenger fare
 - `Cabin`: 	     Cabin number
@@ -111,8 +111,10 @@ Details of the dataset are given [here](https://biostat.app.vumc.org/wiki/pub/Ma
 - `Name`:        Name of the passenger
 - `PassengerId`: Number to identify passenger
 
-Note: an extended version of the dataset is available here for those interested <https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt>.
+::: {.callout-note}
 
+For those interested, an extended version of the dataset is available here <https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt>.
+:::
 
 ### Simple descriptive statistics
 ```{python}
@@ -376,7 +378,7 @@ df_titanic['Name'].astype(str)
 
 
 ### Extract `numpy` arrays from dataframes
-useful for using packages on top of `pandas` (*e.g.,* sklearn, though nowadays it works out of the box with `pandas`)
+useful for using packages on top of `pandas` (*e.g.,* `sklearn`, though nowadays it works out of the box with `pandas`)
 
 ```{python}
 array_titanic = df_titanic.values  # associated numpy array
@@ -384,7 +386,7 @@ array_titanic
 ```
 
 ::: {.callout-important appearance='default' icon="false"}
-## EXERCISE: dropna
+## EXERCISE: `dropna`
 
 Perform the following operation: remove the columns Cabin from the raw
 dataset, and then remove the rows with the variable `Age` missing.
@@ -465,7 +467,7 @@ See also the command:
 df_titanic.groupby(['Sex'])[['Survived', 'Age', 'Fare']].mean()
 ```
 
-Conclusion: be careful when you remove some missing values, the missingness might be informative!
+Conclusion: Be careful when you remove some missing values, the missingness might be informative!
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -475,7 +477,7 @@ What was the proportion of women on the boat?
 :::
 
 
-### Data import et export
+### Data import/export
 
 The Pandas library supports many formats:
 
@@ -483,8 +485,8 @@ The Pandas library supports many formats:
  - SQL database
  - Excel
  - HDF5
- - json
- - html
+ - JSON
+ - HTML
  - pickle
  - sas, stata
  - ...
@@ -515,7 +517,7 @@ df_titanic_raw.iloc[0:2, 1:8]
 # df_titanic_raw.loc[128]
 
 # with naming indexing
-df_titanic_raw = df_titanic_raw.set_index('Name')  # you can only do it once !!
+df_titanic_raw = df_titanic_raw.set_index('Name')  # You can only do it once !!
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Fare']
 ```
 
@@ -535,7 +537,7 @@ df_titanic_raw.loc['Bonnell, Miss. Elizabeth']
 ```{python}
 # set back the original value
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived'] = 1
-df_titanic_raw = df_titanic_raw.reset_index()  # come back to original index
+df_titanic_raw = df_titanic_raw.reset_index()  # Back to original indexing
 ```
 
 ### `groupby`
@@ -557,7 +559,7 @@ ax.tick_params(axis='x', labelrotation=90)
 ```
 
 
-### Second Case study: air quality in Paris (Source: Airparif)
+### Second Case study: Air quality in Paris (Source: Airparif)
 
 ```{python}
 url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
@@ -580,7 +582,7 @@ from IPython import get_ipython
 get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
 ```
 
-**References**: 
+**References**:
 
 - [Working with time series](https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html), Python Data Science Handbook by Jake VanderPlas
 
@@ -640,7 +642,7 @@ polution_df['heure']
 
 ### Time processing
 
-Note that we use here the following conventions:
+Note that we have used the following conventions:
  - d = day
  - m=month
  - Y=year
@@ -856,7 +858,7 @@ df_bikes = pd.read_csv("bicycle_db.csv", na_values="", low_memory=False,
                        dtype={'data': str, 'heure': str, 'departement': str})
 ```
 
-In June 2023, the author decides to change the name of the columns... We define a dictionary to come back to legacy names...
+In June 2023, the author decided to change the name of the columns, hence we had to define a dictionary to come back to legacy names:
 
 ```{python}
 
@@ -920,7 +922,7 @@ df_bikes.iloc[399:402]
 
 Can you find the starting day and the ending day of the study automatically?
 
-Hint: sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
+Hint: Sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
 
 ```{python}
 df_bikes['date'] + ' ' + df_bikes['heure']
@@ -936,7 +938,6 @@ time_improved = pd.to_datetime(df_bikes['date'] +
                                errors='coerce')
 
 # Where d = day, m=month, Y=year, H=hour, M=minutes
-# create correct timing format in the dataframe
 ```
 
 ```{python}
@@ -968,7 +969,7 @@ df_bike2.dropna(inplace=True)
 
 Perform an analysis so that you can check the benefit or not of wearing a
 helmet to save your life.
-Beware: preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
+Beware: Preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
 issues.
 :::
 ```{python}
@@ -1029,7 +1030,7 @@ pd.crosstab(df_bike2['sexe'],
 
 
 ### To conclude
-Note: information on the level of bike practice by men/women is missing...
+Note that in the dataset, the information on the level of bike practice by gender is missing.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -1224,7 +1225,7 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 - [Introduction on geopandas](https://geopandas.org/en/stable/getting_started/introduction.html)
 
-- [Notebook on French departements issues](https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit)
+- [Notebook on French departememen/womennts issues](https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit)
 
 - [Choropleth Maps in practice with Plotly and Python](https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19) by Thibaud Lamothe
 - [European data on France geography](https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr)

@@ -8,12 +8,13 @@ import matplotlib.pyplot as plt
 rng = np.random.default_rng(12)
 
 sides = ["top", "bottom", "right", "left"]
+epsilon = 0.0
 
 
 def show_array2(Z, name):
     Z = np.atleast_2d(Z)
     rows, cols = Z.shape
-    fig = plt.figure(dpi=72)
+    fig = plt.figure(dpi=72, frameon=False)
     fig.figsize = (cols / 4.0, rows / 4.0)
     ax = plt.subplot(111)
     plt.imshow(
@@ -29,7 +30,9 @@ def show_array2(Z, name):
     for pos in sides:
         ax.spines[pos].set_edgecolor("k")
         ax.spines[pos].set_alpha(0.25)
-    plt.savefig("figures/%s" % name, dpi=72)
+    plt.savefig(
+        "figures/%s" % name, dpi=72, bbox_inches="tight", pad_inches=0.0
+    )
 
 
 def show_array3(Z, name):
@@ -52,39 +55,42 @@ def show_array3(Z, name):
         for pos in sides:
             ax.spines[pos].set_edgecolor("k")
             ax.spines[pos].set_alpha(0.25)
-    plt.savefig("figures/%s" % name, dpi=16)
+    plt.savefig(
+        "figures/%s" % name, dpi=72, bbox_inches="tight", pad_inches=0.0
+    )
 
 
-#%%
+# %%
 # Vectors
 
 rows, cols = 5, 9
 
-x = np.array([0.0, 0.0, 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) + 0.1
+x = np.array([0.0, 0.0, 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) + epsilon
 show_array2(x, "create-list-1.svg")
 
-x = np.zeros(cols) + 0.1
+x = np.zeros(cols) + epsilon
 show_array2(x, "create-zeros-1.svg")
 
 x = np.full(cols, 0.5)
 show_array2(x, "create-full-1.svg")
 
-x = np.ones(cols) + 0.1
+x = np.ones(cols) + epsilon
 show_array2(x, "create-ones-1.svg")
 
 x = np.arange(cols)
 show_array2(x, "create-arange-1.svg")
+show_array2(x[::-1], "create-arange-1-backward.svg")
 
 x = rng.random(cols)
 show_array2(x, "create-uniform-1.svg")
 
-#%%
+# %%
 # Matrices
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 show_array2(M, "create-zeros-2.svg")
 
-M = np.ones((rows, cols)) + 0.1
+M = np.ones((rows, cols)) + epsilon
 show_array2(M, "create-ones-2.svg")
 
 M = np.array(
@@ -99,27 +105,27 @@ M = np.array(
 M += 0.1
 show_array2(M, "create-list-2.svg")
 
-M = np.arange(rows * cols).reshape(rows, cols) + 0.1
+M = np.arange(rows * cols).reshape(rows, cols)
 show_array2(M, "create-arange-2.svg")
 
 M = rng.random((rows, cols))
 show_array2(M, "create-uniform-2.svg")
 
-M = np.eye(rows, cols) + 0.1
+M = np.eye(rows, cols) + epsilon
 show_array2(M, "create-eye-2.svg")
 
-M = np.diag(np.arange(5)) + 0.1
+M = np.diag(np.arange(5)) + epsilon
 show_array2(M, "create-diag-2.svg")
 
-M = np.diag(np.arange(3), k=1) + 0.1
+M = np.diag(np.arange(3), k=2) + epsilon
 show_array2(M, "create-diagk-2.svg")
 
 # %%
 # Tensors
-T = np.zeros((3, 5, 9)) + 0.1
+T = np.zeros((3, 5, 9)) + epsilon
 show_array3(T, "create-zeros-3.svg")
 
-T = np.ones((3, 5, 9)) + 0.1
+T = np.ones((3, 5, 9)) + epsilon
 show_array3(T, "create-ones-3.svg")
 
 T = np.arange(3 * 5 * 9).reshape(3, 5, 9)
@@ -129,11 +135,20 @@ T = rng.random((3, rows, cols))
 show_array3(T, "create-uniform-3.svg")
 
 # %%
-# Slicing:
+# Tensor constant per slice, and linearly increasing over the 3rd axis.)
+n_samples_max, n_repetitions_max = 5, 3
+my_ones = np.ones((n_repetitions_max, n_samples_max))
+my_ones = my_ones[:, :, np.newaxis]
+p_tensor = my_ones * np.linspace(0.01, 0.99, num=8)
+show_array3(p_tensor, "create-increasing-slice.svg")
+
+
+# %%
+# Reshaping:
 
 rows, cols = 3, 4
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[2, 2] = 1
 show_array2(M, "reshape-M.svg")
 
@@ -157,51 +172,112 @@ show_array2(M, "reshape-M-reshape(2,6).svg")
 
 rows, cols = 5, 9
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 show_array2(M, "slice-M.svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[...] = 1
 show_array2(M, "slice-M[...].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[:, ::2] = 1
 show_array2(M, "slice-M[:,::2].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[::2, :] = 1
 show_array2(M, "slice-M[::2,:].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[1, 1] = 1
 show_array2(M, "slice-M[1,1].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[:, 0] = 1
 show_array2(M, "slice-M[:,0].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[0, :] = 1
 show_array2(M, "slice-M[0,:].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[2:, 2:] = 1
 show_array2(M, "slice-M[2:,2:].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[:-2, :-2] = 1
 show_array2(M, "slice-M[:-2,:-2].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[2:4, 2:4] = 1
 show_array2(M, "slice-M[2:4,2:4].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[::2, ::2] = 1
 show_array2(M, "slice-M[::2,::2].svg")
 
-M = np.zeros((rows, cols)) + 0.1
+M = np.zeros((rows, cols)) + epsilon
 M[3::2, 3::2] = 1
 show_array2(M, "slice-M[3::2,3::2].svg")
+
+# %%
+# Operations
+
+rows, cols = 3, 6
+M = np.linspace(0, 1, rows * cols).reshape(rows, cols)
+
+show_array2(M.T, "Operations-transposition.svg")
+
+show_array2(M, "Operations-M.svg")
+
+show_array2(np.where(M.copy() > 0.5, 0, 1), "Operations-where.svg")
+
+show_array2(np.maximum(M.copy(), 0.5), "Operations-max.svg")
+
+show_array2(np.minimum(M.copy(), 0.5), "Operations-min.svg")
+
+show_array2(np.mean(M.copy(), axis=0), "Operations-mean0.svg")
+
+show_array2(np.mean(M.copy(), axis=1), "Operations-mean1.svg")
+
+show_array2(M[:, ::-1], "Operations-from-end-col.svg")
+show_array2(M[::-1, :], "Operations-from-end-row.svg")
+
+
+# %%
+# Broadcasting
+rows, cols = 3, 6
+M = rng.random((rows, cols)) / 2
+show_array2(M, "Broadcast-M.svg")
+
+show_array2(0.5, "Broadcast-scalar.svg")
+show_array2(M + 0.5, "Broadcast-scalar-res.svg")
+
+op = np.linspace(0, 1, cols).reshape(1, cols)
+show_array2(op, "Broadcast-row.svg")
+show_array2(M + op, "Broadcast-row-res.svg")
+
+
+op = np.linspace(0, 1, rows).reshape(rows, 1)
+show_array2(op, "Broadcast-col.svg")
+show_array2(M + op, "Broadcast-col-res.svg")
+
+op_col = np.linspace(0, 1, cols).reshape(1, cols)
+show_array2(op_col, "Broadcast-col2.svg")
+
+op_row = np.linspace(0, 1, rows).reshape(rows, 1)
+show_array2(op_row, "Broadcast-row2.svg")
+
+show_array2(op_col + op_row, "Broadcast-col-row.svg")
+#  %%
+# Meshgrid
+nx, ny = (8, 3)
+x = np.linspace(0, 1, nx)
+y = np.linspace(0, 1, ny)
+xv, yv = np.meshgrid(x, y)
+show_array2(x, "meshgrid-x.svg")
+show_array2(y, "meshgrid-y.svg")
+
+show_array2(xv, "meshgrid-xv.svg")
+show_array2(yv, "meshgrid-yv.svg")
 
 # %%

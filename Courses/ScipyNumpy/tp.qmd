@@ -161,7 +161,7 @@ np.allclose(A, evecs @ np.diag(evals) @ evecs.T)
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE:  Eigenvalues/Eigenvectors
 
-Verify numerically that the output from `linalg.eig` are indeed approximately
+Verify numerically that the outputs from `linalg.eig` are indeed approximately
 eigenvalues and eigenvectors of matrix A above.
 
 *Hint*: use [Scipy documentation on allclose](https://docs.scipy.org/doc/numpy/reference/generated/numpy.allclose.html)
@@ -173,7 +173,7 @@ eigenvalues and eigenvectors of matrix A above.
 #### Symmetric matrices
 
 If A is symmetric you **should** use `eigvalsh` (H for Hermitian) instead:
-this is more robust and leverages the structures (you know they are real!)
+This is more robust and leverages the structures (you know they are real!)
 
 ### Matrix operations
 - `linalg.trace(A)`  # trace
@@ -192,8 +192,8 @@ print(linalg.norm(A, ord=np.inf))
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE:  Norms computation
 
-Check numerically what is the instruction `linalg.norm(A, ord=np.inf)`
-computing.
+Check numerically what the instruction `linalg.norm(A, ord=np.inf)`
+is computing.
 Double check with the help and a numerical test.
 :::
 
@@ -288,7 +288,7 @@ def f(omega):
 x = np.linspace(1e-8, 3.2, 1000)
 y = f(x)
 
-# remove vertical lines when the function flips sign
+# Remove vertical lines when the function flips signs
 mask = np.where(np.abs(y) > 50)
 x[mask] = y[mask] = np.nan
 plt.plot(x, y)
@@ -349,7 +349,7 @@ plt.legend()
 plt.show()
 ```
 
-Rem: for polynomial fitting, one can directly use `numpy`
+For polynomial fitting, one can directly use `numpy` functionsL
 
 ```{python}
 #| layout-ncol: 1
@@ -472,7 +472,7 @@ plt.figure()
 plt.imshow(np.mean(img, axis=2), cmap=plt.cm.gray)
 plt.show()
 ```
-### Blurring (fr: floutage)
+### Blurring (&#127467;&#127479;: floutage)
 
 ```s
 img_flou = ndimage.gaussian_filter(img, sigma=20)
@@ -498,7 +498,7 @@ plt.show()
 
 @widgets.interact(sigma=(0.1, 200, 0.1))
 def update(sigma=2):
-    """Remove old lines from plot and plot new one"""
+    """Remove old lines from plots and plot new ones."""
     # [l.remove() for l in ax.lines]
     img_flou = ndimage.gaussian_filter(img, sigma)
     ax.imshow(img_flou, cmap=plt.cm.gray)

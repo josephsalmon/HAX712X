@@ -35,7 +35,7 @@ Their names are usually prefixed and suffixed by the symbol `__`, e.g.,
 
 ### ... or a module could be a directory
 
-You can also import a full directory (containing many `python` files stored in sub-folder). Python looks for a folder located in `sys.path` list.
+You can also import a full directory (containing many `python` files stored in a sub-folder). `python` looks for a folder located in `sys.path` list.
 You have already imported the `numpy` module, for numerical analysis with `python`:
 
 ```{python}
@@ -53,7 +53,7 @@ Depending on your installation you might obtain
 `['/usr/lib/python3.9/site-packages/numpy']`
 or
 `['/home/username/anaconda3/lib/python3.7/site-packages/numpy']`
-if you installed with anaconda.
+if you installed with Anaconda.
 
 More precisely **this** file
 
@@ -70,14 +70,14 @@ or
 ```
 
 
-Any (sub-)directory of your python module should contain an `__init__.py` file!
+Any (sub-)directory of your `python` module should contain an `__init__.py` file!
 
 **Useful tips:**
 
-- The `__init__.py` file can contain a list of function to be loaded when the module is imported.
-It allows to expose functions to user in a concise way.
+- The `__init__.py` file can contain a list of functions to be loaded when the module is imported.
+It allows to expose functions to users in a concise way.
 
-- You can also import modules with relative path, using `.`, `..`, `...`, etc.
+- You can also import modules with relative paths, using `.`, `..`, `...`, etc.
 
 
 **References**:
@@ -124,7 +124,7 @@ To list every element in your symbol table simply call `dir()`.
 A namespace is a set of names (functions, variables, etc.).
 Different namespaces can co-exist at a given time but are completely isolated. In this way, you can control which function you are using.
 
-A namespace containing all the built-in names is created when we start the Python interpreter and exists as long we don't exit.
+A namespace containing all the built-in names is created when we start the `python` interpreter and exists as long we don't exit.
 
 ```{python}
 #| error: true
@@ -163,7 +163,7 @@ spam_spec = importlib.util.find_spec("spam")
 found = spam_spec is not None
 found
 ```
-Now 
+Now,
 
 ```{python}
 import numpy
@@ -204,9 +204,9 @@ This naming convention allows compiled modules from different releases and diffe
 
 **Useful git tip:**
 
-- you should add `__pycache__` entry in your `.gitignore` file to avoid to add compiled `python` file to your project.
+- You should add `__pycache__` entry in your `.gitignore` file to avoid adding a compiled `python` file to your project.
 
-## The Python Package Index (Pypi) repository
+## The `python` Package Index (Pypi) repository
 
 The `python` Package Index, abbreviated as PyPI, is the official third-party software repository for `python`.
 PyPI primarily hosts `python` packages in the form of archives called `sdists` (source distributions) or pre-compiled "wheels".
@@ -258,7 +258,7 @@ $ pip install -e /path/to/my/local/module
 
 ### Picking A Name
 
-Python module/package names should generally follow the following constraints:
+`python` module/package names should generally follow the following constraints:
 
 - All lowercase
 - Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)
@@ -280,7 +280,7 @@ packaging_tutorial/
     .gitignore
 ```
 
-The top level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual Python module.
+The top-level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial.git`. The sub-directory, `biketrauma`, is the actual `python` module.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -401,12 +401,12 @@ $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 
 ### Add requirement file
 
-To get a list of the installed package in your current venv, you can use the following command:
+To get a list of the installed packages in your current venv, you can use the following command:
 
 ```bash
 $ pip freeze > requirements.txt
 ```
-Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use `pipreqs`
+Unfortunately, it may generate a huge collection of package dependencies. To get a sparser list, you can use `pipreqs`.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -417,15 +417,15 @@ Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrau
 
 ### Upload on PyPI
 
-`twine` is a utility for publishing Python packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
+`twine` is a utility for publishing `python` packages on PyPI. We are going to use the test repository <https://test.pypi.org/>.
 
 
 ::: {.callout-important appearance='default' icon="false"}
-## EXERCISE: 
+## EXERCISE:
 
 1. Create an account on the PyPI test repository
 
-This is quite easy to upload a python module on PyPI:
+This is quite easy to upload a `python` module on PyPI:
 
 1. Create some distributions in the normal way:
 
@@ -452,5 +452,4 @@ $ twine upload dist/*
 **References**:
 
 - [Python Packaging User Guide](https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/)
-More documentation on using `twine` to upload packages to PyPI is in the .
-- [Twrine, uploads of source](https://pypi.org/project/twine/)
+- [Twrine, uploads of source](https://pypi.org/project/twine/), provides additional documentation on using `twine` to upload packages to PyPI.
