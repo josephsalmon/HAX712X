@@ -4,7 +4,7 @@ title: "Classes & Exceptions"
 
 ## Classes
 
-*Cslasses* are central elements in *Object-oriented programming (OOP)*
+*Classes* are central elements in *Object-oriented programming (OOP)*
 
 A class structure defines an object, its properties, and all the operations one can apply to it.
 
@@ -13,12 +13,12 @@ It is defined similarly to a function, replacing the `def` keyword with `class`.
 
 Usually, a class contains some class methods (functions inside the class).
 
-* The first argument of a (non `static`) method is usually called `self`:  it is a mandatory element. This `self` argument is for self-reference.
+* The first argument of a (non-static) method is usually called `self`:  it is a mandatory element. This `self` argument is for self-reference.
 
 * Some method names have a specific meaning, for instance:
    * `__init__`:  name of the method invoked when creating the object (instantiation)
    * `__call__`: method invoked when calling the object
-   * `__str__`: method invoked when a class has a representation as a string, *e.g.*, when passing it to the `print` function
+   * `__str__`: method invoked when a class has a representation as a string, *e.g.,* when passing it to the `print` function
    * see [Python documentation](http://docs.python.org/3/reference/datamodel.html#special-method-names) for more special names.
 
 ### Example
@@ -44,7 +44,7 @@ class Point(object):
 ```
 
 ::: {.callout-note}
-If you are not familiar with printing in Python, start with the new f-strings format, see for instance: <https://zetcode.com/python/fstring/>.
+If you are not familiar with printing in Python, start with the new f-strings format; see for instance: <https://zetcode.com/python/fstring/>.
 :::
 
 To create a new instance of the class `Point`:
@@ -76,7 +76,7 @@ print(p1)
 print(p2)
 ```
 ::: {.callout-note}
-You might have already used that dot notation with `numpy` for instance when executing `numpy` functions as follows
+You might have already used that syntax with the dot notation in `numpy`, for instance when executing `numpy` functions as follows
 
 ```{python}
 import numpy as np
@@ -171,19 +171,12 @@ print(g4)
 print(g2 + g1)
 print(sum([g1, g2, g3]))
 print(sum([g1, g2, g3]) == g4)
-
-# The former should display
-# The density function is: exp(-(x - 0)^2 / (2*1^2)) / sqrt(2 * pi * 1^2)
-# The density function is: exp(-(x - 1)^2 / (2*2^2)) / sqrt(2 * pi * 2^2)
-# True
-# False
-# The density function is: exp(-(x - 1)^2 / (2 * 2.23606797749979^2)) / sqrt(2 * pi * 2.23606797749979^2)
 ```
 :::
 
 ### Inheritance, the sub-Gaussian case (of a kind)
 
-Classes can inherit methods from other classes. You can use `super` (Latin for "above") to access the parent class.
+Classes can inherit methods from other classes. You can use `super` (Latin word for "above") to access the parent class.
 
 Test function of interest: `isinstance` allow to check if an object is of the correct class.
 
@@ -229,13 +222,13 @@ and includes `NameError`, `ImportError`, `AssertionError` etc.
 
 ```python
 try:
-    # normal code 1 goes here
+    # Part 1: Normal code goes here
 except:
-    # code for error handling goes here
-    # this code 2 is not executed unless the code 1
+    # Part 2: Code for error handling goes here
+    # This code is not executed unless Part 1
     # above generated an error
 finally:
-    # optional. This clause is executed no matter what,
+    # Optional: This clause is executed no matter what,
     # and is generally used to release external resources.
 ```
 
@@ -262,16 +255,19 @@ To obtain some information on the error: it is possible to access the instance o
 ```{python}
 try:
     print("test")
-    print(testtt)  # error: the variable testtt is not defined
+    print(testtt)  # Error: the variable testtt is not defined
 except Exception as e:
     print("Caught an exception:", e)
 ```
 
-**Note**: a common use case is to test if the import of a package was successful or not
+::: {.callout-note}
+
+A common use case is to test if the import of a package was successful or not. For instance, the following code will not raise an error if the package `pooch` is not installed on your computer.
+:::
 
 ```python
 try:
-    import ddownload
+    import pooch
 except Exception as e:
     print(e)
 ```
@@ -280,7 +276,10 @@ Other common exceptions: <https://docs.python.org/3/library/exceptions.html>
 
 ### The `with` statement
 
-**Warning**: you have to run the following lines with a directory `scripts/` containing a function `hello-world.py`
+::: {.callout-important}
+
+You have to run the following lines at a location where a directory called `scripts/` containing a function `hello-world.py` exists.
+:::
 
 ```{python}
 fname = "./scripts/hello-world.py"
@@ -296,7 +295,7 @@ Now
 ```{python}
 fname = "scripts/hello-world_do_not_exist.py"
 try:
-    # 1/0  # uncomment at some point and run
+    # 1/0  # Yncomment at some point and run
     file = open(fname)
     data = file.read()
     print(data)
@@ -305,7 +304,7 @@ except FileNotFoundError:
 except (RuntimeError, TypeError, NameError, ZeroDivisionError):
     print("Specific Error message 2")
 finally:
-    file.close()  # important to release the access to the file !
+    file.close()  # Important line to release access to the file!
 ```
 
 
@@ -337,12 +336,12 @@ print(e)
 ```
 
 **Conclusion**: `e` is only "visible" inside the function definition.
-See https://realpython.com/python-scope-legb-rule/ for more information on this topics.
+See https://realpython.com/python-scope-legb-rule/ for more information on this topic.
 
 
 ## Manipulate file names on disk across platforms.
 
-The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues having a different OS than yours!!!
+The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues who have a different OS than yours!!!
 
 
 ```python
@@ -363,15 +362,15 @@ Write a simple script that creates, in the sub-directory `scripts`, the followin
 
 **Hint**:
 
-- you might need zero padding
-- you can check what the following code does
+- You might need zero padding.
+- You can check what the following code does.
 
 ```python
 file = open("copy.txt")
 file.write("Your text goes here")
 file.close()
 ```
-- you might also need some precision for the digits of $\pi$, hence using `mpmath` instead of `numpy`
+- You might also need some precision for the digits of $\pi$, hence using `mpmath` instead of `numpy`.
 
 ```python
 from mpmath import mp

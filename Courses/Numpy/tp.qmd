@@ -1,6 +1,6 @@
 # Numpy cheat sheet
 
-Preliminary remark: for the random part, one is expected to run a command like
+Preliminary remark: For the random part, one is expected to run a command like
 ```Python
 import numpy as np
 rng = np.random.default_rng(12)
@@ -9,7 +9,7 @@ before anything, to call the generator `rng`.
 
 ## Matrix creation
 
-### Creation: vector cases
+### Creation: vector case
 
 
 
@@ -17,8 +17,8 @@ before anything, to call the generator `rng`.
 <style>
 table {
     border: border-collapse;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 th, td {
@@ -82,11 +82,7 @@ thead,th {text-align: center;}
 </table>
 
 
-
-
-### Creation: matrix cases
-
-
+### Creation: matrix case
 
 <table>
   <thead>
@@ -133,7 +129,7 @@ thead,th {text-align: center;}
 
 
 
-### Creation with mehsgrids
+### Meshgrid (&#127467;&#127479;: maillage)
 
 ```Python
 nx, ny = (8, 3)
@@ -162,7 +158,6 @@ xx, yy = np.meshgrid(x, y)
 </table>
 
 ### Creation: tensor cases
-
 
 <table>
   <thead>
@@ -203,9 +198,8 @@ T = my_ones * np.linspace(0.01, 0.99, num=8)
     </tbody>
 </table>
 
-
-
 ## Matrix reshaping
+
 We start here with
 ```Python
 M = np.zeros((3, 4))
@@ -213,7 +207,7 @@ M[2, 2] = 1
 ```
 
 <center>
-<image src = "../ScipyNumpy/CheatSheet/figures/reshape-M.svg" width="200px"></image> 
+<image src = "../ScipyNumpy/CheatSheet/figures/reshape-M.svg" width="200px"></image>
 </center>
 
 Starting from the previous matrix, we can reshape it in different ways:
@@ -320,23 +314,19 @@ Starting from the previous matrix, we can slice it in different ways:
 </table>
 
 
-
 ## Operations on matrices
 
-Start from a simple matrix matrix:
+Start from a simple matrix:
 ```Python
 rows, cols = 3, 6
 M = np.linspace(0, 1, rows * cols).reshape(rows, cols)
 ```
 
 <center>
-<image src = "../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px"></image> 
+<image src = "../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px"></image>
 </center>
 
-
 Starting from the previous matrix, we can apply the following operations:
-
-
 
 <table>
   <thead>
@@ -385,11 +375,12 @@ Starting from the previous matrix, we can apply the following operations:
 
 ::: {.callout-note}
 
-For the last opertations note that the dimension of the matrices are reduced, so you create a vector as a result, with dimention `(6,)` or `(3,)` respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).
+For the last operations note that the dimensions of the matrices are reduced, so you create a vector as a result, with dimensions `(6,)` or `(3,)` respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).
 :::
 
 ## Broadcasting
-Broadcasting allows to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match, somehow.
+Broadcasting allows the addition of matrices of different sizes (though this is mathematically wrong), by repeating the smaller ones along the missing dimensions. The only requirement is that the trailing dimensions match, somehow.
+
 <table>
   <thead>
     <tr>
@@ -423,8 +414,5 @@ Broadcasting allows to add matrices of different shapes, by repeating the smalle
     </tbody>
 </table>
 
-
-
 ## Resources
 - This work is deeply inspired and adapted from the great work by Nicolas Rougier: [https://github.com/rougier/numpy-tutorial](https://github.com/rougier/numpy-tutorial)
-
