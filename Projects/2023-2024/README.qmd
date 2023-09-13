@@ -1,5 +1,6 @@
 ---
 title: "Project guidelines: 2023-2024"
+number-sections: true
 ---
 
 
@@ -88,24 +89,33 @@ The project consists of an investigation of the pollution in Occitanie, through 
 - Occitanie pollution datasets: [Atmo Occitanie](https://data-atmo-occitanie.opendata.arcgis.com/pages/liste-des-flux)
 
 
-It will be mostly a visualization project, hopefully an interactive one, with the creation of a website (as for the personal project), helping to navigate your work. The study could focus at least on the following time resolution last month, last year and last 5 years, for several cities, and several pollutants.
+It will be mostly a visualization project, hopefully an interactive one, with the creation of a website (as for the personal project), helping to navigate your work. The study could focus at least on the following time resolution: last month, last year and last 5 years, for several cities, and several pollutants.
 
 
 ## Timing
 
-- **Mid-term** project snapshot: Due date  **November 15, 23:59**. This part consists of starting the **group project**, showing preliminary work and organization of the workload, git first steps for the group project. The groups will be available on [Moodle](https://moodle.umontpellier.fr/course/view.php?id=22454). This part corresponds to **10% of the final grade**. The due date is **October 16 (23:59)**
+- **Mid-term** project snapshot: This part consists of starting the **group project**, explaining the main question of interest chosen to investigate. You should show preliminary work and organization of the workload, git first steps for the group project, etc. See details below @sec-midterm . This part corresponds to **10% of the final grade**. The due date is **October 16 (23:59)**
 
-- Due date (final project): The GitHub repository should be completed before **Tuesday 6 December (23:59)**. Nothing pushed after the deadline will be taken into account. The oral presentation (max: 20mn) The due date is **December 12 (23:59)** (room: TBD).
 
-### Mid-term project snapshot
+- **The GitHub repository** with the **presentations slides** should be completed before **Tuesday 6 December (23:59)**. Nothing pushed after the deadline will be taken into account. 
 
-- Create a minimum viable project, showing the architecture (website, files, classes, etc.). It does not have to be functional at this stage but must have the main files needed, details of the coding pipeline, choice of the packages/technologies used, etc.
+- The oral presentation (15mn + 5mn questions)  **December 11 (8:00)** (room: TBD).
+
+### Mid-term project snapshot {#sec-midterm}
+
+TODO: Create framapad
+
+The main point for this step is to create a `README.qmd` (maximum length approximately 4 pages) in a `roadmap` directory at the root of your projet. We will provide you feedback in the form of *GitHub issues* on your project repository. Your file should give the outline of the project with the following ingredients:
+
+- You have to choose a name for your project. Hereafter, it is denoted by `my_module_name`.
+
+- description of a minimum viable project, showing the architecture (website, files, classes, etc.). It does not have to be functional at this stage but must have the main files needed, details of the coding pipeline, choice of the packages/technologies used, etc.
 
 - Create simple pictures (possibly camera pictures of handmade drawings) showing the results you want to create (time series, maps, etc.).
 
 - Provide several git branches (at least 2) so the project can move forward independently.
 
-- Retro planning with a Gant diagram as follows (see for instance [Quarto](https://quarto.org/docs/authoring/diagrams.html) and [Mermaid](https://mermaid.js.org/syntax/gantt.html)):
+- Retro planning with a Gantt diagram as follows (see for instance [Quarto](https://quarto.org/docs/authoring/diagrams.html) and [Mermaid](https://mermaid.js.org/syntax/gantt.html)):
 
 ```{mermaid}
     gantt
@@ -157,16 +167,15 @@ Useful packages (non-exhaustive list):
 
 #### General guidelines
 
-- The ultimate goal is to provide a Python module that can be imported with `pip` and contains your work, so a new user could re-use all your work.
-A description of the procedure will be needed (imagine you are addressing a user not aware of your package).
-An example of a project made in 2020, is available at <https://github.com/tanglef/chaoseverywhere>.
-
-<!-- - Your Python module should have two submodules corresponding to the two main tasks (prediction and visualization) -->
-
-- You have to choose a name for your project. Hereafter, it is denoted by `my_module_name`.
+- The ultimate goal is to provide a Python project that build a website with `quarto` and presenting your project. This website should be deployed automatically through GitHub actions. A description of the procedure will be needed (imagine you are addressing a user not aware of your package). An example of a project made in 2020, is available at <https://github.com/tanglef/chaoseverywhere>.
 
 - It should contain all the aspects described below.
 
+#### Website
+
+- You have to create a simple website using GitHub pages and a GitHub action with `Quarto` for displaying your results
+
+- At least one of the page should contain an interactive element (maps, widget, etc.)
 
 #### Project structure
 
@@ -181,16 +190,22 @@ The latter will be a short presentation of the work that will be orally presente
 
 #### Git aspects
 
-- A (markdown) `readme.md` file introducing your work and the team member (first/last name + email).
-
 - A `.gitignore` that prevents garbage files from being included in your project.
 
 - Equilibrated commits in two branches should be done (*e.g.,* in the development branch and the master one), and merged for the milestone day.
+
+- Your repository should contains a `README.md`:
+  - containing the title and a short description of the project
+  - the link to the website
+  - a code snippet to build the website
+  - authors list and a licence description. See [this website](https://opensource.org/licenses/). A default choice could be MIT Licence.
 
 #### Object programming aspects
 
 - You should code at least one `Python` class.
 
+- Your python project should contains submodules. Each submodule will be devoted to specific sub-task of your project.
+<!-- - Your Python module should have two submodules corresponding to the two main tasks (prediction and visualization) -->
 #### Dataset(s)
 
 - The data used should be available in a way that the end user does not need to perform a manual download of any kind (use the `pooch` package or variants for instance).
@@ -202,7 +217,9 @@ The latter will be a short presentation of the work that will be orally presente
 
 #### Documentation
 
-- Documentation should be added correctly for the functions written. Please use `sphinx`.
+- Docstrings should be populate at every python class and function
+
+- Bonus points will be given if you create an API documentation using `sphinx` for instance.
 
 #### Test and CI
 
