@@ -235,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#lazy-import" id="toc-lazy-import" class="nav-link" data-scroll-target="#lazy-import">Lazy import</a></li>
   <li><a href="#compiled-python-files" id="toc-compiled-python-files" class="nav-link" data-scroll-target="#compiled-python-files">“Compiled” <code>python</code> files</a></li>
   </ul></li>
-  <li><a href="#the-python-package-index-pypi-repository" id="toc-the-python-package-index-pypi-repository" class="nav-link" data-scroll-target="#the-python-package-index-pypi-repository">The Python Package Index (Pypi) repository</a>
+  <li><a href="#the-python-package-index-pypi-repository" id="toc-the-python-package-index-pypi-repository" class="nav-link" data-scroll-target="#the-python-package-index-pypi-repository">The <code>python</code> Package Index (Pypi) repository</a>
   <ul class="collapse">
   <li><a href="#pip" id="toc-pip" class="nav-link" data-scroll-target="#pip">Pip</a></li>
   </ul></li>
@@ -310,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="or-a-module-could-be-a-directory" class="level3">
 <h3 class="anchored" data-anchor-id="or-a-module-could-be-a-directory">… or a module could be a directory</h3>
-<p>You can also import a full directory (containing many <code>python</code> files stored in sub-folder). Python looks for a folder located in <code>sys.path</code> list. You have already imported the <code>numpy</code> module, for numerical analysis with <code>python</code>:</p>
+<p>You can also import a full directory (containing many <code>python</code> files stored in a sub-folder). <code>python</code> looks for a folder located in <code>sys.path</code> list. You have already imported the <code>numpy</code> module, for numerical analysis with <code>python</code>:</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]).reshape(<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -323,18 +323,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In fact, you have imported the following folder:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.__path__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Depending on your installation you might obtain <code>['/usr/lib/python3.9/site-packages/numpy']</code> or <code>['/home/username/anaconda3/lib/python3.7/site-packages/numpy']</code> if you installed with anaconda.</p>
+<p>Depending on your installation you might obtain <code>['/usr/lib/python3.9/site-packages/numpy']</code> or <code>['/home/username/anaconda3/lib/python3.7/site-packages/numpy']</code> if you installed with Anaconda.</p>
 <p>More precisely <strong>this</strong> file</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">'/usr/lib/python3.9/site-packages/numpy/__init__.py'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'/home/username/anaconda3/lib/python3.7/site-packages/numpy/__init__.py'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Any (sub-)directory of your python module should contain an <code>__init__.py</code> file!</p>
+<p>Any (sub-)directory of your <code>python</code> module should contain an <code>__init__.py</code> file!</p>
 <p><strong>Useful tips:</strong></p>
 <ul>
-<li><p>The <code>__init__.py</code> file can contain a list of function to be loaded when the module is imported. It allows to expose functions to user in a concise way.</p></li>
-<li><p>You can also import modules with relative path, using <code>.</code>, <code>..</code>, <code>...</code>, etc.</p></li>
+<li><p>The <code>__init__.py</code> file can contain a list of functions to be loaded when the module is imported. It allows to expose functions to users in a concise way.</p></li>
+<li><p>You can also import modules with relative paths, using <code>.</code>, <code>..</code>, <code>...</code>, etc.</p></li>
 </ul>
 <p><strong>References</strong>:</p>
 <ul>
@@ -985,7 +985,7 @@ hex(id(numpy.__dir__))
 
 ::: {.cell-output .cell-output-display execution_count=11}
 ```
-'0x7fec2c0c9a20'
+'0x7f87c937da20'
 ```
 :::
 :::
@@ -1002,7 +1002,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <section id="namespaces" class="level3">
 <h3 class="anchored" data-anchor-id="namespaces">Namespaces</h3>
 <p>A namespace is a set of names (functions, variables, etc.). Different namespaces can co-exist at a given time but are completely isolated. In this way, you can control which function you are using.</p>
-<p>A namespace containing all the built-in names is created when we start the Python interpreter and exists as long we don’t exit.</p>
+<p>A namespace containing all the built-in names is created when we start the <code>python</code> interpreter and exists as long we don’t exit.</p>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cos(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
@@ -1044,13 +1044,13 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <pre><code>False</code></pre>
 </div>
 </div>
-<p>Now</p>
+<p>Now,</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7fec2fc2a170&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f87ecdef190&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
 </div>
 </div>
 <p>should return more information and where the loader is.</p>
@@ -1074,12 +1074,12 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <p>For example, in <code>CPython</code> release 3.3 the compiled version of spam.py would be cached as <code>__pycache__/spam.cpython-33.pyc</code>. This naming convention allows compiled modules from different releases and different versions of <code>python</code> to coexist.</p>
 <p><strong>Useful git tip:</strong></p>
 <ul>
-<li>you should add <code>__pycache__</code> entry in your <code>.gitignore</code> file to avoid to add compiled <code>python</code> file to your project.</li>
+<li>You should add <code>__pycache__</code> entry in your <code>.gitignore</code> file to avoid adding a compiled <code>python</code> file to your project.</li>
 </ul>
 </section>
 </section>
 <section id="the-python-package-index-pypi-repository" class="level2">
-<h2 class="anchored" data-anchor-id="the-python-package-index-pypi-repository">The Python Package Index (Pypi) repository</h2>
+<h2 class="anchored" data-anchor-id="the-python-package-index-pypi-repository">The <code>python</code> Package Index (Pypi) repository</h2>
 <p>The <code>python</code> Package Index, abbreviated as PyPI, is the official third-party software repository for <code>python</code>. PyPI primarily hosts <code>python</code> packages in the form of archives called <code>sdists</code> (source distributions) or pre-compiled “wheels”.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1132,7 +1132,7 @@ EXERCISE:
 </ul>
 <section id="picking-a-name" class="level3">
 <h3 class="anchored" data-anchor-id="picking-a-name">Picking A Name</h3>
-<p>Python module/package names should generally follow the following constraints:</p>
+<p><code>python</code> module/package names should generally follow the following constraints:</p>
 <ul>
 <li>All lowercase</li>
 <li>Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)</li>
@@ -1149,7 +1149,7 @@ EXERCISE:
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The top level directory is the root of our Version Control System (e.g.&nbsp;git) repository <code>packaging_tutorial.git</code>. The sub-directory, <code>biketrauma</code>, is the actual Python module.</p>
+<p>The top-level directory is the root of our Version Control System (e.g.&nbsp;git) repository <code>packaging_tutorial.git</code>. The sub-directory, <code>biketrauma</code>, is the actual <code>python</code> module.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1265,9 +1265,9 @@ EXERCISE:
 </section>
 <section id="add-requirement-file" class="level3">
 <h3 class="anchored" data-anchor-id="add-requirement-file">Add requirement file</h3>
-<p>To get a list of the installed package in your current venv, you can use the following command:</p>
+<p>To get a list of the installed packages in your current venv, you can use the following command:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Unfortunately, it may generate a way too large collection of packages dependencies. To get a sparser list, you can use <code>pipreqs</code></p>
+<p>Unfortunately, it may generate a huge collection of package dependencies. To get a sparser list, you can use <code>pipreqs</code>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1284,7 +1284,7 @@ EXERCISE: requirements
 </section>
 <section id="upload-on-pypi" class="level3">
 <h3 class="anchored" data-anchor-id="upload-on-pypi">Upload on PyPI</h3>
-<p><code>twine</code> is a utility for publishing Python packages on PyPI. We are going to use the test repository <a href="https://test.pypi.org/" class="uri">https://test.pypi.org/</a>.</p>
+<p><code>twine</code> is a utility for publishing <code>python</code> packages on PyPI. We are going to use the test repository <a href="https://test.pypi.org/" class="uri">https://test.pypi.org/</a>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1298,7 +1298,7 @@ EXERCISE:
 <ol type="1">
 <li>Create an account on the PyPI test repository</li>
 </ol>
-<p>This is quite easy to upload a python module on PyPI:</p>
+<p>This is quite easy to upload a <code>python</code> module on PyPI:</p>
 <ol type="1">
 <li>Create some distributions in the normal way:</li>
 </ol>
@@ -1317,8 +1317,8 @@ EXERCISE:
 </div>
 <p><strong>References</strong>:</p>
 <ul>
-<li><a href="https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/">Python Packaging User Guide</a> More documentation on using <code>twine</code> to upload packages to PyPI is in the .</li>
-<li><a href="https://pypi.org/project/twine/">Twrine, uploads of source</a></li>
+<li><a href="https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/">Python Packaging User Guide</a></li>
+<li><a href="https://pypi.org/project/twine/">Twrine, uploads of source</a>, provides additional documentation on using <code>twine</code> to upload packages to PyPI.</li>
 </ul>
 
 

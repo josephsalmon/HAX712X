@@ -228,9 +228,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#matrix-creation" id="toc-matrix-creation" class="nav-link" data-scroll-target="#matrix-creation">Matrix creation</a>
   <ul class="collapse">
-  <li><a href="#creation-vector-cases" id="toc-creation-vector-cases" class="nav-link" data-scroll-target="#creation-vector-cases">Creation: vector cases</a></li>
-  <li><a href="#creation-matrix-cases" id="toc-creation-matrix-cases" class="nav-link" data-scroll-target="#creation-matrix-cases">Creation: matrix cases</a></li>
-  <li><a href="#creation-with-mehsgrids" id="toc-creation-with-mehsgrids" class="nav-link" data-scroll-target="#creation-with-mehsgrids">Creation with mehsgrids</a></li>
+  <li><a href="#creation-vector-case" id="toc-creation-vector-case" class="nav-link" data-scroll-target="#creation-vector-case">Creation: vector case</a></li>
+  <li><a href="#creation-matrix-case" id="toc-creation-matrix-case" class="nav-link" data-scroll-target="#creation-matrix-case">Creation: matrix case</a></li>
+  <li><a href="#meshgrid-maillage" id="toc-meshgrid-maillage" class="nav-link" data-scroll-target="#meshgrid-maillage">Meshgrid (🇫🇷: maillage)</a></li>
   <li><a href="#creation-tensor-cases" id="toc-creation-tensor-cases" class="nav-link" data-scroll-target="#creation-tensor-cases">Creation: tensor cases</a></li>
   </ul></li>
   <li><a href="#matrix-reshaping" id="toc-matrix-reshaping" class="nav-link" data-scroll-target="#matrix-reshaping">Matrix reshaping</a></li>
@@ -249,21 +249,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="numpy-cheat-sheet" class="level1">
 <h1>Numpy cheat sheet</h1>
-<p>Preliminary remark: for the random part, one is expected to run a command like</p>
+<p>Preliminary remark: For the random part, one is expected to run a command like</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>before anything, to call the generator <code>rng</code>.</p>
 <section id="matrix-creation" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-creation">Matrix creation</h2>
-<section id="creation-vector-cases" class="level3">
-<h3 class="anchored" data-anchor-id="creation-vector-cases">Creation: vector cases</h3>
+<section id="creation-vector-case" class="level3">
+<h3 class="anchored" data-anchor-id="creation-vector-case">Creation: vector case</h3>
 
 
 <style>
 table {
     border: border-collapse;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 th, td {
@@ -359,8 +359,8 @@ Result
 
 </table>
 </section>
-<section id="creation-matrix-cases" class="level3">
-<h3 class="anchored" data-anchor-id="creation-matrix-cases">Creation: matrix cases</h3>
+<section id="creation-matrix-case" class="level3">
+<h3 class="anchored" data-anchor-id="creation-matrix-case">Creation: matrix case</h3>
 
 <table>
 <thead>
@@ -446,8 +446,8 @@ Result
 
 </table>
 </section>
-<section id="creation-with-mehsgrids" class="level3">
-<h3 class="anchored" data-anchor-id="creation-with-mehsgrids">Creation with mehsgrids</h3>
+<section id="meshgrid-maillage" class="level3">
+<h3 class="anchored" data-anchor-id="meshgrid-maillage">Meshgrid (🇫🇷: maillage)</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nx, ny <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, nx)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, ny)</span>
@@ -735,7 +735,7 @@ Result
 </section>
 <section id="operations-on-matrices" class="level2">
 <h2 class="anchored" data-anchor-id="operations-on-matrices">Operations on matrices</h2>
-<p>Start from a simple matrix matrix:</p>
+<p>Start from a simple matrix:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">6</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, rows <span class="op">*</span> cols).reshape(rows, cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
@@ -848,13 +848,13 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For the last opertations note that the dimension of the matrices are reduced, so you create a vector as a result, with dimention <code>(6,)</code> or <code>(3,)</code> respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).</p>
+<p>For the last operations note that the dimensions of the matrices are reduced, so you create a vector as a result, with dimensions <code>(6,)</code> or <code>(3,)</code> respectively, when computing the mean along the 0-axis (column-wise mean), respectively along the 1-axis (row-wise mean).</p>
 </div>
 </div>
 </section>
 <section id="broadcasting" class="level2">
 <h2 class="anchored" data-anchor-id="broadcasting">Broadcasting</h2>
-Broadcasting allows to add matrices of different shapes, by repeating the smaller one along the missing dimensions. The only requirement is that the trailing dimensions match, somehow.
+<p>Broadcasting allows the addition of matrices of different sizes (though this is mathematically wrong), by repeating the smaller ones along the missing dimensions. The only requirement is that the trailing dimensions match, somehow.</p>
 
 <table>
 <thead>

@@ -280,17 +280,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="classes" class="level2">
 <h2 class="anchored" data-anchor-id="classes">Classes</h2>
-<p><em>Cslasses</em> are central elements in <em>Object-oriented programming (OOP)</em></p>
+<p><em>Classes</em> are central elements in <em>Object-oriented programming (OOP)</em></p>
 <p>A class structure defines an object, its properties, and all the operations one can apply to it.</p>
 <p>In Python, a class contains <em>attributes</em> (variables) and <em>methods</em> (functions). It is defined similarly to a function, replacing the <code>def</code> keyword with <code>class</code>. The name of a class should be CapWords or CamelCase (the naming comes from the “bumpy” look of its letters); see examples below.</p>
 <p>Usually, a class contains some class methods (functions inside the class).</p>
 <ul>
-<li><p>The first argument of a (non <code>static</code>) method is usually called <code>self</code>: it is a mandatory element. This <code>self</code> argument is for self-reference.</p></li>
+<li><p>The first argument of a (non-static) method is usually called <code>self</code>: it is a mandatory element. This <code>self</code> argument is for self-reference.</p></li>
 <li><p>Some method names have a specific meaning, for instance:</p>
 <ul>
 <li><code>__init__</code>: name of the method invoked when creating the object (instantiation)</li>
 <li><code>__call__</code>: method invoked when calling the object</li>
-<li><code>__str__</code>: method invoked when a class has a representation as a string, <em>e.g.</em>, when passing it to the <code>print</code> function</li>
+<li><code>__str__</code>: method invoked when a class has a representation as a string, <em>e.g.,</em> when passing it to the <code>print</code> function</li>
 <li>see <a href="http://docs.python.org/3/reference/datamodel.html#special-method-names">Python documentation</a> for more special names.</li>
 </ul></li>
 </ul>
@@ -324,7 +324,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you are not familiar with printing in Python, start with the new f-strings format, see for instance: <a href="https://zetcode.com/python/fstring/" class="uri">https://zetcode.com/python/fstring/</a>.</p>
+<p>If you are not familiar with printing in Python, start with the new f-strings format; see for instance: <a href="https://zetcode.com/python/fstring/" class="uri">https://zetcode.com/python/fstring/</a>.</p>
 </div>
 </div>
 <p>To create a new instance of the class <code>Point</code>:</p>
@@ -340,7 +340,7 @@ Note
 Point: [0.000, 0.000]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>&lt;__main__.Point at 0x7f7923b36b60&gt;</code></pre>
+<pre><code>&lt;__main__.Point at 0x7f5ca48d2020&gt;</code></pre>
 </div>
 </div>
 <p>To apply our <code>translate</code> method to the point <code>p1</code>:</p>
@@ -369,7 +369,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You might have already used that dot notation with <code>numpy</code> for instance when executing <code>numpy</code> functions as follows</p>
+<p>You might have already used that syntax with the dot notation in <code>numpy</code>, for instance when executing <code>numpy</code> functions as follows</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">12345</span>)</span>
@@ -449,14 +449,7 @@ EXERCISE: Gaussian class
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(g4)</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(g2 <span class="op">+</span> g1)</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>([g1, g2, g3]))</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>([g1, g2, g3]) <span class="op">==</span> g4)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The former should display</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;The density function is: exp(-(x - 0)^2 / (2*1^2)) / sqrt(2 * pi * 1^2)</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># The density function is: exp(-(x - 1)^2 / (2*2^2)) / sqrt(2 * pi * 2^2)</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;True</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># False</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># The density function is: exp(-(x - 1)^2 / (2 * 2.23606797749979^2)) / sqrt(2 * pi * 2.23606797749979^2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>([g1, g2, g3]) <span class="op">==</span> g4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>pdf: exp(-(x - 0.000)^2 / (1.000*2^2)) / sqrt(2 * pi * 1.000^2)
 pdf: exp(-(x - 1.000)^2 / (2.000*2^2)) / sqrt(2 * pi * 2.000^2)
@@ -472,7 +465,7 @@ True</code></pre>
 </section>
 <section id="inheritance-the-sub-gaussian-case-of-a-kind" class="level3">
 <h3 class="anchored" data-anchor-id="inheritance-the-sub-gaussian-case-of-a-kind">Inheritance, the sub-Gaussian case (of a kind)</h3>
-<p>Classes can inherit methods from other classes. You can use <code>super</code> (Latin for “above”) to access the parent class.</p>
+<p>Classes can inherit methods from other classes. You can use <code>super</code> (Latin word for “above”) to access the parent class.</p>
 <p>Test function of interest: <code>isinstance</code> allow to check if an object is of the correct class.</p>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> IsoGaussian(Gaussian):</span>
@@ -510,13 +503,13 @@ True</code></pre>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># keep continuing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The list of possible errors is available here: One may use <code>try</code>, <code>except</code> or <code>finally</code> to prevent errors to stop the program: https://docs.python.org/3/library/exceptions.html#bltin-exceptions and includes <code>NameError</code>, <code>ImportError</code>, <code>AssertionError</code> etc.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># normal code 1 goes here</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Part 1: Normal code goes here</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span>:</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code for error handling goes here</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this code 2 is not executed unless the code 1</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Part 2: Code for error handling goes here</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This code is not executed unless Part 1</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># above generated an error</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># optional. This clause is executed no matter what,</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optional: This clause is executed no matter what,</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and is generally used to release external resources.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="example-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-1">Example</h3>
@@ -544,7 +537,7 @@ Beware! the variable  e = 4 is still defined.</code></pre>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"test"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(testtt)  <span class="co"># error: the variable testtt is not defined</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(testtt)  <span class="co"># Error: the variable testtt is not defined</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Caught an exception:"</span>, e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -552,16 +545,40 @@ Beware! the variable  e = 4 is still defined.</code></pre>
 Caught an exception: name 'testtt' is not defined</code></pre>
 </div>
 </div>
-<p><strong>Note</strong>: a common use case is to test if the import of a package was successful or not</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A common use case is to test if the import of a package was successful or not. For instance, the following code will not raise an error if the package <code>pooch</code> is not installed on your computer.</p>
+</div>
+</div>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> ddownload</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pooch</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Other common exceptions: <a href="https://docs.python.org/3/library/exceptions.html" class="uri">https://docs.python.org/3/library/exceptions.html</a></p>
 </section>
 <section id="the-with-statement" class="level3">
 <h3 class="anchored" data-anchor-id="the-with-statement">The <code>with</code> statement</h3>
-<p><strong>Warning</strong>: you have to run the following lines with a directory <code>scripts/</code> containing a function <code>hello-world.py</code></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have to run the following lines at a location where a directory called <code>scripts/</code> containing a function <code>hello-world.py</code> exists.</p>
+</div>
+</div>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fname <span class="op">=</span> <span class="st">"./scripts/hello-world.py"</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -578,7 +595,7 @@ Caught an exception: name 'testtt' is not defined</code></pre>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fname <span class="op">=</span> <span class="st">"scripts/hello-world_do_not_exist.py"</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1/0  # uncomment at some point and run</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1/0  # Yncomment at some point and run</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span> <span class="op">=</span> <span class="bu">open</span>(fname)</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="bu">file</span>.read()</span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(data)</span>
@@ -587,7 +604,7 @@ Caught an exception: name 'testtt' is not defined</code></pre>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> (<span class="pp">RuntimeError</span>, <span class="pp">TypeError</span>, <span class="pp">NameError</span>, <span class="pp">ZeroDivisionError</span>):</span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Specific Error message 2"</span>)</span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.close()  <span class="co"># important to release the access to the file !</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.close()  <span class="co"># Important line to release access to the file!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>File not found!</code></pre>
 </div>
@@ -622,11 +639,11 @@ EXERCISE: Improving the Gaussian class
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Conclusion</strong>: <code>e</code> is only “visible” inside the function definition. See https://realpython.com/python-scope-legb-rule/ for more information on this topics.</p>
+<p><strong>Conclusion</strong>: <code>e</code> is only “visible” inside the function definition. See https://realpython.com/python-scope-legb-rule/ for more information on this topic.</p>
 </section>
 <section id="manipulate-file-names-on-disk-across-platforms." class="level2">
 <h2 class="anchored" data-anchor-id="manipulate-file-names-on-disk-across-platforms.">Manipulate file names on disk across platforms.</h2>
-<p>The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues having a different OS than yours!!!</p>
+<p>The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues who have a different OS than yours!!!</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(os.path.join(<span class="st">'~'</span>, <span class="st">'work'</span>, <span class="st">'src'</span>))</span>
@@ -646,14 +663,14 @@ EXERCISE: Create a bunch of files
 <p>Write a simple script that creates, in the sub-directory <code>scripts</code>, the following text files: <code>myDb_000.txt</code>, <code>myDb_001.txt</code>, <code>myDb_002.txt</code>, …, <code>myDb_049.txt</code>. The <code>i</code>-th file should contain a single line with the average of the <code>i</code> first digits of pi.</p>
 <p><strong>Hint</strong>:</p>
 <ul>
-<li>you might need zero padding</li>
-<li>you can check what the following code does</li>
+<li>You might need zero padding.</li>
+<li>You can check what the following code does.</li>
 </ul>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> <span class="bu">open</span>(<span class="st">"copy.txt"</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span>.write(<span class="st">"Your text goes here"</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span>.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>you might also need some precision for the digits of <span class="math inline">\pi</span>, hence using <code>mpmath</code> instead of <code>numpy</code></li>
+<li>You might also need some precision for the digits of <span class="math inline">\pi</span>, hence using <code>mpmath</code> instead of <code>numpy</code>.</li>
 </ul>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpmath <span class="im">import</span> mp</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
