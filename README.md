@@ -9,9 +9,10 @@
 
 This course material was improved with the help of some students including:
 
-- Amelie Vernay
-- Tanguy Lefort
+- [Amelie Vernay](https://github.com/AmelieVernay)
+- [Tanguy Lefort](https://github.com/tanglef)
 
 ## Website
+
 
 The associated website is available at the following URL: [https://josephsalmon.github.io/HAX712X/](https://josephsalmon.github.io/HAX712X/)
