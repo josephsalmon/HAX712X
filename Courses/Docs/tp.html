@@ -98,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../custom.scss">
 </head>
 
-<body class="nav-fixed">
+<body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -218,13 +218,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#restructuredtext" id="toc-restructuredtext" class="nav-link active" data-scroll-target="#restructuredtext">reStructuredText</a>
+  <li><a href="#markdown" id="toc-markdown" class="nav-link active" data-scroll-target="#markdown">Markdown</a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#restructuredtext" id="toc-restructuredtext" class="nav-link" data-scroll-target="#restructuredtext">reStructuredText</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#syntax" id="toc-syntax" class="nav-link" data-scroll-target="#syntax">Syntax</a></li>
@@ -241,9 +242,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/Docs/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -262,12 +267,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Before starting a description of Sphinx, we first start by introducing reStructuredText files.</p>
+<p>Before starting a description of Sphinx, we first start by introducing, markdown, quarto and reStructuredText files.</p>
+<section id="markdown" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="markdown">Markdown</h2>
+<div class="page-columns page-full"><p>Markdown is a lightweight markup language developed by <a href="https://en.wikipedia.org/wiki/John_Gruber">John Gruber</a> and <a href="https://fr.wikipedia.org/wiki/Aaron_Swartz">Aaron Swartz</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;<a href="https://fr.wikipedia.org/wiki/Aaron_Swartz">Aaron Swartz</a>: hacktivist (1986-2013) who also helped develop Creative Commons licenses, RSS, Reddit, etc. For more on his epic life, see Brian Knappenberger’ documentary <strong>The Internet’s Own Boy: The Story of Aaron Swartz (2014)</strong> <iframe width="300" src="https://upload.wikimedia.org/wikipedia/commons/0/06/Aaron_Swartz_profile.jpg"></iframe></p></li></div></div>
+<p>Hence Markdown is an easy-to-read markup language, popular for simple text formatting, creating documentation for software projects, but also for writing nice emails (for <a href="https://addons.thunderbird.net/en-us/thunderbird/addon/markdown-here-xul/">Thunderbird</a>, or <a href="https://www.markdownguide.org/tools/markdown-here/">any browser</a>, etc.).</p>
+<p>The extension for a Mardkown file is <code>.md</code>. To render such a file in VSCode or Codium, and possibly export a <code>.pdf</code> or <code>.html</code> file, you need to install a package for that (for instance the <em>Markdown All in One</em> could be installed with <code>Ctrl+Shift+p</code>, and looking for the right name in <code>Extensions: Install Extensions</code>).</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Left: Markdown code</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># Title level 1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Title level 2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Title level 1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Title level 2</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>This would be a paragraph. You can use **bold font** but also *italic* or  ~~strikethrough~~.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Other elements are list :</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>item 1</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>item 2</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>sub-item 1</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>sub-item 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:5%;">
+<!-- empty column to create gap -->
+</div><div class="column" style="width:45%;">
+<p>Right: rendered</p>
+<section id="title-level-1" class="level1">
+<h1>Title level 1</h1>
+<section id="title-level-2" class="level2">
+<h2 class="anchored" data-anchor-id="title-level-2">Title level 2</h2>
+</section>
+</section>
+<section id="title-level-1-1" class="level1">
+<h1>Title level 1</h1>
+<section id="title-level-2-1" class="level2">
+<h2 class="anchored" data-anchor-id="title-level-2-1">Title level 2</h2>
+<p>This would be a paragraph. You can use <strong>bold font</strong> but also <em>italic</em> or <del>strikethrough</del>.</p>
+<p>Other elements are list :</p>
+<ul>
+<li>item 1</li>
+<li>item 2
+<ul>
+<li>sub-item 1</li>
+<li>sub-item 2</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+<p>etc.</p>
+<p>A full description can be found here: <a href="https://www.markdownguide.org/basic-syntax/" class="uri">https://www.markdownguide.org/basic-syntax/</a>; a nice cheatsheet is also available here: <a href="https://www.markdownguide.org/cheat-sheet/" class="uri">https://www.markdownguide.org/cheat-sheet/</a>.</p>
+</section>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p><code>quarto</code> is an open-source scientific and technical publishing system. For instance, we have used it for creating the website you are reading right now. We describe here its main usage. <code>quarto</code> allows rendering markdown elements and creating a website easily, that can run some code (R, Python, etc.) and display the results (tables, figures, etc.). The extension is <code>.qmd</code> for quarto markdown. We provide an example below:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Left: Quarto code</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">sum</span>(np.ones(<span class="dv">12</span>)))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:5%;">
+<!-- empty column to create gap -->
+</div><div class="column" style="width:45%;">
+<p>Render: Rendered</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">sum</span>(np.ones(<span class="dv">12</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>12.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Documentation for Python: <a href="https://quarto.org/docs/computations/python.html" class="uri">https://quarto.org/docs/computations/python.html</a></p>
+</section>
 <section id="restructuredtext" class="level2">
 <h2 class="anchored" data-anchor-id="restructuredtext">reStructuredText</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Sphinx is an extension of <a href="https://docutils.sourceforge.io/rst.html">reStructuredText</a>. reStructuredText (<code>.RST</code>, <code>.ReST</code>, or <code>.reST</code>) is a file format for textual data used primarily in the Python programming language community for technical documentation, and similar to the Markdown format (<code>.md</code>) you are currently reading.</p>
+<p>Sphinx is an extension of <a href="https://docutils.sourceforge.io/rst.html">reStructuredText</a>. reStructuredText (<code>.RST</code>, <code>.ReST</code>, or <code>.reST</code>) is a file format for textual data used primarily in the Python programming language community for technical documentation, and is similar to the Markdown format.</p>
 <p>It is part of the <a href="https://docutils.sourceforge.io/"><code>Docutils</code></a> project of the Python Doc-SIG (Documentation Special Interest Group), aimed at creating a set of tools for Python similar to <code>Javadoc</code> for Java or <code>Plain Old Documentation</code> (pod) for Perl or <a href="https://r-pkgs.org/vignettes.html"><code>vignette</code></a> for R.</p>
 <p><code>Docutils</code> can extract comments and information from Python programs, and format them into various forms of program documentation.</p>
 <p>In this sense, reStructuredText is a lightweight markup language designed to be both:</p>
@@ -284,64 +374,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="syntax" class="level3">
 <h3 class="anchored" data-anchor-id="syntax">Syntax</h3>
-<p>A ReST file is a plain text file with a <code>.rst</code> extension. Like Markdown (<code>.md</code>), it allows you to easily write formatted text.</p>
+<p>A ReST file is a plain text file with a <code>.rst</code> extension. Like Markdown, it allows you to easily write formatted text.</p>
 <section id="headers" class="level4">
 <h4 class="anchored" data-anchor-id="headers">Headers</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Section Header</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>==============</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Subsection Header</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>-----------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Section Header</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>==============</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Subsection Header</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>-----------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="lists" class="level4">
 <h4 class="anchored" data-anchor-id="lists">Lists</h4>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>- A bullet list item</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>- Second item</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  - A sub-item (indentation matters!)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>- Spacing between items creates separate lists</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>- Third item</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>1) An enumerated list item</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>2) Second item</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>   a) Sub-item that goes on at length and thus needs</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      to be wrapped. Note the indentation that must</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      match the beginning of the text, not the</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      enumerator.</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      i) List items can even include</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>         paragraph breaks.</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>3) Third item</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>#) Another enumerated list item</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>#) Second item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>- A bullet list item</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>- Second item</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  - A sub-item (indentation matters!)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>- Spacing between items creates separate lists</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>- Third item</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>1) An enumerated list item</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>2) Second item</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>   a) Sub-item that goes on at length and thus needs</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      to be wrapped. Note the indentation that must</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      match the beginning of the text, not the</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      enumerator.</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      i) List items can even include</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>         paragraph breaks.</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>3) Third item</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>#) Another enumerated list item</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>#) Second item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="images" class="level4">
 <h4 class="anchored" data-anchor-id="images">Images</h4>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. image:: </span>/path/to/image.jpg</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:height:</span> 100</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:width:</span> 200</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:scale:</span> 50</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:align:</span> center</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:alt:</span> ordinateur</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>   Caption text rendered below the image...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. image:: </span>/path/to/image.jpg</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:height:</span> 100</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:width:</span> 200</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:scale:</span> 50</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:align:</span> center</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:alt:</span> ordinateur</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>   Caption text rendered below the image...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="named-links-and-anonymous-links" class="level4">
 <h4 class="anchored" data-anchor-id="named-links-and-anonymous-links">Named links and anonymous links</h4>
 <p>A sentence with links to `Wikipedia`_ and the `Linux kernel archive`_.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Wikipedia: </span><span class="ot">https://www.wikipedia.org/</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Linux kernel archive: </span><span class="ot">https://www.kernel.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Wikipedia: </span><span class="ot">https://www.wikipedia.org/</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">.. _Linux kernel archive: </span><span class="ot">https://www.kernel.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Another sentence with an `anonymous link to the Python website`__.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">__</span> <span class="ot">https://www.python.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">__</span> <span class="ot">https://www.python.org/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -371,14 +461,14 @@ Note
 </section>
 <section id="literal-blocks" class="level4">
 <h4 class="anchored" data-anchor-id="literal-blocks">Literal blocks</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">::</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">  some literal text</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>This may also be used inline at the end of a paragraph, like so<span class="dt">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">::</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">  some literal text</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>This may also be used inline at the end of a paragraph, like so<span class="dt">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Some more literal text:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. code:: python</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">   print("A literal block directive explicitly marked as python code")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. code:: python</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">   print("A literal block directive explicitly marked as python code")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 </section>
@@ -386,23 +476,23 @@ Note
 <h2 class="anchored" data-anchor-id="set-up-the-doc">Set up the doc</h2>
 <p>References: This page is mainly inspired by the Sphinx documentation <a href="http://www.sphinx-doc.org/en/stable/" class="uri">http://www.sphinx-doc.org/en/stable/</a>.</p>
 <p>The documentation is usually located in a <code>docs</code> or <code>doc</code> folder located at the root of a project. For instance, in the <code>biketrauma</code> module we have:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packaging_tutorial/</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">biketrauma/</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">__init__.py</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="ex">vis/</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">io</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">tests/</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">doc/</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packaging_tutorial/</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">biketrauma/</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">__init__.py</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="ex">vis/</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">io</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">tests/</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">doc/</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the Sphinx terminology, this <code>doc</code> folder is called the <a href="http://www.sphinx-doc.org/en/stable/glossary.html#term-source-directory">source directory</a>. It contains:</p>
 <ol type="1">
 <li>A configuration file <code>conf.py</code>&nbsp;with all the information needed to read the sources and build the doc. By building, it is meant the process of generating the doc (usually in <code>html</code>, <code>pdf</code>, etc.) from the ReST files.</li>
 <li>A directory structure containing <code>.md</code> or <code>.rst</code> files with the doc.</li>
 </ol>
 <p>To help you, Sphinx comes with a script called <code>sphinx-quickstart</code> that sets up a source directory and creates a default <code>conf.py</code> with the most useful configuration values from a few questions it asks you. To use this, run:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sphinx-quickstart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sphinx-quickstart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Answer each question asked. Be sure to say <strong>yes</strong> to the <code>autodoc</code> extension, as we will use this later. There is also an automatic API documentation (API: Application Programming Interface) generator called <code>sphinx-apidoc</code>; see <a href="http://www.sphinx-doc.org/en/stable/man/sphinx-apidoc.html"><code>sphinx-apidoc</code></a> for details.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -428,15 +518,15 @@ EXERCISE: Setting up your documentation
 <p>Let us assume you have run <code>sphinx-quickstart</code>. It has created a source directory with <code>conf.py</code> and a master document, <code>index.rst</code> (if you accepted the default parameters).</p>
 <p>The main function of the master document is to serve as a welcome page and to contain the root of the “table of contents tree” (or <code>toctree</code>). This is one of the main things that Sphinx adds to reStructuredText, a way to connect multiple files to a single hierarchy of documents.</p>
 <p>The <code>toctree</code> directive initially is empty and looks like so:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You add documents listing them in the content of the directive:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   usage/installation</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>   usage/quickstart</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>   ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>   usage/installation</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>   usage/quickstart</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This is exactly how the <code>toctree</code> for this documentation looks. The documents to include are given as document names, which in short means that you leave off the file name extension and use forward slashes (/) as directory separators.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -467,9 +557,9 @@ EXERCISE: installing a documentation
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Make_(software)">Wikipedia on Make Software</a></li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> make html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> make html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then to access the web pages created:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> firefox _build/html/index.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> firefox _build/html/index.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -505,10 +595,10 @@ EXERCISE: Makefiles
 <p>When documenting Python code, it is common to put a lot of documentation in the source files, in documentation strings. Sphinx supports the inclusion of <a href="https://www.python.org/dev/peps/pep-0257/"><code>docstrings</code></a> from your modules with an extension (an extension is a Python module that provides additional features for Sphinx projects) called <code>autodoc</code>.</p>
 <p>In order to use <code>autodoc</code>, you need to activate it in <code>conf.py</code> by putting the string <code>'sphinx.ext.autodoc'</code> into the list assigned to the extensions config value. Then, you have a few additional directives at your disposal.</p>
 <p>For example, to document the function <code>io.open()</code>, reading its signature and docstring from the source file, you’d write this:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. autofunction:: </span>io.open</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. autofunction:: </span>io.open</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can also document whole classes or even modules automatically, using member options for the auto directives, like</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. automodule:: </span>io</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:members:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. automodule:: </span>io</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:members:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>autodoc</code> needs to import your modules in order to extract the docstrings. Therefore, you must add the appropriate path to <code>sys.path</code> in your <code>conf.py</code>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -534,15 +624,15 @@ EXERCISE: docstring
 <section id="configuration" class="level3">
 <h3 class="anchored" data-anchor-id="configuration">Configuration</h3>
 <p>Configuration and customization of sphinx-gallery are done primarily with a dictionary specified in your <code>conf.py</code> file. A typical sample is:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">from</span> sphinx_gallery.sorting import FileNameSortKey</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sphinx_gallery_conf</span> = {</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path to your examples scripts</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'examples_dirs'</span><span class="ex">:</span> <span class="pp">[</span><span class="st">'../script'</span><span class="ss">,</span><span class="pp">]</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path where to save gallery-generated examples</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gallery_dirs'</span><span class="ex">:</span> <span class="pp">[</span><span class="st">'_auto_scripts'</span><span class="pp">]</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Order of the Gallery</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'within_subsection_order'</span><span class="ex">:</span> FileNameSortKey,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">from</span> sphinx_gallery.sorting import FileNameSortKey</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sphinx_gallery_conf</span> = {</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path to your examples scripts</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'examples_dirs'</span><span class="ex">:</span> <span class="pp">[</span><span class="st">'../script'</span><span class="ss">,</span><span class="pp">]</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     <span class="co"># path where to save gallery-generated examples</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gallery_dirs'</span><span class="ex">:</span> <span class="pp">[</span><span class="st">'_auto_scripts'</span><span class="pp">]</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Order of the Gallery</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'within_subsection_order'</span><span class="ex">:</span> FileNameSortKey,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A list of the possible keys can be found on <a href="https://sphinx-gallery.github.io/stable/configuration.html">Sphinx Galleries</a>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -567,12 +657,12 @@ EXERCISE: Spinx gallery
 <ol type="1">
 <li>A docstring, written in rST, that defines the header for the example. It must begin by defining a <code>.rST</code> title. The title may contain any punctuation mark but cannot start with the same punctuation mark repeated more than 3 times. For example:</li>
 </ol>
-<div class="sourceCode" id="cb17"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    """</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    "This" is my example-script</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    ===========================</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    This example doesn't do much, it just makes a simple plot</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    """</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    """</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    "This" is my example-script</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    ===========================</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    This example doesn't do much, it just makes a simple plot</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    """</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Python code. This can be any valid Python code that you wish. Any <code>matplotlib</code> images that are generated will be saved to disk, and the ‘.rST’ generated will display these images with the built examples. By default, only images generated by <code>matplotlib</code>, or packages based on <code>matplotlib</code> (<em>e.g.,</em> <code>seaborn</code> or <code>yellowbrick</code>) are saved and displayed. However, you can change this to include other packages, see for instance Image scrapers (XXX TODO: add details on Image scrapers).</li>
 </ol>
@@ -582,11 +672,11 @@ EXERCISE: Spinx gallery
 <section id="include-examples-in-your-toc-tree" class="level3">
 <h3 class="anchored" data-anchor-id="include-examples-in-your-toc-tree">Include examples in your toc-tree</h3>
 <p>For instance, you can add those lines in the <code>index.rst</code></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:caption:</span> Previsions:</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>   _auto_scripts/index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode rst code-with-copy"><code class="sourceCode rest"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">.. toctree::</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:maxdepth:</span> 2</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">:caption:</span> Previsions:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>   _auto_scripts/index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>to add a section containing all the examples.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -607,6 +697,7 @@ EXERCISE: auto-build
 
 </section>
 </section>
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
