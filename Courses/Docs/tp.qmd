@@ -2,13 +2,128 @@
 title: "Documentation with Sphinx"
 ---
 
-Before starting a description of Sphinx, we first start by introducing reStructuredText files.
+Before starting a description of Sphinx, we first start by introducing, markdown, quarto and reStructuredText files.
+
+
+## Markdown
+Markdown is a lightweight markup language developed by [John Gruber](https://en.wikipedia.org/wiki/John_Gruber) and
+[Aaron Swartz](https://fr.wikipedia.org/wiki/Aaron_Swartz)^[[Aaron Swartz](https://fr.wikipedia.org/wiki/Aaron_Swartz): hacktivist (1986-2013) who also helped develop Creative Commons licenses, RSS, Reddit, etc. For more on his epic life, see Brian Knappenberger' documentary **The Internet's Own Boy: The Story of Aaron Swartz  (2014)** <iframe width="300" src="https://upload.wikimedia.org/wikipedia/commons/0/06/Aaron_Swartz_profile.jpg"></iframe>].
+
+Hence Markdown is an easy-to-read markup language, popular for simple text formatting, creating documentation for software projects, but also for writing nice emails (for [Thunderbird](https://addons.thunderbird.net/en-us/thunderbird/addon/markdown-here-xul/), or [any browser](https://www.markdownguide.org/tools/markdown-here/), etc.).
+
+The extension for a Mardkown file is `.md`. To render such a file in VSCode or Codium, and possibly export a `.pdf` or `.html` file, you need to install a package for that (for instance the *Markdown All in One* could be installed with `Ctrl+Shift+p`, and looking for the right name in `Extensions: Install Extensions`).
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+Left: Markdown code
+```markdown
+
+# Title level 1
+
+## Title level 2
+
+
+
+
+# Title level 1
+
+## Title level 2
+
+
+This would be a paragraph. You can use **bold font** but also *italic* or  ~~strikethrough~~.
+
+Other elements are list :
+
+- item 1
+- item 2
+  - sub-item 1
+  - sub-item 2
+
+```
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+Right: rendered
+
+# Title level 1
+
+## Title level 2
+
+
+
+
+# Title level 1
+
+## Title level 2
+
+This would be a paragraph. You can use **bold font** but also *italic* or  ~~strikethrough~~.
+
+Other elements are list :
+
+- item 1
+- item 2
+  - sub-item 1
+  - sub-item 2
+
+
+:::
+
+::::
+etc.
+
+A full description can be found here: <https://www.markdownguide.org/basic-syntax/>; a nice cheatsheet is also available here: <https://www.markdownguide.org/cheat-sheet/>.
+
+## Quarto
+`quarto` is an open-source scientific and technical publishing system.
+For instance, we have used it for creating the website you are reading right now. We describe here its main usage.
+`quarto` allows rendering markdown elements and creating a website easily, that can run some code (R, Python, etc.) and display the results (tables, figures, etc.). The extension is `.qmd` for quarto markdown.
+We provide an example below:
+
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+Left: Quarto code
+```{{python}}
+import numpy as np
+print(np.sum(np.ones(12)))
+```
+
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+Render: Rendered
+```{python}
+import numpy as np
+print(np.sum(np.ones(12)))
+```
+
+
+
+:::
+
+::::
+
+
+
+Documentation for Python: <https://quarto.org/docs/computations/python.html>
 
 ## reStructuredText
 
 ### Introduction
 
-Sphinx is an extension of [reStructuredText](https://docutils.sourceforge.io/rst.html). reStructuredText (`.RST`, `.ReST`, or `.reST`) is a file format for textual data used primarily in the Python programming language community for technical documentation, and similar to the Markdown format (`.md`) you are currently reading.
+Sphinx is an extension of [reStructuredText](https://docutils.sourceforge.io/rst.html). reStructuredText (`.RST`, `.ReST`, or `.reST`) is a file format for textual data used primarily in the Python programming language community for technical documentation, and is similar to the Markdown format.
 
 It is part of the [`Docutils`](https://docutils.sourceforge.io/) project of the Python Doc-SIG (Documentation Special Interest Group), aimed at creating a set of tools for Python similar to `Javadoc` for Java or `Plain Old Documentation` (pod) for Perl or [`vignette`](https://r-pkgs.org/vignettes.html) for R.
 
@@ -27,7 +142,7 @@ In this sense, reStructuredText is a lightweight markup language designed to be 
 
 ### Syntax
 
-A ReST file is a plain text file with a `.rst` extension. Like Markdown (`.md`), it allows you to easily write formatted text.
+A ReST file is a plain text file with a `.rst` extension. Like Markdown, it allows you to easily write formatted text.
 
 #### Headers
 
