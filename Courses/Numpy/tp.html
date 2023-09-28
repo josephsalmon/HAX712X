@@ -252,10 +252,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="numpy-cheat-sheet" class="level1">
 <h1>Numpy cheat sheet</h1>
-<p>Preliminary remark: For the random part, one is expected to run a command like</p>
+<p>Preliminary remark: for the random part, one is expected to run a command like</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>before anything, to call the generator <code>rng</code>.</p>
+<p>before anything, to initialize the random generator <code>rng</code>.</p>
 <section id="matrix-creation" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-creation">Matrix creation</h2>
 <section id="creation-vector-case" class="level3">
@@ -306,56 +306,58 @@ Result
 <td>
 <pre> x = np.zeros(9) </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-1.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
 <pre> x = np.ones(9)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-ones-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-ones-1.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
 <pre> x = np.full(9, 0.5)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-full-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-full-1.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
-<pre> x = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0])</pre>
+<pre> x = np.zeros(9)
+ x[2] = 0
+        </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-list-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-list-1.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
 <pre> x = np.arange(9)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-arange-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-arange-1.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
 <pre> x[::-1]</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-arange-1-backward.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-arange-1-backward.svg" width="75%&quot;">
 </td>
 </tr>
 <tr>
 <td>
 <pre> x = rng.random(9)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-1.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-1.svg" width="75%&quot;">
 </td>
 </tr>
 </tbody>
@@ -381,48 +383,53 @@ Result
 <td>
 <pre> M = np.zeros((5, 9)) </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-2.svg" width="54%">
 </td>
 </tr>
 <tr>
 <td>
 <pre> M = np.ones((5, 9))</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-ones-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-ones-2.svg" width="54%">
 </td>
 </tr>
 <tr>
 <td>
-<pre> M = np.array(<br>&nbsp;&nbsp;&nbsp;&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0  , 0  , 0.5, 0, 0, 0, 0, 0, 0], <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.0, 0  , 0  , 0, 0, 0, 0, 0, 0],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0  , 0.4, 0  , 0, 0, 0, 0, 0, 0],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0  , 0  , 0  , 0, 0, 0, 0, 0, 0],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0  , 0  , 0  , 0, 0, 0, 0, 0, 0]<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>)</pre>
+<pre> M = np.zeros((5, 9))
+ M[0, 2] = 0.5
+ M[1, 0] = 1.
+ M[2, 1] = 0.4
+            </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-list-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-list-2.svg" width="54%">
 </td>
 </tr>
 <tr>
 <td>
-<pre> M = np.arange(45).reshape((5, 9))</pre>
+M = np.arange(45).reshape((5, 9))
+
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-arange-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-arange-2.svg" width="54%">
 </td>
 </tr>
 <tr>
 <td>
 <pre> M = rng.random((5, 9))</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-2.svg" width="54%">
 </td>
 </tr>
 <tr>
 <td>
 <pre> M = np.eye(5, 9)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-eye-2.svg" height="130px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-eye-2.svg" width="54%">
 </td>
 </tr>
 <tr>
@@ -431,7 +438,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/create-diag-2.svg" height="100px">
+<img src="../ScipyNumpy/CheatSheet/figures/create-diag-2.svg" width="30%">
 </center>
 </td>
 </tr>
@@ -441,7 +448,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/create-diagk-2.svg" height="80px">
+<img src="../ScipyNumpy/CheatSheet/figures/create-diagk-2.svg" width="30%">
 </center>
 </td>
 </tr>
@@ -475,17 +482,17 @@ yy
 </thead>
 <tbody>
 <tr>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-x.svg" width="100x">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-x.svg" width="90%">
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-y.svg" width="38px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-y.svg" width="30%">
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-xv.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-xv.svg" width="90%">
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-yv.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/meshgrid-yv.svg" width="90%">
 </td>
 </tr>
 </tbody>
@@ -511,45 +518,46 @@ Result
 <td>
 <pre> T = np.zeros((3, 5, 9)) </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-3.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-zeros-3.svg" width="70%">
 </td>
 </tr>
 <tr>
 <td>
 <pre> T = np.ones((3, 5, 9))</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-ones-3.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-ones-3.svg" width="70%">
 </td>
 </tr>
 <tr>
 <td>
-<pre> T = np.arange(3 * 5 * 9).reshape(3, 5, 9)</pre>
+<pre> T = np.arange(135).reshape(3, 5, 9)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-arange-3.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-arange-3.svg" width="70%">
 </td>
 </tr>
 <tr>
 <td>
 <pre> T = rng.random((3, rows, cols))</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-3.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-uniform-3.svg" width="70%">
 </td>
 </tr>
 <tr>
 <td>
 <pre><br>
 n1, n2 = 5, 3
-my_ones = np.ones((n2, n1))
-my_ones = my_ones[:, :, np.newaxis]
-T = my_ones * np.linspace(0.01, 0.99, num=8)
+ones = np.ones((n2, n1))
+ones = ones[:, :, np.newaxis]
+lnsp = np.linspace(0.01, 0.99, 8)
+T = ones * lnsp
         </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/create-increasing-slice.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/create-increasing-slice.svg" width="40%">
 </td>
 </tr>
 </tbody>
@@ -563,7 +571,7 @@ T = my_ones * np.linspace(0.01, 0.99, num=8)
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">3</span>, <span class="dv">4</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M.svg" width="25%">
 </center>
 <p>Starting from the previous matrix, we can reshape it in different ways:</p>
 
@@ -583,40 +591,40 @@ Result
 <td>
 <pre>M = M.reshape(4, 3)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" height="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(4,3).svg" width="24%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M = M.reshape(12, 1)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" height="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(12,1).svg" width="8%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M = M.reshape(1, 12)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(1,12).svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(1,12).svg" width="96%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M = M.reshape(6, 2)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" height="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(6,2).svg" width="16%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M = M.reshape(2, 6)</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(2,6).svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/reshape-M-reshape(2,6).svg" width="48%">
 </td>
 </tr>
 </tbody>
@@ -628,7 +636,7 @@ Result
 <p>Start from a zero matrix:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.zeros((<span class="dv">5</span>, <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M.svg" width="25%">
 </center>
 <p>Starting from the previous matrix, we can slice it in different ways:</p>
 
@@ -648,88 +656,88 @@ Result
 <td>
 <pre>M[...] = 1 </pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[...].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[...].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[:, ::2] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:,::2].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:,::2].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[::2, :] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[::2,:].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[::2,:].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[1, 1] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[1,1].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[1,1].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[:, 0] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:,0].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:,0].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[0, :] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[0,:].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[0,:].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[2:; 2:] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[2:,2:].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[2:,2:].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[:-2:, :-2] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:-2,:-2].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[:-2,:-2].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[2:4, 2:4] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[2:4,2:4].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[2:4,2:4].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[::2, ::2] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[::2,::2].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[::2,::2].svg" width="75%">
 </td>
 </tr>
 <tr>
 <td>
 <pre>M[3::2, 3::2] = 1</pre>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/slice-M[3::2,3::2].svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/slice-M[3::2,3::2].svg" width="75%">
 </td>
 </tr>
 </tbody>
@@ -742,7 +750,7 @@ Result
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">6</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, rows <span class="op">*</span> cols).reshape(rows, cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-M.svg" width="25%">
 </center>
 <p>Starting from the previous matrix, we can apply the following operations:</p>
 
@@ -764,7 +772,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-transposition.svg" height="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-transposition.svg" width="45%">
 </center>
 </td>
 </tr>
@@ -774,7 +782,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-row.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-row.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -784,7 +792,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-col.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-from-end-col.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -794,7 +802,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-where.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-where.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -804,7 +812,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-max.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-max.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -814,7 +822,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-min.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-min.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -824,7 +832,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean0.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean0.svg" width="90%">
 </center>
 </td>
 </tr>
@@ -834,7 +842,7 @@ Result
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="100px">
+<img src="../ScipyNumpy/CheatSheet/figures/Operations-mean1.svg" width="45%">
 </center>
 </td>
 </tr>
@@ -876,55 +884,55 @@ M+N
 <tbody>
 <tr>
 </tr><tr>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="95%">
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar.svg" width="30px">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar.svg" width="15%">
 </center>
 </td>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar-res.svg" width="95%">
+</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="95%">
+</td>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row.svg" width="95%">
+</td>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row-res.svg" width="95%">
+</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="95%">
+</td>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-scalar-res.svg" width="200px">
+<center>
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col.svg" width="15%">
+</center>
+</td>
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-res.svg" width="95%">
 </td>
 </tr>
 <tr>
 <td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
-</td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row.svg" width="200px">
-</td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row-res.svg" width="200px">
-</td>
-</tr>
-<tr>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-M.svg" width="200px">
-</td>
-<td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col.svg" height="100px">
-</center>
-</td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-res.svg" width="200px">
-</td>
-</tr>
-<tr>
-<td>
-<center>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col2.svg" width="200px">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col2.svg" width="95%">
 </center>
 </td>
 <td>
 <center>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row2.svg" height="100px">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-row2.svg" width="15%">
 </center>
 </td>
-<td>
-<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-row.svg" width="200px">
+<td style="text-align: center; vertical-align: middle;">
+<img src="../ScipyNumpy/CheatSheet/figures/Broadcast-col-row.svg" width="95%">
 </td>
 </tr>
 </tbody>
