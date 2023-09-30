@@ -98,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../custom.scss">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -208,12 +208,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
-    <a href="https://github.com/josephsalmon/HAX712X" rel="" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
     <a href="https://moodle.umontpellier.fr/course/view.php?id=22454" rel="" title="Moodle" class="quarto-navigation-tool px-1" aria-label="Moodle"><i class="bi bi-bicycle"></i></a>
+    <a href="https://github.com/josephsalmon/HAX712X" rel="" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Creating a <code>python</code> module</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
@@ -297,6 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]</code></pre>
 </div>
 </div>
+<p>When importing a module, several methods are (automatically) defined. Their names are usually prefixed and suffixed by the symbol <code>__</code>, e.g.,</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fibo.<span class="va">__name__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -309,7 +320,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>'/home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Python-modules/fibo.py'</code></pre>
 </div>
 </div>
-<p>When importing a module, several methods are (automatically) defined. Their names are usually prefixed and suffixed by the symbol <code>__</code>, e.g.,</p>
 </section>
 <section id="or-a-module-could-be-a-directory" class="level3">
 <h3 class="anchored" data-anchor-id="or-a-module-could-be-a-directory">… or a module could be a directory</h3>
@@ -334,15 +344,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'/home/username/anaconda3/lib/python3.7/site-packages/numpy/__init__.py'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Any (sub-)directory of your <code>python</code> module should contain an <code>__init__.py</code> file!</p>
-<p><strong>Useful tips:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Useful tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li><p>The <code>__init__.py</code> file can contain a list of functions to be loaded when the module is imported. It allows to expose functions to users in a concise way.</p></li>
 <li><p>You can also import modules with relative paths, using <code>.</code>, <code>..</code>, <code>...</code>, etc.</p></li>
 </ul>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://realpython.com/absolute-vs-relative-python-imports/">Absolute vs Relative Imports in Python</a> by Mbithe Nzomo.</li>
-</ul>
+</div>
+</div>
+<p><em>Reference:</em> <a href="https://realpython.com/absolute-vs-relative-python-imports/">Absolute vs Relative Imports in Python</a> by Mbithe Nzomo.</p>
 </section>
 <section id="the-dir-function" class="level3">
 <h3 class="anchored" data-anchor-id="the-dir-function">The <code>dir()</code> function</h3>
@@ -988,7 +1006,7 @@ hex(id(numpy.__dir__))
 
 ::: {.cell-output .cell-output-display execution_count=11}
 ```
-'0x7f7dc06b5a20'
+'0x7f5dd00f1a20'
 ```
 :::
 :::
@@ -997,10 +1015,7 @@ hex(id(numpy.__dir__))
 This is an integer (or long integer) that is guaranteed to be unique and constant for this object during its lifetime. Two objects with non-overlapping lifetimes may have the same id() value. (Implementation note: this is the address of the object.). See <https://docs.python.org/3/library/functions.html#id>
 -->
 <p>To list every element in your symbol table simply call <code>dir()</code>.</p>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://docs.python.org/3/tutorial/modules.html#the-dir-function">Python doc the dir function</a></li>
-</ul>
+<p><em>Reference:</em> <a href="https://docs.python.org/3/tutorial/modules.html#the-dir-function">Python doc the dir function</a></p>
 </section>
 <section id="namespaces" class="level3">
 <h3 class="anchored" data-anchor-id="namespaces">Namespaces</h3>
@@ -1020,10 +1035,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <pre><code>-0.9899924966004454 -0.9899924966004454</code></pre>
 </div>
 </div>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://www.programiz.com/python-programming/namespace">Python Namespace and Scope tutorial</a></li>
-</ul>
+<p><em>Reference:</em> <a href="https://www.programiz.com/python-programming/namespace">Python Namespace and Scope tutorial</a></p>
 </section>
 <section id="the-module-search-path" class="level3">
 <h3 class="anchored" data-anchor-id="the-module-search-path">The Module Search Path</h3>
@@ -1032,8 +1044,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <li><p>The directory containing the input script (or the current directory when no file is specified).</p></li>
 <li><p>The environment variable <code>PYTHONPATH</code> (a list of directory names, with the same syntax as the shell variable <code>PATH</code>).</p></li>
 </ul>
-<p><strong>References</strong>:</p>
-<p>-<a href="https://docs.python.org/3/tutorial/modules.html#the-module-search-path">Python documentation, The Module Search Path</a></p>
+<p><em>Reference:</em> <a href="https://docs.python.org/3/tutorial/modules.html#the-module-search-path">Python documentation, The Module Search Path</a></p>
 </section>
 <section id="checking-if-a-module-exists" class="level3">
 <h3 class="anchored" data-anchor-id="checking-if-a-module-exists">Checking if a module exists</h3>
@@ -1042,8 +1053,8 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>spam_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"spam"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>found <span class="op">=</span> spam_spec <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>found</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(found)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>False</code></pre>
 </div>
 </div>
@@ -1053,11 +1064,11 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f7ddc6e61d0&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f5dd9a522c0&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
 </div>
 </div>
 <p>should return more information and where the loader is.</p>
-<p><strong>References</strong>:</p>
+<p><em>References:</em></p>
 <ul>
 <li><a href="https://docs.python.org/3/library/importlib.html#importlib.find_loader">Python doc on find_loader</a></li>
 <li><a href="https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it">How to check if a Python module exists without importing it</a> on Stackoverflow</li>
@@ -1067,18 +1078,27 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <h3 class="anchored" data-anchor-id="lazy-import">Lazy import</h3>
 <p>A module can contain executable statements as well as function definitions. These statements are intended to initialize the module. They are executed only the <strong>first time</strong> the module name is encountered in an <code>import</code> statement.</p>
 <p>To force a module to be reloaded, you can use <code>importlib.reload()</code>.</p>
-<p><strong>References</strong>: - <a href="https://docs.python.org/3/library/importlib.html#importlib.reload">Python doc on reload</a></p>
+<p><em>Reference:</em> <a href="https://docs.python.org/3/library/importlib.html#importlib.reload">Python doc on reload</a></p>
 <p>Remark: when using <code>ipython</code> (interactive <code>python</code>, an ancestor of the <code>jupyter notebook</code>), one can use the “magic” command <code>%autoreload 2</code></p>
-<p><strong>References</strong>: - <a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload">IPython autoreload</a></p>
+<p><em>Reference:</em> <a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload">IPython autoreload</a></p>
 </section>
 <section id="compiled-python-files" class="level3">
 <h3 class="anchored" data-anchor-id="compiled-python-files">“Compiled” <code>python</code> files</h3>
 <p>To speed up loading modules, <code>python</code> caches the compiled version of each module in the <code>__pycache__</code> directory under the name <code>module.version.pyc</code>, where the version encodes the format of the compiled file; it generally contains the <code>python</code> version number.</p>
 <p>For example, in <code>CPython</code> release 3.3 the compiled version of spam.py would be cached as <code>__pycache__/spam.cpython-33.pyc</code>. This naming convention allows compiled modules from different releases and different versions of <code>python</code> to coexist.</p>
-<p><strong>Useful git tip:</strong></p>
-<ul>
-<li>You should add <code>__pycache__</code> entry in your <code>.gitignore</code> file to avoid adding a compiled <code>python</code> file to your project.</li>
-</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Useful git tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should add <code>__pycache__</code> entry in your <code>.gitignore</code> file to avoid adding a compiled <code>python</code> file to your project.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="the-python-package-index-pypi-repository" class="level2">
@@ -1129,10 +1149,7 @@ EXERCISE:
 </section>
 <section id="creating-a-python-module" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-python-module">Creating a <code>python</code> module</h2>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://python-packaging.readthedocs.io/en/latest/">How To Package Your Python Code</a></li>
-</ul>
+<p><em>Reference:</em> <a href="https://python-packaging.readthedocs.io/en/latest/">How To Package Your Python Code</a></p>
 <section id="picking-a-name" class="level3">
 <h3 class="anchored" data-anchor-id="picking-a-name">Picking A Name</h3>
 <p><code>python</code> module/package names should generally follow the following constraints:</p>
@@ -1174,7 +1191,7 @@ EXERCISE: packaging
 <li>Create <strong>an empty</strong> <code>~/packaging_tutorial/setup.py</code> file.</li>
 <li>Commit and push into your repository.</li>
 </ol>
-<p><strong>References</strong>: <a href="https://packaging.python.org/guides/single-sourcing-package-version/">Single-sourcing the package version¶</a>.</p>
+<p><em>Reference:</em> <a href="https://packaging.python.org/guides/single-sourcing-package-version/">Single-sourcing the package version</a>.</p>
 </div>
 </div>
 </section>
@@ -1264,7 +1281,11 @@ EXERCISE:
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will create <code>dist/biketrauma-0.0.1.tar.gz</code> inside the top-level directory. You can now install it with</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>References</strong>: - <a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">Building and Distributing Packages with Setuptools</a> - <a href="https://packaging.python.org/tutorials/packaging-projects/">Packaging Python Projects¶</a></p>
+<p><em>References:</em>:</p>
+<ul>
+<li><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">Building and Distributing Packages with Setuptools</a></li>
+<li><a href="https://packaging.python.org/tutorials/packaging-projects/">Packaging Python Projects</a></li>
+</ul>
 </section>
 <section id="add-requirement-file" class="level3">
 <h3 class="anchored" data-anchor-id="add-requirement-file">Add requirement file</h3>
@@ -1318,17 +1339,17 @@ EXERCISE:
 <div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload dist/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p><strong>References</strong>:</p>
+<p><em>References:</em></p>
 <ul>
 <li><a href="https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/">Python Packaging User Guide</a></li>
-<li><a href="https://pypi.org/project/twine/">Twrine, uploads of source</a>, provides additional documentation on using <code>twine</code> to upload packages to PyPI.</li>
+<li><a href="https://pypi.org/project/twine/">Twine, uploads of source</a>, provides additional documentation on using <code>twine</code> to upload packages to PyPI.</li>
 </ul>
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
