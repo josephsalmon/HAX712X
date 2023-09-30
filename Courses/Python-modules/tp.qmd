@@ -24,15 +24,16 @@ fibo.fib(1000)
 ```{python}
 fibo.fib2(100)
 ```
+
+When importing a module, several methods are (automatically) defined.
+Their names are usually prefixed and suffixed by the symbol `__`, e.g.,
+
 ```{python}
 fibo.__name__
 ```
 ```{python}
 fibo.__file__
 ```
-When importing a module, several methods are (automatically) defined.
-Their names are usually prefixed and suffixed by the symbol `__`, e.g.,
-
 ### ... or a module could be a directory
 
 You can also import a full directory (containing many `python` files stored in a sub-folder). `python` looks for a folder located in `sys.path` list.
@@ -72,17 +73,16 @@ or
 
 Any (sub-)directory of your `python` module should contain an `__init__.py` file!
 
-**Useful tips:**
+::: {.callout-note}
+## Useful tips
 
 - The `__init__.py` file can contain a list of functions to be loaded when the module is imported.
 It allows to expose functions to users in a concise way.
 
 - You can also import modules with relative paths, using `.`, `..`, `...`, etc.
+:::
 
-
-**References**:
-
-- [Absolute vs Relative Imports in Python](https://realpython.com/absolute-vs-relative-python-imports/) by Mbithe Nzomo.
+*Reference:* [Absolute vs Relative Imports in Python](https://realpython.com/absolute-vs-relative-python-imports/) by Mbithe Nzomo.
 
 ### The `dir()` function
 
@@ -115,9 +115,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 
 To list every element in your symbol table simply call `dir()`.
 
-**References**:
-
-- [Python doc the dir function](https://docs.python.org/3/tutorial/modules.html#the-dir-function)
+*Reference:* [Python doc the dir function](https://docs.python.org/3/tutorial/modules.html#the-dir-function)
 
 ### Namespaces
 
@@ -136,9 +134,7 @@ import math, numpy as np
 print(math.cos(3), np.cos(3))
 ```
 
-**References**:
-
-- [Python Namespace and Scope tutorial](https://www.programiz.com/python-programming/namespace)
+*Reference:* [Python Namespace and Scope tutorial](https://www.programiz.com/python-programming/namespace)
 
 ### The Module Search Path
 
@@ -149,9 +145,7 @@ If not found, it then searches for a file named `spam.py` in a list of directori
 
 - The environment variable `PYTHONPATH` (a list of directory names, with the same syntax as the shell variable `PATH`).
 
-**References**:
-
--[Python documentation, The Module Search Path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path)
+*Reference:* [Python documentation, The Module Search Path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path)
 
 ### Checking if a module exists
 
@@ -161,7 +155,7 @@ Find the loader for a module, optionally within the specified path.
 import importlib
 spam_spec = importlib.util.find_spec("spam")
 found = spam_spec is not None
-found
+print(found)
 ```
 Now,
 
@@ -173,7 +167,7 @@ print(numpy_spec)
 should return more information and where the loader is.
 
 
-**References**:
+*References:*
 
 - [Python doc on find_loader](https://docs.python.org/3/library/importlib.html#importlib.find_loader)
 - [How to check if a Python module exists without importing it](https://stackoverflow.com/questions/14050281/how-to-check-if-a-python-module-exists-without-importing-it) on Stackoverflow
@@ -186,14 +180,12 @@ They are executed only the **first time** the module name is encountered in an `
 
 To force a module to be reloaded, you can use `importlib.reload()`.
 
-**References**:
-- [Python doc on reload](https://docs.python.org/3/library/importlib.html#importlib.reload)
+*Reference:* [Python doc on reload](https://docs.python.org/3/library/importlib.html#importlib.reload)
 
 Remark: when using `ipython` (interactive `python`, an ancestor of the `jupyter notebook`), one can use the "magic" command
 `%autoreload 2`
 
-**References**:
-- [IPython autoreload](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload)
+*Reference:* [IPython autoreload](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload)
 
 ### "Compiled" `python` files
 
@@ -202,9 +194,12 @@ To speed up loading modules, `python` caches the compiled version of each module
 For example, in `CPython` release 3.3 the compiled version of spam.py would be cached as `__pycache__/spam.cpython-33.pyc`.
 This naming convention allows compiled modules from different releases and different versions of `python` to coexist.
 
-**Useful git tip:**
 
-- You should add `__pycache__` entry in your `.gitignore` file to avoid adding a compiled `python` file to your project.
+::: {.callout-note}
+## Useful git tip
+
+You should add `__pycache__` entry in your `.gitignore` file to avoid adding a compiled `python` file to your project.
+:::
 
 ## The `python` Package Index (Pypi) repository
 
@@ -252,9 +247,7 @@ $ pip install -e /path/to/my/local/module
 
 ## Creating a `python` module
 
-**References**:
-
-- [How To Package Your Python Code](https://python-packaging.readthedocs.io/en/latest/)
+*Reference:* [How To Package Your Python Code](https://python-packaging.readthedocs.io/en/latest/)
 
 ### Picking A Name
 
@@ -298,7 +291,7 @@ The top-level directory is the root of our Version Control System (e.g. git) rep
   7. Create **an empty** `~/packaging_tutorial/setup.py` file.
   8. Commit and push into your repository.
 
-**References**: [Single-sourcing the package version¶](https://packaging.python.org/guides/single-sourcing-package-version/).
+*Reference:* [Single-sourcing the package version](https://packaging.python.org/guides/single-sourcing-package-version/).
 :::
 
 ### Sub-modules
@@ -395,9 +388,10 @@ This will create `dist/biketrauma-0.0.1.tar.gz` inside the top-level directory. 
 $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 ```
 
-**References**:
+*References:*:
+
 - [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
-- [Packaging Python Projects¶](https://packaging.python.org/tutorials/packaging-projects/)
+- [Packaging Python Projects](https://packaging.python.org/tutorials/packaging-projects/)
 
 ### Add requirement file
 
@@ -449,7 +443,7 @@ $ twine upload dist/*
 ```
 :::
 
-**References**:
+*References:*
 
 - [Python Packaging User Guide](https://packaging.python.org/tutorials/distributing-packages/https://packaging.python.org/tutorials/distributing-packages/)
 - [Twine, uploads of source](https://pypi.org/project/twine/), provides additional documentation on using `twine` to upload packages to PyPI.
