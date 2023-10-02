@@ -262,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-with-statement" id="toc-the-with-statement" class="nav-link" data-scroll-target="#the-with-statement">The <code>with</code> statement</a></li>
   </ul></li>
   <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope">Scope</a></li>
-  <li><a href="#manipulate-file-names-on-disk-across-platforms." id="toc-manipulate-file-names-on-disk-across-platforms." class="nav-link" data-scroll-target="#manipulate-file-names-on-disk-across-platforms.">Manipulate file names on disk across platforms.</a></li>
-  <li><a href="#more-links" id="toc-more-links" class="nav-link" data-scroll-target="#more-links">More links</a></li>
+  <li><a href="#manipulate-file-names-across-platforms" id="toc-manipulate-file-names-across-platforms" class="nav-link" data-scroll-target="#manipulate-file-names-across-platforms">Manipulate file names across platforms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/ClassesExceptions/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Classes</em> are central elements in <em>Object-oriented programming (OOP)</em></p>
 <p>A class structure defines an object, its properties, and all the operations one can apply to it.</p>
 <div class="page-columns page-full"><p>In Python, a class contains <em>attributes</em> (variables) and <em>methods</em> (functions). It is defined similarly to a function, replacing the <code>def</code> keyword with <code>class</code>. The name of a class should be either CapWords or CamelCase<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;CamelCase (🇫🇷: <em>casse de chameau</em>): the name comes from the “bumpy” look of its letters as in the Wikipedia illustration below <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/CamelCase.svg" width="65%" style="display: block; margin-right: auto; margin-left: auto;"></p></li></div></div>
-<p>Usually, a class contains some class methods (functions inside the class).</p>
+<p>Usually, a class contains some class methods than can be seen as functions inside the class.</p>
 <ul>
 <li><p>The first argument of a (non-static) method is usually called <code>self</code>: it is a mandatory element. This <code>self</code> argument is for self-reference.</p></li>
 <li><p>Some method names have a specific meaning, for instance:</p>
@@ -356,7 +356,7 @@ Note
 Point: [0.000, 0.000]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;__main__.Point at 0x7ff48c059ba0&gt;</code></pre>
+<pre><code>&lt;__main__.Point at 0x7f64bd4cc790&gt;</code></pre>
 </div>
 </div>
 <p>To apply our <code>translate</code> method to the point <code>p1</code>:</p>
@@ -420,14 +420,14 @@ Note
 30</code></pre>
 </div>
 </div>
-<p>Test function of interest: <code>isinstance</code> allows to check if an object is of the correct class, for instance</p>
+<p>A test function of interest is <code>isinstance</code> that allows to check if an object is of the correct class. For instance, one can check is <code>sum_as_a_function</code> is an instance of <code>Sum</code>:</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(sum_as_a_function, Sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>True</code></pre>
 </div>
 </div>
-<p>but</p>
+<p>similarly one can test if it is an instance of <code>Point</code>:</p>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(sum_as_a_function, Point)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -488,7 +488,7 @@ True</code></pre>
 <section id="inheritance-the-sub-gaussian-case-of-a-kind" class="level3">
 <h3 class="anchored" data-anchor-id="inheritance-the-sub-gaussian-case-of-a-kind">Inheritance, the sub-Gaussian case (of a kind)</h3>
 <p>Classes can inherit methods from other classes. You can use <code>super</code> (Latin word for “above”) to access the parent class.</p>
-<p>Test if a class has inherited from another class: <code>issubclass</code> allow to check this heritage property:</p>
+<p>A simple test consists of checking whether a class has inherited from another class: <code>issubclass</code> allows to check this heritage property:</p>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> IsoGaussian(Gaussian):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, mean):</span>
@@ -524,7 +524,8 @@ True</code></pre>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Keep working if the exception is not raised</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The list of possible errors is available here: One may use <code>try</code>, <code>except</code> or <code>finally</code> to prevent errors to stop the program: <a href="https://docs.python.org/3/library/exceptions.html#bltin-exceptions" class="uri">https://docs.python.org/3/library/exceptions.html#bltin-exceptions</a> and includes <code>NameError</code>, <code>ImportError</code>, <code>AssertionError</code> etc.</p>
+<p>The list of possible errors is available here: <a href="https://docs.python.org/3/library/exceptions.html#bltin-exceptions" class="uri">https://docs.python.org/3/library/exceptions.html#bltin-exceptions</a> and includes <code>NameError</code>, <code>ImportError</code>, <code>AssertionError</code> etc.</p>
+<p>One may use <code>try</code>, <code>except</code> or <code>finally</code> to prevent errors to stop the program:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Part 1: Normal code goes here</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span>:</span>
@@ -664,9 +665,9 @@ EXERCISE: Improving the Gaussian class
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Conclusion</strong>: <code>e</code> is only “visible” inside the function definition. See <a href="https://realpython.com/python-scope-legb-rule/" class="uri">https://realpython.com/python-scope-legb-rule/</a> for more information on this topic.</p>
 </section>
-<section id="manipulate-file-names-on-disk-across-platforms." class="level2">
-<h2 class="anchored" data-anchor-id="manipulate-file-names-on-disk-across-platforms.">Manipulate file names on disk across platforms.</h2>
-<p>The following would avoid naming conflict due to each OS (Linux / Windows /Mac) syntax. This is important for your project if you work with colleagues who have a different OS than yours!!!</p>
+<section id="manipulate-file-names-across-platforms" class="level2">
+<h2 class="anchored" data-anchor-id="manipulate-file-names-across-platforms">Manipulate file names across platforms</h2>
+<p>Each OS (Linux / Windows /Mac) might have a different syntax to describe a file path. The following would avoid naming conflict due to each OS syntax and could be important for your project if you work with colleagues with a different OS from yours.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(os.path.join(<span class="st">'~'</span>, <span class="st">'work'</span>, <span class="st">'src'</span>))</span>
@@ -710,8 +711,8 @@ EXERCISE: Create a bunch of files
 </div>
 </div>
 </section>
-<section id="more-links" class="level2">
-<h2 class="anchored" data-anchor-id="more-links">More links</h2>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 <ul>
 <li><a href="http://www.python.org">Python official web page</a> and its <a href="http://www.python.org/dev/peps/pep-0008">style and writing recommendation</a></li>
 <li><a href="http://www.greenteapress.com/thinkpython/">Think Python</a> - A free book by Allen Downey.</li>
