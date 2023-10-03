@@ -181,14 +181,132 @@ plt.show()
 Plot the density estimate over the histogram
 :::
 
-### Widgets
-Interactive interaction with codes and output is nowadays easier and easier (see also Shiny app in R-software).
-In Python, one can use `widgets` and the `interact` package for this purpose.
+### Interactivity
+Interactive interaction with codes and output is nowadays getting easier and easier (see also Shiny app in R-software).
+In Python, one can use `plotly`, or `widgets` and the `interact` package for this purpose.
 We are going to visualize that on the simple KDE and histogram examples.
 
-### XXX -> to pyplot
+```{python}
+import plotly.graph_objects as go
+import numpy as np
+from scipy import stats
+
+# Create figure
+fig = go.FigureWidget()
+
+# Add traces, one for each slider step
+bws = np.arange(0.01, 0.51, 0.01)
+xx = np.arange(0, 100, 0.5)
+for step in bws:
+    kernel = stats.gaussian_kde(df_titanic['Age'], bw_method=step)
+    yy = kernel(xx)
+    fig.add_trace(
+        go.Scatter(
+            visible=False,
+            fill='tozeroy',
+            fillcolor='rgba(67, 67, 67, 0.5)',
+            line=dict(color="black", width=2),
+            name=f"Bw = {step:.2f}",
+            x=xx,
+            y=yy))
+
+# Make 10th trace visible
+fig.data[10].visible = True
+
+# Create and add slider
+steps = []
+for i in range(len(fig.data)):
+    step = dict(
+        method="update",
+        args=[{"visible": [False] * len(fig.data)},
+            #   {"title": f"{fig.data[i].name}"}
+              ],
+              label=f"{bws[i]:.2f}"
+              )
+    step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
+    steps.append(step)
+sliders = [dict(
+    active=10,
+    currentvalue={"prefix": "Bandwidth = "},
+    pad={"t": 50},
+    steps=steps
+)]
+
+fig.update_layout(
+    sliders=sliders,
+    template="simple_white",
+    title=f"Impact of the bandwidth on the KDE",
+    showlegend=False,
+)
+
+fig.show()
+```
+
+```{python}
+import plotly.graph_objects as go
+import numpy as np
+from scipy import stats
+
+# Create figure
+fig = go.FigureWidget()
+
+# Add traces, one for each slider step
+bws = np.arange(0.01, 5.51, 0.3)
+xx = np.arange(0, 100, 0.5)
+
+for step in bws:
+    fig.add_trace(
+        go.Histogram(
+            x=df_titanic['Age'],
+            xbins=dict( # bins used for histogram
+            start=xx.min(),
+            end=xx.max(),
+            size=step
+            ),
+            autobinx = False,
+            visible=False,
+            marker_color="rgba(67, 67, 67, 0.5)",
+            name=f"Bandwidth = {step:.2f}"
+            ))
+
+# Make 10th trace visible
+fig.data[10].visible = True
+
+# Create and add slider
+steps = []
+for i in range(len(fig.data)):
+    step = dict(
+        method="update",
+        args=[{"visible": [False] * len(fig.data)},
+            #   {"title": f"{fig.data[i].name}"}
+              ],
+              label=f"{bws[i]:.2f}"
+              )
+    step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
+    steps.append(step)
+sliders = [dict(
+    active=10,
+    currentvalue={"prefix": "Bandwidth = "},
+    pad={"t": 50},
+    steps=steps
+)]
+
+fig.update_layout(
+    sliders=sliders,
+    template="simple_white",
+    title=f"Impact of the bandwidth on histograms",
+    showlegend=False,
+)
+
+fig.show()
+```
+
+### IPython widgets (in Jupyter notebooks)
 
 ```python
+import ipywidgets as widgets
+from ipywidgets import interact, fixed
+
 def hist_explore(
     dataset=df_titanic,
     variable=df_titanic.columns,
@@ -219,15 +337,15 @@ interact(
 ```python
 def kde_explore(dataset=df_titanic, variable=df_titanic.columns, bw=5):
     fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-    sns.kdeplot(dataset[variable], bw_adjust=bw, shade=True, cut=0, ax=ax)
+    sns.kdeplot(dataset[variable], bw_adjust=bw, fill=True, cut=0, ax=ax)
     plt.ylabel("Density level")
-    plt.title(f"Dataset {dataset.attrs['name']}:\n KDE for passengers'  {variable}")
+    plt.title(f"Dataset:\n KDE for passengers'  {variable}")
     plt.tight_layout()
     plt.show()
 
 interact(kde_explore, dataset=fixed(df_titanic), bw=(0.001, 2, 0.01))
-
 ```
+
 
 ### `Groupby` function
 How does the survival rate change w.r.t. to sex?
@@ -842,7 +960,7 @@ plt.show()
 ```
 
 
-## Second case study: explore a dataset on bike accidents in France
+## Third case study: explore a dataset on bike accidents in France
 **References**:
 
 - [Data original source](https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/)
