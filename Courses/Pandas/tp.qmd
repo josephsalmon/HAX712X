@@ -21,6 +21,7 @@ from IPython import get_ipython
 
 
 sns.set_palette("colorblind")
+palette = sns.color_palette("twilight", n_colors=12)
 pd.options.display.max_rows = 8
 ```
 
@@ -151,7 +152,7 @@ plt.show()
 
 ::: {.callout-note}
 
-Note: the bandwidth parameter (here encoded as `bw_adjust`) controls the smoothing level. It is a common parameter in kernel smoothing, investigated thoroughly in the non-parametric statistics literature.
+The bandwidth parameter (here encoded as `bw_adjust`) controls the smoothing level. It is a common parameter in kernel smoothing, investigated thoroughly in the non-parametric statistics literature.
 :::
 
 - Swarmplot:
@@ -177,6 +178,7 @@ plt.show()
 
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ##  EXERCISE density over histogram
 
 Plot the density estimate over the histogram
@@ -502,7 +504,8 @@ df_titanic['Name'].astype(str)
 ```
 
 
-### Extract `numpy` arrays from dataframes
+### From `numpy` to `pandas`
+
 useful for using packages on top of `pandas` (*e.g.,* `sklearn`, though nowadays it works out of the box with `pandas`)
 
 ```{python}
@@ -511,12 +514,14 @@ array_titanic
 ```
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ## EXERCISE: `dropna`
 
 Perform the following operation: remove the columns Cabin from the raw
 dataset, and then remove the rows with the variable `Age` missing.
 
-Hint: check the ['dropna' documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html).
+
+[Hint]{.underline}: check the ['dropna' documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html).
 :::
 
 
@@ -754,6 +759,7 @@ For more info on the nature of Pandas objects, see this discussion on [Stackover
 Moreover, things are slowly moving from `numpy` to `pyarrow`, cf. [Pandas user guide](https://pandas.pydata.org/docs/user_guide/pyarrow.html)
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ##  EXERCISE: handling missing values
 
 What is the meaning of "na_values="n/d" above?
@@ -861,12 +867,13 @@ axes[1].set_ylabel("Concentration (µg/m³)")
 
 plt.show()
 ```
-Source: <https://www.tutorialspoint.com/python/time_strptime.htm>
+[Source]{.underline} : <https://www.tutorialspoint.com/python/time_strptime.htm>
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ##  EXERCISE: extreme values per day </font>
- Provide the same plots as before, but with daily best and worst on the same
- figures (and use different colors and/or styles)
+Provide the same plots as before, but with daily best and worst on the same
+figures (and use different colors and/or styles)
 
 Q: Is the pollution getting better over the years or not?
 :::
@@ -948,25 +955,31 @@ polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
 
 ```{python}
 #| layout-ncol: 1
-
-# sns.set_palette("twilight", n_colors=12)
-palette = sns.color_palette("twilight", n_colors=12)
-
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
-axes[0].set_prop_cycle((cycler(color=palette) +
-                  cycler(linestyle=['-', '--', ':', '-.']*3)))
+axes[0].set_prop_cycle(
+    (
+        cycler(color=palette) + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
 polution_month_no2.plot(ax=axes[0])
 axes[0].set_ylabel("Concentration (µg/m³)")
 axes[0].set_xlabel("Hour of the day")
 axes[0].set_title(
-    "Daily profile per month (NO2): weekend effect?")
+    "Daily profile per month (NO2)?")
 axes[0].set_xticks(np.arange(0, 24))
 axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[0].set_ylim(0, 90)
 
-axes[1].set_prop_cycle((cycler(color=palette) +
-                  cycler(linestyle=['-', '--', ':', '-.']*3)))
+axes[1].set_prop_cycle(
+    (
+        cycler(color=palette) + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
 polution_month_03.plot(ax=axes[1])
 axes[1].set_ylabel("Concentration (µg/m³)")
 axes[1].set_xlabel("Hour of the day")
@@ -1040,7 +1053,7 @@ df_bikes['existence securite'].unique()
 df_bikes['gravite accident'].unique()
 ```
 
-### Handle missing values in `heure`
+### Handle missing values
 
 ```{python}
 df_bikes['date'].hasnans
@@ -1066,33 +1079,32 @@ df_bikes.iloc[399:402]
 
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ## EXERCISE: start/end of the study
 
 Can you find the starting day and the ending day of the study automatically?
 
-Hint: Sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
-
+[Hint]{.underline}: Sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
+:::
 ```{python}
 df_bikes['date'] + ' ' + df_bikes['heure']
 ```
 
 
 ```{python}
-# ADAPT OLD to create the df_bikes['Time']
 
 time_improved = pd.to_datetime(df_bikes['date'] +
                                ' ' + df_bikes['heure'],
                                format='%Y-%m-%d %H',
                                errors='coerce')
 
-# Where d = day, m=month, Y=year, H=hour, M=minutes
 ```
 
 ```{python}
 df_bikes['Time'] = time_improved
 # remove rows with NaT
 df_bikes.dropna(subset=["Time"], inplace=True)
-# set new index 
+# set new index
 df_bikes.set_index('Time', inplace=True)
 # remove useless columns
 df_bikes.drop(columns=['heure', 'date'], inplace=True)
@@ -1113,11 +1125,13 @@ df_bike2.dropna(inplace=True)
 
 
 ::: {.callout-important appearance='default' icon="false"}
+
 ## EXERCISE: Is the helmet saving your life?
 
 Perform an analysis so that you can check the benefit or not of wearing a
 helmet to save your life.
-Beware: Preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
+
+[Beware]{.underline}: Preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
 issues.
 :::
 ```{python}
@@ -1205,9 +1219,8 @@ accidents_week = df_bikes.groupby(['weekday', df_bikes.index.hour])[
 fig, axes = plt.subplots(1, 1, figsize=(7, 7))
 accidents_week.plot(ax=axes)
 axes.set_ylabel("Accidents")
-axes.set_xlabel("Heure de la journée")
-axes.set_title(
-    "Profil journalier des accidents: effet du weekend?")
+axes.set_xlabel("Time of the day")
+axes.set_title("Daily accident profile: monthly effect?")
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
 axes.legend(
@@ -1237,21 +1250,23 @@ Perform an analysis to check when the accidents are occurring during the week.
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
-# sns.set_palette("twilight", n_colors=12)  # sns.set_palette("colorblind",...)
-palette = sns.color_palette("twilight", n_colors=12)
-
 df_bikes_month = df_bikes.groupby(['month', df_bikes.index.hour])[
     'age'].count().unstack(level=0)
 
 fig, axes = plt.subplots(1, 1, figsize=(7, 7), sharex=True)
 
-axes.set_prop_cycle((cycler(color=palette) +
-                  cycler(linestyle=['-', '--', ':', '-.']*3))) # gca()
+axes.set_prop_cycle(
+    (
+        cycler(color=palette) + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
 df_bikes_month.plot(ax=axes)
-axes.set_ylabel("Concentration (µg/m³)")
-axes.set_xlabel("Heure de la journée")
-axes.set_title(
-    "Profil journalier de la pollution au NO2: effet du weekend?")
+axes.set_ylabel("Accidents")
+axes.set_xlabel("Time of the day")
+axes.set_title("Daily accident profile: monthly effect?")
+
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
 axes.legend(labels=calendar.month_name[1:], loc='upper left')
@@ -1295,8 +1310,9 @@ df['# Accidents per million'] = df['# Accidents per million'].values * 10000./ d
 ```
 
 ```{python}
-path_target = "./departements-avec-outre-mer.geojson"
-url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson"
+path_target = "./departements.geojson"
+# url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson"
+url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 ```
@@ -1307,7 +1323,7 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 import plotly.express as px
 import geopandas
 
-departement = geopandas.read_file('departements-avec-outre-mer.geojson')
+departement = geopandas.read_file('departements.geojson')
 departement['code'].replace('2A', '20A', inplace=True)
 departement['code'].replace('2B', '20B', inplace=True)
 
@@ -1334,8 +1350,8 @@ fig = px.choropleth_mapbox(
     color="# Accidents per million",
     range_color=(0, df['# Accidents per million'].max()),
     color_continuous_scale="rdbu",
-    center={'lat': 47, 'lon': 2},
-    zoom=3.25,
+    center={'lat': 44, 'lon': 2},
+    zoom=3.55,
     mapbox_style="white-bg",
 )
 fig.update_traces(colorbar_orientation='h', selector=dict(type='choroplethmapbox'))
@@ -1344,8 +1360,8 @@ fig.update_layout(
 )
 fig.layout.coloraxis.colorbar.thickness = 20
 fig.layout.coloraxis.colorbar.orientation = 'h'
-fig.layout.coloraxis.colorbar.y = -0.2
-fig.layout.coloraxis.colorbar.x = 0.2
+fig.layout.coloraxis.colorbar.y = 0.051
+fig.layout.coloraxis.colorbar.x = 0.5
 
 fig.show()
 ```
@@ -1362,10 +1378,17 @@ Perform an analysis to check when the accidents are occurring for each departmen
 
 path_target = "./dpt_area.csv"
 url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
+
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 ```
 
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: plot DOMs and metropolitan France.
+·
+Plot DOMs with metropolitan France, so that all departements are visible on the same figure (for instance using this [geoson](https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-avec-outre-mer.geojson) file, and making all departements fitting a small figure).
+:::
 
 **References**:
 
