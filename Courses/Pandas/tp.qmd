@@ -15,6 +15,7 @@ import calendar
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from cycler import cycler
 import pooch  # download data / avoid re-downloading
 from IPython import get_ipython
 
@@ -570,9 +571,19 @@ df_titanic_raw['Embarked'].value_counts(normalize=False, sort=True,
 ```
 
 ```{python}
+#| eval: false
+pd.options.display.max_rows = 70
+df_titanic[df_titanic['Embarked'] == 'C']
+dir(numpy)
+```
+```{python}
+#| class: output-scroll
+#| echo: false
 pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
 ```
+
+<br>
 [Comments]{.underline}: not all passengers from Cherbourg are Gallic (&#127467;&#127479;: *gaulois*) ...
 
 
@@ -620,13 +631,13 @@ The Pandas library supports many formats:
 You can explore the data starting from the top or the bottom of the file:
 
 
-#### `head` 
+#### `head` command
 ```{python}
 pd.options.display.max_rows = 8
 df_titanic_raw.tail()
 ```
 
-#### `tail`
+#### `tail` command
 
 ```{python}
 df_titanic_raw.head()
@@ -643,7 +654,7 @@ df_titanic_raw.iloc[0:2, 1:8]
 - `loc`
 
 ```{python}
-# with original index:
+# with original indexing:
 # df_titanic_raw.loc[128]
 
 # with naming indexing
@@ -773,6 +784,7 @@ polution_df['heure']
 ### Time processing
 
 Note that we have used the following conventions:
+
  - d = day
  - m=month
  - Y=year
@@ -937,10 +949,13 @@ polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
 ```{python}
 #| layout-ncol: 1
 
-sns.set_palette("Paired", n_colors=12)
+# sns.set_palette("twilight", n_colors=12)
+palette = sns.color_palette("twilight", n_colors=12)
 
 fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
 
+axes[0].set_prop_cycle((cycler(color=palette) +
+                  cycler(linestyle=['-', '--', ':', '-.']*3)))
 polution_month_no2.plot(ax=axes[0])
 axes[0].set_ylabel("Concentration (µg/m³)")
 axes[0].set_xlabel("Hour of the day")
@@ -950,13 +965,16 @@ axes[0].set_xticks(np.arange(0, 24))
 axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[0].set_ylim(0, 90)
 
+axes[1].set_prop_cycle((cycler(color=palette) +
+                  cycler(linestyle=['-', '--', ':', '-.']*3)))
 polution_month_03.plot(ax=axes[1])
 axes[1].set_ylabel("Concentration (µg/m³)")
-axes[1].set_xlabel("Heure de la journée")
+axes[1].set_xlabel("Hour of the day")
 axes[1].set_title("Daily profile per month (O3): weekend effect?")
 axes[1].set_xticks(np.arange(0, 24))
 axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
 axes[1].set_ylim(0, 90)
+
 axes[0].legend().set_visible(False)
 # ax.legend()
 axes[1].legend(labels=calendar.month_name[1:], loc='lower left',
@@ -1219,14 +1237,16 @@ Perform an analysis to check when the accidents are occurring during the week.
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
-
-sns.set_palette("GnBu_d", n_colors=12)  # sns.set_palette("colorblind",...)
+# sns.set_palette("twilight", n_colors=12)  # sns.set_palette("colorblind",...)
+palette = sns.color_palette("twilight", n_colors=12)
 
 df_bikes_month = df_bikes.groupby(['month', df_bikes.index.hour])[
     'age'].count().unstack(level=0)
 
 fig, axes = plt.subplots(1, 1, figsize=(7, 7), sharex=True)
 
+axes.set_prop_cycle((cycler(color=palette) +
+                  cycler(linestyle=['-', '--', ':', '-.']*3))) # gca()
 df_bikes_month.plot(ax=axes)
 axes.set_ylabel("Concentration (µg/m³)")
 axes.set_xlabel("Heure de la journée")
