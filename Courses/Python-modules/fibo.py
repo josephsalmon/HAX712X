@@ -1,7 +1,15 @@
 # Fibonacci numbers module
 
 
-def fib(n):  # write Fibonacci series up to n
+def fib_print(n):
+    """
+    Print Fibonacci sequence up to n.
+
+    Parameters:
+        n (int): A decimal integer
+
+    
+    """
     a, b = 0, 1
     while a < n:
         print(a, end=" ")
@@ -9,7 +17,17 @@ def fib(n):  # write Fibonacci series up to n
     print()
 
 
-def fib2(n):  # return Fibonacci series up to n
+def fib_list(n):
+    """
+    Compute Fibonacci sequence up to n.
+
+    Parameters:
+        n (int): A decimal integer
+
+    Returns:
+        result (list): A list containing the Fibonacci numbers up to n
+    
+    """
     result = []
     a, b = 0, 1
     while a < n:
