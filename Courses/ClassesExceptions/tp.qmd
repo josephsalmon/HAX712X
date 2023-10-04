@@ -149,15 +149,12 @@ In particular, note that a method of a class can modify the state of a particula
  see <https://blog.devgenius.io/why-python-developers-should-use-staticmethod-and-classmethod-d5fe60497f23> -->
 
 
-:::callout-note
+:::callout-tip
 
 ## To go further
 This example and more details on callable are described in detail in this
 [Real Python](https://realpython.com/python-callable-instances/) post.
 :::
-
-### Remark
-
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -214,11 +211,14 @@ print(sum([g1, g2, g3]) == g4)
 ```
 :::
 
-### Inheritance, the sub-Gaussian case (of a kind)
+### Inheritance
 
-Classes can inherit methods from other classes. You can use `super` (Latin word for "above") to access the parent class.
+Classes can inherit methods from other classes.
+You can use `super` (Latin word for "above") to access the parent class from a child class. This is useful when you want to extend the functionality of the inherited method.
 
-A simple test consists of checking whether a class has inherited from another class: `issubclass` allows to check this heritage property:
+A simple test consists of checking whether a class has inherited from another one. `issubclass` allows one to check this heritage property.
+For instance, we can check that the following  `IsoGaussian` is a subclass of the `Gaussian` class we have created above:
+
 
 ```{python}
 class IsoGaussian(Gaussian):
@@ -233,7 +233,11 @@ issubclass(IsoGaussian, Gaussian)
 
 Many examples of interest are considered in the `scikit-learn` package (see for instance the module [Linear Model](https://github.com/scikit-learn/scikit-learn/blob/95119c13a/sklearn/linear_model/_base.py#L391) often used in machine learning or statistics).
 
+:::callout-tip
+
+## To go further
 For more information on `super`, see for instance this [Real Python Tutorials](https://realpython.com/python-super/).
+:::
 
 ## Exceptions
 
@@ -255,7 +259,14 @@ def my_function(arguments):
     # Keep working if the exception is not raised
 ```
 
+
+:::callout-tip
+
+## To go further
 The list of possible errors is available here: <https://docs.python.org/3/library/exceptions.html#bltin-exceptions> and includes `NameError`, `ImportError`, `AssertionError` etc.
+:::
+
+### `try` - `except` - `finally` syntax
 
 One may use `try`, `except` or `finally` to prevent errors to stop the program:
 
@@ -271,9 +282,8 @@ finally:
     # and is generally used to release external resources.
 ```
 
-### Example
 
-
+Let us consider the following example to understand the syntax better:
 ```{python}
 try:
     print("test_var testing:")
@@ -282,13 +292,13 @@ try:
 except NameError:
     print("Caught an exception: test_var does not exist")
 finally:
-    print("This code is executed every time")
+    print("This code is executed no matter what")
 
 print("The program keep continuing... it does not freeze!")
 print(f"Beware! the affectation step: e = {e} was executed.")
 ```
 
-To obtain some information on the error: it is possible to access the instance of the `Exception` class thrown by the program through the syntax:
+To obtain some information on the error: it is possible to access the instance of the `Exception` class thrown by the program through the following syntax:
 
 
 ```{python}
@@ -299,19 +309,24 @@ except Exception as name_exception:
     print("Caught an exception:", name_exception)
 ```
 
-::: {.callout-note}
 
-A common use case is to test if the import of a package was successful or not. For instance, the following code will not raise an error if the package `pooch` is not installed on your computer.
-```python
+A common use case is to test if the import of a package was successful or not. For instance, if you try loading a package `pooooch` that is not installed on your machine, the following code will raise an error:
+
+```{python}
+#| error: true
+import pooooch
+```
+If you would like the program to continue even if the package is not installed, you can use the following syntax:
+
+```{python}
 try:
     import pooch
 except Exception as e:
     print(e)
 ```
-:::
 
 
-Common exceptions can be found here: <https://docs.python.org/3/library/exceptions.html>
+An exhaustive list of exceptions be found here: <https://docs.python.org/3/library/exceptions.html>.
 
 ### The `with` statement
 
