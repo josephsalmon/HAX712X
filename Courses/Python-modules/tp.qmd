@@ -309,10 +309,13 @@ The final directory structure of our module will look like:
           __init__.py
           io/
             __init__.py
+            Load_db.py
           preprocess/
             __init__.py
+            get_accident.py
           vis/
             __init__.py
+            plot_location.py
           data/
             .gitkeep
       setup.py
@@ -322,21 +325,22 @@ The final directory structure of our module will look like:
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE: modules
 
-See the git repo of the course in the subfolder [`Courses/Python-modules/modules_files`](https://github.com/josephsalmon/HAX712X/tree/main/Courses/Python-modules/modules_files): it contains files ou should copy into your package tree:
+See the git repo of the course: the subfolder [`Courses/Python-modules/modules_files`](https://github.com/josephsalmon/HAX712X/tree/main/Courses/Python-modules/modules_files): contains some files you should include into your package tree:
 
   1. Copy the `script.py` into the project root folder.
   2. Add some sub-folders to `biketrauma` directory called `io` (for input/output), `preprocess`, `vis` (for visualization). Add an empty `__init__.py` file into the module and sub-module folders. 
   3. Populate the `preprocess` sub-module with the `get_accident.py` file.
   4. Populate the `vis` sub-module with the `plot_location.py` file.
-  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike data-set). At the loading step of the `io` sub-module, it should create the variables (*Hint: this is in the `__init__.py` file*)
-:::
-
+  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike data-set). At the loading step of the `io` sub-module, it should create the following variables (*Hint: this is done in the `__init__.py` file*)
 ```python
 url_db = "https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"
 path_target = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "..", "data", "bicycle_db.csv.xz"
 )
 ```
+  6. Commit your changes.
+:::
+
 
 
 ### Fix the import
@@ -370,9 +374,10 @@ lxml
 $ cd ~/packaging_tutorial     
 $ python script.py
 ```
-    It should open a navigator and display:
-
+It should open a navigator and display a map:
 ![Biketrauma map](biketrauma_map.png)
+
+  3. Commit and push your changes.
 :::
 
 ### Package the module with `setuptools`
@@ -462,6 +467,12 @@ password: ...
 ```bash
 $ twine upload dist/*
 ```
+:::
+
+::: {.callout-note}
+## About the data folder
+
+We have included the data folder in the sub-module tree which is not a good practice: permission may not be granted in the destination dir of the module... A better idea could be to create a `data` folder in a cache or temp directory. 
 :::
 
 ## References
