@@ -374,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#picking-a-name" id="toc-picking-a-name" class="nav-link" data-scroll-target="#picking-a-name">Picking a name</a></li>
   <li><a href="#module-structure" id="toc-module-structure" class="nav-link" data-scroll-target="#module-structure">Module structure</a></li>
   <li><a href="#sub-modules" id="toc-sub-modules" class="nav-link" data-scroll-target="#sub-modules">Sub-modules</a></li>
-  <li><a href="#adding-additional-files" id="toc-adding-additional-files" class="nav-link" data-scroll-target="#adding-additional-files">Adding additional files</a></li>
+  <li><a href="#fix-the-import" id="toc-fix-the-import" class="nav-link" data-scroll-target="#fix-the-import">Fix the import</a></li>
   <li><a href="#package-the-module-with-setuptools" id="toc-package-the-module-with-setuptools" class="nav-link" data-scroll-target="#package-the-module-with-setuptools">Package the module with <code>setuptools</code></a></li>
   <li><a href="#add-requirement-file" id="toc-add-requirement-file" class="nav-link" data-scroll-target="#add-requirement-file">Add requirement file</a></li>
   <li><a href="#upload-on-pypi" id="toc-upload-on-pypi" class="nav-link" data-scroll-target="#upload-on-pypi">Upload on PyPI</a></li>
@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fibo.<span class="va">__file__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>'/home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Python-modules/fibo.py'</code></pre>
+<pre><code>'/home/bcharlier/enseignement/HAX712/HAX712X/Courses/Python-modules/fibo.py'</code></pre>
 </div>
 </div>
 </section>
@@ -456,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.__path__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy']</code></pre>
+<pre><code>['/home/bcharlier/.conda/envs/hax712/lib/python3.9/site-packages/numpy']</code></pre>
 </div>
 </div>
 <p>Depending on your installation you might obtain <code>['/usr/lib/python3.9/site-packages/numpy']</code> or <code>['/home/username/anaconda3/lib/python3.7/site-packages/numpy']</code> if you installed with Anaconda.</p>
@@ -510,10 +510,8 @@ Useful tips
 <div class="cell output-scroll" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>['ALLOW_THREADS',
- 'AxisError',
  'BUFSIZE',
  'CLIP',
- 'ComplexWarning',
  'DataSource',
  'ERR_CALL',
  'ERR_DEFAULT',
@@ -533,7 +531,6 @@ Useful tips
  'MAXDIMS',
  'MAY_SHARE_BOUNDS',
  'MAY_SHARE_EXACT',
- 'ModuleDeprecationWarning',
  'NAN',
  'NINF',
  'NZERO',
@@ -547,12 +544,9 @@ Useful tips
  'SHIFT_OVERFLOW',
  'SHIFT_UNDERFLOW',
  'ScalarType',
- 'Tester',
- 'TooHardError',
  'True_',
  'UFUNC_BUFSIZE_DEFAULT',
  'UFUNC_PYVALS_NAME',
- 'VisibleDeprecationWarning',
  'WRAP',
  '_CopyMode',
  '_NoValue',
@@ -572,6 +566,7 @@ Useful tips
  '__getattr__',
  '__git_version__',
  '__loader__',
+ '__mkl_version__',
  '__name__',
  '__package__',
  '__path__',
@@ -590,6 +585,9 @@ Useful tips
  '_pytesttester',
  '_set_promotion_state',
  '_specific_msg',
+ '_typing',
+ '_using_numpy2_behavior',
+ '_utils',
  '_version',
  'abs',
  'absolute',
@@ -727,6 +725,7 @@ Useful tips
  'dsplit',
  'dstack',
  'dtype',
+ 'dtypes',
  'e',
  'ediff1d',
  'einsum',
@@ -737,10 +736,12 @@ Useful tips
  'equal',
  'errstate',
  'euler_gamma',
+ 'exceptions',
  'exp',
  'exp2',
  'expand_dims',
  'expm1',
+ 'expm1x',
  'extract',
  'eye',
  'fabs',
@@ -886,7 +887,6 @@ Useful tips
  'ma',
  'mask_indices',
  'mat',
- 'math',
  'matmul',
  'matrix',
  'max',
@@ -902,6 +902,7 @@ Useful tips
  'min_scalar_type',
  'minimum',
  'mintypecode',
+ 'mkl',
  'mod',
  'modf',
  'moveaxis',
@@ -1094,7 +1095,6 @@ Useful tips
  'unravel_index',
  'unsignedinteger',
  'unwrap',
- 'use_hugepage',
  'ushort',
  'vander',
  'var',
@@ -1119,7 +1119,7 @@ hex(id(numpy.__dir__))
 
 ::: {.cell-output .cell-output-display execution_count=10}
 ```
-'0x7f85f45b9a20'
+'0x7f17abfaa670'
 ```
 :::
 :::
@@ -1177,7 +1177,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f8606723f40&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f17d00cda60&gt;, origin='/home/bcharlier/.conda/envs/hax712/lib/python3.9/site-packages/numpy/__init__.py', submodule_search_locations=['/home/bcharlier/.conda/envs/hax712/lib/python3.9/site-packages/numpy'])</code></pre>
 </div>
 </div>
 <p>should return more information and where the loader is.</p>
@@ -1269,7 +1269,7 @@ EXERCISE:
 <ul>
 <li>All lowercase</li>
 <li>Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)</li>
-<li>Underscore-separated or no word separators at all, and do not use hyphens (i.e., use _ not -).</li>
+<li>Underscore-separated or no word separators at all, and do not use hyphens (i.e., use <code>_</code> not <code>-</code>).</li>
 </ul>
 <p>We are going to create a module called <code>biketrauma</code> to visualize the <code>bicycle_db</code> (source <a href="https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw">here</a>) used in the some of these lectures.</p>
 </section>
@@ -1282,7 +1282,7 @@ EXERCISE:
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">data/</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setup.py</span></span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The top-level directory is the root of our Version Control System (e.g.&nbsp;git) repository <code>packaging_tutorial.git</code>. The sub-directory, <code>biketrauma</code>, is the actual <code>python</code> module.</p>
+<p>The top-level directory is the root of our Version Control System (e.g.&nbsp;git) repository <code>packaging_tutorial</code>. The sub-directory, <code>biketrauma</code>, is the actual <code>python</code> module.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1300,7 +1300,7 @@ EXERCISE: packaging
 <li>Push your work into a new repository on your github.</li>
 <li>Create a sub-folder <code>~/packaging_tutorial/biketrauma</code>. This is where our <code>python</code> module will be stored.</li>
 <li>Create a <code>~/packaging_tutorial/biketrauma/__init__.py</code> file where a string <code>__version__</code> defined at <code>0.0.1</code>.</li>
-<li>Create an empty sub-folder <code>~/packaging_tutorial/biketrauma/data</code> locally on your computer/session. How to add it to git? (Hint: <code>.gitkeep</code>)</li>
+<li>Create an empty sub-folder <code>~/packaging_tutorial/biketrauma/data</code> locally on your computer/session. How to add it to git? (<em>Hint: <code>.gitkeep</code></em>)</li>
 <li>Create <strong>an empty</strong> <code>~/packaging_tutorial/setup.py</code> file.</li>
 <li>Commit and push into your repository.</li>
 </ol>
@@ -1316,13 +1316,17 @@ EXERCISE: packaging
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          <span class="ex">__init__.py</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>          <span class="ex">io/</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>          <span class="ex">preprocess/</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>          <span class="ex">vis/</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>          <span class="ex">data/</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">setup.py</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">script.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>            <span class="ex">Load_db.py</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>          <span class="ex">preprocess/</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            <span class="ex">get_accident.py</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>          <span class="ex">vis/</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>            <span class="ex">__init__.py</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>            <span class="ex">plot_location.py</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>          <span class="ex">data/</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>            <span class="ex">.gitkeep</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">setup.py</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">script.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1333,20 +1337,26 @@ EXERCISE: modules
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Add some <code>python</code> files in the <code>modules_files</code> folder:</p>
+<p>See the git repo of the course: the subfolder <a href="https://github.com/josephsalmon/HAX712X/tree/main/Courses/Python-modules/modules_files"><code>Courses/Python-modules/modules_files</code></a>: contains some files you should include into your package tree:</p>
 <ol type="1">
-<li>Add some sub-folders to <code>biketrauma</code> called <code>io</code> (for input/output), <code>preprocess</code>, <code>vis</code> (for visualization). Copy the <code>script.py</code> into the root folder.</li>
-<li>Populate the <code>preprocess</code> sub-module with the <code>get_accident.py</code> file (see the git repo of the course in the subfolder <code>Courses/Python-modules/modules_files</code>)</li>
-<li>Populate the <code>vis</code> sub-module with the <code>plot_location.py</code> file</li>
-<li>Populate the <code>io</code> sub-module with the file <code>Load_db.py</code> (it downloads the bike data-set). At the loading step your sub-module should create the variables</li>
+<li>Copy the <code>script.py</code> into the project root folder.</li>
+<li>Add some sub-folders to <code>biketrauma</code> directory called <code>io</code> (for input/output), <code>preprocess</code>, <code>vis</code> (for visualization). Add an empty <code>__init__.py</code> file into the module and sub-module folders.</li>
+<li>Populate the <code>preprocess</code> sub-module with the <code>get_accident.py</code> file.</li>
+<li>Populate the <code>vis</code> sub-module with the <code>plot_location.py</code> file.</li>
+<li>Populate the <code>io</code> sub-module with the file <code>Load_db.py</code> (it downloads the bike data-set). At the loading step of the <code>io</code> sub-module, it should create the following variables (<em>Hint: this is done in the <code>__init__.py</code> file</em>)</li>
+</ol>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>url_db <span class="op">=</span> <span class="st">"https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> os.path.join(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    os.path.dirname(os.path.realpath(<span class="va">__file__</span>)), <span class="st">".."</span>, <span class="st">"data"</span>, <span class="st">"bicycle_db.csv.xz"</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="6" type="1">
+<li>Commit your changes.</li>
 </ol>
 </div>
 </div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>url_db <span class="op">=</span> <span class="st">"https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> os.path.join(os.path.dirname(os.path.realpath(<span class="va">__file__</span>)), <span class="st">".."</span>, <span class="st">"data"</span>, <span class="st">"bicycle_db.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="adding-additional-files" class="level3">
-<h3 class="anchored" data-anchor-id="adding-additional-files">Adding additional files</h3>
+<section id="fix-the-import" class="level3">
+<h3 class="anchored" data-anchor-id="fix-the-import">Fix the import</h3>
 <p>In order to load the functions in the <code>io</code>, <code>preprocess</code> and <code>vis</code> sub-modules, you can add the following lines to the <code>~/packaging_tutorial/biketrauma/__init__.py</code>:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .io.Load_db <span class="im">import</span> Load_db</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .vis.plot_location <span class="im">import</span> plot_location</span>
@@ -1362,38 +1372,50 @@ EXERCISE:
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Check that your module does work by launching the <code>script.py</code> script</li>
-<li>Create a file <code>format_date.py</code> in the <code>biketrauma.preprocess</code> module in which a function <code>format_date</code> formats the date of the dataset in international format.</li>
-<li>This function should be accessible with the command:</li>
+<li>Be sure to have the following packages installed (<em>Hint: this list could be saved in a <code>requirements.txt</code> file at the project root folder.</em>):</li>
 </ol>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span><span class="im">import</span> biketrauma</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span>df <span class="op">=</span> biketrauma.Load_db().save_as_df()</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span>df_nicely_formated <span class="op">=</span> biketrauma.format_date(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tqdm</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pygal_maps_fr</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pooch</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pandas</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="ex">numpy</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pygal</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="ex">setuptools</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lxml</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Check that your module does work by launching the script.</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial     </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python script.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It should open a navigator and display a map: <img src="biketrauma_map.png" class="img-fluid" alt="Biketrauma map"></p>
+<ol start="3" type="1">
+<li>Commit and push your changes.</li>
+</ol>
 </div>
 </div>
 </section>
 <section id="package-the-module-with-setuptools" class="level3">
 <h3 class="anchored" data-anchor-id="package-the-module-with-setuptools">Package the module with <code>setuptools</code></h3>
 <p>The main setup configuration file, <code>setup.py</code>, should contain a single call to <code>setuptools.setup()</code>, like so:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> setuptools <span class="im">import</span> setup</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> biketrauma <span class="im">import</span> __version__ <span class="im">as</span> current_version</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>setup(</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  name<span class="op">=</span><span class="st">'biketrauma'</span>,</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  version<span class="op">=</span>current_version,</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  description<span class="op">=</span><span class="st">'Visualization of a bicycle accident db'</span>,</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  url<span class="op">=</span><span class="st">'http://github.com/xxxxxxxxxxx.git'</span>,</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  author<span class="op">=</span><span class="st">'xxxxxxxxxxx'</span>,</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  author_email<span class="op">=</span><span class="st">'xxxxxxxxxx@xxxxxxxxxxxxx.xxx'</span>,</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  license<span class="op">=</span><span class="st">'MIT'</span>,</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  packages<span class="op">=</span>[<span class="st">'biketrauma'</span>,<span class="st">'biketrauma.io'</span>, <span class="st">'biketrauma.preprocess'</span>, <span class="st">'biketrauma.vis'</span>],</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  zip_safe<span class="op">=</span><span class="va">False</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> setuptools <span class="im">import</span> setup</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> biketrauma <span class="im">import</span> __version__ <span class="im">as</span> current_version</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>setup(</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  name<span class="op">=</span><span class="st">'biketrauma'</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  version<span class="op">=</span>current_version,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  description<span class="op">=</span><span class="st">'Visualization of a bicycle accident db'</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  url<span class="op">=</span><span class="st">'http://github.com/xxxxxxxxxxx.git'</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  author<span class="op">=</span><span class="st">'xxxxxxxxxxx'</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  author_email<span class="op">=</span><span class="st">'xxxxxxxxxx@xxxxxxxxxxxxx.xxx'</span>,</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  license<span class="op">=</span><span class="st">'MIT'</span>,</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  packages<span class="op">=</span>[<span class="st">'biketrauma'</span>,<span class="st">'biketrauma.io'</span>, <span class="st">'biketrauma.preprocess'</span>, <span class="st">'biketrauma.vis'</span>],</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  zip_safe<span class="op">=</span><span class="va">False</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To create a <code>sdist</code> package (a source distribution):</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial/</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial/</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will create <code>dist/biketrauma-0.0.1.tar.gz</code> inside the top-level directory. You can now install it with</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>References:</em>:</p>
 <ul>
 <li><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">Building and Distributing Packages with Setuptools</a></li>
@@ -1403,7 +1425,7 @@ EXERCISE:
 <section id="add-requirement-file" class="level3">
 <h3 class="anchored" data-anchor-id="add-requirement-file">Add requirement file</h3>
 <p>To get a list of the installed packages in your current venv, you can use the following command:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Unfortunately, it may generate a huge collection of package dependencies. To get a sparser list, you can use <code>pipreqs</code>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1439,17 +1461,30 @@ EXERCISE:
 <ol type="1">
 <li>Create some distributions in the normal way:</li>
 </ol>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist bdist_wheel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist bdist_wheel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Upload with twine to Test PyPI and verify things look right. Twine will automatically prompt for your username and password:</li>
 </ol>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload <span class="at">--repository-url</span> https://test.pypi.org/legacy/ dist/<span class="pp">*</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">username:</span> ...</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="ex">password:</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload <span class="at">--repository-url</span> https://test.pypi.org/legacy/ dist/<span class="pp">*</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">username:</span> ...</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">password:</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>Upload to PyPI:</li>
 </ol>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload dist/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload dist/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About the data folder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have included the data folder in the sub-module tree which is not a good practice: permission may not be granted in the destination dir of the module… A better idea could be to create a <code>data</code> folder in a cache or temp directory.</p>
 </div>
 </div>
 </section>
