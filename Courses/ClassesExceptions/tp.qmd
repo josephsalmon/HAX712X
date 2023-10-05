@@ -26,7 +26,8 @@ dir(LogisticRegression)
 from sklearn.linear_model import LogisticRegression
 dir(LogisticRegression)
 ```
-
+In particular, you can already discover all the attributes and methods share to all classes (*e.g.,* `__class__`, `__init__`,
+ `__doc__`,), and the specific to that one (*e.g.,* `fit`, `get_params`, `predict`, etc.).
 
 Usually, a class contains some class methods that can be seen as functions inside the class.
 
@@ -72,10 +73,10 @@ p1 = Point(x=0, y=0)  # call __init__ ;
 Now, you can access the attributes of the object `p1`:
 
 ```{python}
-print(p1.x)
-print(p1.y)
+print(p1.x, p1.y)
 print("{0}".format(p1))  # call __str__
-p1
+print(p1)
+print(p1.__doc__)
 ```
 
 To apply our `translate` method to the point `p1`:
@@ -435,7 +436,7 @@ Each OS (Linux / Windows /Mac) might have a different syntax to describe a file 
 The following would avoid naming conflict due to each OS syntax and could be important for your project if you work with colleagues with a different OS from yours.
 
 
-```python
+```{python}
 import os
 
 print(os.path.join('~', 'work', 'src'))
@@ -463,19 +464,18 @@ file.close()
 ```
 - You might also need some precision for the digits of $\pi$, hence using `mpmath` instead of `numpy`.
 
-```python
+```{python}
 from mpmath import mp
 import numpy as np
 
 if not os.path.isdir("script"):
     os.mkdir("script")
 
-for i in range(2, 50):
-
+n_tot = 10
 
 for i in range(2, n_tot + 2):
     val = '0' + str(i)
-    print(str(f"{i:{val}}"))
+    print(f"{i:{val}}")
 ```
 :::
 
