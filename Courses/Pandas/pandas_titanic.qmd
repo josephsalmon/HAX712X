@@ -22,9 +22,13 @@ palette = sns.color_palette("twilight", n_colors=12)
 pd.options.display.max_rows = 8
 ```
 
-## First case study: Titanic dataset
+## Data preparation 
 
-First, it is important to download automatically remote files for reproducibility (and avoid typing names manually)
+
+### Automatic data download
+
+First, it is important to download automatically remote files for reproducibility (and avoid typing names manually). Let us apply this to the Titanic dataset:
+
 ```{python}
 url = "http://josephsalmon.eu/enseignement/datasets/titanic.csv"
 path_target = "./titanic.csv"
@@ -90,7 +94,7 @@ df_titanic.info()
 df_titanic_raw.info()
 ```
 
-### Description of the `titanic.csv` dataset
+## Data description
 
 Details of the dataset are given [here](https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3info.txt)
 
@@ -112,7 +116,7 @@ Details of the dataset are given [here](https://biostat.app.vumc.org/wiki/pub/Ma
 For those interested, an extended version of the dataset is available here <https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt>.
 :::
 
-### Simple descriptive statistics
+Simple descriptive statistics can be obtained using the `describe` method:
 ```{python}
 df_titanic.describe()
 ```
@@ -301,7 +305,7 @@ fig.update_layout(
 fig.show()
 ```
 
-### IPython widgets (in Jupyter notebooks)
+#### IPython widgets (in Jupyter notebooks)
 
 ```python
 import ipywidgets as widgets
@@ -346,6 +350,7 @@ def kde_explore(dataset=df_titanic, variable=df_titanic.columns, bw=5):
 interact(kde_explore, dataset=fixed(df_titanic), bw=(0.001, 2, 0.01))
 ```
 
+## Data wrangling
 
 ### `Groupby` function
 How does the survival rate change w.r.t. to sex?
@@ -522,6 +527,7 @@ dataset, and then remove the rows with the variable `Age` missing.
 [Hint]{.underline}: check the ['dropna' documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html).
 :::
 
+## `pandas` DataFrame
 
 ### 1D dataset: Series (a column of a DataFrame)
 
@@ -629,18 +635,18 @@ The Pandas library supports many formats:
  - sas, stata
  - ...
 
-### Exploration
+## Data Exploration
 
 You can explore the data starting from the top or the bottom of the file:
 
 
-#### `head` command
+### `head` command
 ```{python}
 pd.options.display.max_rows = 8
 df_titanic_raw.tail()
 ```
 
-#### `tail` command
+### `tail` command
 
 ```{python}
 df_titanic_raw.head()
