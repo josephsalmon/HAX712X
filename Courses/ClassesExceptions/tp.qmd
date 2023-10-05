@@ -6,18 +6,34 @@ title: "Classes & Exceptions"
 
 *Classes* are central elements in *Object-oriented programming (OOP)*
 
-A class structure defines an object, its properties, and all the operations one can apply to it.
+A class structure defines an object, its properties, and all the operations one can apply to it. Moreover, it allows the creation of multiple instances of the same object, each with its own properties, and to apply the same operations to all of them. Another key concept is the one of **inheritance**,  defining a new class from an existing one by simply inheriting all its properties and operations.
 
-In Python, a class contains *attributes* (variables) and *methods* (functions).
+In Python, a class contains **attributes** (variables) and **methods** (functions).
 Syntactically, it is defined similarly to a function, replacing the `def` keyword with `class` and requiring a colon `:` at the end of the first line.
-The name of a class should be either CapWords or CamelCase^[CamelCase (&#127467;&#127479;: *casse de chameau*): the name comes from the "bumpy" look of its letters as in the Wikipedia illustration below <img  src="https://upload.wikimedia.org/wikipedia/commons/e/ef/CamelCase.svg" width="65%" style="display: block; margin-right: auto; margin-left: auto;"></img>].
+The name of a class should be CamelCase^[CamelCase (&#127467;&#127479;: *casse de chameau*): the name comes from the "bumpy" look of its letters as in the Wikipedia illustration below <img  src="https://upload.wikimedia.org/wikipedia/commons/e/ef/CamelCase.svg" width="65%" style="display: block; margin-right: auto; margin-left: auto;"></img>] (or CapWords).
+
+For instance, in `sklearn`, the Logistic Regression class is named `LogisticRegression`, and can be loaded and investigated as follows:
+
+```{python}
+#| eval: false
+from sklearn.linear_model import LogisticRegression
+dir(LogisticRegression)
+```
+
+```{python}
+#| class: output-scroll
+#| echo: false
+from sklearn.linear_model import LogisticRegression
+dir(LogisticRegression)
+```
+
 
 Usually, a class contains some class methods that can be seen as functions inside the class.
 
 * The first argument of a (non-static) method is usually called `self`:  it is a mandatory element. This `self` argument is for self-reference. Self is a convention and not a Python keyword, so any other name can be used instead of `self` (*e.g.*, `this` or `me` or `in_place_of_self`).
 
 * Some method names have a specific meaning, for instance:
-   * `__init__`: zZZ name of the method invoked when creating the object (instantiation)
+   * `__init__`: name of the method invoked when creating the object (instantiation)
    * `__call__`: method invoked when calling the object
    * `__str__`: method invoked when a class has a representation as a string, *e.g.,* when passing it to the `print` function
    * see [Python documentation](http://docs.python.org/3/reference/datamodel.html#special-method-names) for more special names.
@@ -231,13 +247,34 @@ issubclass(IsoGaussian, Gaussian)
 
 ```
 
-Many examples of interest are considered in the `scikit-learn` package (see for instance the module [Linear Model](https://github.com/scikit-learn/scikit-learn/blob/95119c13a/sklearn/linear_model/_base.py#L391) often used in machine learning or statistics).
-
 :::callout-tip
 
 ## To go further
 For more information on `super`, see for instance this [Real Python Tutorials](https://realpython.com/python-super/).
 :::
+
+
+
+::: {.callout-important appearance='default' icon="false"}
+
+##  EXERCISE: inheritance
+
+What is the inheritance for the LogisticRegression class in `scikit-learn`?
+In particular, not that inheritance could be **multiple**, *i.e..* a class can inherit from several classes.
+
+[Hint]{.underline}: use the `__bases__` attribute of the class.
+```{python}
+from sklearn.linear_model import LogisticRegression
+a=LogisticRegression()
+print(a.__class__.__bases__)
+```
+:::
+
+Many other examples can be found in the `scikit-learn` package (see for instance the module [Linear Model](https://github.com/scikit-learn/scikit-learn/blob/95119c13a/sklearn/linear_model/_base.py#L391) often used in machine learning or statistics).
+
+
+
+
 
 ## Exceptions
 
