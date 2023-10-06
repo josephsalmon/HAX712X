@@ -326,13 +326,15 @@ See the git repo of the course: the subfolder [`Courses/Python-modules/modules_f
   2. Add some sub-folders to `biketrauma` directory called `io` (for input/output), `preprocess`, `vis` (for visualization). Add an empty `__init__.py` file into the module and sub-module folders. 
   3. Populate the `preprocess` sub-module with the `get_accident.py` file.
   4. Populate the `vis` sub-module with the `plot_location.py` file.
-  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike data-set). At the loading step of the `io` sub-module, it should create the following variables (*Hint: this is done in the `__init__.py` file*)
-```python
-url_db = "https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"
-path_target = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "..", "data", "bicycle_db.csv.xz"
-)
-```
+  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike dataset). At the loading step of the `io` sub-module, it should create the following variables (*Hint: this is done in the `__init__.py` file*)
+
+      ```python
+      url_db = "https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"
+      path_target = os.path.join(
+          os.path.dirname(os.path.realpath(__file__)), "..", "data", "bicycle_db.csv.xz"
+      )
+      ```
+
   6. Commit your changes.
 :::
 
@@ -439,30 +441,29 @@ Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrau
 ::: {.callout-important appearance='default' icon="false"}
 ## EXERCISE:
 
-1. Create an account on the PyPI test repository
+1. Create an account on the PyPI test repository.
 
-This is quite easy to upload a `python` module on PyPI:
+   This is quite easy to upload a `python` module on PyPI:
 
 1. Create some distributions in the normal way:
 
-```bash
-$ python setup.py sdist bdist_wheel
-```
+    ```bash
+    $ python setup.py sdist bdist_wheel
+    ```
 
-2. Upload with twine to Test PyPI and verify things look right.
-Twine will automatically prompt for your username and password:
+2. Upload with twine to Test PyPI and verify things look right. Twine will automatically prompt for your username and password:
 
-```bash
-$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-username: ...
-password: ...
-```
+    ```bash
+    $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+    username: ...
+    password: ...
+    ```
 
 3. Upload to PyPI:
 
-```bash
-$ twine upload dist/*
-```
+    ```bash
+    $ twine upload dist/*
+    ```
 :::
 
 ::: {.callout-note}
