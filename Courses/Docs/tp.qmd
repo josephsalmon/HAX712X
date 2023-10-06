@@ -1,8 +1,10 @@
 ---
-title: "Markup languages"
+title: "Markup languages / Documentation"
 ---
 
 Before starting a description of Sphinx, we first start by introducing, markdown, quarto and reStructuredText files.
+
+**Disclaimer**: this course is mainly adapted from the [Quarto](https://quarto.org/) and [Sphinx documentations](http://www.sphinx-doc.org/en/stable/).
 
 
 ## Markdown
@@ -19,7 +21,7 @@ The extension for a Mardkown file is `.md`. To render such a file in VSCode or C
 
 ::: {.column width="45%"}
 
-Left: Markdown code
+**Left:** Markdown code
 ```markdown
 
 # Title level 1
@@ -49,7 +51,7 @@ Other elements are listed below :
 :::
 
 ::: {.column width="45%"}
-Right: rendered
+**Right:** rendered
 
 # Title level 1
 
@@ -75,22 +77,22 @@ Other elements are listed here :
 :::
 
 ::::
-etc.
 
 A full description can be found here: <https://www.markdownguide.org/basic-syntax/>; a nice cheatsheet is also available here: <https://www.markdownguide.org/cheat-sheet/>.
 
 ## Quarto
-`quarto` is an open-source scientific and technical publishing system.
+Quarto is an open-source scientific and technical publishing system.
 For instance, we have used it for creating the website you are reading right now. We describe here its main usage.
-`quarto` allows rendering markdown elements and creating a website easily, that can run some code (R, Python, etc.) and display the results (tables, figures, etc.). The extension is `.qmd` for quarto markdown.
-We provide an example below:
+Quarto allows rendering markdown elements and creating a website easily, that can run some code (R, Python, etc.) and display the results (tables, figures, etc.), possibly in an interactive way.
+The extension is `.qmd` for Quarto files.
 
+As an example, you can see below how to create a code snippet in a Quarto, and how it is rendered, along with the code output.
 
 :::: {.columns}
 
 ::: {.column width="45%"}
 
-Left: Quarto code
+**Left:** Quarto code
 ```{{python}}
 import numpy as np
 print(np.sum(np.ones(12)))
@@ -103,27 +105,21 @@ print(np.sum(np.ones(12)))
 :::
 
 ::: {.column width="45%"}
-Right: Rendered
+**Right:** Rendered
 ```{python}
 import numpy as np
 print(np.sum(np.ones(12)))
 ```
 
-
-
 :::
 
 ::::
 
-
-
-Documentation for Python: <https://quarto.org/docs/computations/python.html>
+Documentation for using `python` in Quarto: <https://quarto.org/docs/computations/python.html>
 
 ## reStructuredText
 
-### Introduction
-
-Sphinx is an extension of [reStructuredText](https://docutils.sourceforge.io/rst.html). reStructuredText (`.RST`, `.ReST`, or `.reST`) is a file format for textual data used primarily in the Python programming language community for technical documentation and is similar to the Markdown format.
+reStructuredText (`.RST`, `.ReST`, or `.reST`) is a file format for textual data used primarily in the Python programming language community for technical documentation and is similar to the Markdown format.
 
 It is part of the [`Docutils`](https://docutils.sourceforge.io/) project of the Python Doc-SIG (Documentation Special Interest Group), aimed at creating a set of tools for Python similar to `Javadoc` for Java or `Plain Old Documentation` (pod) for Perl or [`vignette`](https://r-pkgs.org/vignettes.html) for R.
 
@@ -202,14 +198,14 @@ Subsection Header
 
 #### Named links and anonymous links
 
-A sentence with links to \`Wikipedia\`_ and the \`Linux kernel archive\`_.
+A sentence with links to Wikipedia and the Linux kernel archive.
 
 ```rst
-.. _Wikipedia: https://www.wikipedia.org/
-.. _Linux kernel archive: https://www.kernel.org/
+.. Wikipedia: https://www.wikipedia.org/
+.. Linux kernel archive: https://www.kernel.org/
 ```
 
-Another sentence with an \`anonymous link to the Python website\`__.
+Another sentence with an anonymous link to the Python website.
 
 ```rst
 __ https://www.python.org/
@@ -241,23 +237,23 @@ Some more literal text:
 ```
 
 ## Sphinx: a documentation generator
+Sphinx is an extension of [reStructuredText](https://docutils.sourceforge.io/rst.html).
 
-*References*: This page is mainly inspired by the Sphinx documentation <http://www.sphinx-doc.org/en/stable/>.
+The documentation of a `python` package is usually located in a `docs` or `doc` folder located at the root of a project.
+For instance, in the `biketrauma` module we have considered in the courses [Creating a `python` module](../Python-modules/tp.qmd), the structure could be as follows:
 
-The documentation is usually located in a `docs` or `doc` folder located at the root of a project.
-For instance, in the `biketrauma` module we have:
-
-```bash
+```default
 packaging_tutorial/
-    biketrauma/
-        __init__.py
-        data/
-        vis/
-        io
-        tests/
-    doc/
-    setup.py
-    .gitignore
+    ├── biketrauma/
+    │     ├── __init__.py
+    │     ├── io/
+    │     ├── preprocess/
+    │     └── vis/
+    │     └── data/
+    ├── doc/
+    ├── setup.py
+    ├── script.py
+    └── .gitignore
 ```
 
 In the Sphinx terminology, this `doc` folder is called the [source directory](http://www.sphinx-doc.org/en/stable/glossary.html#term-source-directory). It contains:
@@ -331,7 +327,7 @@ The documents to include are given as document names, which in short means that 
 
 During the configuration of Sphinx, a text file called `MakeFile` was created: In software development, `Make` is a build automation tool that automatically builds executable programs and libraries from source code by reading files called `Makefiles` which specify how to derive the target program.
 
-References:
+*References:*
 
 - [Wikipedia on Make Software](https://en.wikipedia.org/wiki/Make_(software))
 
@@ -353,7 +349,7 @@ There is also a [sphinx-build](http://www.sphinx-doc.org/en/stable/man/sphinx-bu
 ##  EXERCISE: Makefiles
 
 1. List all the `target` defined in the `Makefiles`
-2. Build your doc and visualize it with a navigator
+2. Build your doc and visualize it with a web navigator
 :::
 
 ## API doc (autodoc)
@@ -377,7 +373,7 @@ You can also document whole classes or even modules automatically, using member 
    :members:
 ```
 
-`autodoc` needs to import your modules in order to extract the docstrings. Therefore, you must add the appropriate path to `sys.path` in your `conf.py`.
+`autodoc` needs to import your modules to extract the docstrings. Therefore, you must add the appropriate path to `sys.path` in your `conf.py`.
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -398,7 +394,7 @@ Sphinx-Gallery is an extension able to create galleries of examples in the `html
 Configuration and customization of sphinx-gallery are done primarily with a dictionary specified in your `conf.py` file.
 A typical sample is:
 
-```bash
+```python
 from sphinx_gallery.sorting import FileNameSortKey
 sphinx_gallery_conf = {
      # path to your examples scripts
@@ -415,9 +411,9 @@ A list of the possible keys can be found on [Sphinx Galleries](https://sphinx-ga
 
 :::{.callout-important appearance='default' icon="false"}
 
-##  EXERCISE: Spinx gallery
+##  EXERCISE: Sphinx gallery
 
-1. Install the sphinx-gallery extension with pip.
+1. Install the `sphinx-gallery` extension with pip.
 2. Update the `conf.py` of the `biketrauma` package with the dictionary containing the configuration of the sphinx-gallery.
 :::
 
@@ -427,20 +423,20 @@ Sphinx-Gallery parses the folder listed in the key `examples_dirs`. It expects e
 
 1. A docstring, written in rST, that defines the header for the example. It must begin by defining a `.rST` title. The title may contain any punctuation mark but cannot start with the same punctuation mark repeated more than 3 times. For example:
 
-```rst
-    """
-    "This" is my example-script
-    ===========================
+   ```rst
+      """
+      "This" is my example-script
+      ===========================
 
-    This example doesn't do much, it just makes a simple plot
-    """
-```
+      This example doesn't do much, it just makes a simple plot
+      """
+   ```
 
-2. Python code.
-This can be any valid Python code that you wish.
+2. `python` code.
+This can be any valid `python` code that you wish.
 Any `matplotlib` images that are generated will be saved to disk, and the '.rST' generated will display these images with the built examples.
 By default, only images generated by `matplotlib`, or packages based on `matplotlib` (*e.g.,* `seaborn` or `yellowbrick`) are saved and displayed.
-However, you can change this to include other packages, see for instance Image scrapers (XXX TODO: add details on Image scrapers).
+However, you can change this to include other packages, see for instance [Image scrapers](https://sphinx-gallery.github.io/stable/advanced.html#write-a-custom-image-scraper).
 
 
 **Warning:** With default options, Sphinx-Gallery only executes the script files with a filename starting with `plot_`.
