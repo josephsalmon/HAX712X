@@ -413,47 +413,12 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 
 ::: {.callout-important appearance='default' icon="false"}
-##  EXERCISE: plot DOMs and metropolitan France.
-·
+##  EXERCISE: plot DOMs and metropolitan France (hard?)
+
 Plot DOMs with metropolitan France, so that all departements are visible on the same figure (for instance using this [geoson](https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-avec-outre-mer.geojson) file, and making all departements fitting a small figure).
 :::
 
-**References**:
+## References
 
 - Other interactive tools for data visualization: Altair, Bokeh. See comparisons by Aarron Geller: [link](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/)
-
 - An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
-
-- [Introduction on geopandas](https://geopandas.org/en/stable/getting_started/introduction.html)
-
-- [Notebook on French departememen/womennts issues](https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit)
-
-- [Choropleth Maps in practice with Plotly and Python](https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19) by Thibaud Lamothe
-- [European data on France geography](https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr)
-
-<!--
-fr_chart = pygal.maps.fr.Departments(human_readable=True)
-display = "ratio_accident"
-
-
-if display == "ratio_accident":
-    fr_chart.title = 'Accidents by departement'
-    gd = df_bikes.groupby(['departement']).size()
-    gd = (gd / df_dtp_pop['Population'])  # mean accident per habitant
-else:
-    fr_chart.title = 'Deaths by departement'
-    df_deads = df_bikes[df_bikes['gravite accident']=='3 - Tué']
-    df_gravite = df_deads.groupby('departement').size()
-    # gd = df_bikes.groupby(['departement']).aggregate(lambda: x->sum(x))
-    gd = (df_gravite / df_dtp_pop['Population'])  # mean deaths per habitant
-
-# Area normalization
-normalization = True
-if normalization == True:
-    gd = (gd / df_dtp_area['SUPERFICIE (km²)'])
-gd.dropna(inplace=True)   # anoying NA due to 1 vs 01 in datasets
-fr_chart.add('Accidents', gd.to_dict())
-# fr_chart.render()
-# fr_chart.render_to_file('./chatr.svg')  # Write the chart in a specified file
-```
---->
