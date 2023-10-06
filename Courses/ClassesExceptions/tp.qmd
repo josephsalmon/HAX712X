@@ -75,7 +75,7 @@ Now, you can access the attributes of the object `p1`:
 
 ```{python}
 print(p1.x, p1.y)
-print("{0}".format(p1))  # call __str__
+print(f"{p1}")  # call __str__
 print(p1)
 print(p1.__doc__)
 ```
@@ -142,6 +142,8 @@ isinstance(sum_as_a_function, Point)
 Another example of a callable is given below with a simple `Counter` class:
 ```{python}
 class Counter:
+    """A simple counter class."""
+
     def __init__(self):
         self.count = 0
 
@@ -180,11 +182,12 @@ This example and more details on callable are described in detail in this
 Implement a class `Gaussian` with attributes `mean` and `std` with a method
 
 - `__str__` returning a string with the expression of the density
-- `__eq__`  testing the equality of two instances. You should use numpy.isclose()
-- `__add__` implementing the addition of independent Gaussian, or more precisely their pdfs (probability density functions)
-- `__radd__` implementing the addition of independent Gaussian, or more precisely their pdfs (probability density functions)
+- `__eq__`  testing the equality of two instances. You should use `numpy.isclose()`
+- `__add__` implementing the (left) addition of independent Gaussian, or more precisely their pdfs (probability density functions)
+- `__radd__` implementing the (right) addition of independent Gaussian, or more precisely their pdfs (probability density functions)
 
-Note: when executing `a+b` what really happens is that the __add__ method of the `a`: object is called `a.__add__(b)`.
+[Note]{.underline}: when executing `a+b` what really happens is that the __add__ method of the `a`: object is called `a.__add__(b)`.
+See [stackoverflow](https://stackoverflow.com/questions/51036121/define-sum-for-a-class-using-non-associative-addition) for more details on the `__add__` and `__radd__` methods.
 
 
 ```{python}
@@ -199,18 +202,22 @@ class Gaussian:
         return f"pdf: exp(-(x - {self.mean:1.3f})^2 / ({self.std:1.3f}*2^2)) / sqrt(2 * pi * {self.std:1.3f}^2)"
 
     def __add__(self, other):
+        """__add__ stand for addition."""
         new_mean = self.mean + other.mean
-        new_std = (self.std ** 2 + other.std ** 2) ** 0.5
+        new_std = (self.std**2 + other.std**2) ** 0.5
         return Gaussian(new_mean, new_std)
 
     def __radd__(self, other):
+        """__radd__ stand for right addition."""
         if other == 0:
             return self
         else:
             return self.__add__(other)
 
     def __eq__(self, other):
-        return np.isclose(self.mean, other.mean) and np.isclose(self.std, other.std)
+        return np.isclose(self.mean, other.mean) and np.isclose(
+            self.std, other.std
+        )
 ```
 ```{python}
 g1 = Gaussian(0.0, 1.0)
@@ -242,6 +249,7 @@ class IsoGaussian(Gaussian):
     def __init__(self, mean):
         super().__init__(mean, 1.0)
 
+
 gg1 = IsoGaussian(3)
 print(gg1)
 print(issubclass(IsoGaussian, Gaussian))
@@ -254,7 +262,6 @@ For more information on `super`, see for instance this [Real Python Tutorials](h
 :::
 
 
-
 ::: {.callout-important appearance='default' icon="false"}
 
 ##  EXERCISE: inheritance
@@ -265,7 +272,8 @@ In particular, not that inheritance could be **multiple**, *i.e..* a class can i
 [Hint]{.underline}: use the `__bases__` attribute of the class.
 ```{python}
 from sklearn.linear_model import LogisticRegression
-a=LogisticRegression()
+
+a = LogisticRegression()
 print(a.__class__.__bases__)
 ```
 :::
@@ -285,7 +293,6 @@ This section is inspired by [Fabien Maussion's lecture on Scientific Programming
 
 ```python
 def my_function(arguments):
-
     if not verify(arguments):
         raise Exception("Invalid arguments")
 
@@ -323,7 +330,7 @@ Let us consider the following example to understand the syntax better:
 try:
     print("test_var testing:")
     e = 4
-    print(test_var) # raise an error: the test_var variable is not defined
+    print(test_var)  # raise an error: the test_var variable is not defined
 except NameError:
     print("Caught an exception: test_var does not exist")
 finally:
@@ -359,7 +366,6 @@ try:
 except Exception as e:
     print(e)
 ```
-
 
 An exhaustive list of exceptions be found here: <https://docs.python.org/3/library/exceptions.html>.
 
@@ -425,6 +431,7 @@ print(e)
 def f():
     e = 2
 
+
 print(e)
 ```
 
@@ -467,6 +474,7 @@ file.close()
 
 ```{python}
 from mpmath import mp
+
 n_tot = 10
 mp.dps = n_tot  # set number of digits
 print(mp.pi)
