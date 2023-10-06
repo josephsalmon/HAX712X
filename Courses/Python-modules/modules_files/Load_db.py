@@ -21,7 +21,6 @@ class Load_db:
         pooch.retrieve(url, path=path, fname=fname_compressed, known_hash=None)
         self.fname = self.unxz(path_target)
 
-
     def unxz(self, fname_compressed):
         fname_uncompressed = fname_compressed[:-3]
 
@@ -31,14 +30,13 @@ class Load_db:
 
         # read the compressed file
         with lzma.open(fname_compressed) as f:
-            file_content = f.read().decode('utf-8')
+            file_content = f.read().decode("utf-8")
 
             # write the string file_content to a file named fname_uncompressed
-            with open(fname_uncompressed, 'w') as f:
+            with open(fname_uncompressed, "w") as f:
                 f.write(file_content)
 
         return fname_uncompressed
-
 
     def save_as_df(self):
         df_bikes = pd.read_csv(

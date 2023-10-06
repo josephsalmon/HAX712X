@@ -247,6 +247,10 @@ $ pip install -e /path/to/my/local/module
 
 ## Creating a `python` module
 
+We are going to create a simple package. The structure is always similar, and an example can be found for instance [here](https://github.com/Kozea/pygal_maps_fr).
+
+
+
 *Reference:* [How To Package Your Python Code](https://python-packaging.readthedocs.io/en/latest/)
 
 ### Picking a name
@@ -264,13 +268,13 @@ We are going to create a module called `biketrauma` to visualize the `bicycle_db
 
 The initial directory structure for `biketrauma` should look like this:
 
-```bash
+```default
 packaging_tutorial/
-    biketrauma/
-        __init__.py
-        data/
-    setup.py
-    .gitignore
+    ├── biketrauma/
+    │     ├── __init__.py
+    │     └── data/
+    ├── setup.py
+    └── .gitignore
 ```
 
 The top-level directory is the root of our Version Control System (e.g. git) repository `packaging_tutorial`. The sub-directory, `biketrauma`, is the actual `python` module.
@@ -298,23 +302,24 @@ The top-level directory is the root of our Version Control System (e.g. git) rep
 
 The final directory structure of our module will look like:
 
-```bash
-  packaging_tutorial/
-      biketrauma/
-          __init__.py
-          io/
-            __init__.py
-            Load_db.py
-          preprocess/
-            __init__.py
-            get_accident.py
-          vis/
-            __init__.py
-            plot_location.py
-          data/
-            .gitkeep
-      setup.py
-      script.py
+```default
+packaging_tutorial/
+    ├── biketrauma/
+    │     ├── __init__.py
+    │     ├── io/
+    │     │     ├─ __init__.py
+    │     │     └─ Load_db.py
+    │     ├── preprocess/
+    │     │     ├─ __init__.py
+    │     │     └─ get_accident.py
+    │     └── vis/
+    │     │     ├─ __init__.py
+    │     │     └─ plot_location.py
+    │     └── data/
+    │     │     └─ .gitkeep
+    ├── setup.py
+    ├── script.py
+    └── .gitignore
 ```
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -323,10 +328,10 @@ The final directory structure of our module will look like:
 See the git repo of the course: the subfolder [`Courses/Python-modules/modules_files`](https://github.com/josephsalmon/HAX712X/tree/main/Courses/Python-modules/modules_files): contains some files you should include into your package tree:
 
   1. Copy the `script.py` into the project root folder.
-  2. Add some sub-folders to `biketrauma` directory called `io` (for input/output), `preprocess`, `vis` (for visualization). Add an empty `__init__.py` file into the module and sub-module folders. 
+  2. Add some sub-folders to `biketrauma` directory called `io` (for input/output), `preprocess`, `vis` (for visualization). Add an empty `__init__.py` file into the module and sub-module folders.
   3. Populate the `preprocess` sub-module with the `get_accident.py` file.
   4. Populate the `vis` sub-module with the `plot_location.py` file.
-  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike dataset). At the loading step of the `io` sub-module, it should create the following variables (*Hint: this is done in the `__init__.py` file*)
+  5. Populate the `io` sub-module with the file `Load_db.py` (it downloads the bike dataset). At the loading step of the `io` sub-module, it should create the following variables ([Hint]{.underline}: this is done in the `__init__.py` file)
 
       ```python
       url_db = "https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"
@@ -351,11 +356,11 @@ from .vis.plot_location import plot_location
 from .preprocess.get_accident import get_accident
 ```
 ::: {.callout-important appearance='default' icon="false"}
-## EXERCISE: 
+## EXERCISE:
 
-1. Be sure to have the following packages installed (*Hint: this list could be saved in a `requirements.txt` file in the project root folder.*):
+1. Be sure to have the following packages installed ([Hint]{.underline}: this list could be saved in a `requirements.txt` file in the project root folder.):
 
-    ```bash
+    ```default
     tqdm
     pygal_maps_fr
     pooch
@@ -412,7 +417,7 @@ This will create `dist/biketrauma-0.0.1.tar.gz` inside the top-level directory. 
 $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 ```
 
-*References:*:
+*References:*
 
 - [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
 - [Packaging Python Projects](https://packaging.python.org/tutorials/packaging-projects/)
