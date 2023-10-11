@@ -217,7 +217,7 @@ PyPI primarily hosts `python` packages in the form of archives called `sdists` (
 ### Pip
 
 `pip` is a *de facto* standard package-management system used to install and manage software packages from PyPi.
-```bash
+```default
 $ pip install some-package-name
 $ pip uninstall some-package-name
 $ pip search some-package-name
@@ -232,7 +232,7 @@ $ pip search some-package-name
 
 It is possible to install a **local** module with pip
 
-```bash
+```default
 $ pip install /path/to/my/local/module
 ```
 
@@ -241,7 +241,7 @@ But if some changes occur in the `/path/to/my/local/module` folder, the module w
 This might be annoying during the development stage.
 To force `python` to reload the module at each change call, consider the `-e` option:
 
-```bash
+```default
 $ pip install -e /path/to/my/local/module
 ```
 
@@ -373,7 +373,7 @@ from .preprocess.get_accident import get_accident
 
 2. Check that your module does work by launching the script.
 
-    ```bash
+    ```default
     $ cd ~/packaging_tutorial
     $ python script.py
     ```
@@ -411,14 +411,14 @@ setup(
 
 To create a `sdist` package (a source distribution):
 
-```bash
+```default
 $ cd ~/packaging_tutorial/
 $ python setup.py sdist
 ```
 
 This will create `dist/biketrauma-0.0.1.tar.gz` inside the top-level directory. You can now install it with
 
-```bash
+```default
 $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 ```
 
@@ -431,7 +431,7 @@ $ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz
 
 To get a list of the installed packages in your current Venv, you can use the following command:
 
-```bash
+```default
 $ pip freeze > requirements.txt
 ```
 Unfortunately, it may generate a huge collection of package dependencies. To get a sparser list, you can use `pipreqs`.
@@ -457,13 +457,13 @@ Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrau
 
 1. Create some distributions in the normal way:
 
-    ```bash
+    ```default
     $ python setup.py sdist bdist_wheel
     ```
 
 2. Upload with twine to Test PyPI and verify things look right. Twine will automatically prompt for your username and password:
 
-    ```bash
+    ```default
     $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
     username: ...
     password: ...
@@ -471,7 +471,7 @@ Create a minimal `requirements.txt` file with `pipreqs`. Add it to the `biketrau
 
 3. Upload to PyPI:
 
-    ```bash
+    ```default
     $ twine upload dist/*
     ```
 :::
