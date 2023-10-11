@@ -362,6 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
   </ul></li>
   <li><a href="#code-coverage" id="toc-code-coverage" class="nav-link" data-scroll-target="#code-coverage">Code coverage</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/josephsalmon/HAX712X/blob/main/Courses/Test/tp.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/josephsalmon/HAX712X/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -404,9 +405,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="types-of-tests">Types of tests</h3>
 <p>There are different kinds of tests:</p>
 <ol type="1">
-<li>Unit tests: They test whether a function does the right thing.</li>
-<li>Integration tests: They test whether the system/process does the right thing.</li>
-<li>Non-regression tests: They test whether a bug got removed (and will not be reintroduced).</li>
+<li><strong>Unit tests</strong>: test whether a simple unit element (function, class, etc.) does the right thing.</li>
+<li><strong>Integration tests</strong>: test whether the different parts used by your software work well together.</li>
+<li><strong>Non-regression tests</strong>: test whether a new or modified functionality works correctly and that previous functionalities were not affected (e.g., removing a bug does not alter the rest of the code).</li>
 </ol>
 </section>
 <section id="how-to-test" class="level3">
@@ -428,13 +429,14 @@ EXERCISE: pytest
 </ol>
 </div>
 </div>
-<p>Get the path to <code>pytest</code> binary</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> pytest</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pytest.__path__</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">/</span>path<span class="op">/</span>to<span class="op">/</span>pytest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>then, in a terminal</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> export PATH=<span class="va">$PATH</span>:/path/to/pytest</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pytest <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Get the path to <code>pytest</code> binary as follows with <code>python</code>:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pytest.__path__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This outputs a directory containing the <code>pytest</code> binary, say <code>/path/to/pytest</code>. Then, to add the path containing <code>pytest</code> in your (Linux) system, you have to type the following command in your terminal:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>$ export PATH=$PATH:/path/to/pytest</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$ pytest --help</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="example" class="level3">
 <h3 class="anchored" data-anchor-id="example">Example</h3>
@@ -455,7 +457,7 @@ EXERCISE: pytest
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_inc2():</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc2(<span class="op">-</span><span class="dv">1</span>) <span class="op">==</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To run these tests:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pytest test_inc.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>$ pytest test_inc.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -480,7 +482,7 @@ EXERCISE: documentation
 <p><code>pytest</code> comes with some useful <a href="https://docs.pytest.org/en/latest/plugins.html">plugins</a>. In particular, we will use the coverage report plugin.</p>
 <p>A <strong>test coverage</strong> is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs. A program with high test coverage, measured as a percentage, has had more of its source code executed during testing: this suggests it has a lower chance of containing undetected software bugs compared to a program with low test coverage.</p>
 <p>To install the coverage plugin simply run</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install pytest-cov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$ pip install pytest-cov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Assuming the <code>inc_cov.py</code> contains:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
@@ -495,40 +497,35 @@ EXERCISE: documentation
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_inc():</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>then</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> test_inc_cov.py <span class="at">--cov</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">=============================</span> test session starts ==============================</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">platform</span> linux <span class="at">--</span> Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rootdir:</span> /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plugins:</span> tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">collected</span> 0 items</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pytest test_inc_cov.py --cov</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>============================= test session starts ==============================</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>platform linux -- Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plugins: tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>collected 0 items</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-----------</span> coverage: platform linux, python 3.8.5-final-0 <span class="at">-----------</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Name</span>         Stmts   Miss  Cover</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ex">--------------------------------</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ex">inc_cov.py</span>       6      4    33%</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ex">--------------------------------</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="ex">TOTAL</span>            6      4    33%</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>----------- coverage: platform linux, python 3.8.5-final-0 -----------</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>Name         Stmts   Miss  Cover</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>--------------------------------</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>inc_cov.py       6      4    33%</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>--------------------------------</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>TOTAL            6      4    33%</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="ex">============================</span> no tests ran in 0.02s =============================</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>============================ no tests ran in 0.02s =============================</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Two lines in <code>inc_cov</code> module were not used. See</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> <span class="at">--cov</span> <span class="at">--cov-report</span><span class="op">=</span>html test_inc_cov.py</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pytest --cov --cov-report=html test_inc_cov.py</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">=============================</span> test session starts ==============================</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">platform</span> linux <span class="at">--</span> Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rootdir:</span> /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">plugins:</span> tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">collected</span> 0 items</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>============================= test session starts ==============================</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>platform linux -- Python 3.8.5, pytest-6.2.5, py-1.9.0, pluggy-0.13.1</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plugins: tornasync-0.6.0.post2, cov-3.0.0, jupyter-server-1.0.9</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>collected 0 items</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-----------</span> coverage: platform linux, python 3.8.5-final-0 <span class="at">-----------</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Coverage</span> HTML written to dir htmlcov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>----------- coverage: platform linux, python 3.8.5-final-0 -----------</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>Coverage HTML written to dir htmlcov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>for details.</p>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://pytest-cov.readthedocs.io/en/latest/">The pytest documentation</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Code_coverage">Wikipedia: Code coverage</a></li>
-</ul>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -557,20 +554,44 @@ EXERCISE:
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> chunk <span class="kw">in</span> <span class="bu">iter</span>(<span class="kw">lambda</span>: f.read(<span class="dv">4096</span>), <span class="st">b""</span>):</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            hash_md5.update(chunk)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hash_md5.hexdigest()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You should achieve a 92% of code coverage:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-----------</span> coverage: platform linux, python 3.7.6-final-0 <span class="at">-----------</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Name</span>                                    Stmts   Miss  Cover</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">-----------------------------------------------------------</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/__init__.py</span>                      4      0   100%</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/io/Load_db.py</span>                    9      0   100%</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/io/__init__.py</span>                   3      0   100%</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/preprocess/__init__.py</span>           0      0   100%</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/preprocess/get_accident.py</span>       9      0   100%</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/tests/test_biketrauma.py</span>        21      0   100%</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/vis/__init__.py</span>                  0      0   100%</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">biketrauma/vis/plot_location.py</span>             6      4    33%</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">-----------------------------------------------------------</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">TOTAL</span>                                      52      4    92%</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>By running the following line in the <code>biketrauma/biketrauma</code> location:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pytest --cov-report=html --cov=biketrauma tests/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- You should achieve a 92% of code coverage: -->
+<p>you should reach 79% of code coverage, and the report should look like this (see the <code>htmlcov/index.html</code> file for details and interactive report):</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>---------- coverage: platform linux, python 3.10.10-final-0 ----------</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Name                                                                                                                                    Stmts   Miss  Cover</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>biketrauma/__init__.py                      4      0   100%</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>biketrauma/io/Load_db.py                   22      5    77%</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>biketrauma/io/__init__.py                   3      0   100%</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>biketrauma/preprocess/__init__.py           0      0   100%</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>biketrauma/preprocess/get_accident.py       7      0   100%</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>biketrauma/vis/__init__.py                  0      0   100%</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>biketrauma/vis/plot_location.py             6      4    33%</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>TOTAL                                                                                                                                      42      9    79%</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- ```default
+----------- coverage: platform linux, python 3.7.6-final-0 -----------
+Name                                    Stmts   Miss  Cover
+-----------------------------------------------------------
+biketrauma/__init__.py                      4      0   100%
+biketrauma/io/Load_db.py                    9      0   100%
+biketrauma/io/__init__.py                   3      0   100%
+biketrauma/preprocess/__init__.py           0      0   100%
+biketrauma/preprocess/get_accident.py       9      0   100%
+biketrauma/tests/test_biketrauma.py        21      0   100%
+biketrauma/vis/__init__.py                  0      0   100%
+biketrauma/vis/plot_location.py             6      4    33%
+-----------------------------------------------------------
+TOTAL                                      52      4    92%
+``` -->
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://pytest-cov.readthedocs.io/en/latest/">The pytest documentation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Code_coverage">Wikipedia: Code coverage</a></li>
+</ul>
 
 
 </section>

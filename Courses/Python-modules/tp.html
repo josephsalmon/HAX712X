@@ -1121,7 +1121,7 @@ hex(id(numpy.__dir__))
 
 ::: {.cell-output .cell-output-display execution_count=10}
 ```
-'0x7f11241e9a20'
+'0x7f1df82b9d80'
 ```
 :::
 :::
@@ -1179,7 +1179,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f112d62a320&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f1e13ffa5f0&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
 </div>
 </div>
 <p>should return more information and where the loader is.</p>
@@ -1237,9 +1237,9 @@ EXERCISE: pypi
 <section id="pip" class="level3">
 <h3 class="anchored" data-anchor-id="pip">Pip</h3>
 <p><code>pip</code> is a <em>de facto</em> standard package-management system used to install and manage software packages from PyPi.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install some-package-name</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip uninstall some-package-name</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip search some-package-name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>$ pip install some-package-name</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>$ pip uninstall some-package-name</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>$ pip search some-package-name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1257,9 +1257,9 @@ EXERCISE:
 </div>
 </div>
 <p>It is possible to install a <strong>local</strong> module with pip</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>$ pip install /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where <code>/path/to/my/local/module</code> is the path to the module. But if some changes occur in the <code>/path/to/my/local/module</code> folder, the module will not be reloaded. This might be annoying during the development stage. To force <code>python</code> to reload the module at each change call, consider the <code>-e</code> option:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install <span class="at">-e</span> /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>$ pip install -e /path/to/my/local/module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="creating-a-python-module" class="level2">
@@ -1384,9 +1384,13 @@ EXERCISE:
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>setuptools</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>lxml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Check that your module does work by launching the script.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python script.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It should open a navigator and display a map: <img src="biketrauma_map.png" class="img-fluid" alt="Biketrauma map"></p></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>$ cd ~/packaging_tutorial</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>$ python script.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can then open the file created file <code>biketrauma_map.svg</code> in a navigator:</p>
+<center>
+ <iframe width="100%" height="500" src="biketrauma_map.svg"></iframe>
+</center>
+<p><!-- ![Biketrauma map](biketrauma_map.svg) --></p></li>
 <li><p>Commit and push your changes.</p></li>
 </ol>
 </div>
@@ -1410,10 +1414,10 @@ EXERCISE:
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  zip_safe<span class="op">=</span><span class="va">False</span></span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To create a <code>sdist</code> package (a source distribution):</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/packaging_tutorial/</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>$ cd ~/packaging_tutorial/</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>$ python setup.py sdist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will create <code>dist/biketrauma-0.0.1.tar.gz</code> inside the top-level directory. You can now install it with</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>$ pip install ~/packaging_tutorial/dist/biketrauma-0.0.1.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>References:</em></p>
 <ul>
 <li><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">Building and Distributing Packages with Setuptools</a></li>
@@ -1423,7 +1427,7 @@ EXERCISE:
 <section id="add-requirement-file" class="level3">
 <h3 class="anchored" data-anchor-id="add-requirement-file">Add requirement file</h3>
 <p>To get a list of the installed packages in your current Venv, you can use the following command:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip freeze <span class="op">&gt;</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>$ pip freeze &gt; requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Unfortunately, it may generate a huge collection of package dependencies. To get a sparser list, you can use <code>pipreqs</code>.</p>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1456,13 +1460,13 @@ EXERCISE:
 <li><p>Create an account on the PyPI test repository.</p>
 <p>This is quite easy to upload a <code>python</code> module on PyPI:</p></li>
 <li><p>Create some distributions in the normal way:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python setup.py sdist bdist_wheel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>$ python setup.py sdist bdist_wheel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Upload with twine to Test PyPI and verify things look right. Twine will automatically prompt for your username and password:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload <span class="at">--repository-url</span> https://test.pypi.org/legacy/ dist/<span class="pp">*</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">username:</span> ...</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">password:</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb42"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>username: ...</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>password: ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Upload to PyPI:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> twine upload dist/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>$ twine upload dist/*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
 </div>
 </div>
