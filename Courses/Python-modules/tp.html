@@ -460,12 +460,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Depending on your installation you might obtain <code>['/usr/lib/python3.9/site-packages/numpy']</code> or <code>['/home/username/anaconda3/lib/python3.7/site-packages/numpy']</code> if you installed with Anaconda.</p>
-<p>More precisely <strong>this</strong> file</p>
+<p>More precisely you will get either</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">'/usr/lib/python3.9/site-packages/numpy/__init__.py'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.<span class="va">__file__</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'/home/username/anaconda3/lib/python3.7/site-packages/numpy/__init__.py'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">'/home/username/anaconda3/lib/python3.7/site-packages/numpy/__init__.py'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Any (sub-)directory of your <code>python</code> module should contain an <code>__init__.py</code> file!</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1121,7 +1121,7 @@ hex(id(numpy.__dir__))
 
 ::: {.cell-output .cell-output-display execution_count=10}
 ```
-'0x7f1df82b9d80'
+'0x7f06280edd80'
 ```
 :::
 :::
@@ -1179,7 +1179,7 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>numpy_spec <span class="op">=</span> importlib.util.find_spec(<span class="st">"numpy"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numpy_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f1e13ffa5f0&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
+<pre><code>ModuleSpec(name='numpy', loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f06312365f0&gt;, origin='/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy/__init__.py', submodule_search_locations=['/home/jsalmon/anaconda3/envs/peerannot/lib/python3.10/site-packages/numpy'])</code></pre>
 </div>
 </div>
 <p>should return more information and where the loader is.</p>
@@ -1193,9 +1193,8 @@ This is an integer (or long integer) that is guaranteed to be unique and constan
 <h3 class="anchored" data-anchor-id="lazy-import">Lazy import</h3>
 <p>A module can contain executable statements as well as function definitions. These statements are intended to initialize the module. They are executed only the <strong>first time</strong> the module name is encountered in an <code>import</code> statement.</p>
 <p>To force a module to be reloaded, you can use <code>importlib.reload()</code>.</p>
-<p><em>Reference:</em> <a href="https://docs.python.org/3/library/importlib.html#importlib.reload">Python doc on reload</a></p>
-<p>Remark: when using <code>ipython</code> (interactive <code>python</code>, an ancestor of the <code>jupyter notebook</code>), one can use the “magic” command <code>%autoreload 2</code></p>
-<p><em>Reference:</em> <a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload">IPython autoreload</a></p>
+<p><strong>Remark</strong>: when using <code>ipython</code> (interactive <code>python</code>, an ancestor of the <code>jupyter notebook</code>), one can use the “magic” command <code>%autoreload 2</code></p>
+<p><em>References:</em> - <a href="https://docs.python.org/3/library/importlib.html#importlib.reload">Python doc on reload</a> - <a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html?highlight=autoreload">IPython autoreload</a></p>
 </section>
 <section id="compiled-python-files" class="level3">
 <h3 class="anchored" data-anchor-id="compiled-python-files">“Compiled” <code>python</code> files</h3>
@@ -1270,11 +1269,11 @@ EXERCISE:
 <h3 class="anchored" data-anchor-id="picking-a-name">Picking a name</h3>
 <p><code>python</code> module/package names should generally follow the following constraints:</p>
 <ul>
-<li>All lowercase</li>
+<li>All lowercase (🇫🇷: <em>en minuscule</em>)</li>
 <li>Unique on PyPI, even if you do not want to make your package publicly available (you might want to specify it privately as a dependency later)</li>
-<li>Underscore-separated or no word separators at all, and do not use hyphens (i.e., use <code>_</code> not <code>-</code>).</li>
+<li>Underscore-separated or no word separators at all, and do not use hyphens (<em>i.e.</em>, use <code>_</code> not <code>-</code>).</li>
 </ul>
-<p>We are going to create a module called <code>biketrauma</code> to visualize the <code>bicycle_db</code> (source <a href="https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw">here</a>) used in the some of these lectures.</p>
+<p>We are going to create a module called <code>biketrauma</code> to visualize the <code>bicycle_db</code> (Source: <a href="https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz">here</a>, adapted for the original version from <a href="https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw">there</a>) used in the some of these lectures.</p>
 </section>
 <section id="module-structure" class="level3">
 <h3 class="anchored" data-anchor-id="module-structure">Module structure</h3>
