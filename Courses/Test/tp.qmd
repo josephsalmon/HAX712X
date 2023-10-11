@@ -25,9 +25,9 @@ It will help you to ensure:
 
 There are different kinds of tests:
 
-1. Unit tests: They test whether a function does the right thing.
-2. Integration tests: They test whether the system/process does the right thing.
-3. Non-regression tests: They test whether a bug got removed (and will not be reintroduced).
+1. **Unit tests**: test whether a simple unit element (function, class, etc.) does the right thing.
+2. **Integration tests**: test whether the different parts used by your software work well together.
+3. **Non-regression tests**: test whether a new or modified functionality works correctly and that previous functionalities were not affected (e.g., removing a bug does not alter the rest of the code).
 
 ### How to test?
 
@@ -45,13 +45,16 @@ It outputs a nice error report.
 
 :::
 
-Get the path to `pytest` binary
-```python
->>> import pytest
->>> pytest.__path__
-/path/to/pytest
+Get the path to `pytest` binary as follows with `python`:
+```{python}
+#| echo: true
+#| eval: false
+import pytest
+pytest.__path__
 ```
-then, in a terminal
+This outputs a directory containing the `pytest` binary, say `/path/to/pytest`.
+Then, to add the path containing `pytest` in your (Linux) system, you have to type  the following command in your terminal:
+
 ```default
 $ export PATH=$PATH:/path/to/pytest
 $ pytest --help
@@ -193,10 +196,30 @@ def md5(fname):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
 ```
-
-You should achieve a 92% of code coverage:
+By running the following line in the `biketrauma/biketrauma` location:
+```default
+pytest --cov-report=html --cov=biketrauma tests/
+```
+<!-- You should achieve a 92% of code coverage: -->
+you should reach 79% of code coverage, and the report should look like this (see the `htmlcov/index.html` file for details and interactive report):
 
 ```default
+---------- coverage: platform linux, python 3.10.10-final-0 ----------
+Name                                                                                                                                    Stmts   Miss  Cover
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+biketrauma/__init__.py                      4      0   100%
+biketrauma/io/Load_db.py                   22      5    77%
+biketrauma/io/__init__.py                   3      0   100%
+biketrauma/preprocess/__init__.py           0      0   100%
+biketrauma/preprocess/get_accident.py       7      0   100%
+biketrauma/vis/__init__.py                  0      0   100%
+biketrauma/vis/plot_location.py             6      4    33%
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                      42      9    79%
+
+```
+
+<!-- ```default
 ----------- coverage: platform linux, python 3.7.6-final-0 -----------
 Name                                    Stmts   Miss  Cover
 -----------------------------------------------------------
@@ -210,7 +233,7 @@ biketrauma/vis/__init__.py                  0      0   100%
 biketrauma/vis/plot_location.py             6      4    33%
 -----------------------------------------------------------
 TOTAL                                      52      4    92%
-```
+``` -->
 
 ## References 
 
