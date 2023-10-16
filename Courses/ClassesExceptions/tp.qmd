@@ -202,13 +202,15 @@ class Gaussian:
         return f"pdf: exp(-(x - {self.mean:1.3f})^2 / ({self.std:1.3f}*2^2)) / sqrt(2 * pi * {self.std:1.3f}^2)"
 
     def __add__(self, other):
-        """__add__ stand for addition."""
+        """__add__: implements addition"""
         new_mean = self.mean + other.mean
         new_std = (self.std**2 + other.std**2) ** 0.5
         return Gaussian(new_mean, new_std)
 
     def __radd__(self, other):
-        """__radd__ stand for right addition."""
+        """__radd__: implements addition but is called only if your object is
+        the right-hand operand (e.g., as in 0 + g1 below)."""
+
         if other == 0:
             return self
         else:
@@ -234,6 +236,8 @@ print(sum([g1, g2, g3]))
 print(sum([g1, g2, g3]) == g4)
 ```
 :::
+
+An operator like  `+` may have a different meaning depending on the context (e.g., addition of numbers, concatenation of strings, etc.). This is called [operator overloading](https://en.wikipedia.org/wiki/Operator_overloading), or sometimes **ad hoc polymorphism**.
 
 ### Inheritance
 
