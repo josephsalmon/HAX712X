@@ -22,7 +22,7 @@ palette = sns.color_palette("twilight", n_colors=12)
 pd.options.display.max_rows = 8
 ```
 
-## Data preparation 
+## Data preparation
 
 
 ### Automatic data download
@@ -36,7 +36,7 @@ path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)  # if needed `pip install pooch`
 ```
 
-Reading the file as a `pandas` dataframe:
+Reading the file as a `pandas` dataframe with `read_csv`:
 
 ```{python}
 df_titanic_raw = pd.read_csv("titanic.csv")
@@ -57,8 +57,8 @@ df_titanic_raw.head(n=5)
 
 ### Missing values
 It is common to encounter features/covariates with missing values.
-In `pandas` they were mostly handled as `np.nan` (not a number).
-In the future, they will be treated as `NA` (Not Available), in a similar way as in R; see the [Pandas documentation on missing data](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html) for standard behavior and details.
+In `pandas` they were mostly handled as `np.nan` (not a number) in the past.
+With versions >=1.0 missing values are now treated as `NA` (Not Available), in a similar way as in R; see the [Pandas documentation on missing data](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html) for standard behavior and details.
 
 Note that the main difference between `pd.NA` and `np.nan` is that `pd.NA` propagates even for comparisons:
 
@@ -72,17 +72,17 @@ np.nan == 1
 
 Testing the presence of missing values
 ```{python}
-pd.isna(pd.NA)
-pd.isna(np.nan)
+print(pd.isna(pd.NA), pd.isna(np.nan))
 ```
 
-The simplest strategy (when you can / when you have enough samples) consists of removing all nans/NAs.
+The simplest strategy (when you can / when you have enough samples) consists of removing all nans/NAs, and can be performed with `dropna`:
 
 
 ```{python}
 df_titanic = df_titanic_raw.dropna()
 df_titanic.tail(3)
 ```
+You can see for instance the passenger with `PassengerId` 888 has been removed by the `dropna` call.
 
 ```{python}
 # Useful info on the dataset (especially missing values!)
@@ -90,9 +90,12 @@ df_titanic.info()
 ```
 
 ```{python}
-# Check that the `Cabin` information is mostly missing; the same hold for `Age`
+# Check that the `Cabin` information is mostly missing; the same holds for `Age`
 df_titanic_raw.info()
 ```
+
+
+Other strategies are possible to handle missing values but they are out of scope for this preliminary course on `pandas`, see the [documentation](https://pandas.pydata.org/docs/user_guide/missing_data.html) for more details.
 
 ## Data description
 
@@ -113,7 +116,7 @@ Details of the dataset are given [here](https://biostat.app.vumc.org/wiki/pub/Ma
 
 ::: {.callout-note}
 
-For those interested, an extended version of the dataset is available here <https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic.txt>.
+For those interested, an extended version of the dataset is available here <https://biostat.app.vumc.org/wiki/Main/DataSets>.
 :::
 
 Simple descriptive statistics can be obtained using the `describe` method:
@@ -123,11 +126,12 @@ df_titanic.describe()
 
 ### Visualization
 
-- Histograms (please avoid...often useless)
+- Histograms: usually has one parameter controlling the number of bins (please avoid... often useless, when many samples are available)
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
-fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+fig, ax = plt.subplots(1, 1, figsize=(5, 3))
 ax.hist(df_titanic['Age'], density=True, bins=25)
 plt.xlabel('Age')
 plt.ylabel('Proportion')
@@ -135,12 +139,13 @@ plt.title("Passager age histogram")
 plt.show()
 ```
 
-- Kernel Density Estimate (KDE):  :
-
+- Kernel Density Estimate (KDE): usually has one parameter (the bandwidth) controlling the smoothing level.
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
-fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+fig, ax = plt.subplots(1, 1, figsize=(5, 3))
 sns.kdeplot(
     df_titanic["Age"], ax=ax, fill=True, cut=0, bw_adjust=0.1
 )
@@ -159,8 +164,10 @@ The bandwidth parameter (here encoded as `bw_adjust`) controls the smoothing lev
 - Swarmplot:
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
-fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
 sns.swarmplot(
     data=df_titanic_raw,
     ax=ax,
@@ -352,15 +359,20 @@ interact(kde_explore, dataset=fixed(df_titanic), bw=(0.001, 2, 0.01))
 
 ## Data wrangling
 
-### `Groupby` function
-How does the survival rate change w.r.t. to sex?
+### `groupby` function
+
+Here is an example of the using the `groupby` function:
+```{python}
+df_titanic.groupby(['Sex'])[['Survived', 'Age', 'Fare', 'Pclass']].mean()
+```
+
+You can answer other similar questions, such as "how does the survival rate change w.r.t. to sex"?
 
 ```{python}
 df_titanic_raw.groupby('Sex')[['Survived']].aggregate(lambda x: x.mean())
 ```
 
 How does the survival rate change w.r.t. the class?
-
 
 ```{python}
 df_titanic.columns
@@ -369,14 +381,15 @@ df_titanic.columns
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
 
 df_titanic.groupby('Pclass')['Survived'].aggregate(lambda x:
                                                    x.mean()).plot(ax=ax,kind='bar')
-plt.xlabel('Classe')
-plt.ylabel('Taux de survie')
-plt.title('Taux de survie par classe')
+plt.xlabel('Classes')
+plt.ylabel('Survival rate')
+plt.title('Survival rate per classs')
 plt.show()
 ```
 
@@ -392,6 +405,7 @@ Perform a similar analysis with the median for the price per class in pounds.
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
 ax=sns.catplot(
     x="Pclass",
@@ -402,12 +416,14 @@ ax=sns.catplot(
     jitter = '0.2',
     s=8,
 )
+plt.title("Sex repartition per class on the Titanic")
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
 plt.show()
 ```
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
 ax=sns.catplot(
     x="Pclass",
@@ -419,12 +435,14 @@ ax=sns.catplot(
     kind='swarm',
     s=11,
 )
+plt.title("Sex repartition per class on the Titanic")
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
 plt.show()
 ```
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
 ax=sns.catplot(
     x="Sex",
@@ -437,13 +455,16 @@ ax=sns.catplot(
     kind='swarm',
     s=6,
     height=5,
-    aspect=0.35
+    aspect=0.49,
 )
+plt.suptitle("Sex repartition per class on Titanic")
+plt.tight_layout()
 plt.show()
 ```
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
 
 ax=sns.catplot(x='Pclass',
             y='Age',
@@ -453,24 +474,43 @@ ax=sns.catplot(x='Pclass',
             kind="violin",
             alpha=0.8,
 )
+plt.title("Sex repartition per class on the Titanic")
 sns.move_legend(ax, "upper left", bbox_to_anchor=(0.8, 0.8))
 plt.show()
 ```
 
-Beware: large difference in sex ratio by class
+[Beware]{.underline}: there is a large difference in sex ratio by class. You can use groups to get the counts illustrating this:
 
+#### Raw sex repartition per class:
 ```{python}
 df_titanic_raw.groupby(['Sex', 'Pclass'])[['Sex']].count()
+```
+
+#### Raw sex ratio:
+
+```{python}
+df_titanic.groupby(['Sex', 'Pclass'])[['Sex']].count()
+```
+
+#### Sex repartition per class (without missing values):
+
+```{python}
 df_titanic_raw.groupby(['Sex'])[['Sex']].count()
 ```
 
-
-Consider checking the raw data, as often boxplots or simple statistics are not enough to understand the diversity inside the data; see for instance the discussion by Carl Bergstrom on [Mastodon](https://fediscience.org/@ct_bergstrom/110267907188002904).
-
+#### Raw sex ratio (without missing values):
 
 ```{python}
+df_titanic.groupby(['Sex'])[['Sex']].count()
+```
 
-References:
+::: {.callout-note}
+
+Consider checking the raw data, as often boxplots or simple statistics are not enough to understand the diversity inside the data; see for instance the discussion by Carl Bergstrom on [Mastodon](https://fediscience.org/@ct_bergstrom/110267907188002904).
+:::
+
+
+*References*:
 
 - [Practical Business Python](https://pbpython.com/groupby-agg.html), Comprehensive Guide to Grouping and Aggregating with Pandas,  by Chris Moffitt
 
@@ -487,9 +527,7 @@ pd.crosstab(
 ```
 
 
-```{python}
-df_titanic
-```
+### Listing rows and columns
 
 ```{python}
 df_titanic.index
@@ -499,12 +537,6 @@ df_titanic.index
 df_titanic.columns
 ```
 
-```{python}
-pd.options.display.max_rows = 12
-df_titanic.dtypes
-
-df_titanic['Name'].astype(str)
-```
 
 
 ### From `numpy` to `pandas`
@@ -545,18 +577,31 @@ fare
 fare.values[:10]
 ```
 
-Contrarily to *numpy* arrays, you can index with other formats than integers:
+Contrarily to `numpy` arrays, you can index with other formats than integers (the underlying structure being a **dictionary**):
+
+#### `head` command
+```{python}
+df_titanic_raw.head(3)
+```
 
 ```{python}
 # Be careful, what follows changes the indexing
 df_titanic_raw = df_titanic_raw.set_index('Name')
-df_titanic_raw
+df_titanic_raw.head(3)
 ```
+
+#### `tail` command
+```{python}
+df_titanic_raw.head(3)
+```
+
 
 ```{python}
 age = df_titanic_raw['Age']
 age['Behr, Mr. Karl Howell']
 ```
+
+
 
 ```{python}
 age.mean()
@@ -640,20 +685,7 @@ The Pandas library supports many formats:
 You can explore the data starting from the top or the bottom of the file:
 
 
-### `head` command
-```{python}
-pd.options.display.max_rows = 8
-df_titanic_raw.tail()
-```
-
-### `tail` command
-
-```{python}
-df_titanic_raw.head()
-```
-
-
-### Access values by line/columns etc.
+### Access values by line (`iloc`) or columns (`loc`)
 
 - `iloc`
 ```{python}
@@ -664,8 +696,10 @@ df_titanic_raw.iloc[0:2, 1:8]
 
 ```{python}
 # with original indexing:
-# df_titanic_raw.loc[128]
+df_titanic_raw.loc[128]
+```
 
+```{python}
 # with naming indexing
 df_titanic_raw = df_titanic_raw.set_index('Name')  # You can only do it once !!
 df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Fare']
@@ -690,26 +724,30 @@ df_titanic_raw.loc['Bonnell, Miss. Elizabeth', 'Survived'] = 1
 df_titanic_raw = df_titanic_raw.reset_index()  # Back to original indexing
 ```
 
-### `groupby`
-
-```{python}
-df_titanic.groupby(['Sex'])[['Survived', 'Age', 'Fare', 'Pclass']].mean()
-```
 
 ### Create binned values
 
 ```{python}
 #| layout-ncol: 1
+#| fig-align: center
+
 bins=np.arange(0, 100, 10)
 current_palette = sns.color_palette()
 
 df_test = pd.DataFrame({ 'Age': pd.cut(df_titanic['Age'], bins=bins, right=False)})
 ax = sns.countplot(data=df_test, x='Age', color=current_palette[0])
 ax.tick_params(axis='x', labelrotation=90)
+plt.title("Binning age per decades")
 ```
 
 
 ## References
 
-- Other interactive tools for data visualization: Altair, Bokeh. See comparisons by Aarron Geller: [link](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/)
+- Other interactive tools for data visualization include Altair, Bokeh, etc. See comparisons by Aaron Geller: [link](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/)
 - An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+
+- How to choose your chart by [Andrew V. Abela](www.extremepresentation.com)
+
+<img  src="chart-chooser-2020.svg" width="99%" alt='https://extremepresentation.typepad.com/files/chart-chooser-2020.pdf' style="display: block; margin-right: auto; margin-left: auto; "></img>.
+
+
