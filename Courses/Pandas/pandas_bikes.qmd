@@ -18,6 +18,7 @@ from cycler import cycler
 import pooch  # download data / avoid re-downloading
 from IPython import get_ipython
 import lzma  # to process zip file
+import plotly.express as px
 
 sns.set_palette("colorblind")
 palette = sns.color_palette("twilight", n_colors=12)
@@ -97,25 +98,16 @@ df_bikes['gravite accident'].unique()
 
 ```{python}
 df_bikes['date'].hasnans
+```
+
+```{python}
 df_bikes['heure'].hasnans
 ```
+So arbitrarily we fill missing values with 0 (since apparently there is no time 0 reported...to double check in the source.)
 
 ```{python}
-pd.options.display.max_rows = 20
-df_bikes.iloc[400:402]
+df_bikes.fillna({'heure':'0'}, inplace=True)
 ```
-
-Remove missing hours cases by `pd.NA`:
-```{python}
-df_bikes['heure'] = df_bikes['heure'].replace('', pd.NA)
-```
-
-
-```{python}
-df_bikes.dropna(subset=['heure'], inplace=True)
-df_bikes.iloc[399:402]
-```
-
 
 ::: {.callout-important appearance='default' icon="false"}
 
@@ -272,6 +264,21 @@ plt.show()
 
 
 ```{python}
+df_polar = df_bikes.groupby(['weekday', df_bikes.index.hour])['sexe'].count().reset_index()  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+
+df_polar=df_polar.astype({'Time':str}, copy=False)
+df_polar['weekday']=df_polar['weekday'].apply(lambda x: calendar.day_abbr[x])
+df_polar.rename(columns={'sexe':'accidents'}, inplace=True)
+
+fig = px.line_polar(df_polar, r="accidents", theta="Time", color="weekday", line_close=True,range_r=[0, 600], start_angle =0,
+                    color_discrete_sequence=px.colors.cyclical.mygbm,
+                    template="plotly_dark", title='Daily accident profile: weekday effect?')
+fig.show()
+```
+
+
+
+```{python}
 df_bikes.groupby(['weekday', df_bikes.index.hour])[
     'sexe'].count()
 ```
@@ -314,6 +321,20 @@ plt.tight_layout()
 plt.show()
 ```
 
+```{python}
+
+df_polar2 = df_bikes.groupby(['month', df_bikes.index.hour])['sexe'].count().reset_index()  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+
+df_polar2=df_polar2.astype({'Time':str}, copy=False)
+df_polar2.rename(columns={'sexe':'accidents'}, inplace=True)
+
+
+
+fig = px.line_polar(df_polar2, r="accidents", theta="Time", color="month", line_close=True, range_r=[0, 410], start_angle=0,
+                    color_discrete_sequence=px.colors.cyclical.Phase,
+                    template="plotly_dark", title='Daily accident profile: weekday effect?')
+fig.show()
+```
 
 ::: {.callout-important appearance='default' icon="false"}
 ##  EXERCISE: Accidents by department
