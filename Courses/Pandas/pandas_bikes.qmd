@@ -270,8 +270,11 @@ df_polar=df_polar.astype({'Time':str}, copy=False)
 df_polar['weekday']=df_polar['weekday'].apply(lambda x: calendar.day_abbr[x])
 df_polar.rename(columns={'sexe':'accidents'}, inplace=True)
 
+n_colors = 8  # 7 days, but 8 colors help to have weekends days' color closer
+colors = px.colors.sample_colorscale("mrybm", [n/(n_colors -1) for n in range(n_colors)])
+
 fig = px.line_polar(df_polar, r="accidents", theta="Time", color="weekday", line_close=True,range_r=[0, 600], start_angle =0,
-                    color_discrete_sequence=px.colors.cyclical.mygbm,
+                    color_discrete_sequence=colors,
                     template="plotly_dark", title='Daily accident profile: weekday effect?')
 fig.show()
 ```
@@ -294,7 +297,7 @@ Perform an analysis to check when the accidents are occurring during the week.
 #| layout-ncol: 1
 
 df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
-df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
+# df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
 df_bikes_month = df_bikes.groupby(['month', df_bikes.index.hour])[
     'age'].count().unstack(level=0)
@@ -327,11 +330,14 @@ df_polar2 = df_bikes.groupby(['month', df_bikes.index.hour])['sexe'].count().res
 
 df_polar2=df_polar2.astype({'Time':str}, copy=False)
 df_polar2.rename(columns={'sexe':'accidents'}, inplace=True)
+df_polar2['month'] = df_polar2['month'].apply(lambda x: calendar.month_abbr[x])
 
-
+# create a cyclical color scale for 12 values:
+n_colors = 12
+colors = px.colors.sample_colorscale("mrybm", [n/(n_colors -1) for n in range(n_colors)])
 
 fig = px.line_polar(df_polar2, r="accidents", theta="Time", color="month", line_close=True, range_r=[0, 410], start_angle=0,
-                    color_discrete_sequence=px.colors.cyclical.Phase,
+                    color_discrete_sequence=colors,
                     template="plotly_dark", title='Daily accident profile: weekday effect?')
 fig.show()
 ```
