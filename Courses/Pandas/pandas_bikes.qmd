@@ -55,7 +55,6 @@ with open("./bicycle_db.csv", 'w') as f:
 
 
 ```{python}
-# df: data frame
 df_bikes = pd.read_csv("bicycle_db.csv", na_values="", low_memory=False,
                        dtype={'data': str, 'heure': str, 'departement': str})
 ```
@@ -65,10 +64,10 @@ In June 2023, the author decided to change the name of the columns, hence we had
 ```{python}
 
 new2old = {
-"hrmn": "heure",
-"secuexist": "existence securite",
-"grav": "gravite accident",
-"dep": "departement"
+    "hrmn": "heure",
+    "secuexist": "existence securite",
+    "grav": "gravite accident",
+    "dep": "departement",
 }
 
 df_bikes.rename(columns=new2old, inplace=True)
@@ -121,6 +120,7 @@ Can you find the starting day and the ending day of the study automatically?
 
 ### Date and time processing
 
+Check the date/time format:
 ```{python}
 df_bikes['date'] + ' ' + df_bikes['heure']
 ```
@@ -128,21 +128,22 @@ df_bikes['date'] + ' ' + df_bikes['heure']
 
 ```{python}
 
-time_improved = pd.to_datetime(df_bikes['date'] +
-                               ' ' + df_bikes['heure'],
-                               format='%Y-%m-%d %H',
-                               errors='coerce')
+time_improved = pd.to_datetime(
+    df_bikes["date"] + " " + df_bikes["heure"],
+    format="%Y-%m-%d %H",
+    errors="coerce",
+)
 
 ```
 
 ```{python}
-df_bikes['Time'] = time_improved
+df_bikes["Time"] = time_improved
 # remove rows with NaT
 df_bikes.dropna(subset=["Time"], inplace=True)
 # set new index
-df_bikes.set_index('Time', inplace=True)
+df_bikes.set_index("Time", inplace=True)
 # remove useless columns
-df_bikes.drop(columns=['heure', 'date'], inplace=True)
+df_bikes.drop(columns=["heure", "date"], inplace=True)
 ```
 
 ```{python}
@@ -172,25 +173,34 @@ issues.
 ```{python}
 #| echo: false
 
-group = df_bike2.pivot_table(columns='existence securite',
-                             index=['gravite accident', 'sexe'],
-                             aggfunc={'age': 'count'}, margins=True)
+group = df_bike2.pivot_table(
+    columns="existence securite",
+    index=["gravite accident", "sexe"],
+    aggfunc={"age": "count"},
+    margins=True,
+)
 ```
 
 
 ```{python}
 #| echo: false
-
-pd.crosstab(df_bike2['existence securite'],
-            df_bike2['gravite accident'], normalize='index') * 100
+pd.crosstab(
+    df_bike2["existence securite"],
+    df_bike2["gravite accident"],
+    normalize="index",
+) * 100
 ```
 
 ```{python}
 #| echo: false
 
-pd.crosstab(df_bike2['existence securite'],
-            df_bike2['gravite accident'], values=df_bike2['age'],
-            aggfunc='count', normalize='index') * 100
+pd.crosstab(
+    df_bike2["existence securite"],
+    df_bike2["gravite accident"],
+    values=df_bike2["age"],
+    aggfunc="count",
+    normalize="index",
+) * 100
 ```
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -217,10 +227,14 @@ df_bikes.groupby('sexe').size()  / df_bikes.shape[0]
 ```{python}
 #| echo: false
 
-pd.crosstab(df_bike2['sexe'],
-            df_bike2['gravite accident'],
-            values=df_bike2['age'], aggfunc='count',
-            normalize='columns', margins=True) * 100
+pd.crosstab(
+    df_bike2["sexe"],
+    df_bike2["gravite accident"],
+    values=df_bike2["age"],
+    aggfunc="count",
+    normalize="columns",
+    margins=True,
+) * 100
 ```
 
 
@@ -237,15 +251,26 @@ Perform an analysis to check when the accidents are occurring during the week.
 
 ### Time series visualization
 
+
 ```{python}
+df_bikes["weekday"] = df_bikes.index.day_of_week  # Monday=0, Sunday=6
+df_bikes.groupby(['weekday', df_bikes.index.hour])['sexe'].count()
+```
+```{python}
+df_bikes.groupby(['weekday', df_bikes.index.hour])['age'].count()
+```
+The two last results are the same, no matter if you choose the `'age'` or `'sexe'` variable.
+
+<!-- ```{python}
 #| layout-ncol: 1
-# Chargement des couleurs
-sns.set_palette("GnBu_d", n_colors=7)
+#| echo: false
+#| eval: false
 
-df_bikes['weekday'] = df_bikes.index.day_of_week  # Monday=0, Sunday=6
-
-accidents_week = df_bikes.groupby(['weekday', df_bikes.index.hour])[
-    'sexe'].count().unstack(level=0)
+accidents_week = (
+    df_bikes.groupby(["weekday", df_bikes.index.hour])["sexe"]
+    .count()
+    .unstack(level=0)
+)
 
 fig, axes = plt.subplots(1, 1, figsize=(7, 7))
 accidents_week.plot(ax=axes)
@@ -256,26 +281,48 @@ axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
 axes.legend(
     labels=[day for day in calendar.day_name],
-    loc='upper left',
-    )
+    loc="upper left",
+)
 plt.tight_layout()
 plt.show()
-```
+``` -->
+
+Create a daily profile per day of the week:
 
 
 ```{python}
-df_polar = df_bikes.groupby(['weekday', df_bikes.index.hour])['sexe'].count().reset_index()  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+df_polar = (
+    df_bikes.groupby(["weekday", df_bikes.index.hour])["sexe"]
+    .count()
+    .reset_index()
+)  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
 
-df_polar=df_polar.astype({'Time':str}, copy=False)
-df_polar['weekday']=df_polar['weekday'].apply(lambda x: calendar.day_abbr[x])
-df_polar.rename(columns={'sexe':'accidents'}, inplace=True)
+df_polar = df_polar.astype({"Time": str}, copy=False)
+df_polar["weekday"] = df_polar["weekday"].apply(lambda x: calendar.day_abbr[x])
+df_polar.rename(columns={"sexe": "accidents"}, inplace=True)
+```
 
+Display these daily profiles
+
+```{python}
 n_colors = 8  # 7 days, but 8 colors help to have weekends days' color closer
-colors = px.colors.sample_colorscale("mrybm", [n/(n_colors -1) for n in range(n_colors)])
+colors = px.colors.sample_colorscale(
+    "mrybm", [n / (n_colors - 1) for n in range(n_colors)]
+)
 
-fig = px.line_polar(df_polar, r="accidents", theta="Time", color="weekday", line_close=True,range_r=[0, 600], start_angle =0,
-                    color_discrete_sequence=colors,
-                    template="plotly_dark", title='Daily accident profile: weekday effect?')
+fig = px.line_polar(
+    df_polar,
+    r="accidents",
+    theta="Time",
+    color="weekday",
+    line_close=True,
+    range_r=[0, 600],
+    start_angle=0,
+    color_discrete_sequence=colors,
+    template="seaborn",
+    title="Daily accident profile: weekday effect?",
+)
+
 fig.show()
 ```
 
@@ -283,10 +330,6 @@ fig.show()
 In `plotly` the figure is interactive. If you click on the legend on the right, you can select the day you want to see. It is very convenient to compare days two by two for instance.
 :::
 
-```{python}
-df_bikes.groupby(['weekday', df_bikes.index.hour])[
-    'sexe'].count()
-```
 
 
 ::: {.callout-important appearance='default' icon="false"}
@@ -295,20 +338,32 @@ df_bikes.groupby(['weekday', df_bikes.index.hour])[
 Perform an analysis to check when the accidents are occurring during the week.
 :::
 
+Create a daily profile per month:
+
 ```{python}
 #| layout-ncol: 1
-
-df_bikes['month'] = df_bikes.index.month  # Janvier=0, .... Decembre=11
+df_bikes["month"] = df_bikes.index.month  # Janvier=0, .... Decembre=11
 # df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
 df_bikes.head()
-df_bikes_month = df_bikes.groupby(['month', df_bikes.index.hour])[
-    'age'].count().unstack(level=0)
+df_bikes_month = (
+    df_bikes.groupby(["month", df_bikes.index.hour])["age"]
+    .count()
+    .unstack(level=0)
+)
+```
+
+<!-- ```{python}
+#| layout-ncol: 1
+#| echo: false
+#| eval: false
+
 
 fig, axes = plt.subplots(1, 1, figsize=(7, 7), sharex=True)
 
 axes.set_prop_cycle(
     (
-        cycler(color=palette) + cycler(ms=[4] * 12)
+        cycler(color=palette)
+        + cycler(ms=[4] * 12)
         + cycler(marker=["o", "^", "s", "p"] * 3)
         + cycler(linestyle=["-", "--", ":", "-."] * 3)
     )
@@ -320,27 +375,46 @@ axes.set_title("Daily accident profile: monthly effect?")
 
 axes.set_xticks(np.arange(0, 24))
 axes.set_xticklabels(np.arange(0, 24), rotation=45)
-axes.legend(labels=calendar.month_name[1:], loc='upper left')
+axes.legend(labels=calendar.month_name[1:], loc="upper left")
 
 plt.tight_layout()
 plt.show()
-```
+``` -->
 
 ```{python}
 
-df_polar2 = df_bikes.groupby(['month', df_bikes.index.hour])['sexe'].count().reset_index()  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+df_polar2 = (
+    df_bikes.groupby(["month", df_bikes.index.hour])["sexe"]
+    .count()
+    .reset_index()
+)  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
 
-df_polar2=df_polar2.astype({'Time':str}, copy=False)
-df_polar2.rename(columns={'sexe':'accidents'}, inplace=True)
-df_polar2['month'] = df_polar2['month'].apply(lambda x: calendar.month_abbr[x])
+df_polar2 = df_polar2.astype({"Time": str}, copy=False)
+df_polar2.rename(columns={"sexe": "accidents"}, inplace=True)
+df_polar2["month"] = df_polar2["month"].apply(lambda x: calendar.month_abbr[x])
+```
 
+Display these daily profiles :
+
+```{python}
 # create a cyclical color scale for 12 values:
 n_colors = 12
-colors = px.colors.sample_colorscale("mrybm", [n/(n_colors -1) for n in range(n_colors)])
+colors = px.colors.sample_colorscale(
+    "mrybm", [n / (n_colors - 1) for n in range(n_colors)]
+)
 
-fig = px.line_polar(df_polar2, r="accidents", theta="Time", color="month", line_close=True, range_r=[0, 410], start_angle=0,
-                    color_discrete_sequence=colors,
-                    template="plotly_dark", title='Daily accident profile: weekday effect?')
+fig = px.line_polar(
+    df_polar2,
+    r="accidents",
+    theta="Time",
+    color="month",
+    line_close=True,
+    range_r=[0, 410],
+    start_angle=0,
+    color_discrete_sequence=colors,
+    template="seaborn",
+    title="Daily accident profile: weekday effect?",
+)
 fig.show()
 ```
 
@@ -365,22 +439,27 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 ```{python}
 df_dtp_pop = pd.read_csv("dpt_population.csv", sep=";", low_memory=False)
 
-df_dtp_pop['Code Département'].replace('2A', '20A',inplace=True)
-df_dtp_pop['Code Département'].replace('2B', '20B',inplace=True)
-df_dtp_pop.sort_values(by=['Code Département'], inplace=True)
+df_dtp_pop["Code Département"].replace("2A", "20A", inplace=True)
+df_dtp_pop["Code Département"].replace("2B", "20B", inplace=True)
+df_dtp_pop.sort_values(by=["Code Département"], inplace=True)
 
-df_bikes['departement'].replace('2A', '20A',inplace=True)
-df_bikes['departement'].replace('2B', '20B',inplace=True)
-df_bikes.sort_values(by=['departement'], inplace=True)
+df_bikes["departement"].replace("2A", "20A", inplace=True)
+df_bikes["departement"].replace("2B", "20B", inplace=True)
+df_bikes.sort_values(by=["departement"], inplace=True)
 # Clean extra departements
-df_bikes = df_bikes.loc[df_bikes['departement'].isin(df_dtp_pop['Code Département'].unique())]
+df_bikes = df_bikes.loc[
+    df_bikes["departement"].isin(df_dtp_pop["Code Département"].unique())
+]
 
-gd = df_bikes.groupby(['departement'], as_index=True, sort=True).size()
+gd = df_bikes.groupby(["departement"], as_index=True, sort=True).size()
 
-data = {'code': gd.index,
-        '# Accidents per million': gd.values}
+data = {"code": gd.index, "# Accidents per million": gd.values}
 df = pd.DataFrame(data)
-df['# Accidents per million'] = df['# Accidents per million'].values * 10000./ df_dtp_pop['Population'].values
+df["# Accidents per million"] = (
+    df["# Accidents per million"].values
+    * 10000.0
+    / df_dtp_pop["Population"].values
+)
 ```
 
 
@@ -402,25 +481,25 @@ First, you have to handle Corsican departments, which are not in the same format
 import plotly.express as px
 import geopandas
 
-departement = geopandas.read_file('departements.geojson')
-departement['code'].replace('2A', '20A', inplace=True)
-departement['code'].replace('2B', '20B', inplace=True)
+departement = geopandas.read_file("departements.geojson")
+departement["code"].replace("2A", "20A", inplace=True)
+departement["code"].replace("2B", "20B", inplace=True)
 
-departement.sort_values(by=['code'], inplace=True)
+departement.sort_values(by=["code"], inplace=True)
 
-a = ['0'+ str(i) for i in range(1, 10)]
+a = ["0" + str(i) for i in range(1, 10)]
 b = [str(i) for i in range(1, 10)]
 dict_replace = dict(zip(a, b))
 
-departement['code'].replace(dict_replace, inplace=True)
-df['code'].replace(dict_replace, inplace=True)
+departement["code"].replace(dict_replace, inplace=True)
+df["code"].replace(dict_replace, inplace=True)
 
-departement['code'].replace('20A', '2A', inplace=True)
-departement['code'].replace('20B', '2B', inplace=True)
-df['code'].replace('20A', '2A', inplace=True)
-df['code'].replace('20B', '2B', inplace=True)
+departement["code"].replace("20A", "2A", inplace=True)
+departement["code"].replace("20B", "2B", inplace=True)
+df["code"].replace("20A", "2A", inplace=True)
+df["code"].replace("20B", "2B", inplace=True)
 
-departement.set_index('code', inplace=True)
+departement.set_index("code", inplace=True)
 print(departement.head(22))
 ```
 
@@ -432,21 +511,17 @@ fig = px.choropleth_mapbox(
     geojson=departement,
     locations="code",
     color="# Accidents per million",
-    range_color=(0, df['# Accidents per million'].max()),
+    range_color=(0, df["# Accidents per million"].max()),
     color_continuous_scale="rdbu",
-    center={'lat': 44, 'lon': 2},
+    center={"lat": 44, "lon": 2},
     zoom=3.55,
     mapbox_style="white-bg",
 )
-fig.update_traces(colorbar_orientation='h', selector=dict(type='choroplethmapbox'))
+fig.update_traces(selector=dict(type="choroplethmapbox"))
 fig.update_layout(
-    title_text = 'Accidents per million inhabitants by department',
+    title_text="Accidents per million inhabitants by department",
+    coloraxis_colorbar=dict(thickness=20, orientation="h", y=0.051, x=0.5),
 )
-fig.layout.coloraxis.colorbar.thickness = 20
-fig.layout.coloraxis.colorbar.orientation = 'h'
-fig.layout.coloraxis.colorbar.y = 0.051
-fig.layout.coloraxis.colorbar.x = 0.5
-
 fig.show()
 ```
 
