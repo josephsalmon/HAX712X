@@ -272,8 +272,9 @@ for step in bws:
             xbins=dict( # bins used for histogram
             start=xx.min(),
             end=xx.max(),
-            size=step
+            size=step,
             ),
+            histnorm='probability density',
             autobinx = False,
             visible=False,
             marker_color="rgba(67, 67, 67, 0.5)",
@@ -282,7 +283,6 @@ for step in bws:
 
 # Make 10th trace visible
 fig.data[10].visible = True
-
 # Create and add slider
 steps = []
 for i in range(len(fig.data)):
@@ -630,12 +630,14 @@ pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
 dir(numpy)
 ```
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
 ```{python}
-#| class: output-scroll
 #| echo: false
 pd.options.display.max_rows = 70
 df_titanic[df_titanic['Embarked'] == 'C']
 ```
+:::
 
 <br>
 [Comments]{.underline}: not all passengers from Cherbourg are Gallic (&#127467;&#127479;: *gaulois*) ...
