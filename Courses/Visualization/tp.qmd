@@ -132,11 +132,8 @@ for $w \in [-5, 5]$
 # https://community.plotly.com/t/multiple-traces-with-a-single-slider-in-plotly/16356
 import plotly.graph_objects as go
 import numpy as np
-
-n_step = 101
-# Create figure
-import plotly.graph_objs as go
 from plotly.offline import init_notebook_mode, iplot
+init_notebook_mode()
 
 num_steps = 101
 slider_range = np.linspace(-5, 5 , num=num_steps)
@@ -152,7 +149,7 @@ fig = go.Figure(data=trace_list1+trace_list2)
 
 # Initialize display:
 fig.data[51].visible = True
-fig.data[51 + n_step].visible = True
+fig.data[51 + num_steps].visible = True
 
 
 steps = []
