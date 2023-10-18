@@ -1,0 +1,292 @@
+---
+title: "Data Visualization"
+format:
+  html:
+    out.width: 50%
+filters:
+  - shinylive
+---
+
+## Introduction
+
+Data visualization is one of the main steps on the way to understanding a dataset.
+General information on data visualization (beyond Python) can be found in the following list:
+
+- A visualization guide from  [data.europa.eu: The official portal for European data](https://data.europa.eu/apps/data-visualisation-guide/)
+
+- [The Python Graph Gallery](https://python-graph-gallery.com/)
+
+- Data stories can help provide new ideas for your own work: [Maarten Lambrechts's website](https://www.maartenlambrechts.com/)
+
+- How to choose your chart by [Andrew V. Abela](www.extremepresentation.com):
+
+<img  src="chart-chooser-2020.svg" width="99%" alt='https://extremepresentation.typepad.com/files/chart-chooser-2020.pdf' style="display: block; margin-right: auto; margin-left: auto; "></img>.
+
+
+A major difference in the visualization solutions relies on the possibility of performing interactive inspection; otherwise, the solution is said static.
+
+
+Interactive tools for data visualization are emerging in Python with `plotly`, `altair`, `Bokeh`, etc.
+An extensive study by [Aarron Geller](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/) provides the pros and cons of each method.
+
+## Python
+
+The list is long (and growing) of Python packages for data visualization.
+We provide some examples in the `pandas` section of the website, and also in the [Scipy](../ScipyNumpy/tp.qmd) course.
+
+
+### `matplotlib`: Visualization with Python
+[Source]{.underline}: <https://matplotlib.org/>.
+
+This is the standard library for plots in Python. The documentation is well written and `matplotlib` should be the default choice for creating static documents (*e.g.*, .pdf or .doc files).
+
+Usual loading commands:
+```{python}
+#| eval: false
+import matplotlib.pyplot as plt
+```
+
+
+[Example]{.underline}::
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+t = np.linspace(0, 2 * np.pi, 1024)
+ft1 = np.sin(2 * np.pi * t)
+ft2 = np.cos(2 * np.pi * t)
+fig, ax = plt.subplots()
+ax.plot(ft1, label='sin')
+ax.plot(ft2, label='cos')
+ax.legend(loc='lower right')
+```
+
+
+### `seaborn`: statistical data visualization
+[Source]{.underline}: <https://seaborn.pydata.org/>.
+
+`seaborn` is built over `matplotlib` and is specifically tailored for data visualization (`maptlotlib` is a more flexible and general tool). Default settings are usually nicer than one from `maptlotlib`, especially for standard tools (histograms, KDE, swarmplots, etc.).
+
+Usual loading commands:
+```{python}
+#| eval: false
+import seaborn as sns
+```
+
+[Example]{.underline}::
+
+```{python}
+import seaborn as sns
+import pandas as pd
+df = pd.DataFrame(dict(sin=ft1, cos=ft2))
+sns.set_style("whitegrid")
+ax = sns.lineplot(data=df)
+sns.move_legend(ax, "lower right")
+sns.despine()
+
+
+```
+
+### `plotly`: a graphing library for Python
+[Source]{.underline}: <https://plotly.com/python/>.
+
+
+The force of `plotly` is that it is interactive and can handle `R software` or `julia` on top of Python (it relies on Java Script under the hood).
+
+
+Usual loading commands:
+```{python}
+#| eval: false
+import plotly
+```
+Alternatively, you can also use `plotly.express` to use predefined figures:
+```{python}
+#| eval: false
+import plotly.express as px
+```
+
+```{python}
+import plotly.express as px
+fig = px.line(df)
+fig.show()
+```
+
+::: {.callout-note}
+In `plotly` the figure is interactive. If you click on the legend on the right, you can select a curve to activate/deactivate.
+:::
+
+But now you can also create a slider to change a parameter, for instance showing the functions
+
+$$
+\begin{align*}
+f_w: t \to \sin(2 \cdot \pi \cdot w \cdot t)\\
+g_w: t \to \sin(2 \cdot \pi \cdot w \cdot t)
+\end{align*}
+$$
+for $w \in [-5, 5]$
+
+
+```{python}
+# inspiration from:
+# https://community.plotly.com/t/multiple-traces-with-a-single-slider-in-plotly/16356
+import plotly.graph_objects as go
+import numpy as np
+
+n_step = 101
+# Create figure
+import plotly.graph_objs as go
+from plotly.offline import init_notebook_mode, iplot
+
+num_steps = 101
+slider_range = np.linspace(-5, 5 , num=num_steps)
+trace_list1 = []
+trace_list2 = []
+
+for i, w  in enumerate(slider_range):
+    trace_list1.append(go.Scatter(y=np.sin(2*np.pi*t*w), visible=False, line={'color': 'red'}, name=f"sin({w:.2f} * 2 *pi)"))
+
+    trace_list2.append(go.Scatter(y=np.cos(2*np.pi*t *w), visible=False, line={'color': 'blue'}, name=f"cos({w:.2f} * 2 *pi)"))
+
+fig = go.Figure(data=trace_list1+trace_list2)
+
+# Initialize display:
+fig.data[51].visible = True
+fig.data[51 + n_step].visible = True
+
+
+steps = []
+for i in range(num_steps):
+    # Hide all traces
+    step = dict(
+        method = 'restyle',
+        args = ['visible', [False] * len(fig.data)],
+    )
+    # Enable the two traces we want to see
+    step['args'][1][i] = True
+    step['args'][1][i+num_steps] = True
+
+    # Add step to step list
+    steps.append(step)
+
+sliders = [dict(
+    active = 50,
+    currentvalue={"prefix": "w= "},
+    steps = steps,
+)]
+
+fig.layout.sliders = sliders
+
+iplot(fig, show_link=False)
+```
+
+### `bokeh`: interactive visualizations in the browsers
+[Source]{.underline}: <http://bokeh.org/>.
+
+XXX: TODO
+
+Usual loading commands:
+```{python}
+#| eval: false
+import bokeh
+```
+
+### `vega-altair`: declarative visualization in Python
+[Source]{.underline}: <https://altair-viz.github.io/>.
+
+Usual loading commands:
+```{python}
+#| eval: false
+import altair as alt
+```
+
+XXX: TODO
+
+- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+
+### `pygal`: python charting
+[Source]{.underline}: <https://www.pygal.org/>.
+
+We use it mostly for maps, and especially for the map of France with DOMs.
+For instance, see the course [Creating a Python module](Python-modules/tp.html), such a map is constructed:
+
+```{=html}
+<center>
+    <iframe width= 100% height=500 src="../Python-modules/biketrauma_map.svg"></iframe>
+</center>
+```
+```{python}
+#| eval: false
+import pygal
+```
+
+To access the French map plugin you need the installation step that follows:
+```default
+pip install pygal_maps_fr
+```
+
+
+
+### Shiny: interactive web applications
+[Source]{.underline}: <https://shiny.posit.co/py/>.
+
+Shiny helps you to customize the layout and style of your application and dynamically respond to events, such as a button press, or dropdown selection.
+It can then be interfaced easily with Quarto to render the app on your website, using a `{shinylive-python}` cell; see an example at <https://quarto-ext.github.io/shinylive/>.
+
+
+```{shinylive-python}
+#| echo: true
+#| standalone: true
+#| viewerHeight: 630
+
+import matplotlib.pyplot as plt
+import numpy as np
+from shiny import ui, render, App
+
+# Create some random data
+t = np.linspace(0, 2 * np.pi, 1024)
+num_steps = 101
+slider_range = np.linspace(-5, 5 , num=num_steps)
+
+
+app_ui = ui.page_fixed(
+    ui.h2("Playing with sliders"),
+    ui.layout_sidebar(
+        ui.panel_sidebar(
+            ui.input_slider("w", "Frequency", -5, 5, value=1, step=slider_range[-1]-slider_range[-2]),
+        ),
+        ui.panel_main(
+            ui.output_plot("plot")
+        )
+    )
+)
+
+def server(input, output, session):
+    @output
+    @render.plot
+    def plot():
+        fig, ax = plt.subplots()
+        ax.plot(t, np.sin(2*np.pi *input.w() * t), label='sin')
+        ax.plot(t, np.cos(2*np.pi *input.w() * t), label='cos')
+
+        return fig
+
+
+app = App(app_ui, server)
+
+```
+
+## R software
+
+XXX TODO.
+
+
+## Java Script
+XXX TODO.
+Out of the scope of this course, yet more powerful.
+
+### D3JS
+
+### Observable
+This is of interest as Quarto can directly read such kinds of figures.
+
+
