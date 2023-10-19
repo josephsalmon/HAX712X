@@ -298,38 +298,39 @@ This is of interest as Quarto can directly read such kinds of figures.
 
 ```{ojs}
 viewof inputs = Inputs.form([
-      Inputs.range([-5, 5], {value: 0.5, step: 0.1, label: tex`\text{frequency}\omega`}),
+      Inputs.range([-5, 5], {value: 0.5, step: 0.1, label: tex`\text{frequency} ~\omega`}),
     ])
 
 plt = Plot.plot({
-        color: {
+      color: {
       legend: true
     },
     x: {
       label: "x",
-      axis: true
+    //   axis: true
     },
     y: {
-      axis: true,
+    //   axis: true,
       domain: [-1.2, 1.2]
     },
     marks: [
       Plot.ruleY([0]),
       Plot.ruleX([0]),
-      Plot.line(data, {x: "x", y: "pdf", stroke : "type", strokeWidth: 2})
+      Plot.axisX({ y: 0 }),
+      Plot.axisY({ x: 0 }),
+      Plot.line(data, {x: "x", y: "y", stroke : "type", strokeWidth: 2})
     ]
   })
 
 
 data = {
   const x = d3.range(-10, 10, 0.01);
-  const mysinval = x.map(x => ({x: x, pdf: Math.sin(- x * mu ), type: "sin"}));
-  const mycosval = x.map(x => ({x: x, pdf: Math.cos(- x * mu ), type: "cos"}));
+  const mysinval = x.map(x => ({x: x, y: Math.sin(- x * mu ), type: "sin(w .)"}));
+  const mycosval = x.map(x => ({x: x, y: Math.cos(- x * mu ), type: "cos(w .)"}));
   return mysinval.concat(mycosval)
 
 }
 
 mu = inputs[0]
-jstat = require('jstat')
 
 ```
