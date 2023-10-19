@@ -178,32 +178,6 @@ iplot(fig, show_link=False)
 ```
 
 
-### `bokeh`: interactive visualizations in the browsers
-[Source]{.underline}: <http://bokeh.org/>.
-
-XXX: TODO
-
-Usual loading command:
-```{python}
-#| eval: false
-import bokeh
-```
-
-### `vega-altair`: declarative visualization in Python
-[Source]{.underline}: <https://altair-viz.github.io/>.
-
-Usual loading command:
-```{python}
-#| eval: false
-import altair as alt
-```
-
-XXX: TODO
-
-- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
-
-
-
 
 ### Shiny: interactive web applications
 [Source]{.underline}: <https://shiny.posit.co/py/>.
@@ -214,7 +188,9 @@ It can also be interfaced easily with Quarto to render the app on your website, 
 The app created is readable, yet the price to pay is the fluidity of the rendering.
 
 ```{shinylive-python}
-#| echo: true
+#| components: [editor, viewer]
+#| folded: true
+#| layout: vertical
 #| standalone: true
 #| viewerHeight: 630
 
@@ -247,7 +223,7 @@ def server(input, output, session):
         fig, ax = plt.subplots()
         ax.plot(t, np.sin(2*np.pi *input.w() * t), label='sin')
         ax.plot(t, np.cos(2*np.pi *input.w() * t), label='cos')
-
+        ax.legend(loc='lower right');
         return fig
 
 
@@ -275,6 +251,37 @@ To access the French map plugin you need the installation step that follows:
 pip install pygal_maps_fr
 ```
 
+### `bokeh`: interactive visualizations in the browsers
+[Source]{.underline}: <http://bokeh.org/>.
+
+
+Usual loading command:
+```{python}
+#| eval: false
+import bokeh
+```
+
+As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
+
+### `vega-altair`: declarative visualization in Python
+[Source]{.underline}: <https://altair-viz.github.io/>.
+
+Usual loading command:
+```{python}
+#| eval: false
+import altair as alt
+```
+
+As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
+
+- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+
+
+### `vedo`: scientific analysis and visualization of 3D objects
+[Source]{.underline}: <https://vedo.embl.es/>
+
+This is a Python module for scientific analysis of 3D objects and point clouds based on `VTK` (C++) and `numpy`.
+
 ## R software
 
 XXX TODO.
@@ -289,4 +296,40 @@ Out of the scope of this course, yet more powerful.
 ### Observable
 This is of interest as Quarto can directly read such kinds of figures.
 
+```{ojs}
+viewof inputs = Inputs.form([
+      Inputs.range([-5, 5], {value: 0.5, step: 0.1, label: tex`\text{frequency}\omega`}),
+    ])
 
+plt = Plot.plot({
+        color: {
+      legend: true
+    },
+    x: {
+      label: "x",
+      axis: true
+    },
+    y: {
+      axis: true,
+      domain: [-1.2, 1.2]
+    },
+    marks: [
+      Plot.ruleY([0]),
+      Plot.ruleX([0]),
+      Plot.line(data, {x: "x", y: "pdf", stroke : "type", strokeWidth: 2})
+    ]
+  })
+
+
+data = {
+  const x = d3.range(-10, 10, 0.01);
+  const mysinval = x.map(x => ({x: x, pdf: Math.sin(- x * mu ), type: "sin"}));
+  const mycosval = x.map(x => ({x: x, pdf: Math.cos(- x * mu ), type: "cos"}));
+  return mysinval.concat(mycosval)
+
+}
+
+mu = inputs[0]
+jstat = require('jstat')
+
+```
