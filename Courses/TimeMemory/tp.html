@@ -433,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="6ad25c8f" class="cell" data-execution_count="1">
+<div id="b28d69d7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -446,69 +446,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html">autoreload</a></li>
 </ul>
 <p><em>magic</em> commands are IPython commands such as: %timeit, %matplotlib, %autoreload. They work only in interactive cases (Ipython, Notebook, Jupyter lab etc.).</p>
-<div id="ad5877e5" class="cell" data-execution_count="2">
+<div id="4e8e2003" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> <span class="fl">5.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="07cf90b9" class="cell" data-execution_count="3">
+<div id="338bc235" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.empty(n)<span class="op">;</span> a.fill(val)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative: uncomment below</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>817 ns ± 15.4 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+<pre><code>682 ns ± 34.2 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
-<div id="a108aea9" class="cell" data-execution_count="4">
+<div id="2ba9f393" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'empty'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.empty(n)<span class="op">;</span> a[:] <span class="op">=</span> val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>empty
-1.2 µs ± 37.5 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+857 ns ± 45.2 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'full'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b964b5f0" class="cell" data-execution_count="5">
+<div id="ac9f31dd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.full((n,), val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2.16 µs ± 53.9 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+<pre><code>1.8 µs ± 59.2 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
-<div id="5320ccc1" class="cell" data-execution_count="6">
+<div id="eed763d0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'ones'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ones</code></pre>
 </div>
 </div>
-<div id="3eed210d" class="cell" data-execution_count="7">
+<div id="9dbf4b4f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.ones(n) <span class="op">*</span> val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4.7 µs ± 114 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+<pre><code>3.89 µs ± 23.6 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
-<div id="f3cdd65b" class="cell" data-execution_count="8">
+<div id="cd2ed905" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'repeat'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>repeat</code></pre>
 </div>
 </div>
-<div id="2f938c2c" class="cell" data-execution_count="9">
+<div id="d28385e2" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.repeat(val, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>6.09 µs ± 193 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+<pre><code>5.2 µs ± 28.3 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
 </section>
 <section id="alternatives" class="level2">
 <h2 class="anchored" data-anchor-id="alternatives">Alternatives</h2>
 <p>Use the time module thanks to <code>import time</code></p>
-<div id="abccfcde" class="cell" data-execution_count="10">
+<div id="a2c67b75" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.ones(n) <span class="op">*</span> val</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> time.time()</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time to execute the command: </span><span class="sc">{0:.5f}</span><span class="st"> s."</span>.<span class="bu">format</span>(end <span class="op">-</span> start))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time to execute the command: 0.00016 s.</code></pre>
+<pre><code>Time to execute the command: 0.00009 s.</code></pre>
 </div>
 </div>
 </section>
@@ -538,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><a href="https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse">Scipy doc on sparse matrices</a></li>
 </ul>
-<div id="d8267457" class="cell" data-execution_count="11">
+<div id="05e9b46f" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> sparse</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse <span class="im">import</span> isspmatrix</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -708,16 +708,16 @@ A: True</code></pre>
 </div>
 </div>
 <p>A matrix-vector product: as usual (also can use <code>np.dot()</code>)</p>
-<div id="8259bccf" class="cell" data-execution_count="12">
+<div id="52307ea6" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.random.rand(n2)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mat_rnd<span class="op">@</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>array([2.42072114, 1.51407666, 2.08592888, 0.54313671, 1.13550841,
-       2.08884541, 2.62056497, 1.85400783, 1.86667825, 2.10739184,
-       2.81065389, 0.89264916, 2.29471081, 2.21782155, 2.21285367,
-       2.52738765, 1.68236442, 0.76324963, 1.64655264, 3.03298868,
-       2.37987232, 2.24783661, 1.47551945, 2.31621886, 2.44521457,
-       1.20029919, 2.24133466, 2.48397119, 1.74666228])</code></pre>
+<pre><code>array([1.82590742, 0.79167742, 3.0248127 , 0.23257024, 1.40575657,
+       1.91824413, 1.06463376, 0.7006023 , 0.72101446, 1.41891031,
+       2.35846897, 0.67530454, 1.38079591, 1.90961419, 1.91375814,
+       1.58423832, 1.69760055, 0.54431911, 1.31799478, 1.07058076,
+       2.24538297, 2.21539005, 1.22119933, 2.71022311, 1.18812219,
+       0.68759301, 1.73512196, 1.69296639, 0.85686705])</code></pre>
 </div>
 </div>
 </section>
@@ -751,7 +751,7 @@ EXERCISE: Linear models &amp; sparse matrices
 </div>
 </div>
 <p>Usage depends on the nature and structure of the data: - <code>csc_matrix</code> is more efficient for <code>slicing</code> by column - <code>csr_matrix</code> is more efficient for the row case.</p>
-<div id="775354f9" class="cell" data-execution_count="13">
+<div id="788d216f" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nx.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -759,7 +759,7 @@ EXERCISE: Linear models &amp; sparse matrices
 </div>
 </div>
 <p>Create a graph:</p>
-<div id="5658e81b" class="cell" data-execution_count="14">
+<div id="9cfc5210" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="st">'A'</span>, <span class="st">'C'</span>, weight<span class="op">=</span><span class="dv">3</span>)</span>
@@ -787,7 +787,7 @@ EXERCISE: Linear models &amp; sparse matrices
 <div id="cell-fig-graph" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="15">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-graph" class="quarto-figure quarto-figure-center anchored" height="389" width="540">
+<div id="fig-graph" class="quarto-figure quarto-figure-center anchored" width="540" height="389">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="tp_files/figure-html/fig-graph-output-1.png" width="540" height="389" class="figure-img">
@@ -820,7 +820,7 @@ EXERCISE: Displaying graphs
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(A))</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(A.todense())</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>nx.shortest_path(G, <span class="st">'C'</span>, <span class="st">'B'</span>, weight<span class="op">=</span><span class="st">'weight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="c0ec0255" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="16">
+<div id="b1a4afc8" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="16">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <pre><code>True
@@ -857,7 +857,7 @@ EXERCISE: Displaying graphs
 <section id="definition-laplacian-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="definition-laplacian-matrix">Definition : <em>Laplacian matrix</em></h2>
 <p>The matrix <span class="math inline">L=D D^\top</span> is the so-called graph Laplacian of <span class="math inline">G</span></p>
-<div id="971fe112" class="cell" data-execution_count="17">
+<div id="1fdaf89d" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isspmatrix(D))</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(D.todense())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -896,7 +896,7 @@ EXERCISE: Displaying graphs
 <span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
 <span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="15cec9c1" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="18">
+<div id="e536b9d2" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="18">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-19-output-1.png" width="614" height="463"></p>
@@ -910,7 +910,7 @@ EXERCISE: Displaying graphs
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.spy(A)</span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pourcentage of active edges: </span><span class="sc">{</span>(g.number_of_edges() <span class="op">/</span> g.number_of_nodes()<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss"> %"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="1218eac1" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="19">
+<div id="efe49539" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="19">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <pre><code>[[0 4 5 ... 2 0 0]
@@ -958,13 +958,13 @@ Pourcentage of active edges: 6.75 %</code></pre>
 <li>Say yes to everything</li>
 <li>Once done, launch <code>pip install osmnx==1.0.1</code> s You will also need to install the package <code>folium</code></li>
 </ul>
-<div id="44e4919e" class="cell" data-execution_count="20">
+<div id="830003ad" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5afb89f4" class="cell" data-execution_count="21">
+<div id="c62c5dd2" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>map_osm <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e0f73d90" class="cell" data-execution_count="22">
+<div id="0a12f46c" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>map_osm.add_child(folium.RegularPolygonMarker(location<span class="op">=</span>[<span class="fl">43.610769</span>, <span class="fl">3.876716</span>],</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                  fill_color<span class="op">=</span><span class="st">'#132b5e'</span>, radius<span class="op">=</span><span class="dv">5</span>))</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>map_osm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -996,7 +996,7 @@ Pourcentage of active edges: 6.75 %</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_df3a13c52a7ec8d0fff511af24c40396 {
+                #map_1b18495daac4e472b9b3e31b9a3ef6b2 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1011,14 +1011,14 @@ Pourcentage of active edges: 6.75 %</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_df3a13c52a7ec8d0fff511af24c40396&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_1b18495daac4e472b9b3e31b9a3ef6b2&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_df3a13c52a7ec8d0fff511af24c40396 = L.map(
-                &quot;map_df3a13c52a7ec8d0fff511af24c40396&quot;,
+            var map_1b18495daac4e472b9b3e31b9a3ef6b2 = L.map(
+                &quot;map_1b18495daac4e472b9b3e31b9a3ef6b2&quot;,
                 {
                     center: [43.610769, 3.876716],
                     crs: L.CRS.EPSG3857,
@@ -1032,22 +1032,22 @@ Pourcentage of active edges: 6.75 %</code></pre>
 
         
     
-            var tile_layer_7a9b945795bdd9dfee5f8119b98b6935 = L.tileLayer(
+            var tile_layer_169642752121f8c3981145590de30330 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_df3a13c52a7ec8d0fff511af24c40396);
+            ).addTo(map_1b18495daac4e472b9b3e31b9a3ef6b2);
         
     
-            var regular_polygon_marker_b8a7e40fffa0a8aa00cb83088ff57f56 = new L.RegularPolygonMarker(
+            var regular_polygon_marker_78167d7f5d8a63e97530a93b7f56d4de = new L.RegularPolygonMarker(
                 [43.610769, 3.876716],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#132b5e&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;numberOfSides&quot;: 4, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 5, &quot;rotation&quot;: 0, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_df3a13c52a7ec8d0fff511af24c40396);
+            ).addTo(map_1b18495daac4e472b9b3e31b9a3ef6b2);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
-<div id="fc6cb3c9" class="cell" data-execution_count="23">
+<div id="4a3a1d48" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ox.settings.use_cache<span class="op">=</span><span class="va">True</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ox.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1055,7 +1055,7 @@ Pourcentage of active edges: 6.75 %</code></pre>
 <pre><code>'1.3.1.post0'</code></pre>
 </div>
 </div>
-<div id="18c020a7" class="cell" data-execution_count="24">
+<div id="5c6ccdff" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ox.graph_from_place(<span class="st">'Montpellier, France'</span>, network_type<span class="op">=</span><span class="st">'bike'</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb edges: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_edges()<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"nb nodes: </span><span class="sc">{</span>G<span class="sc">.</span>number_of_nodes()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1064,7 +1064,7 @@ Pourcentage of active edges: 6.75 %</code></pre>
 nb nodes: 15345</code></pre>
 </div>
 </div>
-<div id="51971477" class="cell" data-execution_count="25">
+<div id="aa75aa53" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> ox.plot_graph(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="tp_files/figure-html/cell-26-output-1.png" width="614" height="526"></p>
@@ -1078,7 +1078,7 @@ nb nodes: 15345</code></pre>
 <ul>
 <li><a href="https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/">OpenStreetMap Roads Data Using osmnx</a></li>
 </ul>
-<div id="12ea0e91" class="cell" data-execution_count="26">
+<div id="d529fecf" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>origin <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Place Eugène Bataillon, Montpellier, France'</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>destination <span class="op">=</span> ox.geocoder.geocode(<span class="st">'Maison du Lez, Montpellier, France'</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1094,13 +1094,13 @@ nb nodes: 15345</code></pre>
 (43.61032245, 3.8966295)</code></pre>
 </div>
 </div>
-<div id="5c51253c" class="cell" data-execution_count="27">
+<div id="0720d3db" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> ox.plot_graph_route(G, route)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="tp_files/figure-html/cell-28-output-1.png" width="614" height="526"></p>
 </div>
 </div>
-<div id="5b5b2e2b" class="cell" data-execution_count="28">
+<div id="81df2868" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> ox.plot_route_folium(G, route, weight<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span><span class="st">'#AA1111'</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -1131,7 +1131,7 @@ nb nodes: 15345</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_7722f835aa45a3bb75e1543caa417934 {
+                #map_8cfb250bc422d414b11927eb229f9ee1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1145,14 +1145,14 @@ nb nodes: 15345</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_7722f835aa45a3bb75e1543caa417934&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_8cfb250bc422d414b11927eb229f9ee1&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_7722f835aa45a3bb75e1543caa417934 = L.map(
-                &quot;map_7722f835aa45a3bb75e1543caa417934&quot;,
+            var map_8cfb250bc422d414b11927eb229f9ee1 = L.map(
+                &quot;map_8cfb250bc422d414b11927eb229f9ee1&quot;,
                 {
                     center: [43.619517340124666, 3.878550553587237],
                     crs: L.CRS.EPSG3857,
@@ -1166,541 +1166,541 @@ nb nodes: 15345</code></pre>
 
         
     
-            var tile_layer_7d24d3489a7850321ef5bd133261c45c = L.tileLayer(
+            var tile_layer_a8c568cde60b4fbc2d762759593d966e = L.tileLayer(
                 &quot;https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://cartodb.com/attributions\&quot;\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\&quot;_blank\&quot; href =\&quot;http://cartodb.com/attributions\&quot;\u003eattributions\u003c/a\u003e&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_203aa60152bce385d50d1239c6c64d1b = L.polyline(
+            var poly_line_2155d742274cf46108d5e1a306b7acbf = L.polyline(
                 [[43.6314611, 3.860611], [43.6313277, 3.8607163]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_ea9fe187bd6868b461968bf92d7468e1 = L.polyline(
+            var poly_line_bb480670006a4b5b0557beb5c84880a0 = L.polyline(
                 [[43.6313277, 3.8607163], [43.6311953, 3.8607959], [43.6310902, 3.8608809], [43.6310317, 3.8609192], [43.6309921, 3.8609486]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_e35e6a55081cc0a0ea54bafcfcff3a8e = L.polyline(
+            var poly_line_d462fd93f99e304f9276d3f91bd75cad = L.polyline(
                 [[43.6309921, 3.8609486], [43.630951, 3.8609276], [43.6309071, 3.8609267]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_ccdb6dd456eaa660bd2503e1b0aa0b9f = L.polyline(
+            var poly_line_3a89a83616038d38a99fd4cfe052a0f9 = L.polyline(
                 [[43.6309071, 3.8609267], [43.6308771, 3.8609382], [43.6308499, 3.8609593], [43.6308272, 3.8609887]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_72393e555e2c4e925d379a6548e44928 = L.polyline(
+            var poly_line_b227fb53587de2f6c03253eb61dc4db5 = L.polyline(
                 [[43.6308272, 3.8609887], [43.6308069, 3.8610343], [43.6307971, 3.8610861], [43.6307989, 3.8611396], [43.6308119, 3.8611901]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_146c2b51df7965bfcf7808060bcc6e05 = L.polyline(
+            var poly_line_0d0469004f09fd2499f9e6f47c83e27f = L.polyline(
                 [[43.6308119, 3.8611901], [43.6308343, 3.861232]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_6b8fe4f28d69b3b25541879c0c3c129d = L.polyline(
+            var poly_line_2cd990abcbd72416e8d23f0a499e3ae5 = L.polyline(
                 [[43.6308343, 3.861232], [43.63086, 3.8613631], [43.6308952, 3.8614927]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_2c1aab300c34dd103058ed32567c9a67 = L.polyline(
+            var poly_line_d314f70ec6cbf36dcb7a151caa6c5ab3 = L.polyline(
                 [[43.6308952, 3.8614927], [43.6309158, 3.8615832]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_7e4cf2157aa99a31beb5b7d5007ea92b = L.polyline(
+            var poly_line_76843c308f0c29b57e2dd29bd82a2e32 = L.polyline(
                 [[43.6309158, 3.8615832], [43.6309271, 3.8616332]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_bb0ce84e956fcc656c5391aa55d1be79 = L.polyline(
+            var poly_line_9ea4dfb1b370b4783c0d034eb49311f9 = L.polyline(
                 [[43.6309271, 3.8616332], [43.6309417, 3.8616973], [43.6310817, 3.862203], [43.6310899, 3.8622791], [43.6310805, 3.8623606], [43.6309914, 3.8628899], [43.6309608, 3.86325], [43.630842, 3.8639557], [43.6306701, 3.8658962], [43.6306403, 3.8660552]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_adc7c66c4c69628a36c4fe2152dd9032 = L.polyline(
+            var poly_line_43d0e20e294ea2d6b51c3268e9bc0a82 = L.polyline(
                 [[43.6306403, 3.8660552], [43.6306101, 3.8661726]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_fcf5d1f62279a362e13bfb65cc5294ac = L.polyline(
+            var poly_line_521f5a276130315081fad728948307ac = L.polyline(
                 [[43.6306101, 3.8661726], [43.6305705, 3.866279]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_8e07dd9f19bf7f045ce2e96a5c7064ec = L.polyline(
+            var poly_line_4d0e1fdc9951f7c3aad20332697bb50f = L.polyline(
                 [[43.6305705, 3.866279], [43.6305548, 3.8663126]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_d31012f3ee6c5cefc6590b5e79e3e008 = L.polyline(
+            var poly_line_a3408cf57ebc7548a4281176a73cb8c0 = L.polyline(
                 [[43.6305548, 3.8663126], [43.6304157, 3.8665717], [43.6302866, 3.8667954], [43.6302111, 3.8668965], [43.6301457, 3.8669609], [43.6300694, 3.8670173], [43.6297355, 3.8672023]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_f94915dac58bc1381decb6750bca77c4 = L.polyline(
+            var poly_line_e24f2abe0629ce8f1de08c7ae312136e = L.polyline(
                 [[43.6297355, 3.8672023], [43.6297201, 3.8671751], [43.6296992, 3.8671564], [43.6296749, 3.8671483], [43.6296501, 3.8671516], [43.6296274, 3.8671659], [43.6296093, 3.8671898], [43.629598, 3.8672205]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_64c6ea021fea3e0ae7ef8416870f8455 = L.polyline(
+            var poly_line_1f1fec97265f15cc4f2380fff7e54502 = L.polyline(
                 [[43.629598, 3.8672205], [43.6295945, 3.8672547], [43.6295994, 3.8672885]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_dd737d217307ec87db8ec779735310af = L.polyline(
+            var poly_line_d0cc0805755e797cc97c321ff6d39bc6 = L.polyline(
                 [[43.6295994, 3.8672885], [43.6294924, 3.8673487], [43.6290314, 3.8677932], [43.6289352, 3.867843]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_f599dcad41fd037276dd39e6703c3dbb = L.polyline(
+            var poly_line_0506a28d5aa8d7b13b2449b0456c4fcb = L.polyline(
                 [[43.6289352, 3.867843], [43.6285443, 3.8680366]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_edcdad43a39ec23ade73f2b88a453bd7 = L.polyline(
+            var poly_line_39297516b79e7af89ccb64e0bbfcb0cb = L.polyline(
                 [[43.6285443, 3.8680366], [43.6283074, 3.8682282], [43.6283137, 3.8682651]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_00ebfbaefbfdb56939348faf48492f1f = L.polyline(
+            var poly_line_cd0b9061d739ac39e3361683f482e167 = L.polyline(
                 [[43.6283137, 3.8682651], [43.6283047, 3.8682779], [43.6282669, 3.8683266]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_d0a374702cf5ea5d9b27eea2005fd60d = L.polyline(
+            var poly_line_ad20ce99900f826d3f498cac917ff29f = L.polyline(
                 [[43.6282669, 3.8683266], [43.6282497, 3.8683473]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_1ce753b974b837e09e85d4c70e371ba6 = L.polyline(
+            var poly_line_56f208d04228c0fd63d9ace350a9a013 = L.polyline(
                 [[43.6282497, 3.8683473], [43.6281996, 3.8684054], [43.6279302, 3.8686284], [43.6277154, 3.8688325], [43.6274785, 3.8690582]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_3fadf7e83730ff84b65f5c67d76bf8cb = L.polyline(
+            var poly_line_56ab4a18312080476d8327916a3e04d6 = L.polyline(
                 [[43.6274785, 3.8690582], [43.6271644, 3.8693754], [43.6270944, 3.8694512], [43.6270542, 3.8694931], [43.6269066, 3.8696777]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_baaa50f9ba090ad622d69c78ae85bcca = L.polyline(
+            var poly_line_b655131e69559c82103fbe9ede5c130b = L.polyline(
                 [[43.6269066, 3.8696777], [43.626819, 3.8697465], [43.6266893, 3.8698702], [43.6265548, 3.8699777]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_728d4b06ee858884aa1c34de2934eafb = L.polyline(
+            var poly_line_6182747172fa6d6c1efcda52a21ecdb8 = L.polyline(
                 [[43.6265548, 3.8699777], [43.6264044, 3.8700935]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c007ac737fcbf835a441cc071c869909 = L.polyline(
+            var poly_line_5a584738738156e8847fb57782afea6a = L.polyline(
                 [[43.6264044, 3.8700935], [43.6263212, 3.8701122], [43.6262263, 3.8701671], [43.6260556, 3.870284], [43.6257841, 3.8704649], [43.6256245, 3.8705716], [43.6253376, 3.8707668], [43.625133, 3.870906], [43.6249425, 3.8710391], [43.6246166, 3.8712505], [43.6244084, 3.8713847], [43.6240581, 3.8716195], [43.6238426, 3.8717587], [43.623694, 3.8718522], [43.623658, 3.8718831], [43.6235549, 3.8719447], [43.6233018, 3.8721063], [43.6231981, 3.8721765], [43.6231081, 3.8722274], [43.6230487, 3.8722639], [43.6229957, 3.8723025], [43.6229597, 3.8723299], [43.6229369, 3.8723462]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_4de4318c9cbffcd61a160b1158f260b3 = L.polyline(
+            var poly_line_a68c66cf210fb157d16d6bb30d14ad7c = L.polyline(
                 [[43.6229369, 3.8723462], [43.6228876, 3.8723431], [43.6228368, 3.8723706], [43.6228052, 3.8724163], [43.6227948, 3.8724737]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_f458df1d19407a981579f44b8e00a9d5 = L.polyline(
+            var poly_line_4a295229c0d7a88696def4554752d78d = L.polyline(
                 [[43.6227948, 3.8724737], [43.6227438, 3.8724583], [43.6226547, 3.8724456], [43.6224489, 3.8724353]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_a6316cd771cf2589c78261869fb46e46 = L.polyline(
+            var poly_line_8f6dc7a7866d8362ebb8e4c5dca9132a = L.polyline(
                 [[43.6224489, 3.8724353], [43.6224548, 3.8724854]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_bf70f13753409f9f001c07b94f419492 = L.polyline(
+            var poly_line_9910888d1cfeb13455d72b8df9dfc83c = L.polyline(
                 [[43.6224548, 3.8724854], [43.6222934, 3.8724608], [43.6222272, 3.8724604], [43.6221686, 3.8724617], [43.6221312, 3.8724439], [43.6221037, 3.8724081]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_87fdb54db85c59d935337caca12e0eeb = L.polyline(
+            var poly_line_4d7eb29cc06e7bf45b2da23838adb376 = L.polyline(
                 [[43.6221037, 3.8724081], [43.6220708, 3.8724351], [43.6220612, 3.872443], [43.6220273, 3.8724547], [43.6219522, 3.8724664], [43.6218325, 3.8724931], [43.6217383, 3.8725202], [43.6210504, 3.8727688]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_419a5132412e84291ba12f286edceba9 = L.polyline(
+            var poly_line_6c9468ec6d5b69e73c726cced75cf900 = L.polyline(
                 [[43.6210504, 3.8727688], [43.6203964, 3.873064], [43.6201982, 3.8731481], [43.6200079, 3.8732163], [43.6198237, 3.87326]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_0dfeb08b7735dbf64d00080a6e655d5e = L.polyline(
+            var poly_line_4949247ea1a6b679581a23daf50ae2b6 = L.polyline(
                 [[43.6198237, 3.87326], [43.6197218, 3.8733437], [43.6196244, 3.8734302]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_891abf9fd4f08c08abf77306482ad366 = L.polyline(
+            var poly_line_27bcabc7f5c2074698a0011aed189884 = L.polyline(
                 [[43.6196244, 3.8734302], [43.6195985, 3.8734731], [43.6195485, 3.8735284], [43.6191133, 3.8740093]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c474f042a163f64b5c50bc222714f3da = L.polyline(
+            var poly_line_e4d553653da0464293570bb40d4d9468 = L.polyline(
                 [[43.6191133, 3.8740093], [43.6187136, 3.8744534], [43.6183179, 3.8749153], [43.6182707, 3.8749704]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_bcaa6296cce55d6e21c1fcb7f122774e = L.polyline(
+            var poly_line_8bccf21c953d2f1d80acbeb11ac79f00 = L.polyline(
                 [[43.6182707, 3.8749704], [43.6182601, 3.8749901], [43.6182522, 3.8750046]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_7d4ac65570e9531e1a4efa2affccf29d = L.polyline(
+            var poly_line_f4d05d451365b430e38fa467703b3103 = L.polyline(
                 [[43.6182522, 3.8750046], [43.6180268, 3.8752469]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_265f5bff6f60cb793ffe665ad7c0ad11 = L.polyline(
+            var poly_line_f063c4d91edd80e361f767ad563e85b5 = L.polyline(
                 [[43.6180268, 3.8752469], [43.6179099, 3.8753609], [43.6178074, 3.8754608]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_b0f90532dbf3b431a0cc9b6fe5fd8c40 = L.polyline(
+            var poly_line_d26c49ccb79f49c9e0d9acf9a4187c0c = L.polyline(
                 [[43.6178074, 3.8754608], [43.6175871, 3.8756824]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_2a4ed1e313d3faa2743697db4717b245 = L.polyline(
+            var poly_line_1f10fed656aceb64177725dad8c5564c = L.polyline(
                 [[43.6175871, 3.8756824], [43.6175144, 3.8758893], [43.6174975, 3.875937]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_139e881d993eaab1c51426e7fca2eb22 = L.polyline(
+            var poly_line_06af8e93c80af82188aa5afd8e27031e = L.polyline(
                 [[43.6174975, 3.875937], [43.6174545, 3.8760915]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c7c7304d386b6deb8c9e72814510d56d = L.polyline(
+            var poly_line_c9c47803634928f5228f01db829aa6b0 = L.polyline(
                 [[43.6174545, 3.8760915], [43.61729, 3.8765917], [43.6172763, 3.8766464]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_42b713731813d593476a1bc7602453fc = L.polyline(
+            var poly_line_2c51a87d21d50048c9901244caa795e0 = L.polyline(
                 [[43.6172763, 3.8766464], [43.6170822, 3.877278], [43.6169343, 3.8777462], [43.6168459, 3.8780223]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c18b6f7773b72093d7831c03bfbb3685 = L.polyline(
+            var poly_line_1a4379db70a65ae78fdb0e49baf4e881 = L.polyline(
                 [[43.6168459, 3.8780223], [43.6167554, 3.8782794], [43.6167279, 3.878361]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_1a363d656d56ca4f55ad767f7f683a2d = L.polyline(
+            var poly_line_90fd77f7bbf302c5d218b1954bf0fc04 = L.polyline(
                 [[43.6167279, 3.878361], [43.6167097, 3.8784027]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_09e96f92768a255a6261add8d4f72b2b = L.polyline(
+            var poly_line_86eb4864641063596daea99bc052fa3d = L.polyline(
                 [[43.6167097, 3.8784027], [43.616581, 3.8787573], [43.6165649, 3.8788111]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_2b71d725fe4dbac8b3690ec0af06ae7c = L.polyline(
+            var poly_line_800f879a87e081747c402e9d4511c21d = L.polyline(
                 [[43.6165649, 3.8788111], [43.6165428, 3.8788846], [43.6163656, 3.8794012], [43.6163485, 3.8794538]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_e0185e1adb5bafedd5fc06407e1e16f7 = L.polyline(
+            var poly_line_5d5adc1e269f14c7140c198d4231c7e7 = L.polyline(
                 [[43.6163485, 3.8794538], [43.6163332, 3.8794979], [43.6161341, 3.8800528], [43.6161142, 3.8801081]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_df3fb59248c739fc586427e8b7d9ed2e = L.polyline(
+            var poly_line_97cea3077c24e347c2ded7b17fc5ea27 = L.polyline(
                 [[43.6161142, 3.8801081], [43.6161343, 3.8801448], [43.6162885, 3.8803666], [43.6163311, 3.8804214]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_30019602a679cb9020e82303504d0347 = L.polyline(
+            var poly_line_ab5d1ab399d7ef0ed2d2f549d0a9d939 = L.polyline(
                 [[43.6163311, 3.8804214], [43.6164615, 3.8805585], [43.6164946, 3.8806058]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_381030a5fdc6c955d99747a48d52b52f = L.polyline(
+            var poly_line_d4496798165a94e289a57100de9c555f = L.polyline(
                 [[43.6164946, 3.8806058], [43.6164456, 3.8806954], [43.6161474, 3.8812478], [43.6161261, 3.8812892]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_da8f00f1de573bc139fd06b4244d39ef = L.polyline(
+            var poly_line_b2319973776ddcca4decae42a7611530 = L.polyline(
                 [[43.6161261, 3.8812892], [43.6160748, 3.881389]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_1aa6f56d010c87ff3b28acc1926229f2 = L.polyline(
+            var poly_line_f61a7e5c76f752493845cf150ad177ca = L.polyline(
                 [[43.6160748, 3.881389], [43.6160196, 3.8814892]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_ce0476c6e85f1d62c638f7cd7c8948aa = L.polyline(
+            var poly_line_a1f9239028cd7fd7c1bc19e26251dc08 = L.polyline(
                 [[43.6160196, 3.8814892], [43.6159971, 3.8815299], [43.6157308, 3.8820419], [43.6157188, 3.8820651], [43.6157011, 3.8820991]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_2541f622b49ef53b67282a962c18a831 = L.polyline(
+            var poly_line_c6daf681908e947de6bd4e92435aa381 = L.polyline(
                 [[43.6157011, 3.8820991], [43.6156534, 3.8821849], [43.615642, 3.8822054]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c012898168071d3ada1186308f994050 = L.polyline(
+            var poly_line_30452ae76b072afc11df29ef2600fb96 = L.polyline(
                 [[43.615642, 3.8822054], [43.615634, 3.8822208], [43.6156204, 3.8822471], [43.6156094, 3.8822682], [43.6151943, 3.8830616], [43.6151674, 3.8831043], [43.6151296, 3.8831317], [43.615104, 3.8831373], [43.615082, 3.8831422]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_38ed7d921291277ff5506d01a163b2b9 = L.polyline(
+            var poly_line_3246763c3a3e8f3a28494fa2080cfe14 = L.polyline(
                 [[43.615082, 3.8831422], [43.6150439, 3.8831459], [43.6150219, 3.883148], [43.6149978, 3.8831423]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_6f04cb1aa4ac00d1950818faf8743290 = L.polyline(
+            var poly_line_f1cc2db1f750cdf44ee0d558e9fde8c3 = L.polyline(
                 [[43.6149978, 3.8831423], [43.6149848, 3.8830769], [43.6149804, 3.8830524], [43.6149795, 3.8829196], [43.6149715, 3.8828066]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_ec8e2ab06e3b82a0bb22ff3bc97a7567 = L.polyline(
+            var poly_line_51a607c353c0cbb0eb8c28740174a963 = L.polyline(
                 [[43.6149715, 3.8828066], [43.6149122, 3.8828598], [43.6148523, 3.8829551], [43.6148358, 3.8829781], [43.6148049, 3.8830152], [43.6147835, 3.8830373], [43.6147565, 3.8830667], [43.6147118, 3.8831171]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_1940ef37d8e8338935b71f624ad704a9 = L.polyline(
+            var poly_line_7b93b07ff4202d076a0e377c80dbde77 = L.polyline(
                 [[43.6147118, 3.8831171], [43.6146765, 3.8831191], [43.6146567, 3.8831189]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_8f6985397df7d8752413a5a248f97104 = L.polyline(
+            var poly_line_ea9f772d4817d72303bd1a14ab4fb2db = L.polyline(
                 [[43.6146567, 3.8831189], [43.6146407, 3.8831134], [43.6145756, 3.8830951], [43.6144242, 3.8830544], [43.6143869, 3.8830451]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_eb7ac2f677ac3e4aa8bffca66cf8f05c = L.polyline(
+            var poly_line_aa73f03e6479b74f40579be6d73545a6 = L.polyline(
                 [[43.6143869, 3.8830451], [43.6142045, 3.8829993]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_7c84739a3ced87abf766681660bb5783 = L.polyline(
+            var poly_line_bd0e1378197b95b1c709fed16c3b2938 = L.polyline(
                 [[43.6142045, 3.8829993], [43.6141157, 3.8829766], [43.6140781, 3.8829783], [43.6140491, 3.8829906], [43.6140144, 3.883025], [43.6139733, 3.8832047], [43.6139518, 3.8833074], [43.613939, 3.8833644]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_61f83019a1b835401c73a708ea2f9163 = L.polyline(
+            var poly_line_dc37acedd6e5caf0aacc7074b6e06101 = L.polyline(
                 [[43.613939, 3.8833644], [43.6139217, 3.8834548]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c843c4302c07e81fc12a2112dc2bb552 = L.polyline(
+            var poly_line_76d5bfeea9b2ffa21cb8aa0e87f935f9 = L.polyline(
                 [[43.6139217, 3.8834548], [43.6138776, 3.8836958]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_527502a82795f8708b7b2bfa6445fc83 = L.polyline(
+            var poly_line_3f128ed8ee0345ceafafde8e71959172 = L.polyline(
                 [[43.6138776, 3.8836958], [43.6138357, 3.8839335], [43.6137748, 3.8842684]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_8442e10af8a76ac25fffd83236ea01b4 = L.polyline(
+            var poly_line_d2eba234df2fccaf4eb375e56263c8d7 = L.polyline(
                 [[43.6137748, 3.8842684], [43.6137169, 3.8845918], [43.6136932, 3.8847533]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_877cdd47c4fe9bc71fb6b9ed1a41a083 = L.polyline(
+            var poly_line_eb829b9746aff7e9db69b06c921f576f = L.polyline(
                 [[43.6136932, 3.8847533], [43.6136623, 3.8849308], [43.6136483, 3.8850677], [43.613644, 3.8852102], [43.6136553, 3.8854585], [43.6136784, 3.8859137], [43.6136882, 3.8860083], [43.6136968, 3.8860735], [43.6137885, 3.886543], [43.6137987, 3.8866063], [43.6138069, 3.8866976], [43.6138151, 3.8868283], [43.6138109, 3.8869348], [43.6138006, 3.887042], [43.6137896, 3.887125], [43.6137749, 3.8872073], [43.6136033, 3.8876943], [43.6134177, 3.8881547]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_eab7bc165da2125031ca1e136d3e6357 = L.polyline(
+            var poly_line_1067c49d30b34b924cfd3fc63cb610d7 = L.polyline(
                 [[43.6134177, 3.8881547], [43.6133481, 3.8882933], [43.613327, 3.8883331], [43.6132816, 3.8884269], [43.6131705, 3.8886306]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_a5a784027c050684ec0ff0ab195e289c = L.polyline(
+            var poly_line_a0e31ebe5121c4598803e2100361fb3a = L.polyline(
                 [[43.6131705, 3.8886306], [43.6130555, 3.8888019], [43.6128994, 3.8889651], [43.6128188, 3.8890294], [43.6126752, 3.889189]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_fda50b437c9d11fa36757e0da8e3811c = L.polyline(
+            var poly_line_a8c7d1147aae2e9a2f9f1aa134d7a01a = L.polyline(
                 [[43.6126752, 3.889189], [43.6125811, 3.8892507], [43.6123813, 3.8893674], [43.6123749, 3.8893711]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_904a61fca303064c6599b1a8409a4b19 = L.polyline(
+            var poly_line_160890f46476292aee68accc51cf35b6 = L.polyline(
                 [[43.6123749, 3.8893711], [43.6123343, 3.8893912], [43.6123238, 3.8893965], [43.6122808, 3.889418], [43.6121646, 3.889486]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_dc43ffef0d4c1eef383380fdccc1224e = L.polyline(
+            var poly_line_a32ed34848a35a66713d2f9d658d449e = L.polyline(
                 [[43.6121646, 3.889486], [43.6121904, 3.889629], [43.6122127, 3.8897688]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_e896d86a22c601c36c4fec22600c0b4a = L.polyline(
+            var poly_line_c8c21d8bde9cd331f61ea6546d0eed7b = L.polyline(
                 [[43.6122127, 3.8897688], [43.6122177, 3.8897999], [43.6122839, 3.8903822]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_c382ac65512b732887d7fe91e6b6317f = L.polyline(
+            var poly_line_bcb0929c98a4d7fe8ae7759eb9045fcb = L.polyline(
                 [[43.6122839, 3.8903822], [43.6123518, 3.8910157]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_e892fe7f790fd8e74f8bc01306738284 = L.polyline(
+            var poly_line_7db37879e7c3cdcb10b66ed11e0c727f = L.polyline(
                 [[43.6123518, 3.8910157], [43.6124368, 3.8918096], [43.612449, 3.8919149]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_003d4efbd255e13c81e709f956228456 = L.polyline(
+            var poly_line_d43cd2e059dd762fb0730c94a66957e8 = L.polyline(
                 [[43.612449, 3.8919149], [43.6125242, 3.8933711], [43.6125042, 3.8936804], [43.6124602, 3.8940612], [43.6124114, 3.8944272], [43.6123941, 3.8944874], [43.6123695, 3.8945313], [43.6122991, 3.8946132], [43.6122571, 3.8946594], [43.6122336, 3.8946846]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_d31d06bd6f2dd3fa3558975e435e964d = L.polyline(
+            var poly_line_9c3007776da1deb203540a054014e8f7 = L.polyline(
                 [[43.6122336, 3.8946846], [43.6122042, 3.8946517], [43.6121688, 3.8946333], [43.6121309, 3.8946314], [43.6120946, 3.894646]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_75c7ba5d9432a1e0697cc11a62fd80ae = L.polyline(
+            var poly_line_73b3b4bacdee09933e6f87770fd8de11 = L.polyline(
                 [[43.6120946, 3.894646], [43.6120647, 3.8946742], [43.6120424, 3.8947136]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_eb310ecb0fc8d4e9604183e33788eafb = L.polyline(
+            var poly_line_18b79bb3846cc32c01a19820b850ce2e = L.polyline(
                 [[43.6120424, 3.8947136], [43.6120308, 3.894754], [43.6120274, 3.8947971], [43.612029, 3.8948206], [43.6120331, 3.8948436], [43.6120438, 3.8948764], [43.6120594, 3.8949052]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_ce7b7ee7d0cc058d60c0e488889baa62 = L.polyline(
+            var poly_line_80ffe2ed71e05404234d318d3639b207 = L.polyline(
                 [[43.6120594, 3.8949052], [43.6120849, 3.8949335], [43.6121151, 3.894951], [43.6121476, 3.8949565], [43.6121799, 3.8949495], [43.6122096, 3.8949305]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_19f267ae935b9ca83e6c7d46461accf4 = L.polyline(
+            var poly_line_4ae4f7157f497bf8715957fa65aaba5d = L.polyline(
                 [[43.6122096, 3.8949305], [43.6122244, 3.8949481], [43.612239, 3.8949694], [43.6122628, 3.8949867], [43.6122999, 3.8949995]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_d65dd24b0babe53d6e980cfc31bdd07b = L.polyline(
+            var poly_line_fe7020cec994cc28c5c14be73f318abe = L.polyline(
                 [[43.6122999, 3.8949995], [43.6122726, 3.895116], [43.6122396, 3.8954593], [43.6122605, 3.8955244], [43.6122823, 3.89557]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_a44ab51d41490ca719767cf475719469 = L.polyline(
+            var poly_line_389bd18dec0ae43408f41d0e54f35da3 = L.polyline(
                 [[43.6122823, 3.89557], [43.6123058, 3.8955533], [43.6123524, 3.8955145]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_099b92a6b967d35c2b077e6ac1a623f0 = L.polyline(
+            var poly_line_a67f9fe01f2257335846e33cb9b6cc36 = L.polyline(
                 [[43.6123524, 3.8955145], [43.6123579, 3.8955346], [43.6123772, 3.8955711]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_6ad1b018375935d1f8c06f576d018ae7 = L.polyline(
+            var poly_line_9ecc75fa26a0fd09320591df3d75adba = L.polyline(
                 [[43.6123772, 3.8955711], [43.6123354, 3.8956267], [43.6123182, 3.8957859], [43.6123147, 3.8958362]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_4bda95bc03ab16633e8ac98de3fb4a79 = L.polyline(
+            var poly_line_306b62098856857a5bf6ab5ba62d94e8 = L.polyline(
                 [[43.6123147, 3.8958362], [43.6122707, 3.895862], [43.6120377, 3.8960723], [43.6118285, 3.8961852], [43.6114982, 3.8962784], [43.6112939, 3.8963153], [43.6109813, 3.8964226], [43.6108363, 3.8963988]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            var poly_line_743b336c89aee1fc80d6bc35cd51d361 = L.polyline(
+            var poly_line_2b1b773624156574b7442491ec6e493b = L.polyline(
                 [[43.6108363, 3.8963988], [43.6098879, 3.8966582]],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#AA1111&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: false, &quot;fillColor&quot;: &quot;#AA1111&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;noClip&quot;: false, &quot;opacity&quot;: 0.7, &quot;smoothFactor&quot;: 1.0, &quot;stroke&quot;: true, &quot;weight&quot;: 5}
-            ).addTo(map_7722f835aa45a3bb75e1543caa417934);
+            ).addTo(map_8cfb250bc422d414b11927eb229f9ee1);
         
     
-            map_7722f835aa45a3bb75e1543caa417934.fitBounds(
+            map_8cfb250bc422d414b11927eb229f9ee1.fitBounds(
                 [[43.6098879, 3.860611], [43.6314611, 3.8966582]],
                 {}
             );
@@ -1709,13 +1709,13 @@ nb nodes: 15345</code></pre>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
-<div id="29477d86" class="cell" data-execution_count="29">
+<div id="1f9f3b67" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>G.is_multigraph()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>True</code></pre>
 </div>
 </div>
-<div id="7053629c" class="cell" data-execution_count="30">
+<div id="27a1c11f" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">False</span>, edges<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> ox.graph_to_gdfs(G, nodes<span class="op">=</span><span class="va">True</span>, edges<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check columns</span></span>
@@ -1729,10 +1729,10 @@ nb nodes: 15345</code></pre>
 Index(['y', 'x', 'street_count', 'highway', 'ref', 'geometry'], dtype='object')</code></pre>
 </div>
 </div>
-<div id="a11351fc" class="cell" data-execution_count="31">
+<div id="3e2f16b4" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.incidence_matrix(G, oriented<span class="op">=</span><span class="va">True</span>).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="dabc9529" class="cell" data-execution_count="32">
+<div id="e86d7b83" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> np.zeros(<span class="dv">1</span>, dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>mem <span class="op">=</span> np.prod(D.shape) <span class="op">*</span> element.data.nbytes <span class="op">/</span> (<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of full matrix with zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(mem))</span>
@@ -1754,7 +1754,7 @@ True</code></pre>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Size of a full encoding the zeros: </span><span class="sc">{0:3.2f}</span><span class="st">  MB'</span>.<span class="bu">format</span>(M.nbytes<span class="op">/</span>(<span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="graph-sparsity" class="level3">
 <h3 class="anchored" data-anchor-id="graph-sparsity">Graph sparsity</h3>
-<div id="bf6a06d3" class="cell" data-execution_count="33">
+<div id="1b165c0b" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" </span><span class="sc">{0:.2}</span><span class="st"> </span><span class="sc">% o</span><span class="st">f edges only are needed to represent the graph of Montpellier"</span>.<span class="bu">format</span>(<span class="dv">100</span> <span class="op">*</span> G.number_of_edges() <span class="op">/</span> G.number_of_nodes() <span class="op">**</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 0.014 % of edges only are needed to represent the graph of Montpellier</code></pre>
