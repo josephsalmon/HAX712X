@@ -84,8 +84,6 @@ sns.set_style("whitegrid")
 ax = sns.lineplot(data=df)
 sns.move_legend(ax, "lower right")
 sns.despine()
-
-
 ```
 
 ### `plotly`: a graphing library for Python
@@ -141,9 +139,9 @@ trace_list1 = []
 trace_list2 = []
 
 for i, w  in enumerate(slider_range):
-    trace_list1.append(go.Scatter(y=np.sin(2*np.pi*t*w), visible=False, line={'color': 'red'}, name=f"sin({w:.2f} * 2 *pi)"))
+    trace_list1.append(go.Scatter(y=np.sin(2*np.pi*t*w), visible=False, line={'color': 'red'}, name=f"sin(w * 2 *pi)"))
 
-    trace_list2.append(go.Scatter(y=np.cos(2*np.pi*t *w), visible=False, line={'color': 'blue'}, name=f"cos({w:.2f} * 2 *pi)"))
+    trace_list2.append(go.Scatter(y=np.cos(2*np.pi*t *w), visible=False, line={'color': 'blue'}, name=f"cos(w * 2 *pi)"))
 
 fig = go.Figure(data=trace_list1+trace_list2)
 
@@ -158,6 +156,7 @@ for i in range(num_steps):
     step = dict(
         method = 'restyle',
         args = ['visible', [False] * len(fig.data)],
+        label=f"{w:.2f}"
     )
     # Enable the two traces we want to see
     step['args'][1][i] = True
@@ -168,7 +167,7 @@ for i in range(num_steps):
 
 sliders = [dict(
     active = 50,
-    currentvalue={"prefix": "w= "},
+    currentvalue={"prefix": "w = "},
     steps = steps,
 )]
 
@@ -332,5 +331,4 @@ data = {
 }
 
 mu = inputs[0]
-
 ```

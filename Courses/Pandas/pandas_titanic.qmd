@@ -128,7 +128,6 @@ df_titanic.describe()
 
 - Histograms: usually has one parameter controlling the number of bins (please avoid... often useless, when many samples are available)
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 fig, ax = plt.subplots(1, 1, figsize=(5, 3))
@@ -141,7 +140,6 @@ plt.show()
 
 - Kernel Density Estimate (KDE): usually has one parameter (the bandwidth) controlling the smoothing level.
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 
@@ -163,7 +161,6 @@ The bandwidth parameter (here encoded as `bw_adjust`) controls the smoothing lev
 
 - Swarmplot:
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 
@@ -178,7 +175,7 @@ sns.swarmplot(
     order=["female", "male"],
 )
 plt.title("Passager age by gender/survival")
-plt.legend(labels=["Died", "Survived"], loc="upper left")
+plt.legend(labels=["Survived", "Died"], loc="upper left")
 plt.tight_layout()
 plt.show()
 
@@ -209,17 +206,19 @@ fig = go.FigureWidget()
 bws = np.arange(0.01, 0.51, 0.01)
 xx = np.arange(0, 100, 0.5)
 for step in bws:
-    kernel = stats.gaussian_kde(df_titanic['Age'], bw_method=step)
+    kernel = stats.gaussian_kde(df_titanic["Age"], bw_method=step)
     yy = kernel(xx)
     fig.add_trace(
         go.Scatter(
             visible=False,
-            fill='tozeroy',
-            fillcolor='rgba(67, 67, 67, 0.5)',
+            fill="tozeroy",
+            fillcolor="rgba(67, 67, 67, 0.5)",
             line=dict(color="black", width=2),
             name=f"Bw = {step:.2f}",
             x=xx,
-            y=yy))
+            y=yy,
+        )
+    )
 
 # Make 10th trace visible
 fig.data[10].visible = True
@@ -229,19 +228,19 @@ steps = []
 for i in range(len(fig.data)):
     step = dict(
         method="update",
-        args=[{"visible": [False] * len(fig.data)},
-            #   {"title": f"{fig.data[i].name}"}
-              ],
-              label=f"{bws[i]:.2f}"
-              )
+        args=[{"visible": [False] * len(fig.data)}],
+        label=f"{bws[i]:.2f}",
+    )
     step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
     steps.append(step)
-sliders = [dict(
-    active=10,
-    currentvalue={"prefix": "Bandwidth = "},
-    pad={"t": 50},
-    steps=steps
-)]
+sliders = [
+    dict(
+        active=10,
+        currentvalue={"prefix": "Bandwidth = "},
+        pad={"t": 50},
+        steps=steps,
+    )
+]
 
 fig.update_layout(
     sliders=sliders,
@@ -268,18 +267,19 @@ xx = np.arange(0, 100, 0.5)
 for step in bws:
     fig.add_trace(
         go.Histogram(
-            x=df_titanic['Age'],
-            xbins=dict( # bins used for histogram
-            start=xx.min(),
-            end=xx.max(),
-            size=step,
+            x=df_titanic["Age"],
+            xbins=dict(  # bins used for histogram
+                start=xx.min(),
+                end=xx.max(),
+                size=step,
             ),
-            histnorm='probability density',
-            autobinx = False,
+            histnorm="probability density",
+            autobinx=False,
             visible=False,
             marker_color="rgba(67, 67, 67, 0.5)",
-            name=f"Bandwidth = {step:.2f}"
-            ))
+            name=f"Bandwidth = {step:.2f}",
+        )
+    )
 
 # Make 10th trace visible
 fig.data[10].visible = True
@@ -288,19 +288,19 @@ steps = []
 for i in range(len(fig.data)):
     step = dict(
         method="update",
-        args=[{"visible": [False] * len(fig.data)},
-            #   {"title": f"{fig.data[i].name}"}
-              ],
-              label=f"{bws[i]:.2f}"
-              )
+        args=[{"visible": [False] * len(fig.data)}],
+        label=f"{bws[i]:.2f}",
+    )
     step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
     steps.append(step)
-sliders = [dict(
-    active=10,
-    currentvalue={"prefix": "Bandwidth = "},
-    pad={"t": 50},
-    steps=steps
-)]
+sliders = [
+    dict(
+        active=10,
+        currentvalue={"prefix": "Bandwidth = "},
+        pad={"t": 50},
+        steps=steps,
+    )
+]
 
 fig.update_layout(
     sliders=sliders,
@@ -326,9 +326,7 @@ def hist_explore(
     density=False,
 ):
     fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-    ax.hist(
-        dataset[variable], density=density, bins=n_bins, alpha=alpha
-    )  # standardization
+    ax.hist(dataset[variable], density=density, bins=n_bins, alpha=alpha)
     plt.ylabel("Density level")
     plt.title(f"Dataset {dataset.attrs['name']}:\n Histogram for passengers' age")
     plt.tight_layout()
@@ -380,7 +378,6 @@ df_titanic.columns
 
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
@@ -404,7 +401,6 @@ Perform a similar analysis with the median for the price per class in pounds.
 ### `catplot`: a visual `groupby`
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 ax=sns.catplot(
@@ -422,7 +418,6 @@ plt.show()
 ```
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 ax=sns.catplot(
@@ -441,7 +436,6 @@ plt.show()
 ```
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 ax=sns.catplot(
@@ -463,7 +457,6 @@ plt.show()
 ```
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 ax=sns.catplot(x='Pclass',
@@ -522,7 +515,7 @@ pd.crosstab(
     df_titanic_raw["Pclass"],
     values=df_titanic_raw["Sex"],
     aggfunc="count",
-    normalize=False,
+    normalize=True,
 )
 ```
 
@@ -689,17 +682,17 @@ You can explore the data starting from the top or the bottom of the file:
 
 ### Access values by line (`iloc`) or columns (`loc`)
 
+
+ The`loc` and `iloc` functions select indices:
+ - the `loc` function selects rows using row labels whereas
+ - the `iloc` function selects rows using their integer positions.
+
 - `iloc`
 ```{python}
-df_titanic_raw.iloc[0:2, 1:8]
+df_titanic_raw.iloc[0:2]
 ```
 
 - `loc`
-
-```{python}
-# with original indexing:
-df_titanic_raw.loc[128]
-```
 
 ```{python}
 # with naming indexing
@@ -730,7 +723,6 @@ df_titanic_raw = df_titanic_raw.reset_index()  # Back to original indexing
 ### Create binned values
 
 ```{python}
-#| layout-ncol: 1
 #| fig-align: center
 
 bins=np.arange(0, 100, 10)
