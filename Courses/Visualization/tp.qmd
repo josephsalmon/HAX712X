@@ -36,7 +36,9 @@ The list is long (and growing) of Python packages for data visualization.
 We provide some examples in the `pandas` section of the website, and also in the [Scipy](../ScipyNumpy/tp.qmd) course.
 
 
-### `matplotlib`: Visualization with Python
+### Generic tools
+
+#### `matplotlib`: Visualization with Python
 [Source]{.underline}: <https://matplotlib.org/>.
 
 This is the standard library for plots in Python. The documentation is well written and `matplotlib` should be the default choice for creating static documents (*e.g.*, `.pdf` or `.doc` files).
@@ -63,7 +65,7 @@ ax.legend(loc='lower right');
 ```
 
 
-### `seaborn`: statistical data visualization
+#### `seaborn`: statistical data visualization
 [Source]{.underline}: <https://seaborn.pydata.org/>.
 
 `seaborn` is built over `matplotlib` and is specifically tailored for data visualization (`maptlotlib` is a more flexible and general tool). Default settings are usually nicer than one from `maptlotlib`, especially for standard tools (histograms, KDE, swarmplots, etc.).
@@ -86,7 +88,7 @@ sns.move_legend(ax, "lower right")
 sns.despine()
 ```
 
-### `plotly`: a graphing library for Python
+#### `plotly`: a graphing library for Python
 [Source]{.underline}: <https://plotly.com/python/>.
 
 
@@ -177,8 +179,9 @@ iplot(fig, show_link=False)
 ```
 
 
+### Interactive tools
 
-### Shiny: interactive web applications
+#### Shiny: interactive web applications
 [Source]{.underline}: <https://shiny.posit.co/py/>.
 
 Shiny helps you to customize the layout and style of your application and dynamically respond to events, such as a button press, or dropdown selection. It was born and raised in `R`, but is now adapted to Python.
@@ -229,7 +232,33 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 ```
-### `pygal`: python charting
+
+#### `bokeh`: interactive visualizations in the browsers
+[Source]{.underline}: <http://bokeh.org/>.
+
+
+Usual loading command:
+```{python}
+#| eval: false
+import bokeh
+```
+
+As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
+
+#### `vega-altair`: declarative visualization in Python
+[Source]{.underline}: <https://altair-viz.github.io/>.
+
+Usual loading command:
+```{python}
+#| eval: false
+import altair as alt
+```
+
+As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
+
+- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+
+#### `pygal`: python charting
 [Source]{.underline}: <https://www.pygal.org/>.
 
 We use it mostly for maps, and especially for the map of France with DOMs.
@@ -250,33 +279,64 @@ To access the French map plugin you need the installation step that follows:
 pip install pygal_maps_fr
 ```
 
-### `bokeh`: interactive visualizations in the browsers
-[Source]{.underline}: <http://bokeh.org/>.
+### Spatial visualization
 
 
-Usual loading command:
+#### `ipyleaflet`
+
+<!-- ```{python}
+from ipyleaflet import Map, Marker, basemaps, basemap_to_tiles
+Montpellier_gps = (43.610769, 3.876716)
+m = Map(
+  basemaps=basemap_to_tiles(
+    basemaps.NASAGIBS.ModisTerraTrueColorCR, "2023-11-07"
+  ),
+  center=Montpellier_gps,
+  zoom=4
+)
+m.add_layer(Marker(location=Montpellier_gps))
+m
+``` -->
+
+
+
 ```{python}
-#| eval: false
-import bokeh
+from ipyleaflet import Map, Marker, basemaps, basemap_to_tiles
+Montpellier_gps = (43.610769, 3.876716)
+m = Map(
+  basemaps=basemaps.OpenStreetMap.Mapnik,
+  center=Montpellier_gps,
+  zoom=6
+  
+)
+m.add_layer(Marker(location=Montpellier_gps))
+m
 ```
 
-As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
-
-### `vega-altair`: declarative visualization in Python
-[Source]{.underline}: <https://altair-viz.github.io/>.
-
-Usual loading command:
+#### `folium`
 ```{python}
-#| eval: false
-import altair as alt
+import folium
+
+m = folium.Map(
+    location=Montpellier_gps,
+    control_scale=True,
+    zoom_start=6
+)
+
+folium.Marker(
+    location=Montpellier_gps,
+    tooltip="Click me!",
+    popup="Montpellier",
+    icon=folium.Icon(icon="certificate", color="orange"),
+).add_to(m)
+
+m
 ```
 
-As of today (Oct. 2023), this is not supported in Quarto, so no example is given here. A server is needed (locally or remotely).
 
-- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+### 3D visualization
 
-
-### `vedo`: scientific analysis and visualization of 3D objects
+#### `vedo`: scientific analysis and visualization of 3D objects
 [Source]{.underline}: <https://vedo.embl.es/>
 
 This is a Python module for scientific analysis of 3D objects and point clouds based on `VTK` (C++) and `numpy`.
