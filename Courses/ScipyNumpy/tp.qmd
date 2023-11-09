@@ -400,6 +400,13 @@ plt.show()
 
 ## Images
 
+### RGB decomposition
+
+First, discuss the color decomposition in RGB.
+The RGB color model is an additive color model[1] in which the red, green and blue primary colors of light are added together in various ways to reproduce a broad array of colors.
+Hence, each channel (R, G or B) represents a grayscale image, usually coded on  [0,1] or [0,255].
+
+
 ```{python}
 #| layout-ncol: 1
 
@@ -412,8 +419,7 @@ type(img), img.dtype, img.ndim, img.shape
 print(2 ** 8)  # uint8-> code sur 256 niveau.
 
 n_1, n_2, n_3 = img.shape
-np.unique(img)
-
+print(n_1, n_2, n_3)
 
 # True image
 plt.figure()
@@ -422,7 +428,7 @@ plt.axis("off")
 plt.show()
 ```
 
-### RGB decomposition
+
 
 ```{python}
 #| layout-ncol: 1
@@ -431,13 +437,20 @@ fig, ax = plt.subplots(3, 2)
 fig.set_size_inches(7, 4.5)
 n_1, n_2, n_3 = img.shape
 
+# add subplot titles
+ax[0, 0].set_title("Red channel")
 ax[0, 0].imshow(img[:, :, 0], cmap=plt.cm.Reds)
+ax[0, 1].set_title("Pixel values histogram (red channel)")
 ax[0, 1].hist(img[:, :, 0].reshape(n_1 * n_2), np.arange(0, 256))
 
+ax[1, 0].set_title("Green channel")
 ax[1, 0].imshow(img[:, :, 1], cmap=plt.cm.Greens)
+ax[1, 1].set_title("Pixel values histogram (green channel)")
 ax[1, 1].hist(img[:, :, 1].reshape(n_1 * n_2), np.arange(0, 256))
 
+ax[2, 0].set_title("Blue channel")
 ax[2, 0].imshow(img[:, :, 2], cmap=plt.cm.Blues)
+ax[2, 1].set_title("Pixel values histogram (blue channel)")
 ax[2, 1].hist(img[:, :, 2].reshape(n_1 * n_2), np.arange(0, 256))
 
 plt.tight_layout()
@@ -472,7 +485,7 @@ plt.figure()
 plt.imshow(np.mean(img, axis=2), cmap=plt.cm.gray)
 plt.show()
 ```
-### Blurring (&#127467;&#127479;: floutage)
+<!-- ### Blurring (&#127467;&#127479;: floutage)
 
 ```s
 img_flou = ndimage.gaussian_filter(img, sigma=20)
@@ -502,7 +515,7 @@ def update(sigma=2):
     # [l.remove() for l in ax.lines]
     img_flou = ndimage.gaussian_filter(img, sigma)
     ax.imshow(img_flou, cmap=plt.cm.gray)
-```
+``` -->
 
 ### Changing colors in an image
 
@@ -526,14 +539,19 @@ fig.set_size_inches(7, 4.5)
 n_1, n_2, n_3 = img.shape
 
 ax[0, 0].imshow(img[:, :, 0], cmap=plt.cm.Reds)
+ax[0, 0].set_title("Red channel")
 ax[0, 1].hist(img[:, :, 0].reshape(n_1 * n_2), np.arange(0, 256), density=True)
+ax[0, 1].set_title("Pixel values histogram (red channel)")
 
 ax[1, 0].imshow(img[:, :, 1], cmap=plt.cm.Greens)
+ax[1, 0].set_title("Green channel")
 ax[1, 1].hist(img[:, :, 1].reshape(n_1 * n_2), np.arange(0, 256), density=True)
+ax[1, 1].set_title("Pixel values histogram (green channel)")
 
 ax[2, 0].imshow(img[:, :, 2], cmap=plt.cm.Blues)
+ax[2, 0].set_title("Blue channel")
 ax[2, 1].hist(img[:, :, 2].reshape(n_1 * n_2), np.arange(0, 256), density=True)
-
+ax[2, 1].set_title("Pixel values histogram (Blue channel)")
 plt.tight_layout()
 ```
 
@@ -566,10 +584,89 @@ img[:, :, 0][find_light_green] = 0
 img[:, :, 1][find_light_green] = 210
 img[:, :, 2][find_light_green] = 0
 
+
+
 plt.imshow(img)
 plt.show()
 ```
 :::
+
+
+### RGBA
+RGBA stands for red (R), green (G), blue (B) and alpha (A).
+Alpha indicates how the transparency allows an image to be combined over others using alpha compositing, with transparent areas.
+
+### Hexadecimal decomposition
+Often, colors are represented not with an RGB triplet, say (255, 0, 0), but with a hexadecimal code (say #FF0000).
+To get a hexadecimal decomposition, transform each 8-bit RGB channel (*i.e.,* $2^8=256$) into a 2-digit hexadecimal number (*i.e.,* $16^2=256$). This requires letters for representing $10: A, 11: B,\dots, 15: FF$ (see <https://www.rgbtohex.net/> for an online converter)
+
+
+### CMYK decomposition
+
+This is rather a subtractive color model, where the primary colors are cyan (C), magenta (M), yellow (Y), and black (B).
+For a good source to go from RGB to CMYK (and back), see <https://fr.wikipedia.org/wiki/Quadrichromie>.
+
+### HSL (hue, saturation, lightness)
+
+XXX TODO.
+
+Here, you can find a simple online converter for all popular color models:  <https://www.myfixguide.com/color-converter/>.
+
+
+
+
+
+## Image files formats
+
+**Bitmap formats**:
+- PNG (raw, uncompressed format, opens with <a href="https://www.gimp.org/">Gimp</a>)
+- JPG (compressed format)
+- GIF (compressed, animated format)
+
+**Vector formats**:
+- PDF (recommended for your documents)
+- SVG (easily modifiable with <a href="https://inkscape.org/fr/">Inkscape</a>)
+- EPS
+- etc.
+
+
+```{python}
+#| layout-ncol: 1
+
+x1 = np.linspace(0.0, 5.0, num=50)
+x2 = np.linspace(0.0, 2.0, num=50)
+y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
+y2 = np.cos(2 * np.pi * x2)
+
+fig1 = plt.figure(figsize=(5, 4))
+plt.plot(x1, y1)
+plt.xlim(0, 6)
+plt.ylim(-1, 1)
+```
+You can now save the figure in different formats:
+```{python}
+#| eval: false
+#| echo: true
+fig1.savefig("ma_figure_pas_belle.png", format='png', dpi=90)
+fig1.savefig("ma_figure_plus_belle.svg",format='svg', dpi=90)
+```
+
+
+Now you can visualize it after saving. 
+
+PNG (zoom on hover):
+
+::: {.zoom-image}
+<img src="ma_figure_pas_belle.png" alt="Sinc: not nice" width=95%/>
+:::
+
+SVG (zoom on hover):
+
+::: {.zoom-image}
+<img src="ma_figure_plus_belle.svg" alt="Sinc: nice" width=95%/>
+:::
+
+
 
 **References**:
 
