@@ -413,8 +413,7 @@ Hence, each channel (R, G or B) represents a grayscale image, usually coded on  
 from scipy import ndimage, datasets
 
 img = datasets.face()
-type(img), img.dtype, img.ndim, img.shape
-
+print(type(img), img.dtype, img.ndim, img.shape)
 
 print(2 ** 8)  # uint8-> code sur 256 niveau.
 
@@ -485,39 +484,9 @@ plt.figure()
 plt.imshow(np.mean(img, axis=2), cmap=plt.cm.gray)
 plt.show()
 ```
-<!-- ### Blurring (&#127467;&#127479;: floutage)
-
-```s
-img_flou = ndimage.gaussian_filter(img, sigma=20)
-fix, ax = plt.subplots()
-ax.imshow(img_flou, cmap=plt.cm.gray)
-ax.axis("off")
-plt.show()
-
-```
-
-Widget on blurring bandwidth (cannot be rendered online for the moment, only locally)
-
-```python
-#| eval: false
-%matplotlib widget
-import ipywidgets as widgets
-
-# set up plot
-img_flou = ndimage.gaussian_filter(img, sigma=20)
-fix, ax = plt.subplots()
-ax.axis("off")
-plt.show()
-
-@widgets.interact(sigma=(0.1, 200, 0.1))
-def update(sigma=2):
-    """Remove old lines from plots and plot new ones."""
-    # [l.remove() for l in ax.lines]
-    img_flou = ndimage.gaussian_filter(img, sigma)
-    ax.imshow(img_flou, cmap=plt.cm.gray)
-``` -->
 
 ### Changing colors in an image
+
 
 ```{python}
 #| layout-ncol: 1
@@ -531,7 +500,7 @@ name_img =pooch.retrieve(url, known_hash=None)
 img = (255 * plt.imread(name_img)).astype(int)
 img = img.copy()
 plt.figure()
-plt.imshow(img[:, :, 2], cmap=plt.cm.gray)
+plt.imshow(img)
 
 
 fig, ax = plt.subplots(3, 2)
