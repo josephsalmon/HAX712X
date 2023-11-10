@@ -1,0 +1,557 @@
+---
+title: "Bike accident dataset"
+---
+
+**Disclaimer**: this course is adapted from the work [Pandas tutorial](https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb) by Joris Van den Bossche. `R` users might also want to read [Pandas: Comparison with R / R libraries](https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html) for a smooth start in Pandas.
+
+We start by importing the necessary libraries:
+
+```{python}
+%matplotlib inline
+import os
+import numpy as np
+import calendar
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from cycler import cycler
+import pooch  # download data / avoid re-downloading
+from IPython import get_ipython
+import lzma  # to process zip file
+import plotly.express as px
+
+sns.set_palette("colorblind")
+palette = sns.color_palette("twilight", n_colors=12)
+pd.options.display.max_rows = 8
+```
+
+
+**References**:
+
+- [Data original source](https://www.data.gouv.fr/fr/datasets/accidents-de-velo-en-france/)
+- [Possible visualization](https://koumoul.com/en/datasets/accidents-velos)
+
+
+
+## Data loading and preprocessing
+
+
+### Data loading
+```{python}
+# url = "https://koumoul.com/s/data-fair/api/v1/datasets/accidents-velos/raw"
+url_db = "https://github.com/josephsalmon/HAX712X/raw/main/Data/accidents-velos_2022.csv.xz"
+path_target = "./bicycle_db.csv.xz"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url_db, path=path, fname=fname, known_hash=None)
+with lzma.open(path_target) as f:
+    file_content = f.read().decode('utf-8')
+
+# write the string file_content to a file named fname_uncompressed
+with open("./bicycle_db.csv", 'w') as f:
+    f.write(file_content)
+
+```
+
+
+
+```{python}
+df_bikes = pd.read_csv("bicycle_db.csv", na_values="", low_memory=False,
+                       dtype={'data': str, 'heure': str, 'departement': str})
+```
+
+In June 2023, the author decided to change the name of the columns, hence we had to define a dictionary to come back to legacy names:
+
+```{python}
+
+new2old = {
+    "hrmn": "heure",
+    "secuexist": "existence securite",
+    "grav": "gravite accident",
+    "dep": "departement",
+}
+
+df_bikes.rename(columns=new2old, inplace=True)
+
+```
+
+```{python}
+#| eval: false
+get_ipython().system('head -5 ./bicycle_db.csv')
+```
+
+```{python}
+pd.options.display.max_columns = 40
+df_bikes.head()
+```
+
+```{python}
+df_bikes['existence securite'].unique()
+```
+
+
+```{python}
+df_bikes['gravite accident'].unique()
+```
+
+### Handle missing values
+
+```{python}
+df_bikes['date'].hasnans
+```
+
+```{python}
+df_bikes['heure'].hasnans
+```
+So arbitrarily we fill missing values with 0 (since apparently there is no time 0 reported...to double check in the source.)
+
+```{python}
+df_bikes.fillna({'heure':'0'}, inplace=True)
+```
+
+::: {.callout-important appearance='default' icon="false"}
+
+## EXERCISE: start/end of the study
+
+Can you find the starting day and the ending day of the study automatically?
+
+[Hint]{.underline}: Sort the data! You can sort the data by time for instance, say with `df.sort('Time')`.
+:::
+
+
+### Date and time processing
+
+Check the date/time format:
+```{python}
+df_bikes['date'] + ' ' + df_bikes['heure']
+```
+
+
+```{python}
+
+time_improved = pd.to_datetime(
+    df_bikes["date"] + " " + df_bikes["heure"],
+    format="%Y-%m-%d %H",
+    errors="coerce",
+)
+
+```
+
+```{python}
+df_bikes["Time"] = time_improved
+# remove rows with NaT
+df_bikes.dropna(subset=["Time"], inplace=True)
+# set new index
+df_bikes.set_index("Time", inplace=True)
+# remove useless columns
+df_bikes.drop(columns=["heure", "date"], inplace=True)
+```
+
+```{python}
+df_bikes.info()
+```
+
+```{python}
+df_bike2 = df_bikes.loc[
+    :, ["gravite accident", "existence securite", "age", "sexe"]
+]
+df_bike2["existence securite"].replace({"Inconnu": np.nan}, inplace=True)
+df_bike2.dropna(inplace=True)
+
+```
+
+
+::: {.callout-important appearance='default' icon="false"}
+
+## EXERCISE: Is the helmet saving your life?
+
+Perform an analysis so that you can check the benefit or not of wearing a
+helmet to save your life.
+
+[Beware]{.underline}: Preprocessing is needed to use `pd.crosstab`, `pivot_table` to avoid
+issues.
+:::
+```{python}
+#| echo: false
+
+group = df_bike2.pivot_table(
+    columns="existence securite",
+    index=["gravite accident", "sexe"],
+    aggfunc={"age": "count"},
+    margins=True,
+)
+```
+
+
+```{python}
+#| echo: false
+pd.crosstab(
+    df_bike2["existence securite"],
+    df_bike2["gravite accident"],
+    normalize="index",
+) * 100
+```
+
+```{python}
+#| echo: false
+
+pd.crosstab(
+    df_bike2["existence securite"],
+    df_bike2["gravite accident"],
+    values=df_bike2["age"],
+    aggfunc="count",
+    normalize="index",
+) * 100
+```
+
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE:  Are men and women dying equally on a bike?
+
+Perform an analysis to check differences between men's and women's survival.
+:::
+
+```{python}
+#| echo: false
+
+idx_dead = df_bikes['gravite accident'] == '3 - Tué'
+df_deads = df_bikes[idx_dead]
+df_gravite = df_deads.groupby('sexe').size() / idx_dead.sum()
+```
+
+
+```{python}
+#| echo: false
+
+df_bikes.groupby('sexe').size()  / df_bikes.shape[0]
+```
+
+```{python}
+#| echo: false
+
+pd.crosstab(
+    df_bike2["sexe"],
+    df_bike2["gravite accident"],
+    values=df_bike2["age"],
+    aggfunc="count",
+    normalize="columns",
+    margins=True,
+) * 100
+```
+
+
+## Data visualization
+Note that in the dataset, the information on the level of bike practice by gender is missing.
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Accident during the week?
+
+Perform an analysis to check when the accidents are occurring during the week.
+:::
+
+
+### Time series visualization
+
+
+```{python}
+df_bikes["weekday"] = df_bikes.index.day_of_week  # Monday=0, Sunday=6
+df_bikes.groupby(['weekday', df_bikes.index.hour])['sexe'].count()
+```
+```{python}
+df_bikes.groupby(['weekday', df_bikes.index.hour])['age'].count()
+```
+The two last results are the same, no matter if you choose the `'age'` or `'sexe'` variable.
+
+```{python}
+#| layout-ncol: 1
+#| echo: false
+#| eval: false
+
+accidents_week = (
+    df_bikes.groupby(["weekday", df_bikes.index.hour])["sexe"]
+    .count()
+    .unstack(level=0)
+)
+
+fig, axes = plt.subplots(1, 1, figsize=(7, 7))
+accidents_week.plot(ax=axes)
+axes.set_ylabel("Accidents")
+axes.set_xlabel("Time of the day")
+axes.set_title("Daily accident profile: monthly effect?")
+axes.set_xticks(np.arange(0, 24))
+axes.set_xticklabels(np.arange(0, 24), rotation=45)
+axes.legend(
+    labels=[day for day in calendar.day_name],
+    loc="upper left",
+)
+plt.tight_layout()
+plt.show()
+```
+
+Create a daily profile per day of the week:
+
+
+```{python}
+df_polar = (
+    df_bikes.groupby(["weekday", df_bikes.index.hour])["sexe"]
+    .count()
+    .reset_index()
+)  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+
+df_polar = df_polar.astype({"Time": str}, copy=False)
+df_polar["weekday"] = df_polar["weekday"].apply(lambda x: calendar.day_abbr[x])
+df_polar.rename(columns={"sexe": "accidents"}, inplace=True)
+```
+
+Display these daily profiles
+
+```{python}
+n_colors = 8  # 7 days, but 8 colors help to have weekends days' color closer
+colors = px.colors.sample_colorscale(
+    "mrybm", [n / (n_colors - 1) for n in range(n_colors)]
+)
+
+fig = px.line_polar(
+    df_polar,
+    r="accidents",
+    theta="Time",
+    color="weekday",
+    line_close=True,
+    range_r=[0, 600],
+    start_angle=0,
+    color_discrete_sequence=colors,
+    template="seaborn",
+    title="Daily accident profile: weekday effect?",
+)
+
+fig.show()
+```
+
+::: {.callout-note}
+In `plotly` the figure is interactive. If you click on the legend on the right, you can select the day you want to see. It is very convenient to compare days two by two for instance.
+:::
+
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Accident during the year
+
+Perform an analysis to check when the accidents are occurring during the week.
+:::
+
+Create a daily profile per month:
+
+```{python}
+#| layout-ncol: 1
+df_bikes["month"] = df_bikes.index.month  # Janvier=0, .... Decembre=11
+# df_bikes['month'] = df_bikes['month'].apply(lambda x: calendar.month_abbr[x])
+df_bikes.head()
+df_bikes_month = (
+    df_bikes.groupby(["month", df_bikes.index.hour])["age"]
+    .count()
+    .unstack(level=0)
+)
+```
+
+```{python}
+#| layout-ncol: 1
+#| echo: false
+#| eval: false
+
+
+fig, axes = plt.subplots(1, 1, figsize=(7, 7), sharex=True)
+
+axes.set_prop_cycle(
+    (
+        cycler(color=palette)
+        + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
+df_bikes_month.plot(ax=axes)
+axes.set_ylabel("Accidents")
+axes.set_xlabel("Time of the day")
+axes.set_title("Daily accident profile: monthly effect?")
+
+axes.set_xticks(np.arange(0, 24))
+axes.set_xticklabels(np.arange(0, 24), rotation=45)
+axes.legend(labels=calendar.month_name[1:], loc="upper left")
+
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+
+df_polar2 = (
+    df_bikes.groupby(["month", df_bikes.index.hour])["sexe"]
+    .count()
+    .reset_index()
+)  # all variable are similar in this sense, sexe could be replaced by age for instance here. XXX to simplify
+
+df_polar2 = df_polar2.astype({"Time": str}, copy=False)
+df_polar2.rename(columns={"sexe": "accidents"}, inplace=True)
+df_polar2["month"] = df_polar2["month"].apply(lambda x: calendar.month_abbr[x])
+```
+
+Display these daily profiles :
+
+```{python}
+# create a cyclical color scale for 12 values:
+n_colors = 12
+colors = px.colors.sample_colorscale(
+    "mrybm", [n / (n_colors - 1) for n in range(n_colors)]
+)
+
+fig = px.line_polar(
+    df_polar2,
+    r="accidents",
+    theta="Time",
+    color="month",
+    line_close=True,
+    range_r=[0, 410],
+    start_angle=0,
+    color_discrete_sequence=colors,
+    template="seaborn",
+    title="Daily accident profile: weekday effect?",
+)
+fig.show()
+```
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Accidents by department
+Perform an analysis to check when the accidents are occurring for each department, relative to population size.
+:::
+
+
+### Geographic visualization
+
+In this part, we will use the [geopandas](https://geopandas.org/) library to visualize the data on a map, along with `plotly` for interactivity.
+
+
+```{python}
+path_target = "./dpt_population.csv"
+url = "https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/download/?format=csv&timezone=Europe/Berlin&lang=en&use_labels_for_header=true&csv_separator=%3B"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
+
+```{python}
+df_dtp_pop = pd.read_csv("dpt_population.csv", sep=";", low_memory=False)
+
+df_dtp_pop["Code Département"].replace("2A", "20A", inplace=True)
+df_dtp_pop["Code Département"].replace("2B", "20B", inplace=True)
+df_dtp_pop.sort_values(by=["Code Département"], inplace=True)
+
+df_bikes["departement"].replace("2A", "20A", inplace=True)
+df_bikes["departement"].replace("2B", "20B", inplace=True)
+df_bikes.sort_values(by=["departement"], inplace=True)
+# Clean extra departements
+df_bikes = df_bikes.loc[
+    df_bikes["departement"].isin(df_dtp_pop["Code Département"].unique())
+]
+
+gd = df_bikes.groupby(["departement"], as_index=True, sort=True).size()
+
+data = {"code": gd.index, "# Accidents per million": gd.values}
+df = pd.DataFrame(data)
+df["# Accidents per million"] = (
+    df["# Accidents per million"].values
+    * 10000.0
+    / df_dtp_pop["Population"].values
+)
+```
+
+
+We now need to download the `.geojson` file containing the geographic information for each department. We will use the `pooch` library to download the file and store it locally.
+
+```{python}
+path_target = "./departements.geojson"
+# url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson"
+url = "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
+
+First, you have to handle Corsican departments, which are not in the same format as the others.
+
+```{python}
+#| layout-ncol: 1
+
+import plotly.express as px
+import geopandas
+
+departement = geopandas.read_file("departements.geojson")
+departement["code"].replace("2A", "20A", inplace=True)
+departement["code"].replace("2B", "20B", inplace=True)
+
+departement.sort_values(by=["code"], inplace=True)
+
+a = ["0" + str(i) for i in range(1, 10)]
+b = [str(i) for i in range(1, 10)]
+dict_replace = dict(zip(a, b))
+
+departement["code"].replace(dict_replace, inplace=True)
+df["code"].replace(dict_replace, inplace=True)
+
+departement["code"].replace("20A", "2A", inplace=True)
+departement["code"].replace("20B", "2B", inplace=True)
+df["code"].replace("20A", "2A", inplace=True)
+df["code"].replace("20B", "2B", inplace=True)
+
+departement.set_index("code", inplace=True)
+print(departement['nom'].head(22))
+```
+
+Once this is done, you can plot the data on a map.
+
+```{python}
+fig = px.choropleth_mapbox(
+    df,
+    geojson=departement,
+    locations="code",
+    color="# Accidents per million",
+    range_color=(0, df["# Accidents per million"].max()),
+    color_continuous_scale="rdbu",
+    center={"lat": 44, "lon": 2},
+    zoom=3.55,
+    mapbox_style="white-bg",
+)
+fig.update_traces(selector=dict(type="choroplethmapbox"))
+fig.update_layout(
+    title_text="Accidents per million inhabitants by department",
+    coloraxis_colorbar=dict(thickness=20, orientation="h", y=0.051, x=0.5),
+)
+fig.show()
+```
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Accidents by department
+Perform an analysis to check when the accidents are occurring for each department, relative to the area of the *departements*.
+:::
+
+```{python}
+#| echo: false
+#| eval: false
+
+path_target = "./dpt_area.csv"
+url = "https://www.regions-et-departements.fr/fichiers/departements-francais.csv"
+
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: plot DOMs and metropolitan France (hard?)
+
+
+
+Plot DOMs with metropolitan France, so that all departements are visible on the same figure (for instance using this [geoson](https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-avec-outre-mer.geojson) file, and making all departements fitting a small figure).
+:::
+
+## References
+
+- Other interactive tools for data visualization: Altair, Bokeh. See comparisons by Aarron Geller: [link](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/)
+- An interesting tutorial on Altair: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)

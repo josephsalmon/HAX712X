@@ -1,0 +1,170 @@
+---
+title: Version control with Git
+jupyter: python3
+---
+
+## Setting your Git environment
+
+On a terminal, specify the email address with which you will make your commits:
+```bash
+$ git config --global user.email "prenom.nom@domaine.fr"
+```
+Of course **Adapt the email address** prenom.nom@domaine.fr **to your case!**.
+
+You may also (optional) configure another option (yet mysterious)
+
+```bash
+$ git config --global pull.rebase false
+```
+
+## Create an SSH key
+
+### Unix system
+
+The SSH is needed to get a smooth authentication to the remote repository. In a terminal:
+```bash
+$ ssh-keygen -t rsa -b 4096 -C prenom.nom@domaine.fr
+```
+Accept the default option (keys saved in `~/.ssh` and no passphrase)
+
+```bash
+ssh-add
+```
+*Reference:* [Github docs](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on connecting with SSH.
+
+### Windows
+
+*Reference:* [The Server Side](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitHub-SSH-Windows-Example): How to SSH into GitHub on Windows example, by Cameron McKenzie
+
+# Setting up your GitHub account
+
+GitHub is a web hosting service for remote repositories using git. GitHub includes additional features for collaboration, such as bug tracking, requests to add features or task management.
+
+Note that there are other git-based hosting websites such as GitLab or BitBucket.
+
+### Create a GitHub account
+
+Please go to [Github](https://github.com/) and follow the instructions for creating or activating your account.
+
+### Add your SSH key
+
+To display your public key, simply type in a terminal,
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
+Copy the result into the clipboard and add your key to your GitHub account, following the procedure explained on GitHub [here](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account).
+
+To check your installation, please follow the instructions given on GitHub [here](https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection)
+
+
+## Create a remote repository
+
+Let us create a remote repository hosted on your GitHub account.
+
+On GitHub, click on the `+` symbol at the top right of the page, then `New repository`. Give the name `FirstRepo` to your new project and a short description.
+
+Create a **public** repository, meaning that everyone can access your code (read-only). Finish by clicking on `Create repository`.
+
+
+Follow the instructions provided by GitHub to create your local copy of the repository:
+
+1. Create a new folder called `FirstRepo` in your `home` directory and `cd` to it
+2. Then execute the following command **changing the `XXXXXXXXXXX` with the relevent URL**.
+
+    ```bash
+    echo "# FirstRepo" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin git@github.com:XXXXXXXXXXXXXXXXXX/FirstRepo.git
+    git push --set-upstream  origin main
+    ```
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: gitignore
+
+  1. Create a text file called `.gitignore` with the following content:
+
+```bash
+*.pdf
+*~
+```
+  2. Create a commit and push it to your repository. What is the purpose of this file? See <https://github.com/github/gitignore>
+:::
+
+# Interact with other users
+
+The purpose of this exercise is to learn how to use git as a collaboration tool for software development.
+
+## Using an existing repository
+
+Browse the repository at <https://github.com/bcharlier/HAX712X_2023>. What is this module able to do?
+
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Forking a Git repo
+Fork the repository by following these steps:
+
+  1. On GitHub, click on the fork icon.
+  2. A copy is added to your GitHub space. Clone it (this copy!) to get a local repository.
+  3. In a terminal, inspect the output of the command `git remote get-url origin`
+:::
+
+## Debugging
+
+A bug has appeared in the Python module after a commit. An issue has been opened in the bug tracking system at <https://github.com/bcharlier/HAX712X_2023/issues/>. Your goal is to find the problem... and then fix it on your **forked repository**. Finally, you will be able to submit a **Pull Request** to the original repository to share your fix.
+
+### Identification of the bad commit
+
+Your goal is to identify the commit(s) that caused the bug. Use `git log`, `git diff`, `git checkout` to identify the commit responsible for the problem.
+
+*Reference:* [Git Bisect](https://delicious-insights.com/en/posts/git-bisect/)
+
+### Create a new branch to fix the problem
+
+To fix a complex bug or add a new feature, it is often necessary to modify several parts of the code.
+We create a branch, where we make all the commits dedicated to solving the bug. The idea is to maintain a stable version, in the branch `main`, separated from the developing version, which may contain bugs.
+
+
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: branches
+
+  1. Create a local branch `Fix_EOL_Error`
+  2. Push this local branch to your remote repo.
+  3. Switch to the `Fix_EOL_Error` branch, and fix the bugs. The branch `main` will not be affected.
+  4. Merge the fix into the branch `main`
+  5. Delete the local branch `Fix_EOL_Error` and the remote `origin/Fix_EOL_Error` branch
+:::
+
+### Pull request
+
+Your work about bug fixing may interest the original author of the project. On GitHub, open a pull request (PR). PRs are a set of commits that can be integrated directly by the author of the project in its repository and are thus a powerful tool for working with others.
+
+## Branch Merging and Solving conflicts
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Conflicts identification
+
+  1. Switch to the branch `NonGaussian`. Try to figure out what has changed compared to the `main` branch.
+  2. Try to merge the branch `NonGaussian` to the branch `main`.
+  3. Where are located the conflicts? They are shown with the following decorator.
+
+  ```bash
+  <<<<<<< HEAD
+  Some code on the current branch
+  =======
+
+  Some code on the branch to be merged
+  >>>>>>> NonGaussian
+  ```
+
+  4. Resolve them by plotting the two histograms on the same plot. Namely, produce a figure like this:![plot](plot.png)
+:::
+
+
+## References
+
+- Please visit <https://learngitbranching.js.org/>
+

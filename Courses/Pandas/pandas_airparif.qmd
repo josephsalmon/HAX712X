@@ -1,0 +1,331 @@
+---
+title: "Airparif dataset"
+---
+
+**Disclaimer**: this course is adapted from the work [Pandas tutorial](https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb) by Joris Van den Bossche. `R` users might also want to read [Pandas: Comparison with R / R libraries](https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html) for a smooth start in Pandas.
+
+We start by importing the necessary libraries:
+
+
+```{python}
+%matplotlib inline
+import os
+import numpy as np
+import calendar
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from cycler import cycler
+import pooch  # download data / avoid re-downloading
+from IPython import get_ipython
+
+
+sns.set_palette("colorblind")
+palette = sns.color_palette("twilight", n_colors=12)
+pd.options.display.max_rows = 8
+```
+
+This part studies air quality in Paris (Source: **Airparif**) with `pandas`.
+
+```{python}
+url = "http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"
+path_target = "./20080421_20160927-PA13_auto.csv"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+```
+
+For instance, you can run in a terminal:
+```{python}
+#| eval: false
+!head -26 ./20080421_20160927-PA13_auto.csv
+```
+
+Alternatively:
+
+```{python}
+#| eval: false
+from IPython import get_ipython
+get_ipython().system('head -26 ./20080421_20160927-PA13_auto.csv')
+```
+
+**References**:
+
+- [Working with time series](https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html), Python Data Science Handbook by Jake VanderPlas
+
+```{python}
+polution_df = pd.read_csv('20080421_20160927-PA13_auto.csv', sep=';',
+                          comment='#',
+                          na_values="n/d",
+                          converters={'heure': str})
+```
+
+```{python}
+pd.options.display.max_rows = 30
+polution_df.head(25)
+```
+
+### Data preprocessing
+
+
+```{python}
+# check types
+polution_df.dtypes
+
+# check all
+polution_df.info()
+```
+
+For more info on the nature of Pandas objects, see this discussion on [Stackoverflow](https://stackoverflow.com/questions/21018654/strings-in-a-dataframe-but-dtype-is-object).
+Moreover, things are slowly moving from `numpy` to `pyarrow`, cf. [Pandas user guide](https://pandas.pydata.org/docs/user_guide/pyarrow.html)
+
+::: {.callout-important appearance='default' icon="false"}
+
+##  EXERCISE: handling missing values
+
+What is the meaning of "na_values="n/d" above?
+Note that an alternative can be obtained with the command
+`polution_df.replace('n/d', np.nan, inplace=True)`
+
+:::
+
+### Issues with non-conventional hours/day format
+
+Start by changing to integer type (e.g., `int8`):
+```{python}
+polution_df['heure'] = polution_df['heure'].astype(np.int8)
+polution_df['heure']
+```
+No data is from 1 to 24... not conventional so let's make it from 0 to 23
+```{python}
+polution_df['heure'] = polution_df['heure'] - 1
+polution_df['heure']
+```
+and back to strings:
+
+```{python}
+polution_df['heure'] = polution_df['heure'].astype('str')
+polution_df['heure']
+```
+
+### Time processing
+
+Note that we have used the following conventions:
+
+ - d = day
+ - m=month
+ - Y=year
+ - H=hour
+ - M=minutes
+
+```{python}
+time_improved = pd.to_datetime(polution_df['date'] +
+                               ' ' + polution_df['heure'] + ':00',
+                               format='%d/%m/%Y %H:%M')
+
+time_improved
+```
+
+
+```{python}
+polution_df['date'] + ' ' + polution_df['heure'] + ':00'
+```
+
+Create correct timing format in the dataframe
+
+```{python}
+polution_df['DateTime'] = time_improved
+ # remove useless columns:
+del polution_df['heure']
+del polution_df['date']
+polution_df
+```
+
+Visualize the data set now that the time is well formatted:
+
+```{python}
+polution_ts = polution_df.set_index(['DateTime'])
+polution_ts = polution_ts.sort_index(ascending=True)
+polution_ts.head(12)
+```
+
+
+```{python}
+polution_ts.describe()
+```
+
+```{python}
+#| layout-ncol: 1
+
+fig, axes = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
+
+axes[0].plot(polution_ts['O3'])
+axes[0].set_title("Ozone polution: daily average in Paris")
+axes[0].set_ylabel("Concentration (µg/m³)")
+
+axes[1].plot(polution_ts['NO2'])
+axes[1].set_title("Nitrogen polution: daily average in Paris")
+axes[1].set_ylabel("Concentration (µg/m³)")
+plt.show()
+```
+
+```{python}
+#| layout-ncol: 1
+
+fig, axes = plt.subplots(2, 1, figsize=(10, 5), sharex=True)
+
+axes[0].plot(polution_ts['O3'].resample('d').max(), '--')
+axes[0].plot(polution_ts['O3'].resample('d').min(),'-.')
+
+axes[0].set_title("Ozone polution: daily average in Paris")
+axes[0].set_ylabel("Concentration (µg/m³)")
+
+axes[1].plot(polution_ts['NO2'].resample('d').max(),  '--')
+axes[1].plot(polution_ts['NO2'].resample('d').min(),  '-.')
+
+axes[1].set_title("Nitrogen polution: daily average in Paris")
+axes[1].set_ylabel("Concentration (µg/m³)")
+
+plt.show()
+```
+[Source]{.underline} : <https://www.tutorialspoint.com/python/time_strptime.htm>
+
+::: {.callout-important appearance='default' icon="false"}
+
+##  EXERCISE: extreme values per day </font>
+Provide the same plots as before, but with daily best and worst on the same
+figures (and use different colors and/or styles)
+
+Q: Is the pollution getting better over the years or not?
+:::
+
+```{python}
+#| layout-ncol: 1
+
+fig, ax = plt.subplots(1, 1)
+polution_ts['2008':].resample('Y').mean().plot(ax=ax)
+# Sample by year (A pour Annual) or Y for Year
+plt.ylim(0, 50)
+plt.title("Pollution evolution: \n yearly average in Paris")
+plt.ylabel("Concentration (µg/m³)")
+plt.xlabel("Year")
+plt.show()
+```
+
+Loading colors:
+```{python}
+#| layout-ncol: 1
+sns.set_palette("GnBu_d", n_colors=7)
+polution_ts['weekday'] = polution_ts.index.weekday  # Monday=0, Sunday=6
+polution_ts['weekend'] = polution_ts['weekday'].isin([5, 6])
+
+polution_week_no2 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
+    'NO2'].mean().unstack(level=0)
+polution_week_03 = polution_ts.groupby(['weekday', polution_ts.index.hour])[
+    'O3'].mean().unstack(level=0)
+plt.show()
+```
+
+
+```{python}
+#| layout-ncol: 1
+
+fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
+
+polution_week_no2.plot(ax=axes[0])
+axes[0].set_ylabel("Concentration (µg/m³)")
+axes[0].set_xlabel("Intraday evolution")
+axes[0].set_title(
+    "Daily NO2 concentration: weekend effect?")
+axes[0].set_xticks(np.arange(0, 24))
+axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
+axes[0].set_ylim(0, 60)
+
+polution_week_03.plot(ax=axes[1])
+axes[1].set_ylabel("Concentration (µg/m³)")
+axes[1].set_xlabel("Intraday evolution")
+axes[1].set_title("Daily O3 concentration: weekend effect?")
+axes[1].set_xticks(np.arange(0, 24))
+axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
+axes[1].set_ylim(0, 70)
+axes[0].legend().set_visible(False)
+# ax.legend()
+axes[1].legend(labels=[day for day in calendar.day_name], loc='lower left', bbox_to_anchor=(1, 0.1))
+
+plt.tight_layout()
+plt.show()
+```
+
+
+
+```{python}
+polution_ts['month'] = polution_ts.index.month  # Janvier=0, .... Decembre=11
+polution_ts['month'] = polution_ts['month'].apply(lambda x:
+                                                  calendar.month_abbr[x])
+polution_ts.head()
+```
+
+
+```{python}
+polution_month_no2 = polution_ts.groupby(['month', polution_ts.index.hour])[
+    'NO2'].mean().unstack(level=0)
+polution_month_03 = polution_ts.groupby(['month', polution_ts.index.hour])[
+    'O3'].mean().unstack(level=0)
+```
+
+
+```{python}
+#| layout-ncol: 1
+fig, axes = plt.subplots(2, 1, figsize=(7, 7), sharex=True)
+
+axes[0].set_prop_cycle(
+    (
+        cycler(color=palette) + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
+polution_month_no2.plot(ax=axes[0])
+axes[0].set_ylabel("Concentration (µg/m³)")
+axes[0].set_xlabel("Hour of the day")
+axes[0].set_title(
+    "Daily profile per month (NO2)?")
+axes[0].set_xticks(np.arange(0, 24))
+axes[0].set_xticklabels(np.arange(0, 24), rotation=45)
+axes[0].set_ylim(0, 90)
+
+axes[1].set_prop_cycle(
+    (
+        cycler(color=palette) + cycler(ms=[4] * 12)
+        + cycler(marker=["o", "^", "s", "p"] * 3)
+        + cycler(linestyle=["-", "--", ":", "-."] * 3)
+    )
+)
+polution_month_03.plot(ax=axes[1])
+axes[1].set_ylabel("Concentration (µg/m³)")
+axes[1].set_xlabel("Hour of the day")
+axes[1].set_title("Daily profile per month (O3): weekend effect?")
+axes[1].set_xticks(np.arange(0, 24))
+axes[1].set_xticklabels(np.arange(0, 24), rotation=45)
+axes[1].set_ylim(0, 90)
+
+axes[0].legend().set_visible(False)
+# ax.legend()
+axes[1].legend(labels=calendar.month_name[1:], loc='lower left',
+               bbox_to_anchor=(1, 0.1))
+plt.tight_layout()
+plt.show()
+```
+
+
+**References**:
+
+- Other interactive tools for data visualization: Altair, Bokeh. See comparisons by Aarron Geller: [link](https://sites.northwestern.edu/researchcomputing/2022/02/03/what-is-the-best-interactive-plotting-package-in-python/)
+
+- An interesting tutorial: [Altair introduction](https://infovis.fh-potsdam.de/tutorials/)
+
+- [Introduction on geopandas](https://geopandas.org/en/stable/getting_started/introduction.html)
+
+- [Notebook on French departememen/womennts issues](https://www.kaggle.com/code/scratchpad/notebook670ec82922/edit)
+
+- [Choropleth Maps in practice with Plotly and Python](https://towardsdatascience.com/choropleth-maps-in-practice-with-plotly-and-python-672a5eef3a19) by Thibaud Lamothe
+- [European data on France geography](https://data.europa.eu/data/datasets/5fb11a6b13b6030b71898d44?locale=fr)

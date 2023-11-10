@@ -1,0 +1,500 @@
+---
+title: "Classes & Exceptions"
+---
+
+## Classes
+
+*Classes* are central elements in *Object-oriented programming (OOP)*
+
+A class structure defines an object, its properties, and all the operations one can apply to it. Moreover, it allows the creation of multiple instances of the same object, each with its own properties, and to apply the same operations to all of them. Another key concept is the one of **inheritance**,  defining a new class from an existing one by simply inheriting all its properties and operations.
+
+In Python, a class contains **attributes** (variables) and **methods** (functions).
+Syntactically, it is defined similarly to a function, replacing the `def` keyword with `class` and requiring a colon `:` at the end of the first line.
+The name of a class should be CamelCase^[CamelCase (&#127467;&#127479;: *casse de chameau*): the name comes from the "bumpy" look of its letters as in the Wikipedia illustration below <img  src="https://upload.wikimedia.org/wikipedia/commons/e/ef/CamelCase.svg" width="65%" style="display: block; margin-right: auto; margin-left: auto;"></img>] (or CapWords).
+
+For instance, in `sklearn`, the Logistic Regression class is named `LogisticRegression`, and can be loaded and investigated as follows:
+```{python}
+#| eval: false
+from sklearn.linear_model import LogisticRegression
+dir(LogisticRegression)
+```
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+#| echo: false
+from sklearn.linear_model import LogisticRegression
+dir(LogisticRegression)
+```
+:::
+<br>
+
+In particular, you can already discover the attributes and methods shared to all classes (*e.g.,* `__class__`, `__init__`,
+ `__doc__`,), and the one specific to the `LogisticRegression` class (*e.g.,* `fit`, `get_params`, `predict`, etc.).
+
+Usually, a class contains some class methods that can be seen as functions inside the class.
+
+* The first argument of a (non-static) method is usually called `self`:  it is a mandatory element. This `self` argument is for self-reference. Self is a convention and not a Python keyword, so any other name can be used instead of `self` (*e.g.*, `this` or `me` or `in_place_of_self`).
+
+* Some method names have a specific meaning, for instance:
+   * `__init__`: name of the method invoked when creating the object (instantiation)
+   * `__call__`: method invoked when calling the object
+   * `__str__`: method invoked when a class has a representation as a string, *e.g.,* when passing it to the `print` function
+   * see [Python documentation](http://docs.python.org/3/reference/datamodel.html#special-method-names) for more special names.
+
+### A first example
+
+Let us define a simple `Point` class, representing a point in the plane (*i.e.,* a point in $\mathbb{R}^2$):
+
+```{python}
+class Point(object):
+    """A class to represent planar points."""
+
+    def __init__(self, x, y):
+        """Create a new point (x, y)."""
+        self.x = x
+        self.y = y
+
+    def translate(self, dx, dy):
+        """Translate the point by dx and dy."""
+        self.x += dx
+        self.y += dy
+
+    def __str__(self):
+        return f"Point: [{self.x:.3f}, {self.y:.3f}]"
+```
+
+::: {.callout-note}
+If you are not familiar with printing in Python, start with the new f-strings format; see for instance: <https://zetcode.com/python/fstring/>.
+:::
+
+To create a new instance of the class `Point` you run the following code:
+
+```{python}
+p1 = Point(x=0, y=0)  # call __init__ ;
+```
+Now, you can access the attributes of the object `p1`:
+
+```{python}
+print(p1.x, p1.y)
+print(f"{p1}")  # call __str__
+print(p1)
+print(p1.__doc__)
+```
+
+To apply our `translate` method to the point `p1`:
+
+```{python}
+p1.translate(dx=1, dy=1)
+print(p1.translate)
+print(p1)
+print(type(p1))
+```
+Implicitly, the previous command is equivalent to `Point.translate(p1, dx=1, dy=1)`. Indeed, you can check the output of the following command:
+
+```{python}
+p1 = Point(x=0, y=0)
+Point.translate(p1, dx=1, dy=1)
+print(p1)
+```
+
+::: {.callout-note}
+You might have already used that syntax with the "dot" (`.`) notation in `numpy`, for instance when executing a `numpy` function as follows
+
+```{python}
+import numpy as np
+rng = np.random.default_rng(seed=12345)
+a = rng.random((3, 3))
+a.mean(axis=0)
+```
+In that case, `a` was an instance of the `numpy.ndarray` class (see [numpy documentation](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html) for details on this class):
+
+```{python}
+type(a)
+```
+:::
+
+### Built-in method: `__call__`
+
+`MyClass(arg1, arg2, ...)` is a shorthand for `MyClass.__call__(arg1, arg2, ...)`, so this allows writing classes where the instances behave like functions and can be called like a function
+
+```{python}
+class Sum:
+    def __init__(self):
+        print("Instance Created")
+
+    # Defining __call__ method
+    def __call__(self, a, b):
+        print(a + b)
+
+# Instance created
+sum_as_a_function = Sum()
+
+# __call__ method will be called
+sum_as_a_function(10, 20)
+```
+A test function of interest is `isinstance` which allows checking if an object is of the correct class. For instance, one can check if `sum_as_a_function` is an instance of `Sum`
+```{python}
+isinstance(sum_as_a_function, Sum)
+```
+or an instance of `Point`:
+```{python}
+isinstance(sum_as_a_function, Point)
+```
+Another example of a callable is given below with a simple `Counter` class:
+```{python}
+class Counter:
+    """A simple counter class."""
+
+    def __init__(self):
+        self.count = 0
+
+    def increment(self):
+        self.count += 1
+
+    def __call__(self):
+        self.increment()
+```
+Then, performing the following commands you can check how the `__call__` method is called:
+
+```{python}
+counter = Counter()
+print(counter.count)
+counter.increment()
+print(counter.count)
+counter()
+print(counter.count)
+```
+In particular, note that a method of a class can modify the state of a particular instance. This does not alter the other instantiations of the class.
+ <!-- * Methods that do not depend on a particular instantiation can be decorated with the `@staticmethod` keyword. Such method **do not** have their first arg referring to `self`...
+ see <https://blog.devgenius.io/why-python-developers-should-use-staticmethod-and-classmethod-d5fe60497f23> -->
+
+
+:::callout-tip
+
+## To go further
+This example and more details on callable are described in detail in this
+[Real Python](https://realpython.com/python-callable-instances/) post.
+:::
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Gaussian class
+
+Implement a class `Gaussian` with attributes `mean` and `std` with a method
+
+- `__str__` returning a string with the expression of the density
+- `__eq__`  testing the equality of two instances. You should use `numpy.isclose()`
+- `__add__` implementing the (left) addition of independent Gaussian, or more precisely their pdfs (probability density functions)
+- `__radd__` implementing the (right) addition of independent Gaussian, or more precisely their pdfs (probability density functions)
+
+[Note]{.underline}: when executing `a+b` what really happens is that the __add__ method of the `a`: object is called `a.__add__(b)`.
+See [stackoverflow](https://stackoverflow.com/questions/51036121/define-sum-for-a-class-using-non-associative-addition) for more details on the `__add__` and `__radd__` methods.
+
+
+```{python}
+#| echo: false
+class Gaussian:
+    def __init__(self, mean, std):
+        """Create a couple (mean, std)."""
+        self.mean = mean
+        self.std = std
+
+    def __str__(self):
+        return f"pdf: exp(-(x - {self.mean:1.3f})^2 / ({self.std:1.3f}*2^2)) / sqrt(2 * pi * {self.std:1.3f}^2)"
+
+    def __add__(self, other):
+        """__add__: implements addition"""
+        new_mean = self.mean + other.mean
+        new_std = (self.std**2 + other.std**2) ** 0.5
+        return Gaussian(new_mean, new_std)
+
+    def __radd__(self, other):
+        """__radd__: implements addition but is called only if your object is
+        the right-hand operand (e.g., as in 0 + g1 below)."""
+
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
+
+    def __eq__(self, other):
+        return np.isclose(self.mean, other.mean) and np.isclose(
+            self.std, other.std
+        )
+```
+```{python}
+g1 = Gaussian(0.0, 1.0)
+g2 = Gaussian(1.0, 2.0)
+g3 = Gaussian(2.0, 2.0)
+g4 = Gaussian(3.0, 3.0)
+
+print(g1)
+print(g2)
+print(g3)
+print(g4)
+print(g2 + g1)
+print(sum([g1, g2, g3]))
+print(sum([g1, g2, g3]) == g4)
+```
+:::
+
+An operator like  `+` may have a different meaning depending on the context (e.g., addition of numbers, concatenation of strings, etc.). This is called [operator overloading](https://en.wikipedia.org/wiki/Operator_overloading), or sometimes **ad hoc polymorphism**.
+
+### Inheritance
+
+Classes can inherit methods from other classes.
+You can use `super` (Latin word for "above") to access the parent class from a child class. This is useful when you want to extend the functionality of the inherited method.
+
+A simple test consists of checking whether a class has inherited from another one. `issubclass` allows one to check this heritage property.
+For instance, we can check that the following  `IsoGaussian` is a subclass of the `Gaussian` class we have created above:
+
+
+```{python}
+class IsoGaussian(Gaussian):
+    def __init__(self, mean):
+        super().__init__(mean, 1.0)
+
+
+gg1 = IsoGaussian(3)
+print(gg1)
+print(issubclass(IsoGaussian, Gaussian))
+```
+
+:::callout-tip
+
+## To go further
+For more information on `super`, see for instance this [Real Python Tutorials](https://realpython.com/python-super/).
+:::
+
+
+::: {.callout-important appearance='default' icon="false"}
+
+##  EXERCISE: inheritance
+
+What is the inheritance for the LogisticRegression class in `scikit-learn`?
+In particular, not that inheritance could be **multiple**, *i.e..* a class can inherit from several classes.
+
+[Hint]{.underline}: use the `__bases__` attribute of the class.
+```{python}
+from sklearn.linear_model import LogisticRegression
+
+a = LogisticRegression()
+print(a.__class__.__bases__)
+```
+:::
+
+Many other examples can be found in the `scikit-learn` package (see for instance the module [Linear Model](https://github.com/scikit-learn/scikit-learn/blob/95119c13a/sklearn/linear_model/_base.py#L391) often used in machine learning or statistics).
+
+
+## Exceptions
+
+This section is inspired by [Fabien Maussion's lecture on Scientific Programming](https://fabienmaussion.info/scipro_ss2018/html/09-Exceptions.html), and describes how to handle exceptions in `python`.
+
+ - In `python` errors are handled through `Exceptions`
+ - An error throws an `Exception` interrupting the normal code execution
+ - Execution can overpass such an issue inside a bloc with `try` - `except`
+ - A typical use case: stop the program when an error occurs:
+
+
+```python
+def my_function(arguments):
+    if not verify(arguments):
+        raise Exception("Invalid arguments")
+
+    # ...
+    # Keep working if the exception is not raised
+```
+
+
+:::callout-tip
+
+## To go further
+The list of possible errors is available here: <https://docs.python.org/3/library/exceptions.html#bltin-exceptions> and includes `NameError`, `ImportError`, `AssertionError` etc.
+:::
+
+### `try` - `except` - `finally` syntax
+
+`try` - `except` - `finally` is a syntax to handle exceptions in `python`, and it helps prevent errors from stopping a program.
+The syntax is the following:
+
+```python
+try:
+    # Part 1: Normal code goes here
+except:
+    # Part 2: Code for error handling goes here
+    # This code is not executed unless Part 1
+    # above generated an error
+finally:
+    # Optional: This clause is executed no matter what,
+    # and is generally used to release external resources.
+```
+
+
+Let us consider the following example to understand the syntax better:
+```{python}
+try:
+    print("test_var testing:")
+    e = 4
+    print(test_var)  # raise an error: the test_var variable is not defined
+except NameError:
+    print("Caught an exception: test_var does not exist")
+finally:
+    print("This code is executed no matter what")
+
+print("The program keep continuing... it does not freeze!")
+print(f"Beware! the affectation step: e = {e} was executed.")
+```
+
+To obtain some information on the error: it is possible to access the instance of the `Exception` class thrown by the program through the following syntax:
+
+
+```{python}
+try:
+    print("test")
+    print(testtt)  # Error: the variable testtt is not defined
+except Exception as name_exception:
+    print("Caught an exception:", name_exception)
+```
+
+
+A common use case is to test if the import of a package was successful or not. For instance, if you try loading a package `pooooch` that is not installed on your machine, the following code will raise an error:
+
+```{python}
+#| error: true
+import pooooch
+```
+If you would like the program to continue even if the package is not installed, you can use the following syntax:
+
+```{python}
+try:
+    import pooch
+except Exception as e:
+    print(e)
+```
+
+An exhaustive list of exceptions be found here: <https://docs.python.org/3/library/exceptions.html>.
+
+### The `with` statement
+
+::: {.callout-important}
+
+You have to run the following lines at a location where a directory called `scripts/` containing a function `hello-world.py` exists. If you have not cloned the course repository, the file used in the lecture is available [here](https://github.com/josephsalmon/HAX712X/blob/main/Courses/ClassesExceptions/scripts/hello-world.py). You can, of course, create your own if you prefer.
+:::
+
+```{python}
+fname = "./scripts/hello-world.py"
+
+with open(fname) as file:  # Use file to refer to the file object
+    data = file.read()
+    print(data)
+    # at the end of the code chunk, the file.__exit__() method is called
+    # (i.e., file.close() is executed automatically)
+```
+
+Now, let us try with a file that does not exist:
+
+```{python}
+fname = "scripts/hello-world_do_not_exist.py"
+try:
+    # 1/0  # Uncomment at some point and run
+    file = open(fname)
+    data = file.read()
+    print(data)
+except FileNotFoundError:
+    print("File not found!")
+except (RuntimeError, TypeError, NameError, ZeroDivisionError):
+    print("Specific Error message 2")
+finally:
+    file.close()  # Important line to release access to the file!
+```
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Improving the Gaussian class
+
+Create a sub-class `GaussianBis` where you check if the user has provided float arguments (see also `assert` and `isinstance` routines).
+Print a custom explicit error message if it is not the case.
+:::
+
+
+## Scope
+
+The scope of a variable is the part of the program where the variable is accessible.
+In `python`, the scope of a variable is defined by its location in the code (*i.e.*, where you define it).
+
+
+```python
+e = 0
+print(e)
+
+for i in range(1):
+    e = 1
+
+print(e)
+
+
+def f():
+    e = 2
+
+
+print(e)
+```
+
+**Conclusion**: `e` is only "visible" inside the function definition.
+See <https://realpython.com/python-scope-legb-rule/> for more information on this topic.
+
+
+## Manipulate file names across platforms
+Each OS (Linux, Windows, Mac, etc.) might have a different syntax to describe a file path.
+The following would avoid naming conflict due to each OS syntax and could be important for your project if you work with colleagues having a different OS from yours.
+
+
+```{python}
+import os
+
+print(os.path.join('~', 'work', 'src'))
+print(os.path.join(os.getcwd(), 'new_directory'))
+os.path.expanduser?
+print(os.path.expanduser(os.path.join('~', 'work', 'src')))
+```
+
+
+::: {.callout-important appearance='default' icon="false"}
+##  EXERCISE: Create a bunch of files
+
+Write a simple script that creates, in the sub-directory `scripts`, the following text files: `myDb_000.txt`, `myDb_001.txt`, `myDb_002.txt`, ..., `myDb_049.txt`. The `i`-th file should contain a single line with the average of the `i` first digits of pi.
+
+
+**Hint**:
+
+- You might need zero padding.
+- You can check what the following code does.
+
+```python
+file = open("copy.txt")
+file.write("Your text goes here")
+file.close()
+```
+- You might also need some precision for the digits of $\pi$, hence using `mpmath` instead of `numpy`. The following code shows elements of help:
+
+```{python}
+from mpmath import mp
+
+n_tot = 10
+mp.dps = n_tot  # set number of digits
+print(mp.pi)
+
+if not os.path.isdir("script"):
+    os.mkdir("script")
+
+
+for i in range(2, n_tot + 2):
+    print(f"{i:0{i}}")
+```
+:::
+
+## References
+
+* [Python official web page](http://www.python.org) and its [style and writing recommendation](http://www.python.org/dev/peps/pep-0008)
+* [Think Python](http://www.greenteapress.com/thinkpython/) - A free book by  Allen Downey.
+* [Python Essential Reference](http://www.amazon.com/Python-Essential-Reference-4th-Edition/dp/0672329786) - a good reference for general Python coding
+* [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) - an excellent book for data science in Python by Jake VanderPlas (associated notebook available online)

@@ -1,0 +1,235 @@
+---
+title: "Unit Tests"
+---
+
+**Disclaimer**: this course is adapted from the following sources:
+
+- [Python, git & testing](https://amueller.github.io/COMS4995-s19/slides/aml-02-python-git-testing/#45) by Andreas Müller.
+- [VSCode documentation Python testing](https://code.visualstudio.com/docs/python/testing).
+
+## Tests
+
+Tests are small pieces of code ensuring that a part of a program is working as expected.
+
+### Why tests are useful
+
+This is why we place the uttermost importance on implementing tests **along** the development steps.
+It will help you to ensure:
+
+- that code works correctly.
+- that changes do not break anything.
+- that bugs are not reintroduced.
+- robustness to user errors.
+- code is reachable (*i.e.*, it will actually be executed)
+- etc.
+
+### Types of tests
+
+There are different kinds of tests, with the more important ones being:
+
+1. **Unit tests**: test whether a simple unit element (function, class, etc.) does the right thing.
+2. **Integration tests**: test whether the different parts used by your software work well together.
+3. **Non-regression tests**: test whether a new or modified functionality works correctly and that previous functionalities were not affected (e.g., removing a bug does not alter the rest of the code).
+
+### How to test?
+
+Many coding languages come with their own test framework.
+In `python`, we will focus on [`pytest`](http://doc.pytest.org).
+It is simple though powerful.
+`pytest` searches for all `test*.py` files and runs all `test*` methods found.
+It outputs a nice error report.
+
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: pytest
+
+1. Install `pytest` with `pip` using the user scheme (`--user` option)
+2. Test if the command `pytest` is in your PATH (depending on your configuration you will have to add `~/.local/bin` in PATH)
+
+:::
+
+Get the path to `pytest` binary as follows with `python`:
+```{python}
+#| echo: true
+#| eval: false
+
+import pytest
+pytest.__path__
+```
+This outputs a directory containing the `pytest` binary, say `/path/to/pytest`.
+Then, to add the path containing `pytest` in your (Linux) system, you have to type  the following command in your terminal:
+
+```default
+$ export PATH=$PATH:/path/to/pytest
+$ pytest --help
+```
+
+### Example
+
+Let us assume we have a file `inc.py` containing
+
+```python
+def inc1(x):
+    return x + 1
+
+def inc2(x):
+    return x + 2
+```
+
+Thence, the content of `test_inc.py` is
+
+```python
+from inc import inc1, inc2
+
+# This test will work
+def test_inc1():
+    assert inc1(3) == 4
+
+# This test will fail
+def test_inc2():
+    assert inc2(-1) == 4
+```
+
+To run these tests:
+
+```default
+$ pytest test_inc.py
+```
+
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: documentation
+
+
+1. Correct the `test_inc2` test.
+2. Determine the syntax to run any test in a directory.
+3. Determine the syntax to run only the test called `test_inc1`.
+:::
+
+## Code coverage
+
+`pytest` comes with some useful [plugins](https://docs.pytest.org/en/latest/plugins.html). In particular, we will use the coverage report plugin.
+
+A **test coverage** is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs.
+A program with high test coverage, measured as a percentage, has had more of its source code executed during testing: this suggests it has a lower chance of containing undetected software bugs compared to a program with low test coverage.
+
+To install the coverage plugin simply run the `pip` command:
+
+```default
+$ pip install pytest-cov
+```
+
+Assuming the `inc_cov.py` contains:
+
+```python
+def inc(x):
+    if x < 0:
+        return 0
+    return x + 1
+
+def dec(x):
+     return x - 1
+```
+
+and a single test is performed through the file `test_inc_cov.py`
+
+```python
+from inc_cov import inc
+
+def test_inc():
+     assert inc(3) == 4
+```
+
+then
+
+```default
+pytest test_inc_cov.py --cov
+============================= test session starts =============================
+platform linux -- Python 3.10.10, pytest-7.4.2, pluggy-1.0.0
+rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test
+plugins: dash-2.9.3, cov-4.1.0, anyio-3.6.2
+collected 1 item
+
+test_inc_cov.py                                                          [100%]
+
+---------- coverage: platform linux, python 3.10.10-final-0 ----------
+Name              Stmts   Miss  Cover
+-------------------------------------
+inc_cov.py            6      2    67%
+test_inc_cov.py       3      0   100%
+-------------------------------------
+TOTAL                 9      2    78%
+
+
+===============================================================================
+1 passed in 0.02s
+===============================================================================
+```
+
+Two lines in `inc_cov` module were not used. See
+
+```default
+pytest --cov --cov-report=html test_inc_cov.py
+
+============================= test session starts =============================
+platform linux -- Python 3.10.10, pytest-7.4.2, pluggy-1.0.0
+rootdir: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Test
+plugins: dash-2.9.3, cov-4.1.0, anyio-3.6.2
+collected 1 item
+
+test_inc_cov.py                                                          [100%]
+
+---------- coverage: platform linux, python 3.10.10-final-0 ----------
+Coverage HTML written to dir htmlcov
+
+```
+for details.
+
+
+
+
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE:
+
+1. Install the `pytest`'s coverage plugin.
+2. Load the `biketrauma` package you can download at <https://github.com/HMMA238-2020/biketrauma/>
+3. Add some unit tests to `biketrauma` in a new sub-directory `./biketrauma/tests/`:
+    - Create a first `test_df()` that test if the Côtes-d'or département has 152 accidents. Add a second `test_df_log()` testing that the log of the number of accidents in the département 92 is close to `7.161622002`.
+
+    - Create a `test_dl()` function that tests the `md5sum` hash of the downloaded file (a.k.a. `bicycle_db.csv`). You may use the `pooch` package or you can use this piece of code to compute the md5sum:
+:::
+
+```python
+import hashlib
+def md5(fname):
+    hash_md5 = hashlib.md5()
+    with open(fname, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
+```
+By running the following line in the `biketrauma/biketrauma` location:
+```default
+pytest --cov-report=html --cov=biketrauma tests/
+```
+<!-- You should achieve a 92% of code coverage: -->
+you should reach 79% of code coverage, and the report should look like this (see the `htmlcov/index.html` file for an interactive report):
+
+```default
+---------- coverage: platform linux, python 3.10.10-final-0 ----------
+Name                                    Stmts   Miss  Cover
+----------------------------------------------------------------------
+biketrauma/__init__.py                      4      0   100%
+biketrauma/io/Load_db.py                   22      5    77%
+biketrauma/io/__init__.py                   3      0   100%
+biketrauma/preprocess/__init__.py           0      0   100%
+biketrauma/preprocess/get_accident.py       7      0   100%
+biketrauma/vis/__init__.py                  0      0   100%
+biketrauma/vis/plot_location.py             6      4    33%
+----------------------------------------------------------------------
+TOTAL                                      42      9    79%
+
+```
+
+## References
+
+- [The pytest documentation](https://pytest-cov.readthedocs.io/en/latest/)
+- [Wikipedia: Code coverage](https://en.wikipedia.org/wiki/Code_coverage)
