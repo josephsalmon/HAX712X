@@ -142,7 +142,6 @@ trace_list2 = []
 
 for i, w  in enumerate(slider_range):
     trace_list1.append(go.Scatter(y=np.sin(2*np.pi*t*w), visible=False, line={'color': 'red'}, name=f"sin(w * 2 *pi)"))
-
     trace_list2.append(go.Scatter(y=np.cos(2*np.pi*t *w), visible=False, line={'color': 'blue'}, name=f"cos(w * 2 *pi)"))
 
 fig = go.Figure(data=trace_list1+trace_list2)
@@ -279,25 +278,92 @@ To access the French map plugin you need the installation step that follows:
 pip install pygal_maps_fr
 ```
 
+
+## Animation display with `python`
+
+### Animation with `matplotlib`
+
+You can use `FuncAnimation` to animate a sequence of images:
+
+```{python}
+%%capture
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML, display
+fig, ax = plt.subplots()
+xdata, ydata = [], []
+(ln,) = plt.plot([], [], "ro")
+
+
+def init():
+    ax.set_xlim(0, 2 * np.pi)
+    ax.set_ylim(-1, 1)
+    return (ln,)
+
+
+def update(frame):
+    xdata.append(frame)
+    ydata.append(np.sin(frame))
+    ln.set_data(xdata, ydata)
+    return (ln,)
+
+ani = FuncAnimation(
+    fig,
+    update,
+    interval=50,
+    frames=np.linspace(0, 2 * np.pi, 100),
+    init_func=init,
+    blit=True,
+)
+```
+
+```{python}
+#| layout-ncol: 1
+display(HTML(ani.to_jshtml()))
+```
+
+Another way of displaying video exists, using html5 video:
+
+```{python}
+#| eval: false
+display(HTML(ani.to_html5_video()))
+```
+
+**References**:
+
+- [Matplotlib Animations / JavaScript Widgets](http://louistiao.me/posts/notebooks/embedding-matplotlib-animations-in-jupyter-as-interactive-javascript-widgets/) by Louis Tiao
+
+
+## Animation with `plotly`
+
+`matplotlib` works fine for advanced tuning, but is harder for simple tasks.
+So just try `plotly` for basic animations:
+
+```{python}
+import plotly.express as px
+from plotly.offline import plot
+
+df = px.data.gapminder()
+fig = px.scatter(
+    df,
+    x="gdpPercap",
+    y="lifeExp",
+    animation_frame="year",
+    animation_group="country",
+    size="pop",
+    color="continent",
+    hover_name="country",
+    log_x=True,
+    size_max=55,
+    range_x=[100, 100000],
+    range_y=[25, 90],
+)
+fig.show("notebook")
+```
+
+
 ### Spatial visualization
 
-
 #### `ipyleaflet`
-
-<!-- ```{python}
-from ipyleaflet import Map, Marker, basemaps, basemap_to_tiles
-Montpellier_gps = (43.610769, 3.876716)
-m = Map(
-  basemaps=basemap_to_tiles(
-    basemaps.NASAGIBS.ModisTerraTrueColorCR, "2023-11-07"
-  ),
-  center=Montpellier_gps,
-  zoom=4
-)
-m.add_layer(Marker(location=Montpellier_gps))
-m
-``` -->
-
 
 
 ```{python}
@@ -307,7 +373,6 @@ m = Map(
   basemaps=basemaps.OpenStreetMap.Mapnik,
   center=Montpellier_gps,
   zoom=6
-  
 )
 m.add_layer(Marker(location=Montpellier_gps))
 m
