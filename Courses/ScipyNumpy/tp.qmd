@@ -29,55 +29,6 @@ Among others, SciPy deals with:
 from scipy import linalg
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from IPython.display import HTML, display
-```
-
-## Animation display with `python`
-
-### Animation with `matplotlib`
-
-You can use `FuncAnimation` to animate a sequence of images:
-
-```{python}
-%%capture
-fig, ax = plt.subplots()
-xdata, ydata = [], []
-(ln,) = plt.plot([], [], "ro")
-
-
-def init():
-    ax.set_xlim(0, 2 * np.pi)
-    ax.set_ylim(-1, 1)
-    return (ln,)
-
-
-def update(frame):
-    xdata.append(frame)
-    ydata.append(np.sin(frame))
-    ln.set_data(xdata, ydata)
-    return (ln,)
-
-ani = FuncAnimation(
-    fig,
-    update,
-    interval=50,
-    frames=np.linspace(0, 2 * np.pi, 100),
-    init_func=init,
-    blit=True,
-)
-```
-
-```{python}
-#| layout-ncol: 1
-display(HTML(ani.to_jshtml()))
-```
-
-Another way of displaying video exists, using html5 video:
-
-```{python}
-#| eval: false
-display(HTML(ani.to_html5_video()))
 ```
 
 **References**:
