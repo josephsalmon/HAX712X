@@ -3,106 +3,143 @@ title: "Time & memory efficiency"
 ---
 
 
-```{python}
-import time
-import numpy as np
-import matplotlib.pyplot as plt
-```
+## Time efficiency
 
-## Time/computation: usage of `%timeit`
+### Time/computation: usage of `%timeit`
 **References**:
 
 - [Built-in magic commands](https://ipython.org/ipython-doc/3/interactive/magics.html)
 - [autoreload](https://ipython.org/ipython-doc/3/config/extensions/autoreload.html)
 
 
-*magic* commands are IPython commands such as: %timeit, %matplotlib, %autoreload.
-They work only in interactive cases (Ipython, Notebook, Jupyter lab etc.).
+*magic* commands are IPython commands such as: `%timeit`, `%matplotlib`, `%autoreload`.
+They work only in interactive cases (Ipython, Jupyter Notebook, Jupyter lab, etc.).
 
 ```{python}
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+
 n = 1000
 val = 5.4
 ```
 
+Let us compare the time to create a vector of size `n` and fill it with the value `val` with various methods, using the `
+
+
 ```{python}
+print('Using empty and fill:')
 %timeit a = np.empty(n); a.fill(val)
 # Alternative: uncomment below
 # get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')
 ```
 
 ```{python}
-print('empty')
+print('Using empty and list syntax:')
 %timeit a = np.empty(n); a[:] = val
 ```
 
-```python
-print('full')
-```
-
 ```{python}
+print('Using full:')
 %timeit a = np.full((n,), val)
 ```
 
 ```{python}
-print('ones')
-```
-```{python}
+print('Using ones:')
 %timeit a = np.ones(n) * val
 ```
 
 ```{python}
-print('repeat')
-```
-```{python}
+print('Using repeat:')
 %timeit a = np.repeat(val, n)
 ```
 
 
-## Alternatives
-Use the time module thanks to ```import time```
+### Alternatives for time measurement
+Another classical way to time a chunk of code is to use the `time` module, as follows:
 
 ```{python}
 import time
 start = time.time()
 a = np.ones(n) * val
 end = time.time()
-print("Time to execute the command: {0:.5f} s.".format(end - start))
+print(f"Execution time: {end - start:.5f} s.")
 ```
 
-## Sparse matrices, graphs and memory
 
-Sparse matrices are useful to handle potentially huge matrices,
-that have only a few non-zero coefficients:
+## Memory efficiency
+
+### Sparse matrices, graphs and memory
+
+Sparse matrices are useful to handle potentially huge matrices with structures. The most standard structure is sparsity, *i.e.,* matrices that have only a few non-zero coefficients.
+Below are examples of common scenarios where sparse matrices are often used:
+
+
+#### Natural Language Processing (NLP)
+A matrix might encode the presence/absence in a text of a word from a dictionary (say the set of French words). The number 0 (resp. 1) represents the presence (resp. absence) of a word in a text.
+
+#### One-hot encoding/Dummy variables
+To handle categorical data encoding as strings, many algorithms require that you first transform such variables as numerical vectors. The simplest protocol is to create one column to represent each modality of the categorical variable
+and to set the value to 1 if the observation is of that modality, and 0 otherwise. This is called **one-hot encoding** or **dummy encoding**.
+This naturally can be encoded as sparse binary vectors.
+
+An example with `pandas` and  `sklearn` is given below, using the usual convention that `0` represents `False` and `1` represents `True`:
+
+```{python}
+import os
+import numpy as np
+import pandas as pd
+import pooch  # download data / avoid re-downloading
+from sklearn import datasets
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import make_column_transformer
+
+url = "http://josephsalmon.eu/enseignement/datasets/titanic.csv"
+path_target = "./titanic.csv"
+path, fname = os.path.split(path_target)
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)  # if needed `pip install pooch`
+
+categorical_column = ['Name', 'Embarked']
+df_titanic_raw = pd.read_csv("titanic.csv", usecols=categorical_column)
+print(df_titanic_raw.info())
+```
+
+```{python}
+print(df_titanic_raw.head())
+print(pd.get_dummies(df_titanic_raw.Embarked))
+
+transformer=make_column_transformer((OneHotEncoder(sparse_output=False), ['Embarked']), remainder="passthrough")
+df_new = transformer.fit_transform(df_titanic_raw)
+print(df_new)
+```
+::: {.callout-note}
+The difference in the output created lies in the way the missing values are treated.
+:::
+
+
+#### Discretization of a physical system
+For instance, when very distant particles/objects have little influence, their value can be set to zero when representing physical quantities (*e.g.,* heat diffusion, fluid mechanics, electro/magnetism, etc.)
+
+#### Graphs: they are naturally represented by adjacency or incidence
+  matrices (*cf.* below), and therefore beyond the graphs, maps!
+
+
+### Most common formats
+
+ - `csc_matrix(arg1[, shape, dtype, copy])`:
+   Compressed Sparse Column matrix
+ - `coo_matrix(arg1[, shape, dtype, copy])`:
+   A sparse matrix in COOrdinate format.
+ - `csr_matrix(arg1[, shape, dtype, copy])`:
+   Compressed Sparse Row matrix
+
+**References**:
 
 - [Scipy Lectures: why sparse matrices](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices)
 
 - [Sparse data structures in Python](https://rushter.com/blog/scipy-sparse-matrices/), by Artem Golubin
 
 - [Introduction to Sparse Matrices in Python with SciPy](http://cmdlinetips.com/2018/03/sparse-matrices-in-python-with-scipy), by cmdlinetips
-
-**Examples**:
-
-- Natural language processing: We encode the presence of a word from a
-  dictionary (let's say the set of French words) and we put 0 / 1 in case of
-  absence/presence of a word.
-- One-hot encoding, used to represent categorical data as sparse binary
-  vectors.
-- the discretization of a physical system where very distant influences are
-  set to zero (e.g. heat diffusion, fluid mechanics, electro/magnetism, etc.)
-- Graphs: they are naturally represented by adjacency or incidence
-  matrices (*cf.* below), and therefore beyond the graphs, maps!
-
-
-### Most common formats
-
- - coo_matrix(arg1[, shape, dtype, copy]):
-   A sparse matrix in COOrdinate format.
- - csc_matrix(arg1[, shape, dtype, copy]):
-   Compressed Sparse Column matrix
- - csr_matrix(arg1[, shape, dtype, copy]):
-   Compressed Sparse Row matrix
-
-**References**:
 
 - [Scipy doc on sparse matrices](https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse)
 
