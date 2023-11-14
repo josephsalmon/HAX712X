@@ -81,9 +81,9 @@ A matrix might encode the presence/absence in a text of a word from a dictionary
 #### One-hot encoding/Dummy variables
 To handle categorical data encoding as strings, many algorithms require that you first transform such variables as numerical vectors. The simplest protocol is to create one column to represent each modality of the categorical variable
 and to set the value to 1 if the observation is of that modality, and 0 otherwise. This is called **one-hot encoding** or **dummy encoding**.
-This naturally can be encoded as sparse binary vectors.
+By construction, this can be encoded into a sparse (binary) matrix.
 
-An example with `pandas` and  `sklearn` is given below, using the usual convention that `0` represents `False` and `1` represents `True`:
+An example with `pandas` and  `sklearn` is given below (recall that `0` represents `False` and `1` represents `True`):
 
 ```{python}
 import os
@@ -99,21 +99,44 @@ path_target = "./titanic.csv"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)  # if needed `pip install pooch`
 
-categorical_column = ['Name', 'Embarked']
+categorical_column = ['Embarked']
 df_titanic_raw = pd.read_csv("titanic.csv", usecols=categorical_column)
 print(df_titanic_raw.info())
+print(df_titanic_raw.head())
 ```
+
+`pandas` approach with `get_dummies`:
+
 
 ```{python}
-print(df_titanic_raw.head())
-print(pd.get_dummies(df_titanic_raw.Embarked))
-
-transformer=make_column_transformer((OneHotEncoder(sparse_output=False), ['Embarked']), remainder="passthrough")
-df_new = transformer.fit_transform(df_titanic_raw)
-print(df_new)
+dummies = pd.get_dummies(df_titanic_raw.Embarked)
+dummies.info()
 ```
+
+`sklearn` approach with `OneHotEncoder`:
+```{python}
+#| eval: false
+transformer=make_column_transformer((OneHotEncoder(sparse_output=True), ['Embarked']), remainder="passthrough")
+matrix_embarked = transformer.fit_transform(df_titanic_raw)
+print(matrix_embarked)
+print(type(matrix_embarked))
+```
+
+
+::: {.scroll-container style="overflow-y: scroll; height: 400px;"}
+```{python}
+#| echo: false
+transformer=make_column_transformer((OneHotEncoder(sparse_output=True), ['Embarked']), remainder="passthrough")
+matrix_embarked = transformer.fit_transform(df_titanic_raw)
+print(matrix_embarked)
+print(type(matrix_embarked))
+```
+:::
+
 ::: {.callout-note}
-The difference in the output created lies in the way the missing values are treated.
+The differences between the two approaches are:
+- the encoding of absence/presence (`True`/`False` vs. `0`/`1`)
+- the output created handles missing values differently by default
 :::
 
 
@@ -126,12 +149,12 @@ For instance, when very distant particles/objects have little influence, their v
 
 ### Most common formats
 
+ - `csr_matrix(arg1[, shape, dtype, copy])`:
+   Compressed Sparse Row matrix (default format)
  - `csc_matrix(arg1[, shape, dtype, copy])`:
    Compressed Sparse Column matrix
  - `coo_matrix(arg1[, shape, dtype, copy])`:
    A sparse matrix in COOrdinate format.
- - `csr_matrix(arg1[, shape, dtype, copy])`:
-   Compressed Sparse Row matrix
 
 **References**:
 
