@@ -16,6 +16,7 @@ title: "Time & memory efficiency"
 They work only in interactive cases (Ipython, Jupyter Notebook, Jupyter lab, etc.).
 
 ```{python}
+
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,6 +32,7 @@ Let us compare the time to create a vector of size `n` and fill it with the valu
 print('Using empty and fill:')
 %timeit a = np.empty(n); a.fill(val)
 # Alternative: uncomment below
+# from IPython import get_ipython
 # get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')
 ```
 
@@ -67,18 +69,28 @@ print(f"Execution time: {end - start:.5f} s.")
 ```
 
 
-## Memory efficiency
-
-### Sparse matrices, graphs and memory
+## Memory efficiency:  sparse matrices and graphs
 
 Sparse matrices are useful to handle potentially huge matrices with structures. The most standard structure is sparsity, *i.e.,* matrices that have only a few non-zero coefficients.
+
+
+The most common formats are
+
+ - `COO_matrix(arg1[, shape, dtype, copy])`:
+   A sparse matrix in COOrdinate format.
+ - `csr_matrix(arg1[, shape, dtype, copy])`:
+   Compressed Sparse Row matrix (default format in `scipy`)
+ - `csc_matrix(arg1[, shape, dtype, copy])`:
+   Compressed Sparse Column matrix
+
+
 Below are examples of common scenarios where sparse matrices are often used:
 
 
-#### Natural Language Processing (NLP)
+### Natural Language Processing (NLP)
 A matrix might encode the presence/absence in a text of a word from a dictionary (say the set of French words). The number 0 (resp. 1) represents the presence (resp. absence) of a word in a text.
 
-#### One-hot encoding/Dummy variables
+### One-hot encoding/Dummy variables
 To handle categorical data encoding as strings, many algorithms require that you first transform such variables as numerical vectors. The simplest protocol is to create one column to represent each modality of the categorical variable
 and to set the value to 1 if the observation is of that modality, and 0 otherwise. This is called **one-hot encoding** or **dummy encoding**.
 By construction, this can be encoded into a sparse (binary) matrix.
@@ -97,7 +109,7 @@ from sklearn.compose import make_column_transformer
 url = "http://josephsalmon.eu/enseignement/datasets/titanic.csv"
 path_target = "./titanic.csv"
 path, fname = os.path.split(path_target)
-pooch.retrieve(url, path=path, fname=fname, known_hash=None)  # if needed `pip install pooch`
+pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 
 categorical_column = ['Embarked']
 df_titanic_raw = pd.read_csv("titanic.csv", usecols=categorical_column)
@@ -109,7 +121,7 @@ print(df_titanic_raw.head())
 
 
 ```{python}
-dummies = pd.get_dummies(df_titanic_raw.Embarked)
+dummies = pd.get_dummies(df_titanic_raw.Embarked, sparse=True)
 dummies.info()
 ```
 
@@ -140,21 +152,13 @@ The differences between the two approaches are:
 :::
 
 
-#### Discretization of a physical system
+### Discretization of a physical system
 For instance, when very distant particles/objects have little influence, their value can be set to zero when representing physical quantities (*e.g.,* heat diffusion, fluid mechanics, electro/magnetism, etc.)
 
-#### Graphs: they are naturally represented by adjacency or incidence
+### Graphs: they are naturally represented by adjacency or incidence
   matrices (*cf.* below), and therefore beyond the graphs, maps!
 
 
-### Most common formats
-
- - `csr_matrix(arg1[, shape, dtype, copy])`:
-   Compressed Sparse Row matrix (default format)
- - `csc_matrix(arg1[, shape, dtype, copy])`:
-   Compressed Sparse Column matrix
- - `coo_matrix(arg1[, shape, dtype, copy])`:
-   A sparse matrix in COOrdinate format.
 
 **References**:
 
@@ -166,6 +170,10 @@ For instance, when very distant particles/objects have little influence, their v
 
 - [Scipy doc on sparse matrices](https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse)
 
+
+### Usage in `scipy`
+
+
 ```{python}
 from scipy import sparse
 from scipy.sparse import isspmatrix
@@ -174,26 +182,38 @@ Id = sparse.eye(3)
 print(Id.toarray())
 print(f'Q: Is the matrix Id is sparse?\nA: {isspmatrix(Id)}')
 
-n1 = 29
-n2 = 29
+n1 = 9
+n2 = 9
 mat_rnd = sparse.rand(n1, n2, density=0.25, format="csr",
                       random_state=42)
 print(mat_rnd.toarray())
 print(f'Q: Is the matrix mat_rnd is sparse?\nA: {isspmatrix(mat_rnd)}')
 ```
 
+A matrix-vector product can be performed as usual, with the `@` operators:
 
-A matrix-vector product: as usual (also can use `np.dot()`)
 ```{python}
 v = np.random.rand(n2)
 mat_rnd@v
 ```
 
+::: {.callout-important appearance='default' icon="false"}
+## EXERCISE: Linear models & sparse matrices
+
+Create a function that can fit ordinary least squares for sparse matrices (or not).
+In particular, handle the usual pre-processing step of standardizing the columns of the design matrix (*i.e.,* centering columns and dividing by standard deviation)? Beware: often you cannot center a sparse matrix without making it non-sparse.
+:::
+
+The choice of a sparse format depends on the nature and structure of the data.
+For instance:
+ - `csc_matrix` is more efficient for slicing by column,
+ - `csr_matrix` is more efficient for slicing by row.
+
 ### Graphs and sparsity
-A classical framework for the application of sparse matrices is with
+A classical field for the application of sparse matrices is when using
 graphs: although the number of nodes can be huge, each node of a graph is
-in general not connected to all nodes. If we represent a graph by
-its adjacency matrix:
+in general not connected to all nodes.
+Let us represent a graph by its adjacency matrix:
 
 #### Definition: *adjacency matrix*
 
@@ -213,24 +233,13 @@ $$
 
 Note that instead of 1, the value could vary on a per-edge basis (cf. @fig-graph).
 
-::: {.callout-important appearance='default' icon="false"}
-## EXERCISE: Linear models & sparse matrices
-
-Create a function that can fit ordinary least squares for sparse matrices (or not).
-In particular, handle the usual pre-processing step of standardizing the columns of the design matrix (*i.e.,* centering columns and dividing by standard deviation)?
-:::
-
-Usage depends on the nature and structure of the data:
- - `csc_matrix` is more efficient for `slicing` by column
- - `csr_matrix` is more efficient for the row case.
-
+For standard graph manipulation the package `networkx` is very useful.
 
 ```{python}
 import networkx as nx
-nx.__version__
 ```
 
-Create a graph:
+It allows one to define a graph very easily:
 ```{python}
 G = nx.Graph()
 G.add_edge('A', 'B', weight=4)
@@ -245,21 +254,23 @@ and then visualize it:
 ```{python}
 #| label: fig-graph
 #| fig-cap: "Plot a simple graph"
-#| layout-ncol: 1
 
 my_seed = 44
 nx.draw_networkx(
-    G, with_labels=True, node_size=1000, pos=nx.spring_layout(G, seed=my_seed)
+    G, with_labels=True,
+    node_size=1000,
+    pos=nx.spring_layout(G, seed=my_seed)
 )
 
 labels = nx.get_edge_attributes(G, "weight")
-nx.draw_networkx_edge_labels(
-    G, pos=nx.spring_layout(G, seed=my_seed), edge_labels=labels
-)
 nx.draw_networkx_edges(
     G,
     pos=nx.spring_layout(G, seed=my_seed),
     width=[5 * i for i in list(labels.values())],
+)
+nx.draw_networkx_edge_labels(
+    G, pos=nx.spring_layout(G, seed=my_seed),
+    edge_labels=labels
 )
 plt.axis("off")
 plt.show()
@@ -267,22 +278,22 @@ plt.show()
 ```
 
 
-::: {.callout-important appearance='default' icon="false"}
-## EXERCISE: Displaying graphs
-
-1) Show edge weights on the graph
-:::
-
-Note that a variant of adjacency matrix
+You can get (a variant of) the adjacency matrix using
 ```{python}
-#| layout-ncol: 1
 A = nx.adjacency_matrix(G)
 print(isspmatrix(A))
 print(A.todense())
+```
+where the adjacency matrix is stored in a sparse format, and can also encode the weights of the edges.
+
+It is simple to compute the shortest path between two nodes in a graph with
+the `shortest_path` function:
+```{python}
 nx.shortest_path(G, 'C', 'B', weight='weight')
 ```
 
-## Definition : *incidence matrix*
+
+#### Definition : *incidence matrix*
 
 Let $G = (V,E)$ be a (non-oriented) graph with $n$ vertices,
 $V = [1,\dots,n]$, and $p$ edges, $E = [1,\dots,p]$.
@@ -302,7 +313,8 @@ $$
 
 where $e = (i,j)$.
 
-## Definition : *Laplacian matrix*
+
+#### Definition : *Laplacian matrix*
 The matrix $L=D D^\top$ is the so-called graph Laplacian of $G$
 
 ```{python}
@@ -311,7 +323,7 @@ print(isspmatrix(D))
 print(D.todense())
 ```
 
-## Interactive graph visualisation
+#### More graph visualisation
 
 ```{python}
 #| layout-ncol: 1
@@ -341,8 +353,9 @@ plt.show()
 
 ```
 
+#### Back to sparsity
+
 ```{python}
-#| layout-ncol: 1
 
 fig, ax = plt.subplots()
 
@@ -353,7 +366,7 @@ ax = plt.spy(A)
 print(f"Pourcentage of active edges: {(g.number_of_edges() / g.number_of_nodes()**2) * 100:.2f} %")
 ```
 
-Remark: a possible visualization with Javascript (not so stable though, can be skipped)
+[Remark].{underline}: a possible visualization with Javascript (not so stable though, can be skipped)
 
 - [Interactive Networks with Networkx and D3](https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/)
 - [ner2sna: Entity Extraction and Network Analysis](https://github.com/brandomr/ner2sna)
@@ -390,7 +403,7 @@ Special case for `osmnx` on **Windows** follow the next step in order:
 * `conda install -c conda-forge geopandas`
 * Say yes to everything
 * Once done,  launch `pip install osmnx==1.0.1`
-s
+
 You will also need to install the package `folium`
 
 ```{python}
@@ -505,68 +518,3 @@ print(" {0:.2} % of edges only are needed to represent the graph of Montpellier"
 - [OSMnx: Python for Street Networks](https://geoffboeing.com/2016/11/osmnx-python-street-networks/)
 - [Network analysis in Python](https://automating-gis-processes.github.io/2017/lessons/L7/network-analysis.html)
 - [https://autogis-site.readthedocs.io/en/latest/index.html](https://autogis-site.readthedocs.io/en/latest/index.html)
-
-
-## For more on profiling
-- [`snakeviz`, in Python](https://jiffyclub.github.io/snakeviz/)
-- [`profvis`, in R](https://rstudio.github.io/profvis/)
-
-## Debugging: package `pdb`
-**References**:
-
-- [Debugging Jupyter notebooks ](https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/) by David Hamann
-- [Advanced Python Debugging with pdb](https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa) by Steven Kryskalla
-- [Debug Python with VSCode](https://www.youtube.com/watch?v=w8QHoVam1-I)
-
-Let us use `import pdb; pdb.set_trace()` to enter a code and inspect it.
-Push the key `c` and then `enter` to go next.
-
-A first recommendation is to use the `python` debugger in your IDE.
-
-
-Pure `python` or IPython can use the `pdb` package and the
-command `pdb.set_trace()`.
-A command prompt launches when an error is met, and you can check the current
-status of the environment.
-Useful shortcuts are available (*e.g.,* touche c, touche j etc.); a full list is available [here](https://docs.python.org/3/library/pdb.html).s
-
-```python
-def function_debile(x):
-    answer = 42
-    answer += x
-    return answer
-```
-
-```python
-function_debile(12)
-```
-
-```python
-def illustrate_pdb(x):
-    answer = 42
-    import pdb; pdb.set_trace()
-    answer += x
-    return answer
-```
-
-```python
-illustrate_pdb(12)
-```
-
-A terminal is launched when a problem occurs, and one can then take over and see what's going on.
-
-```python
-get_ipython().run_line_magic('pdb', '')
-```
-
-```python
-def blobl_func(x):
-    answer = 0
-    for i in range(x, -1, -1):
-        print(i)
-        answer += 1 / i
-
-    return answer
-
-blobl_func(4)
-```
