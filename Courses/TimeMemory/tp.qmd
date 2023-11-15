@@ -99,7 +99,6 @@ An example with `pandas` and  `sklearn` is given below (recall that `0` represen
 
 ```{python}
 import os
-import numpy as np
 import pandas as pd
 import pooch  # download data / avoid re-downloading
 from sklearn import datasets
@@ -187,7 +186,7 @@ n2 = 9
 mat_rnd = sparse.rand(n1, n2, density=0.25, format="csr",
                       random_state=42)
 print(mat_rnd.toarray())
-print(f'Q: Is the matrix mat_rnd is sparse?\nA: {isspmatrix(mat_rnd)}')
+print(f'Q: Is the matrix mat_rnd sparse?\nA: {isspmatrix(mat_rnd)}')
 ```
 
 A matrix-vector product can be performed as usual, with the `@` operators:
@@ -266,7 +265,7 @@ labels = nx.get_edge_attributes(G, "weight")
 nx.draw_networkx_edges(
     G,
     pos=nx.spring_layout(G, seed=my_seed),
-    width=[5 * i for i in list(labels.values())],
+    width=[6 * i for i in list(labels.values())],
 )
 nx.draw_networkx_edge_labels(
     G, pos=nx.spring_layout(G, seed=my_seed),
@@ -289,8 +288,11 @@ where the adjacency matrix is stored in a sparse format, and can also encode the
 It is simple to compute the shortest path between two nodes in a graph with
 the `shortest_path` function:
 ```{python}
-nx.shortest_path(G, 'C', 'B', weight='weight')
+shortest_path = nx.shortest_path(G, 'C', 'B', weight='weight')
+str_shortest_path = ' -> '.join(shortest_path)
+print(f"The shortest path between C and B is:\n {str_shortest_path}")
 ```
+
 
 
 #### Definition : *incidence matrix*
@@ -326,15 +328,12 @@ print(D.todense())
 #### More graph visualisation
 
 ```{python}
-#| layout-ncol: 1
 g = nx.karate_club_graph()
 
-list_degree = list(
-    g.degree()
-)  # Return a list of tuples each tuple is (node, deg)
-nodes, degree = map(
-    list, zip(*list_degree)
-)  # Build a node list and corresponding degree list
+# Return a list of tuples each tuple is (node, deg)
+list_degree = list(g.degree())
+# Build a node list and corresponding degree list
+nodes, degree = map(list, zip(*list_degree))
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 6))
 nx.draw(
@@ -368,14 +367,16 @@ print(f"Pourcentage of active edges: {(g.number_of_edges() / g.number_of_nodes()
 
 [Remark].{underline}: a possible visualization with Javascript (not so stable though, can be skipped)
 
-- [Interactive Networks with Networkx and D3](https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/)
-- [ner2sna: Entity Extraction and Network Analysis](https://github.com/brandomr/ner2sna)
+- [Interactive Networks with `networkx` and `d3`](https://andrewmellor.co.uk/blog/articles/2014/12/14/d3-networks/)
+- [`ner2sna`: Entity Extraction and Network Analysis](https://github.com/brandomr/ner2sna)
 
 ### Planar graphs and maps
 
-Open Street Map interfaced with `networkx`, using the package `osmnx`.
+Open Street Map can interface with `networkx` using the `osmnx` package.
 
-**Known bug**:
+
+#### The `osmnx` package
+**Known bug for old versions**:
 - [Cannot import name 'CRS' from 'pyproj' in osmnx](https://stackoverflow.com/questions/59658167/cannot-import-name-crs-from-pyproj-for-using-the-osmnx-library)
 
 - [TypeError: argument of type 'CRS' is not iterable" with osmnx](https://stackoverflow.com/questions/60312055/python-getting-typeerror-argument-of-type-crs-is-not-iterable-with-osmnx)
@@ -404,23 +405,6 @@ Special case for `osmnx` on **Windows** follow the next step in order:
 * Say yes to everything
 * Once done,  launch `pip install osmnx==1.0.1`
 
-You will also need to install the package `folium`
-
-```{python}
-import folium
-```
-
-```{python}
-map_osm = folium.Map(location=[43.610769, 3.876716])
-```
-
-```{python}
-map_osm.add_child(folium.RegularPolygonMarker(location=[43.610769, 3.876716],
-                  fill_color='#132b5e', radius=5))
-map_osm
-```
-
-
 ```{python}
 import osmnx as ox
 ox.settings.use_cache=True
@@ -436,6 +420,23 @@ print(f"nb nodes: {G.number_of_nodes()}")
 ```{python}
 fig, ax = ox.plot_graph(G)
 ```
+
+You also need to install the package `folium` for the visualization of the maps.
+```{python}
+import folium
+```
+
+```{python}
+map_osm = folium.Map(location=[43.610769, 3.876716])
+```
+
+```{python}
+map_osm.add_child(folium.RegularPolygonMarker(location=[43.610769, 3.876716],
+                  fill_color='#132b5e', radius=5))
+map_osm
+```
+
+
 ## Visualize the shortest path between two points
 **References**:
 
@@ -450,30 +451,28 @@ destination_node = ox.nearest_nodes(G, destination[1], destination[0])
 
 print(origin)
 print(destination)
-route = ox.distance.shortest_path(G, origin_node, destination_node)
-# XXX double check if weights are taken into account.
+route = ox.routing.shortest_path(G, origin_node, destination_node)
+route_back = ox.routing.shortest_path(G, destination_node, origin_node)
 ```
 
 
 ```{python}
-fig, ax = ox.plot_graph_route(G, route)
+fig, ax = ox.plot_graph_routes(G, [route, route_back], route_linewidth=6, route_colors=['red', 'blue'], node_size=0)
 ```
-```{python}
-ax = ox.plot_route_folium(G, route, weight=5, color='#AA1111', opacity=0.7)
-ax
-```
+Visualize the same routes, but on a map:
 
+```{python}
+
+route_edges = ox.utils_graph.route_to_gdf(G, route)
+route_back_edges = ox.utils_graph.route_to_gdf(G, route_back)
+
+m = route_edges.explore(color="red", style_kwds={"weight": 5, "opacity": 0.75})
+m = route_back_edges.explore(m=m, color="blue", style_kwds={"weight": 5, "opacity": 0.75})
+m
+```
 
 ```{python}
 G.is_multigraph()
-```
-
-```{python}
-edges = ox.graph_to_gdfs(G, nodes=False, edges=True)
-nodes = ox.graph_to_gdfs(G, nodes=True, edges=False)
-# Check columns
-print(edges.columns)
-print(nodes.columns)
 ```
 
 
@@ -500,7 +499,7 @@ format) would be.
 
 Create a matrix of similar size. BEWARE: This creates a huge matrix:
 
-```python
+```{python}
 M = np.random.randn(G.number_of_nodes(), G.number_of_nodes())
 print('Size of a full encoding the zeros: {0:3.2f}  MB'.format(M.nbytes/(1024**2)))
 ```
