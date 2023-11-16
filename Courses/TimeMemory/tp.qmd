@@ -1,75 +1,8 @@
 ---
-title: "Time & memory efficiency"
+title: "Sparse matrices, graphs and maps"
 ---
 
-
-## Time efficiency
-
-### Time/computation: usage of `%timeit`
-**References**:
-
-- [Built-in magic commands](https://ipython.org/ipython-doc/3/interactive/magics.html)
-- [autoreload](https://ipython.org/ipython-doc/3/config/extensions/autoreload.html)
-
-
-*magic* commands are IPython commands such as: `%timeit`, `%matplotlib`, `%autoreload`.
-They work only in interactive cases (Ipython, Jupyter Notebook, Jupyter lab, etc.).
-
-```{python}
-
-import time
-import numpy as np
-import matplotlib.pyplot as plt
-
-n = 1000
-val = 5.4
-```
-
-Let us compare the time to create a vector of size `n` and fill it with the value `val` with various methods, using the `
-
-
-```{python}
-print('Using empty and fill:')
-%timeit a = np.empty(n); a.fill(val)
-# Alternative: uncomment below
-# from IPython import get_ipython
-# get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')
-```
-
-```{python}
-print('Using empty and list syntax:')
-%timeit a = np.empty(n); a[:] = val
-```
-
-```{python}
-print('Using full:')
-%timeit a = np.full((n,), val)
-```
-
-```{python}
-print('Using ones:')
-%timeit a = np.ones(n) * val
-```
-
-```{python}
-print('Using repeat:')
-%timeit a = np.repeat(val, n)
-```
-
-
-### Alternatives for time measurement
-Another classical way to time a chunk of code is to use the `time` module, as follows:
-
-```{python}
-import time
-start = time.time()
-a = np.ones(n) * val
-end = time.time()
-print(f"Execution time: {end - start:.5f} s.")
-```
-
-
-## Memory efficiency:  sparse matrices and graphs
+## Memory efficiency: sparse matrices
 
 Sparse matrices are useful to handle potentially huge matrices with structures. The most standard structure is sparsity, *i.e.,* matrices that have only a few non-zero coefficients.
 
@@ -154,9 +87,9 @@ The differences between the two approaches are:
 ### Discretization of a physical system
 For instance, when very distant particles/objects have little influence, their value can be set to zero when representing physical quantities (*e.g.,* heat diffusion, fluid mechanics, electro/magnetism, etc.)
 
-### Graphs: they are naturally represented by adjacency or incidence
-  matrices (*cf.* below), and therefore beyond the graphs, maps!
-
+### Graphs
+Graphs are naturally represented by adjacency or incidence matrices (*cf.* below), and therefore beyond the graphs, maps!
+We illustrate that in the last section of the course.
 
 
 **References**:
@@ -208,13 +141,13 @@ For instance:
  - `csc_matrix` is more efficient for slicing by column,
  - `csr_matrix` is more efficient for slicing by row.
 
-### Graphs and sparsity
+## Graphs and sparsity
 A classical field for the application of sparse matrices is when using
 graphs: although the number of nodes can be huge, each node of a graph is
 in general not connected to all nodes.
 Let us represent a graph by its adjacency matrix:
 
-#### Definition: *adjacency matrix*
+### Definition: *adjacency matrix*
 
 Suppose that $G=(V,E)$ is a graph, where $\left|V\right|=n$.
 Suppose that the vertices of $G$ are arbitrarily numbered $v_1,\ldots,v_n.$
@@ -295,7 +228,7 @@ print(f"The shortest path between C and B is:\n {str_shortest_path}")
 
 
 
-#### Definition : *incidence matrix*
+### Definition : *incidence matrix*
 
 Let $G = (V,E)$ be a (non-oriented) graph with $n$ vertices,
 $V = [1,\dots,n]$, and $p$ edges, $E = [1,\dots,p]$.
@@ -316,7 +249,7 @@ $$
 where $e = (i,j)$.
 
 
-#### Definition : *Laplacian matrix*
+### Definition : *Laplacian matrix*
 The matrix $L=D D^\top$ is the so-called graph Laplacian of $G$
 
 ```{python}
@@ -325,7 +258,7 @@ print(isspmatrix(D))
 print(D.todense())
 ```
 
-#### More graph visualisation
+### More graph visualizations
 
 ```{python}
 g = nx.karate_club_graph()
@@ -352,7 +285,7 @@ plt.show()
 
 ```
 
-#### Back to sparsity
+### Back to sparse matrices
 
 ```{python}
 
@@ -437,7 +370,46 @@ map_osm
 ```
 
 
-## Visualize the shortest path between two points
+```{python}
+D = nx.incidence_matrix(G, oriented=True).T
+```
+
+```{python}
+element = np.zeros(1, dtype=float)
+mem = np.prod(D.shape) * element.data.nbytes / (1024**2)
+print('Size of full matrix with zeros: {0:3.2f}  MB'.format(mem))
+
+print('Size of sparse matrix: {0:3.2f}  MB'.format(D.data.nbytes/(1024**2) ))
+
+print('Ratio  of full matrix size / sparse: {0:3.2f}%'.format(100 * D.data.nbytes / (1024**2 * mem)))
+print(isspmatrix(D))
+```
+
+**Alternatively**: you can uncomment the following line,
+and check that the size of a similar matrix (with a non-sparse
+format) would be huge,
+
+```>>> Size of a full matrix encoding the zeros: 4 gB```
+
+Create a matrix of similar size. BEWARE: This creates a huge matrix:
+
+```{python}
+M = np.random.randn(G.number_of_nodes(), G.number_of_nodes())
+print('Size of a full encoding the zeros: {0:3.2f}  MB'.format(M.nbytes/(1024**2)))
+```
+
+
+Now you can check the memory usage of the sparse matrix representation associated:
+
+
+```{python}
+print(" {0:.2} % of edges only are needed to represent the graph of Montpellier".format(100 * G.number_of_edges() / G.number_of_nodes() ** 2))
+```
+
+Hopefully, this is convincing enough to use sparse matrices when dealing with graphs and maps!
+
+
+#### Visualize the shortest path between two points
 **References**:
 
 - [OpenStreetMap Roads Data Using osmnx](https://blog.ouseful.info/2018/06/29/working-with-openstreetmap-roads-data-using-osmnx/)
@@ -471,45 +443,14 @@ m = route_back_edges.explore(m=m, color="blue", style_kwds={"weight": 5, "opacit
 m
 ```
 
+
+::: {.callout-note}
+Note that even if we call `G` a graph it is rather a multigraph (there might be several edges between two nodes):
 ```{python}
 G.is_multigraph()
 ```
+:::
 
-
-```{python}
-D = nx.incidence_matrix(G, oriented=True).T
-```
-
-```{python}
-element = np.zeros(1, dtype=float)
-mem = np.prod(D.shape) * element.data.nbytes / (1024**2)
-print('Size of full matrix with zeros: {0:3.2f}  MB'.format(mem))
-
-print('Size of sparse matrix: {0:3.2f}  MB'.format(D.data.nbytes/(1024**2) ))
-
-print('Ratio  of full matrix size / sparse: {0:3.2f}%'.format(100 * D.data.nbytes / (1024**2 * mem)))
-print(isspmatrix(D))
-```
-
-
-**Alternatively**: you can uncomment the following line,
-and check that the size of a similar matrix (with a non-sparse
-format) would be.
-```>>> Size of a full matrix encoding the zeros: 4 gB```
-
-Create a matrix of similar size. BEWARE: This creates a huge matrix:
-
-```{python}
-M = np.random.randn(G.number_of_nodes(), G.number_of_nodes())
-print('Size of a full encoding the zeros: {0:3.2f}  MB'.format(M.nbytes/(1024**2)))
-```
-
-
-### Graph sparsity
-
-```{python}
-print(" {0:.2} % of edges only are needed to represent the graph of Montpellier".format(100 * G.number_of_edges() / G.number_of_nodes() ** 2))
-```
 
 
 **References**:

@@ -2,13 +2,81 @@
 title: "Debugging & Profiling"
 ---
 
+## Time efficiency
 
-## Profiling
 
-A profile is a set of statistics that describes the time taken by various parts of a program.
+### Time/computation: usage of `%timeit`
+**References**:
 
-### `cProfile`
-[module](https://docs.python.org/3/library/profile.html)
+- [Built-in magic commands](https://ipython.org/ipython-doc/3/interactive/magics.html)
+- [autoreload](https://ipython.org/ipython-doc/3/config/extensions/autoreload.html)
+
+
+*magic* commands are IPython commands such as: `%timeit`, `%matplotlib`, `%autoreload`.
+They work only in interactive cases (Ipython, Jupyter Notebook, Jupyter lab, etc.).
+
+```{python}
+
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+
+n = 1000
+val = 5.4
+```
+
+Let us compare the time to create a vector of size `n` and fill it with the value `val` with various methods, using the `
+
+
+```{python}
+print('Using empty and fill:')
+%timeit a = np.empty(n); a.fill(val)
+# Alternative: uncomment below
+# from IPython import get_ipython
+# get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')
+```
+
+```{python}
+print('Using empty and list syntax:')
+%timeit a = np.empty(n); a[:] = val
+```
+
+```{python}
+print('Using full:')
+%timeit a = np.full((n,), val)
+```
+
+```{python}
+print('Using ones:')
+%timeit a = np.ones(n) * val
+```
+
+```{python}
+print('Using repeat:')
+%timeit a = np.repeat(val, n)
+```
+
+
+### Alternatives for time measurement
+Another classical way to time a chunk of code is to use the `time` module, as follows:
+
+```{python}
+import time
+start = time.time()
+a = np.ones(n) * val
+end = time.time()
+print(f"Execution time: {end - start:.5f} s.")
+```
+
+
+## Memory efficiency
+
+### `memory_profiler`
+
+
+```{python}
+%load_ext memory_profiler
+```
 
 ```{python}
 import numpy as np
@@ -32,6 +100,50 @@ def inv_distance_vect(x, y):
     return 1. / np.sqrt((x.reshape((n1, 1))-y.reshape((1, n2)))**2)
 
 ```
+
+```{python}
+%%file mprun_demo.py
+import numpy as np
+
+
+def inv_distance(x, y):
+    n1 = len(x)
+    n2 = len(y)
+    dist = np.zeros((n1, n2))
+    for i in range(n1):
+        for j in range(n2):
+            dist[i, j] = 1.0 / np.sqrt((x[i] - y[j]) ** 2)
+    return dist
+
+
+def inv_distance_vect(x, y):
+    n1 = len(x)
+    n2 = len(y)
+    return 1.0 / np.sqrt((x.reshape((n1, 1)) - y.reshape((1, n2))) ** 2)
+
+```
+
+
+```{python}
+from mprun_demo import inv_distance, inv_distance_vect
+%mprun -f inv_distance inv_distance(x, y)
+```
+
+
+```{python}s
+from mprun_demo import inv_distance_vect
+%mprun -f inv_distance_vect inv_distance_vect(x, y)
+```
+
+
+## Profiling
+
+A profile is a set of statistics that describes the time taken by various parts of a program.
+
+### `cProfile`
+[module](https://docs.python.org/3/library/profile.html)
+
+
 
 Vectorization and broadcasting are key to speeding up computations in `numpy`.
 
@@ -90,9 +202,9 @@ gprof2dot.py -f pstats output.pstats | dot -Tsvg -o output.svg
 **References**:
 - [`profvis`, in R](https://rstudio.github.io/profvis/)
 
+
+
 ## Debugging: package `pdb`
-
-
 
 Let us use `import pdb; pdb.set_trace()` to enter a code and inspect it.
 Push the key `c` and then `enter` to go next.
