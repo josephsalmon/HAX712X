@@ -84,21 +84,6 @@ n1=100
 n2=200
 x = np.random.randn(n1)
 y = np.random.randn(n2)
-
-def inv_distance(x, y):
-    n1=len(x)
-    n2=len(y)
-    dist = np.zeros((n1, n2))
-    for i in range(n1):
-        for j in range(n2):
-            dist[i, j] = 1. / np.sqrt((x[i] - y[j])**2)
-    return dist
-
-def inv_distance_vect(x, y):
-    n1=len(x)
-    n2=len(y)
-    return 1. / np.sqrt((x.reshape((n1, 1))-y.reshape((1, n2)))**2)
-
 ```
 
 ```{python}
@@ -130,9 +115,10 @@ from mprun_demo import inv_distance, inv_distance_vect
 ```
 
 
-```{python}s
+```{python}
 from mprun_demo import inv_distance_vect
-%mprun -f inv_distance_vect inv_distance_vect(x, y)
+%mprun -T mprun0 -f inv_distance_vect inv_distance_vect(x, y)
+print(open('mprun0', 'r').read())
 ```
 
 
