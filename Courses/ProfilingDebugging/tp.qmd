@@ -1,0 +1,153 @@
+---
+title: "Debugging & Profiling"
+---
+
+
+## Profiling
+
+A profile is a set of statistics that describes the time taken by various parts of a program.
+
+### `cProfile`
+[module](https://docs.python.org/3/library/profile.html)
+
+```{python}
+import numpy as np
+n1=100
+n2=200
+x = np.random.randn(n1)
+y = np.random.randn(n2)
+
+def inv_distance(x, y):
+    n1=len(x)
+    n2=len(y)
+    dist = np.zeros((n1, n2))
+    for i in range(n1):
+        for j in range(n2):
+            dist[i, j] = 1. / np.sqrt((x[i] - y[j])**2)
+    return dist
+
+def inv_distance_vect(x, y):
+    n1=len(x)
+    n2=len(y)
+    return 1. / np.sqrt((x.reshape((n1, 1))-y.reshape((1, n2)))**2)
+
+```
+
+Vectorization and broadcasting are key to speeding up computations in `numpy`.
+
+```{python}
+%timeit inv_distance(x, y)
+%timeit inv_distance_vect(x, y)
+```
+
+
+```{python}
+import cProfile
+```
+```{python}
+cProfile.run('inv_distance(x, y)','inv_distance.prof')
+```
+
+```{python}
+cProfile.run('inv_distance_vect(x, y)', 'inv_distance_vect.prof')
+```
+
+
+### `line_profiler`
+
+You can use inline magic commands to profile a function line by line.
+
+```{python}
+%load_ext line_profiler
+```
+
+```{python}
+%lprun -f inv_distance inv_distance(x, y)
+```
+or
+```{python}
+%lprun -T lprof0 -f inv_distance inv_distance(x, y)
+print(open('lprof0', 'r').read())
+```
+
+An alternative is to use the `kernprof` package and `@profile` decorator, see  examples [here](https://coderzcolumn.com/tutorials/python/line-profiler-line-by-line-profiling-of-python-code).
+
+### Visualization of the profiling results
+
+- [`snakeviz`](https://jiffyclub.github.io/snakeviz/): a browser-based graphical viewer for the output of Python's `cProfile`. [Here](https://www.youtube.com/watch?v=qhb7cehwChc) is a video tutorial.
+Launch the command `snakeviz program.prof`
+
+-[`gprof2dot`](https://github.com/jrfonseca/gprof2dot)
+a Python script to convert the output from many profilers (including `cProfile`'s output) into a dot graph, with export in .svg.
+You can run it in your terminal with the following commands:
+```bash
+python -m cProfile -o output.pstats inv_distances.py
+gprof2dot.py -f pstats output.pstats | dot -Tsvg -o output.svg
+```
+
+
+
+**References**:
+- [`profvis`, in R](https://rstudio.github.io/profvis/)
+
+## Debugging: package `pdb`
+
+
+
+Let us use `import pdb; pdb.set_trace()` to enter a code and inspect it.
+Push the key `c` and then `enter` to go next.
+
+A first recommendation is to use the `python` debugger in your IDE.
+
+
+Pure `python` or IPython can use the `pdb` package and the
+command `pdb.set_trace()`.
+A command prompt launches when an error is met, and you can check the current
+status of the environment.
+Useful shortcuts are available (*e.g.,* the c key or the j key, etc.); a full list is available [here](c).
+For instance, you can quit the debugger with the command `q` or `quit`
+```{python}
+def function_debile(x):
+    answer = 42
+    answer += x
+    return answer
+```
+
+```{python}
+function_debile(12)
+```
+
+```{python}
+def illustrate_pdb(x):
+    answer = 42
+    import pdb; pdb.set_trace()
+    answer += x
+    return answer
+```
+
+```python
+illustrate_pdb(12)
+```
+
+A terminal is launched when a problem occurs, and one can then take over and see what's going on.
+
+```python
+get_ipython().run_line_magic('pdb', '')
+```
+
+```python
+def blobl_func(x):
+    answer = 0
+    for i in range(x, -1, -1):
+        print(i)
+        answer += 1 / i
+
+    return answer
+
+blobl_func(4)
+```
+**References**:
+
+- [Debugging Jupyter notebooks ](https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/) by David Hamann
+- [Advanced Python Debugging with pdb](https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa) by Steven Kryskalla
+- [Debug Python with VSCode](https://www.youtube.com/watch?v=w8QHoVam1-I)
