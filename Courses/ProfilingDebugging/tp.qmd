@@ -190,22 +190,20 @@ The output generated is an interactive file that can be investigated in a browse
 
 
 - [`gprof2dot`](https://github.com/jrfonseca/gprof2dot)
-a Python script to convert the output from many profilers (including `cProfile`'s output) into a dot graph, with export in .svg.
-You can run it in your terminal with the following commands:
-```default
-python -m cProfile -o output.pstats inv_distances.py
-gprof2dot.py -f pstats output.pstats | dot -Tsvg -o output.svg
-```
+    a Python script to convert the output from many profilers (including `cProfile`'s output) into a dot graph, with export in .svg.
+    You can run it in your terminal with the following commands:
+    ```default
+    python -m cProfile -o output.pstats inv_distances.py
+    gprof2dot.py -f pstats output.pstats | dot -Tsvg -o output.svg
+    ```
+    You can then display the .svg file:
+    ![gprof2dot](output.svg)
+    <!-- **References**:
+    - [`profvis`, in R](https://rstudio.github.io/profvis/) -->
 
-You can then display the .svg file:
+- [`py-spy`](https://github.com/benfred/py-spy): this package can be combined with [`speedscope`](https://github.com/jlfwong/speedscope) for nice visualization.s
 
-![gprof2dot](output.svg)
-
-
-<!-- **References**:
-
-- [`profvis`, in R](https://rstudio.github.io/profvis/) -->
-
+- [`viztracer](https://github.com/gaogaotiantian/viztracer)
 
 ## Debugging with `pdb`
 
@@ -233,7 +231,7 @@ def function_debile(x):
 function_debile(12)
 ```
 
-```{python}
+```python
 def illustrate_pdb(x):
     answer = 42
     for i in range(10):
@@ -243,18 +241,18 @@ def illustrate_pdb(x):
     return answer
 ```
 
-```{python}
+```python
 illustrate_pdb(12)
 ```
 
 A terminal is launched when a problem occurs, and one can then take over and see what's going on.
 
-```{python}
-# get_ipython().run_line_magic('pdb', '')
-%pdb
+```python
+get_ipython().run_line_magic('pdb', '')
+# %pdb
 ```
 
-```{python}
+```python
 def blobl_func(x):
     answer = 0
     for i in range(x, -1, -1):
