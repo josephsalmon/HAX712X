@@ -73,10 +73,12 @@ print(f"Execution time: {end - start:.5f} s.")
 
 ### `memory_profiler`
 
+You can run a memory profiler with the following magic command (other alternatives are available but require more coding and exporting the reports):
 
 ```{python}
 %load_ext memory_profiler
 ```
+For illustration we compare a way to perform a distance matrix computation between two vectors, using a double loop or a vectorized approach.
 
 ```{python}
 import numpy as np
@@ -108,42 +110,46 @@ def inv_distance_vect(x, y):
 
 ```
 
+We can time the execution of the two functions:
 
 ```{python}
 from mprun_demo import inv_distance, inv_distance_vect
+%timeit inv_distance(x, y)
+%timeit inv_distance_vect(x, y)
+```
+The conclusion is simple: try to avoid loops in Python when performing matrix computation, and use vectorization and broadcasting as much as possible (or use `numba` or `cython`).
+
+
+Some memory profiling can be performed with the `memory_profiler` package to investigate any difference in the memory footprint:
+
+```{python}
 %mprun -f inv_distance inv_distance(x, y)
 ```
 
-
 ```{python}
-from mprun_demo import inv_distance_vect
 %mprun -T mprun0 -f inv_distance_vect inv_distance_vect(x, y)
 print(open('mprun0', 'r').read())
 ```
 
+In this case, the difference is almost negligible concerning memory, only the time computation was significantly different between the two approaches.
 
 ## Profiling
 
 A profile is a set of statistics that describes the time taken by various parts of a program.
 
 ### `cProfile`
-[module](https://docs.python.org/3/library/profile.html)
+The  [cProfile](https://docs.python.org/3/library/profile.html) module provides deterministic profiling of Python programs. A profile is a set of statistics describing how often and for how long various parts of the program run.
 
 
-
-Vectorization and broadcasting are key to speeding up computations in `numpy`.
-
-```{python}
-%timeit inv_distance(x, y)
-%timeit inv_distance_vect(x, y)
-```
+Let us illustrate the profiling for some of the previous examples.
 
 
 ```{python}
 import cProfile
+cProfile.run('a = np.empty(n); a.fill(val)','fill.prof')
 ```
 ```{python}
-cProfile.run('inv_distance(x, y)','inv_distance.prof')
+cProfile.run('a = np.ones(n) * val','ones.prof')
 ```
 
 ```{python}
@@ -168,12 +174,22 @@ or
 print(open('lprof0', 'r').read())
 ```
 
-An alternative is to use the `kernprof` package and `@profile` decorator, see  examples [here](https://coderzcolumn.com/tutorials/python/line-profiler-line-by-line-profiling-of-python-code).
+An alternative is to use the `kernprof` package and `@profile` decorator, see examples [here](https://coderzcolumn.com/tutorials/python/line-profiler-line-by-line-profiling-of-python-code).
 
 ### Visualization of the profiling results
 
 - [`snakeviz`](https://jiffyclub.github.io/snakeviz/): a browser-based graphical viewer for the output of Python's `cProfile`. [Here](https://www.youtube.com/watch?v=qhb7cehwChc) is a video tutorial.
 Launch the command `snakeviz program.prof`
+
+```{python}
+%load_ext snakeviz
+%snakeviz -t inv_distance_vect(x, y)
+```
+The output generated is an interactive file that can be investigated in a browser, looking like:
+
+![snakeviz](snakeviz.png)
+
+
 
 -[`gprof2dot`](https://github.com/jrfonseca/gprof2dot)
 a Python script to convert the output from many profilers (including `cProfile`'s output) into a dot graph, with export in .svg.
@@ -183,14 +199,16 @@ python -m cProfile -o output.pstats inv_distances.py
 gprof2dot.py -f pstats output.pstats | dot -Tsvg -o output.svg
 ```
 
+You can then display the .svg file:
+
+![gprof2dot](output.svg)
 
 
 **References**:
 - [`profvis`, in R](https://rstudio.github.io/profvis/)
 
 
-
-## Debugging: package `pdb`
+## Debugging with `pdb`
 
 Let us use `import pdb; pdb.set_trace()` to enter a code and inspect it.
 Push the key `c` and then `enter` to go next.

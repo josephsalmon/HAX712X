@@ -125,6 +125,7 @@ print(f'Q: Is the matrix mat_rnd sparse?\nA: {isspmatrix(mat_rnd)}')
 A matrix-vector product can be performed as usual, with the `@` operators:
 
 ```{python}
+import numpy as np
 v = np.random.rand(n2)
 mat_rnd@v
 ```
@@ -187,6 +188,7 @@ and then visualize it:
 #| label: fig-graph
 #| fig-cap: "Plot a simple graph"
 
+import matplotlib.pyplot as plt
 my_seed = 44
 nx.draw_networkx(
     G, with_labels=True,
@@ -209,17 +211,15 @@ plt.show()
 
 ```
 
-
 You can get (a variant of) the adjacency matrix using
 ```{python}
 A = nx.adjacency_matrix(G)
-print(isspmatrix(A))
-print(A.todense())
+print(A.todense(), f"Q: Is A spase?\nA: {isspmatrix(A)}")
 ```
 where the adjacency matrix is stored in a sparse format, and can also encode the weights of the edges.
 
-It is simple to compute the shortest path between two nodes in a graph with
-the `shortest_path` function:
+
+With `networkx`, it is simple to get the shortest path between two nodes in a graph using the `shortest_path` function:
 ```{python}
 shortest_path = nx.shortest_path(G, 'C', 'B', weight='weight')
 str_shortest_path = ' -> '.join(shortest_path)
@@ -289,11 +289,10 @@ plt.show()
 
 ```{python}
 
-fig, ax = plt.subplots()
-
 A = nx.adjacency_matrix(g).T
 print(A.todense())
 
+fig, ax = plt.subplots()
 ax = plt.spy(A)
 print(f"Pourcentage of active edges: {(g.number_of_edges() / g.number_of_nodes()**2) * 100:.2f} %")
 ```
