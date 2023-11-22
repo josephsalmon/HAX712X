@@ -36,9 +36,7 @@ with open(filename, newline="") as csvfile:
         # Clone the project
         subprocess.call(["git", "clone", project_url, folder_name])
 
-        # Remove the .git folder
         os.chdir(folder_name)
-        subprocess.call(["rm", "-rf", ".git"])
         os.chdir("..")
 
         # Print the student ID
