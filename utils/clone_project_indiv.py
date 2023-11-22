@@ -26,7 +26,7 @@ with open(filename, newline="") as csvfile:
         project_url = row["URL"]
 
         # Create the folder name
-        folder_name = family_name + first_name
+        folder_name = family_name + "_" + first_name
 
         # Clone the project in the folder local_dir/folder_name
         os.chdir(local_dir)
