@@ -431,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://ipython.org/ipython-doc/3/config/extensions/autoreload.html">autoreload</a></li>
 </ul>
 <p><em>magic</em> commands are IPython commands such as: <code>%timeit</code>, <code>%matplotlib</code>, <code>%autoreload</code>. They work only in interactive cases (Ipython, Jupyter Notebook, Jupyter lab, etc.).</p>
-<div id="c52a8a6b" class="cell" data-execution_count="1">
+<div id="2a4c2234" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -440,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> <span class="fl">5.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us compare the time to create a vector of size <code>n</code> and fill it with the value <code>val</code> with various methods, using the `</p>
-<div id="667a19cb" class="cell" data-execution_count="2">
+<div id="3fbed8d3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Using empty and fill:'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.empty(n)<span class="op">;</span> a.fill(val)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative: uncomment below</span></span>
@@ -448,53 +448,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get_ipython().run_line_magic('timeit', 'a = np.empty(n); a.fill(val)')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using empty and fill:
-674 ns ± 25.9 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+675 ns ± 7.86 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
-<div id="d0fe4323" class="cell" data-execution_count="3">
+<div id="085aaf5c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Using empty and list syntax:'</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.empty(n)<span class="op">;</span> a[:] <span class="op">=</span> val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using empty and list syntax:
-827 ns ± 11.1 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+817 ns ± 7.38 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
-<div id="cfd89d30" class="cell" data-execution_count="4">
+<div id="50fc1e16" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Using full:'</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.full((n,), val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using full:
-1.39 µs ± 33.2 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+1.27 µs ± 11.8 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
-<div id="eca31cd7" class="cell" data-execution_count="5">
+<div id="027d8804" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Using ones:'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.ones(n) <span class="op">*</span> val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using ones:
-3.19 µs ± 56.7 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+2.9 µs ± 14.7 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
-<div id="289167a7" class="cell" data-execution_count="6">
+<div id="6f497945" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Using repeat:'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit a <span class="op">=</span> np.repeat(val, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using repeat:
-2.64 µs ± 75.5 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+2.49 µs ± 84.4 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
 </section>
 <section id="alternatives-for-time-measurement" class="level3">
 <h3 class="anchored" data-anchor-id="alternatives-for-time-measurement">Alternatives for time measurement</h3>
 <p>Another classical way to time a chunk of code is to use the <code>time</code> module, as follows:</p>
-<div id="8d19e838" class="cell" data-execution_count="7">
+<div id="e1bda7e2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.ones(n) <span class="op">*</span> val</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> time.time()</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Execution time: </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.5f}</span><span class="ss"> s."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Execution time: 0.00010 s.</code></pre>
+<pre><code>Execution time: 0.00011 s.</code></pre>
 </div>
 </div>
 </section>
@@ -504,17 +504,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="memory_profiler" class="level3">
 <h3 class="anchored" data-anchor-id="memory_profiler"><code>memory_profiler</code></h3>
 <p>You can run a memory profiler with the following magic command (other alternatives are available but require more coding and exporting the reports):</p>
-<div id="f907f201" class="cell" data-execution_count="8">
+<div id="344a6ebf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext memory_profiler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For illustration we compare a way to perform a distance matrix computation between two vectors, using a double loop or a vectorized approach.</p>
-<div id="a86d7ce9" class="cell" data-execution_count="9">
+<div id="87cc27c8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>n2 <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.randn(n1)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.random.randn(n2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ac9d6665" class="cell" data-execution_count="10">
+<div id="6b589adb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span><span class="bu">file</span> mprun_demo.py</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -538,24 +538,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can time the execution of the two functions:</p>
-<div id="c5dd2a15" class="cell" data-execution_count="11">
+<div id="fd5cbdd9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mprun_demo <span class="im">import</span> inv_distance, inv_distance_vect</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit inv_distance(x, y)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit inv_distance_vect(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>9.78 ms ± 248 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
-29.9 µs ± 360 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>9.43 ms ± 75.9 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+27.9 µs ± 53.5 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 <p>The conclusion is simple: try to avoid loops in Python when performing matrix computation, and use vectorization and broadcasting as much as possible (or use <code>numba</code> or <code>cython</code>).</p>
 <p>Some memory profiling can be performed with the <code>memory_profiler</code> package to investigate any difference in the memory footprint:</p>
-<div id="281214db" class="cell" data-execution_count="12">
+<div id="92aca775" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>mprun <span class="op">-</span>f inv_distance inv_distance(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code></code></pre>
 </div>
 </div>
-<div id="4874448e" class="cell" data-execution_count="13">
+<div id="c64dc554" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>mprun <span class="op">-</span>T mprun0 <span class="op">-</span>f inv_distance_vect inv_distance_vect(x, y)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">open</span>(<span class="st">'mprun0'</span>, <span class="st">'r'</span>).read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -566,10 +566,10 @@ Filename: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/Profilin
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    14    139.9 MiB    139.9 MiB           1   def inv_distance_vect(x, y):
-    15    139.9 MiB      0.0 MiB           1       n1 = len(x)
-    16    139.9 MiB      0.0 MiB           1       n2 = len(y)
-    17    139.9 MiB      0.0 MiB           1       return 1.0 / np.sqrt((x.reshape((n1, 1)) - y.reshape((1, n2))) ** 2)</code></pre>
+    14    139.6 MiB    139.6 MiB           1   def inv_distance_vect(x, y):
+    15    139.6 MiB      0.0 MiB           1       n1 = len(x)
+    16    139.6 MiB      0.0 MiB           1       n2 = len(y)
+    17    139.6 MiB      0.0 MiB           1       return 1.0 / np.sqrt((x.reshape((n1, 1)) - y.reshape((1, n2))) ** 2)</code></pre>
 </div>
 </div>
 <p>In this case, the difference is almost negligible concerning memory, only the time computation was significantly different between the two approaches.</p>
@@ -582,28 +582,28 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 <h3 class="anchored" data-anchor-id="cprofile"><code>cProfile</code></h3>
 <p>The <a href="https://docs.python.org/3/library/profile.html">cProfile</a> module provides deterministic profiling of Python programs. A profile is a set of statistics describing how often and for how long various parts of the program run.</p>
 <p>Let us illustrate the profiling for some of the previous examples.</p>
-<div id="20aafc2e" class="cell" data-execution_count="14">
+<div id="f0ca80d6" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cProfile</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'a = np.empty(n); a.fill(val)'</span>,<span class="st">'fill.prof'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0b5b209b" class="cell" data-execution_count="15">
+<div id="44920dae" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'a = np.ones(n) * val'</span>,<span class="st">'ones.prof'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f62ad2b1" class="cell" data-execution_count="16">
+<div id="c2493907" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'inv_distance_vect(x, y)'</span>, <span class="st">'inv_distance_vect.prof'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="line_profiler" class="level3">
 <h3 class="anchored" data-anchor-id="line_profiler"><code>line_profiler</code></h3>
 <p>You can use inline magic commands to profile a function line by line.</p>
-<div id="8da1bd6a" class="cell" data-execution_count="17">
+<div id="65e7bd0e" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext line_profiler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="280aea9e" class="cell" data-execution_count="18">
+<div id="f88aa778" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>lprun <span class="op">-</span>f inv_distance_vect inv_distance_vect(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>or</p>
-<div id="bead5bfa" class="cell" data-execution_count="19">
+<div id="b0f4cede" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>lprun <span class="op">-</span>T lprof0 <span class="op">-</span>f inv_distance inv_distance(x, y)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">open</span>(<span class="st">'lprof0'</span>, <span class="st">'r'</span>).read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -611,20 +611,20 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 *** Profile printout saved to text file 'lprof0'. 
 Timer unit: 1e-09 s
 
-Total time: 0.0146151 s
+Total time: 0.0139573 s
 File: /home/jsalmon/Documents/Mes_cours/Montpellier/HAX712X/Courses/ProfilingDebugging/mprun_demo.py
 Function: inv_distance at line 4
 
 Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
      4                                           def inv_distance(x, y):
-     5         1        717.0    717.0      0.0      n1 = len(x)
-     6         1        224.0    224.0      0.0      n2 = len(y)
-     7         1       2377.0   2377.0      0.0      dist = np.empty((n1, n2))
-     8       101      13862.0    137.2      0.1      for i in range(n1):
-     9     10100    1666025.0    165.0     11.4          for j in range(n2):
-    10     10000   12931593.0   1293.2     88.5              dist[i, j] = 1.0 / np.sqrt((x[i] - y[j]) ** 2)
-    11         1        319.0    319.0      0.0      return dist</code></pre>
+     5         1        787.0    787.0      0.0      n1 = len(x)
+     6         1        267.0    267.0      0.0      n2 = len(y)
+     7         1       2322.0   2322.0      0.0      dist = np.empty((n1, n2))
+     8       101      13133.0    130.0      0.1      for i in range(n1):
+     9     10100    1542438.0    152.7     11.1          for j in range(n2):
+    10     10000   12398155.0   1239.8     88.8              dist[i, j] = 1.0 / np.sqrt((x[i] - y[j]) ** 2)
+    11         1        205.0    205.0      0.0      return dist</code></pre>
 </div>
 </div>
 <p>An alternative is to use the <code>kernprof</code> package and <code>@profile</code> decorator, see examples <a href="https://coderzcolumn.com/tutorials/python/line-profiler-line-by-line-profiling-of-python-code">here</a>.</p>
@@ -634,12 +634,12 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 <ul>
 <li><a href="https://jiffyclub.github.io/snakeviz/"><code>snakeviz</code></a>: a browser-based graphical viewer for the output of Python’s <code>cProfile</code>. <a href="https://www.youtube.com/watch?v=qhb7cehwChc">Here</a> is a video tutorial. Launch the command <code>snakeviz program.prof</code></li>
 </ul>
-<div id="61e3c289" class="cell" data-execution_count="20">
+<div id="835537f8" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext snakeviz</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>snakeviz <span class="op">-</span>t inv_distance(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 
-*** Profile stats marshalled to file '/tmp/tmpptopiwcd'.
+*** Profile stats marshalled to file '/tmp/tmpmfop7gor'.
 Opening SnakeViz in a new tab...</code></pre>
 </div>
 </div>
