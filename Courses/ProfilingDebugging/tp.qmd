@@ -73,9 +73,11 @@ print(f"Execution time: {end - start:.5f} s.")
 
 ### `memory_profiler`
 
+**This module is deprecated and do not run with Python 3.12**
+
 You can run a memory profiler with the following magic command (other alternatives are available but require more coding and exporting the reports):
 
-```{python}
+```python
 %load_ext memory_profiler
 ```
 For illustration we compare a way to perform a distance matrix computation between two vectors, using a double loop or a vectorized approach.
@@ -121,11 +123,11 @@ The conclusion is simple: try to avoid loops in Python when performing matrix co
 
 Some memory profiling can be performed with the `memory_profiler` package to investigate any difference in the memory footprint:
 
-```{python}
+```python
 %mprun -f inv_distance inv_distance(x, y)
 ```
 
-```{python}
+```python
 %mprun -T mprun0 -f inv_distance_vect inv_distance_vect(x, y)
 print(open('mprun0', 'r').read())
 ```
@@ -160,15 +162,15 @@ cProfile.run('inv_distance_vect(x, y)', 'inv_distance_vect.prof')
 
 You can use inline magic commands to profile a function line by line.
 
-```{python}
+```python
 %load_ext line_profiler
 ```
 
-```{python}
+```python
 %lprun -f inv_distance_vect inv_distance_vect(x, y)
 ```
 or
-```{python}
+```python
 %lprun -T lprof0 -f inv_distance inv_distance(x, y)
 print(open('lprof0', 'r').read())
 ```
