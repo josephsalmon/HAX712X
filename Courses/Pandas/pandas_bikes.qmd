@@ -154,7 +154,9 @@ df_bikes.info()
 df_bike2 = df_bikes.loc[
     :, ["gravite accident", "existence securite", "age", "sexe"]
 ]
-df_bike2["existence securite"].replace({"Inconnu": np.nan}, inplace=True)
+# df.replace(to_replace={'col1' : {99 : 0}, 'col2' : {99 : 0}}, 
+#            inplace=True)
+df_bike2.replace(to_replace={"existence securite": {"Inconnu": np.nan}}, inplace=True)
 df_bike2.dropna(inplace=True)
 
 ```
@@ -439,17 +441,14 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 ```{python}
 df_dtp_pop = pd.read_csv("dpt_population.csv", sep=";", low_memory=False)
 
-df_dtp_pop["Code Département"].replace("2A", "20A", inplace=True)
-df_dtp_pop["Code Département"].replace("2B", "20B", inplace=True)
+df_dtp_pop.replace(to_replace={"code": {"2A": "20A", "2B": "20B"}}, inplace=True)
 df_dtp_pop.sort_values(by=["Code Département"], inplace=True)
 
-df_bikes["departement"].replace("2A", "20A", inplace=True)
-df_bikes["departement"].replace("2B", "20B", inplace=True)
+df_bikes.replace(to_replace={"code": {"2A": "20A", "2B": "20B"}}, inplace=True)
 df_bikes.sort_values(by=["departement"], inplace=True)
 # Clean extra departements
-df_bikes = df_bikes.loc[
-    df_bikes["departement"].isin(df_dtp_pop["Code Département"].unique())
-]
+
+df_bikes = df_bikes[df_bikes["departement"].isin(df_dtp_pop["Code Département"])]
 
 gd = df_bikes.groupby(["departement"], as_index=True, sort=True).size()
 
@@ -482,8 +481,8 @@ import plotly.express as px
 import geopandas
 
 departement = geopandas.read_file("departements.geojson")
-departement["code"].replace("2A", "20A", inplace=True)
-departement["code"].replace("2B", "20B", inplace=True)
+
+departement.replace(to_replace={"code": {"2A": "20A", "2B": "20B"}}, inplace=True)
 
 departement.sort_values(by=["code"], inplace=True)
 
@@ -491,16 +490,18 @@ a = ["0" + str(i) for i in range(1, 10)]
 b = [str(i) for i in range(1, 10)]
 dict_replace = dict(zip(a, b))
 
-departement["code"].replace(dict_replace, inplace=True)
-df["code"].replace(dict_replace, inplace=True)
 
-departement["code"].replace("20A", "2A", inplace=True)
-departement["code"].replace("20B", "2B", inplace=True)
-df["code"].replace("20A", "2A", inplace=True)
-df["code"].replace("20B", "2B", inplace=True)
+departement.replace(
+    to_replace={"code": {"20A": "2A", "20B": "2B", **dict_replace}}, inplace=True
+)
+
+df.replace(
+    to_replace={"code": {"20A": "2A", "20B": "2B", **dict_replace}}, inplace=True
+)
 
 departement.set_index("code", inplace=True)
-print(departement['nom'].head(22))
+print(departement["nom"].head(22))
+
 ```
 
 Once this is done, you can plot the data on a map.
