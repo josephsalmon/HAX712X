@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.45">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p><strong>Disclaimer</strong>: this course is adapted from the work <a href="https://github.com/jorisvandenbossche/pandas-tutorial/blob/master/01-pandas_introduction.ipynb">Pandas tutorial</a> by Joris Van den Bossche. <code>R</code> users might also want to read <a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_r.html">Pandas: Comparison with R / R libraries</a> for a smooth start in Pandas.</p>
 <p>We start by importing the necessary libraries:</p>
-<div id="1aad65d8" class="cell" data-execution_count="1">
+<div id="7b455e23" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This part studies air quality in Paris (Source: <strong>Airparif</strong>) with <code>pandas</code>.</p>
-<div id="b4b96aa6" class="cell" data-execution_count="2">
+<div id="ccce582e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://josephsalmon.eu/enseignement/datasets/20080421_20160927-PA13_auto.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path_target <span class="op">=</span> <span class="st">"./20080421_20160927-PA13_auto.csv"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path, fname <span class="op">=</span> os.path.split(path_target)</span>
@@ -446,11 +446,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>For instance, you can run in a terminal:</p>
-<div id="1070b723" class="cell" data-execution_count="3">
+<div id="a0186872" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span><span class="dv">26</span> .<span class="op">/</span><span class="dv">20080421_20160927</span><span class="op">-</span>PA13_auto.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternatively:</p>
-<div id="acdf75da" class="cell" data-execution_count="4">
+<div id="b4e143b0" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> get_ipython</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>get_ipython().system(<span class="st">'head -26 ./20080421_20160927-PA13_auto.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -458,13 +458,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html">Working with time series</a>, Python Data Science Handbook by Jake VanderPlas</li>
 </ul>
-<div id="d2b1c1cd" class="cell" data-execution_count="5">
+<div id="66ebddb9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>polution_df <span class="op">=</span> pd.read_csv(<span class="st">'20080421_20160927-PA13_auto.csv'</span>, sep<span class="op">=</span><span class="st">';'</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          comment<span class="op">=</span><span class="st">'#'</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                          na_values<span class="op">=</span><span class="st">"n/d"</span>,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                          converters<span class="op">=</span>{<span class="st">'heure'</span>: <span class="bu">str</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7fd76ca2" class="cell" data-execution_count="6">
+<div id="6c453cf6" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_rows <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>polution_df.head(<span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -665,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="data-preprocessing" class="level3">
 <h3 class="anchored" data-anchor-id="data-preprocessing">Data preprocessing</h3>
-<div id="a95bff2b" class="cell" data-execution_count="7">
+<div id="15423710" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check types</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>polution_df.dtypes</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -703,7 +703,7 @@ EXERCISE: handling missing values
 <section id="issues-with-non-conventional-hoursday-format" class="level3">
 <h3 class="anchored" data-anchor-id="issues-with-non-conventional-hoursday-format">Issues with non-conventional hours/day format</h3>
 <p>Start by changing to integer type (e.g., <code>int8</code>):</p>
-<div id="77ffe972" class="cell" data-execution_count="8">
+<div id="8bc845ff" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>].astype(np.int8)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -722,7 +722,7 @@ Name: heure, Length: 73920, dtype: int8</code></pre>
 </div>
 </div>
 <p>No data is from 1 to 24… not conventional so let’s make it from 0 to 23</p>
-<div id="ce952848" class="cell" data-execution_count="9">
+<div id="9e3540a6" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>] <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -741,7 +741,7 @@ Name: heure, Length: 73920, dtype: int8</code></pre>
 </div>
 </div>
 <p>and back to strings:</p>
-<div id="b790177d" class="cell" data-execution_count="10">
+<div id="abbdf488" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>] <span class="op">=</span> polution_df[<span class="st">'heure'</span>].astype(<span class="st">'str'</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'heure'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -770,7 +770,7 @@ Name: heure, Length: 73920, dtype: object</code></pre>
 <li>H=hour</li>
 <li>M=minutes</li>
 </ul>
-<div id="fdf900b0" class="cell" data-execution_count="11">
+<div id="77259575" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>time_improved <span class="op">=</span> pd.to_datetime(polution_df[<span class="st">'date'</span>] <span class="op">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                               <span class="st">' '</span> <span class="op">+</span> polution_df[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span>,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                               <span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y %H:%M'</span>)</span>
@@ -791,7 +791,7 @@ Name: heure, Length: 73920, dtype: object</code></pre>
 Length: 73920, dtype: datetime64[ns]</code></pre>
 </div>
 </div>
-<div id="cbbe1256" class="cell" data-execution_count="12">
+<div id="cc14f0c1" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> polution_df[<span class="st">'heure'</span>] <span class="op">+</span> <span class="st">':00'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0         21/04/2008 0:00
@@ -809,7 +809,7 @@ Length: 73920, dtype: object</code></pre>
 </div>
 </div>
 <p>Create correct timing format in the dataframe</p>
-<div id="74210c52" class="cell" data-execution_count="13">
+<div id="1d7d4a72" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>polution_df[<span class="st">'DateTime'</span>] <span class="op">=</span> time_improved</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># remove useless columns:</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> polution_df[<span class="st">'heure'</span>]</span>
@@ -903,7 +903,7 @@ Length: 73920, dtype: object</code></pre>
 </div>
 </div>
 <p>Visualize the data set now that the time is well formatted:</p>
-<div id="3ca43bb2" class="cell" data-execution_count="14">
+<div id="2650a23c" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>polution_ts <span class="op">=</span> polution_df.set_index([<span class="st">'DateTime'</span>])</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>polution_ts <span class="op">=</span> polution_ts.sort_index(ascending<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>polution_ts.head(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -991,7 +991,7 @@ Length: 73920, dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="54d9ee31" class="cell" data-execution_count="15">
+<div id="a3e6fc1f" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>polution_ts.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -1062,7 +1062,7 @@ Length: 73920, dtype: object</code></pre>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Nitrogen polution: daily average in Paris"</span>)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="7a71f655" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="16">
+<div id="ac9322fb" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="16">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="pandas_airparif_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
@@ -1084,7 +1084,7 @@ Length: 73920, dtype: object</code></pre>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Concentration (µg/m³)"</span>)</span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b0f046c4" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="17">
+<div id="6bdf3770" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="17">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="pandas_airparif_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
@@ -1115,12 +1115,12 @@ EXERCISE: extreme values per day
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_243459/1798743111.py:2: FutureWarning:
+<pre><code>/tmp/ipykernel_52516/1798743111.py:2: FutureWarning:
 
 'Y' is deprecated and will be removed in a future version, please use 'YE' instead.
 </code></pre>
 </div>
-<div id="57467c99" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="18">
+<div id="2a39d288" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="18">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="pandas_airparif_files/figure-html/cell-19-output-2.png" class="img-fluid"></p>
@@ -1137,7 +1137,7 @@ EXERCISE: extreme values per day
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>polution_week_03 <span class="op">=</span> polution_ts.groupby([<span class="st">'weekday'</span>, polution_ts.index.hour])[</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'O3'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="c2b906c5" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="19">
+<div id="a14e97ec" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="19">
 
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -1164,14 +1164,14 @@ EXERCISE: extreme values per day
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b615bacf" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="20">
+<div id="038fd414" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="20">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="pandas_airparif_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </div>
-<div id="3c0c92d5" class="cell" data-execution_count="21">
+<div id="54e0b906" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'month'</span>] <span class="op">=</span> polution_ts.index.month  <span class="co"># Janvier=0, .... Decembre=11</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>polution_ts[<span class="st">'month'</span>] <span class="op">=</span> polution_ts[<span class="st">'month'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x:</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                                  calendar.month_abbr[x])</span>
@@ -1246,7 +1246,7 @@ EXERCISE: extreme values per day
 </div>
 </div>
 </div>
-<div id="ab5d0aba" class="cell" data-execution_count="22">
+<div id="e49e9bef" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>polution_month_no2 <span class="op">=</span> polution_ts.groupby([<span class="st">'month'</span>, polution_ts.index.hour])[</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NO2'</span>].mean().unstack(level<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>polution_month_03 <span class="op">=</span> polution_ts.groupby([<span class="st">'month'</span>, polution_ts.index.hour])[</span>
@@ -1291,7 +1291,7 @@ EXERCISE: extreme values per day
 <span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>               bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.1</span>))</span>
 <span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="a6ad83ff" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="23">
+<div id="a459a054" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="23">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="pandas_airparif_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
