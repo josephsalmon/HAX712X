@@ -266,6 +266,48 @@ def blobl_func(x):
 
 blobl_func(4)
 ```
+
+
+
+## Debugging with VSCode
+
+You can use the debugger in VSCode to debug your code. Here is a [video](https://www.youtube.com/watch?v=XmpIBsnc3xU) by Arjan Code on the topic.
+
+The main point is that you can set breakpoints in your code and then run the debugger to inspect the variables and the flow of the code. All that is done in the IDE, which is very convenient.
+
+For that just click on the left of the line number to set a breakpoint, and then run the debugger with the green arrow.
+
+Below is a simple example of a code that can be debugged in VSCode:
+
+```python
+
+# %%
+def sieve_of_eratosthenes(limit):
+    # Create a boolean array "prime[0..limit]" and initialize
+    # all entries it as false. A value in prime[i] will
+    # finally be false if i is Not a prime, true if i is a prime.
+    prime = [True for _ in range(limit + 1)]
+    p = 2
+    while p * p < limit:
+        # If prime[p] is not changed, then it is a prime
+        if prime[p] == True:
+            # Update all multiples of p
+            for i in range(p * p, limit + 1, p):
+                prime[i] = False
+        p += 1
+
+    # Collect all prime numbers
+    prime_numbers = [p for p in range(2, limit) if prime[p]]
+    return prime_numbers
+
+
+print(sieve_of_eratosthenes(100))
+print(sieve_of_eratosthenes(101))
+
+```
+Click on ![debug_icon](debug_icon.png) and let the debugger run. You can then inspect the variables and the flow of the code to understand what it is doing.
+
+
 **References**:
 
 - [Debugging Jupyter notebooks ](https://davidhamann.de/2017/04/22/debugging-jupyter-notebooks/) by David Hamann
