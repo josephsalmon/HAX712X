@@ -1,0 +1,1450 @@
+---
+# description: |
+#   Talk on Pl@ntnet and questions on citizen science
+date: "2024-11-30"
+format:
+  revealjs:
+    # preview-links: true
+    code-link: true
+    highlight-style: a11y
+    center: false
+    center-title-slide: true
+---
+
+::: {.hidden}
+{{
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\1}{{1\hspace{-3.8pt} 1}}
+
+}}
+:::
+
+
+<!-------------------------------------------------------------------------- -->
+
+#### {#title-slide data-menu-title="Title Slide" background="#053660" style="text-align: center;"}
+
+[Faire une présentation scientifique]{.custom-title .center}
+
+
+<br>
+<br>
+
+
+<div style="text-align: center;">
+
+[Joseph Salmon]{.custom-subtitle2}
+
+<br>
+
+<br>
+
+![](../../images/inr_logo_rouge.svg){width=21%}
+</div>
+
+
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+###  {{< iconify mdi:megaphone flip=horizontal >}} Credit  {{< iconify mdi:megaphone >}} {.large-header}
+
+
+<!-------------------------------------------------------------------------- -->
+- [Colin Purrington's blog](https://colinpurrington.com/tips/science-talks/)
+- [Paperpile guide](https://paperpile.com/g/make-scientific-presentation/#num-1-how-much-time-do-you-have)
+- [quarto-iconify](https://github.com/mcanouil/quarto-iconify): icônes
+
+
+<!-------------------------------------------------------------------------- -->
+
+
+### En quatre étapes
+
+
+### Étape 1:<br> Choisir un fil narratif
+
+
+<div style="text-align: center;">
+
+
+![](images/step1.svg){width=70%}
+</div>
+
+### Étape 2: <br> Faire un plan des slides
+
+
+<div style="text-align: center;">
+
+
+![](images/step2.svg){width=70%}
+</div>
+
+
+### Étape 3: <br> Créer des slides claires et concises
+
+
+<div style="text-align: center;">
+
+
+![](images/step3.svg){width=70%}
+</div>
+
+
+### Étape 4: <br> Répéter et ajuster
+
+
+<div style="text-align: center;">
+
+
+![](images/step4.svg){width=70%}
+</div>
+
+
+
+
+### Étape 1: Choisir un fil narratif
+
+::: {.incremental}
+1. Créez un plan :
+
+    **Objectif** : ne pas oublier de détails importants
+
+2. Introduction (difficile):  perspective large / prépare l'audience à ce qui suivra
+   - Utiliser une **image/video** pour capter l'attention
+
+3. Méthodes :  Décrire les méthodes utilisées (crédibilité)
+        - Utiliser des visuels pour décrire les méthodes
+        - Inclure assez de détails pour que l'audience comprenne (éviter le superflu)
+
+4. Résultats : Présenter les preuves soutenant votre travail
+      - Choisir les résultats les plus importants et intéressants
+      - Décomposer les résultats complexes en parties digestibles
+
+5. Conclure sur le travail / les perspectives possibles
+:::
+
+. . .
+
+**Conseil final** : Préparez introduction / conclusion solides, à mémorisez  pour éviter une début/fin maladroite
+
+<!-------------------------------------------------------------------------- -->
+# Real talk part {.section-background}
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+### {{< iconify iconoir:flower >}}  Flower power in Montpellier {{< iconify iconoir:flower >}}  {.large-header}
+<hr>
+
+
+Mainly joint work with:
+
+- **Tanguy Lefort** (Univ. Montpellier, IMAG)
+- **Benjamin Charlier** (Univ. Montpellier, IMAG)
+- **Camille Garcin** (Univ. Montpellier, IMAG)
+- **Maximilien Servajean** (Univ. Paul-Valéry-Montpellier, LIRMM, Univ. Montpellier)
+- **Alexis Joly** (Inria, LIRMM, Univ. Montpellier)
+
+::::{.columns style='display: flex !important'}
+
+::: {.column width="30%"}
+
+:::
+
+::: {.column  align="center" style='display: flex; justify-content: center; align-items: center;'}
+and from
+:::
+
+::: {.column width="30%"}
+
+:::
+
+::::
+
+
+
+::::{.columns style='display: flex !important'}
+
+::: {.column width="10%"}
+
+:::
+
+::: {.column align="center" style='display: flex; justify-content: center; align-items: center;'}
+![](images/plantnet-logo-title.26755cd.svg){width=100%}
+:::
+
+::: {.column width="10%"}
+
+:::
+
+::::
+
+- **Pierre Bonnet**, **Hervé Goëau** (CIRAD, AMAP)
+- **Antoine Affouard**, **Jean-Christophe Lombardo**, **Titouan Lorieul**, **Mathias Chouet** (Inria, LIRMM, Univ. Montpellier)
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+# Pl@ntNet description {.section-background}
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Pl@ntNet:  ML for citizen science
+<hr>
+
+::::{.columns}
+
+::: {.column width="30%"}
+![](images/plantnet-logo-title.26755cd.svg){width=106%}
+:::
+
+::: {.column width="69%"}
+A **citizen science** platform using machine learning to help people identify plants with their mobile phones
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+::::{.columns style='display: flex !important'}
+
+::: {.column width="65%"}
+
+<div style="text-align: center;">
+
+
+<img src="images/plantnet_app.jpg" width="26%" align="middle">
+
+<img src="images/AppStoreandGooglePlay.svg" width="35%" align="middle">
+
+</div>
+
+- **Website**: [https://plantnet.org/](https://plantnet.org/)
+- **[Note]{.underline}**: no mushroom identification!
+
+:::
+
+
+::: {.column width="35%"}
+![](images/plantnet_image_ambiguity_js.svg){width=62%}
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{< iconify hugeicons:chatting-01 >}} Pl@ntNet: usage and popularity
+<hr>
+
+:::: {.columns}
+::: {.column width="53%"}
+<!-- ![](images/plantnet-logo-title.26755cd.svg){width=35%} -->
+
+[https://identify.plantnet.org/stats](https://identify.plantnet.org/stats){.scriptsize}
+
+
+- Start in 2011, now **25M+ users**
+- **200+** countries
+- Up to **2M** image uploaded/day
+- **50K** species
+- **1B+** total images
+- **10M+** labeled / validated
+
+:::
+
+::: {.column width="45%"}
+![](images/map_plantnet.png){width=100%}
+:::
+
+::::
+
+. . .
+
+<div style="text-align: center;">
+
+<img src="images/plantnet_usage_rasterized.svg" width="84%" align="middle" >
+
+</div>
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Pl@ntNet & Cooperative Learning
+<!-- <hr> -->
+
+
+<!-- <center> -->
+
+::: {.r-stack}
+![](images/plantnet_schema_global_js_0.svg){.fragment width=100% fragment-index=2}
+
+![](images/plantnet_schema_global_js_1.svg){.fragment width=100% fragment-index=3}
+
+![](images/plantnet_schema_global_js_2.svg){.fragment width=100% fragment-index=4}
+
+![](images/plantnet_schema_global_js_3.svg){.fragment width=100% fragment-index=5}
+
+![](images/plantnet_schema_global_js_4.svg){.fragment width=100% fragment-index=6}
+<!-- https://lvngd.com/blog/how-embed-google-font-svg/ -->
+
+:::
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{< iconify vaadin:hourglass-start >}} Chronology of Pl@ntNet {.center }
+<hr>
+
+<br>
+
+<center>
+<img src="images/PlantNet-overview-Janv-2022_js.svg" width="90%" >
+
+<br>
+**Note:** I am mostly innocent; started working with the Pl@ntNet team in 2020
+
+</center>
+
+
+
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{< iconify eos-icons:science >}} Scientific challenges
+<hr>
+<br>
+
+[**Motivation**]{.underline}: excellent app ... but not a perfect app; **How to improve?**
+
+
+- Community effort: machine learning, ecology, engineering, amateurs</li>
+- Many open problems (theoretical/practical)</li>
+- Need for methodological/computational breakthrough</li>
+
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+# Contributions {.section-background}
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify bxs:user-detail>}} Personal contributions
+<hr>
+
+<br>
+
+:::: {.columns }
+
+::: {.column width="68%"}
+
+- **Pl@ntNet-300K** [@Garcin_Joly_Bonnet_Affouard_Lombardo_Chouet_Servajean_Salmon21]: Creation and **release** of a large-scale dataset sharing the same property as Pl@ntNet; available for the community to improve learning systems
+
+:::
+
+::: {.column width="29%"}
+
+<center>
+<img src="images/sample_genus.svg" width="62%" align="middle">
+</center>
+
+:::
+
+::::
+
+::: fragment
+
+:::: columns
+
+::: {.column width="68%"}
+
+- **Learning & crowd-sourced data** [@Lefort_Charlier_Joly_Salmon22] and [@Lefort_etal24]: How to leverage multiple labels per image to improve the model? Need to **assert quality**: the workers, the images/labels, the model, etc.
+
+:::
+
+::: {.column width="29%"}
+<center>
+<img src="images/fullpipeline_small.svg" width="78%" align="middle">
+</center>
+
+:::
+
+::::
+
+:::
+
+::: fragment
+
+:::: columns
+
+::: {.column width="68%"}
+
+- **Top-K learning** [@Garcin_Servajean_Joly_Salmon22]: Driven by theory, introduce new loss to cope with Pl@ntNet constraints to **output multiple labels** (e.g., UX, Deep Learning framework, etc.)
+
+:::
+
+::: {.column width="29%"}
+<center>
+<img src="images/LossGarcin_k=2_9_margin_5.svg" width="78%" align="middle">
+</center>
+
+:::
+
+::::
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+## Dataset release: Pl@ntNet-300K {.section-background-small}
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify gravity-ui:magnifier>}} A need for new benchmarks
+<hr>
+<br>
+**Popular datasets limitations:**
+
+- structure of labels too simplistic (CIFAR-10, CIFAR-100)
+  - might have tasks too easy to discriminate
+  - might be too well-balanced (same number of images per class)
+- contains duplicate, low-quality, or irrelevant images
+
+
+**[Motivation]{.underline}**:
+
+release a large-scale dataset **sharing similar features** as the Pl@ntNet dataset to foster research in plant identification
+
+$\implies$ Pl@ntNet-300K [@Garcin_Joly_Bonnet_Affouard_Lombardo_Chouet_Servajean_Salmon21]
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Intra-class variability
+
+::: {layout-nrow=2}
+
+![Guizotia abyssinica](images/6_a.jpg){width=93%}
+
+![Diascia rigescens](images/7_a.jpg){width=93%}
+
+![Lapageria rosea](images/8_a.jpg){width=93%}
+
+![Casuarina cunninghamiana](images/9_a.jpg){width=93%}
+
+![Freesia alba](images/10_a.jpg){width=93%}
+
+![Guizotia abyssinica](images/6_b.jpg){width=93%}
+
+![Diascia rigescens](images/7_b.jpg){width=93%}
+
+![Lapageria rosea](images/8_b.jpg){width=93%}
+
+![Casuarina cunninghamiana](images/9_b.jpg){width=93%}
+
+![Freesia alba](images/10_b.jpg){width=93%}
+
+:::
+
+<center>
+**Based on pictures only, plant species are challenging to discriminate!**
+</center>
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Inter-class ambiguity
+
+
+::: {layout-nrow=2}
+
+![Cirsium rivulare](images/1_a.jpg){width=93%}
+
+![Chaerophyllum aromaticum](images/2_a.jpg){width=93%}
+
+![Conostomium kenyense](images/3_a.jpg){width=93%}
+
+![Adenostyles leucophylla](images/4_a.jpg){width=93%}
+
+![Sedum montanum](images/5_a.jpg){width=93%}
+
+![Cirsium tuberosum](images/1_b.jpg){width=93%}
+
+![Chaerophyllum temulum](images/2_b.jpg){width=93%}
+
+![Conostomium quadrangulare](images/3_b.jpg){width=93%}
+
+![Adenostyles alliariae](images/4_b.jpg){width=93%}
+
+![Sedum rupestre](images/5_b.jpg){width=93%}
+
+:::
+
+<center>
+**Based on pictures only, plant species are challenging to discriminate!**
+</center>
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+## Sampling bias {.section-background-small}
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify gis:globe-earth-alt>}} Geographic bias
+
+
+<div style="display: flex; flex-direction: column;">
+![](images/plantnet_bias_geographic04_04_2024.png){width=100%}
+
+<center>Spatial density of images collected by Pl@ntNet (13/04/2024)</center>
+</div>
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify fluent:food-20-filled>}} Food bias
+<hr>
+
+<br>
+
+Top-5 most observed plant species in Pl@ntNet (13/04/2024):
+
+<br>
+
+
+::: {layout-nrow=1  .v-center-container}
+**25134 obs.**
+![Echium vulgare L.](images/Echium_vulgare_L.jpeg){width=200px height=200px}
+*Echium vulgare L.*
+
+**24720 obs.**
+![Ranunculus ficaria L.](images/Ranunculus_ficaria_L.jpeg){width=200px height=200px}
+*Ranunculus ficaria L.*
+
+**24103 obs.**
+![Prunus spinosa L.](images/Prunus_spinosa_L.jpeg){width=200px height=200px}
+*Prunus spinosa L.*
+
+**23288 obs.**
+![Zea mays L.](images/Zea_mays_L.jpeg){width=200px height=200px}
+*Zea mays L.*
+
+**23075 obs.**
+![Alliaria petiolata](images/Alliaria_petiolata.jpeg){width=200px height=200px}
+*Alliaria petiolata*
+:::
+
+
+### {{<iconify ri:sparkling-2-line>}} Beauty bias
+
+:::: {.columns}
+
+::: {.column  style='text-align: center;'}
+**10753 obs.**
+
+![](images/Centaurea_jacea.jpg){width=72%}
+
+*Centaurea jacea*
+:::
+
+
+::: {.column  style='text-align: center;'}
+
+**6 obs.**
+
+![](images/Cenchrus_agrimonioides.jpg){width=72%}
+
+*Cenchrus agrimonioides*
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+
+### {{<iconify emojione-monotone:straight-ruler>}} Size bias
+
+
+:::: {.columns style='display: flex !important'}
+
+::: {.column  style='text-align: center;'}
+
+**8376 obs.**
+
+![](images/Magnolia_grandiflora.png){width=75%}
+
+*Magnolia grandiflora*
+
+:::
+
+
+::: {.column  style='text-align: center;'}
+
+![](images/rule.png){width=20%}
+
+
+:::
+
+::: {.column  style='text-align: center;'}
+
+**413 obs.**
+
+![](images/Moehringia_trinervia.png){width=25%}
+
+*Moehringia trinervia*
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+### Many more biases ...
+<hr>
+
+<br>
+
+- Selection bias
+    - Convenience sampling:  **easily** vs. *hardly* accessible
+    - Preference for certain species: **visibility** / **ease of identification**
+    - Subjective bias: selection based on **personal judgment**, may not be random or representative
+     - Rare species: **rare** or **endangered** species may be under-represented
+
+- Temporal bias / seasonal variation: **seasonal changes** in plant characteristics
+- ...
+
+<!-------------------------------------------------------------------------- -->
+
+### Construction of Pl@ntNet-300K {style="text-align: center;"}
+
+
+<center>
+![](images/sample_genus.svg){width=80%}
+
+Sample at genus level to preserve intra-genus ambiguity: use **hierarchical structure**
+</center>
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify icon-park-solid:chart-histogram-two>}} Species distribution & long tail
+<hr>
+
+:::: {.columns style='display: flex !important'}
+
+::: {.column width=82%}
+
+::: {.r-stack}
+![](images/lorentz_plantnet.svg){.fragment width=100% fragment-index=2}
+
+![](images/lorentz_plantnet300K.svg){.fragment width=100% fragment-index=3}
+
+![](images/lorentz_with_Imagenet.svg){.fragment width=100% fragment-index=4}
+
+![](images/lorentz_with_CIFAR_Imagenet.svg){.fragment width=100% fragment-index=5}
+
+:::
+
+:::
+
+::: {.column style='text-align: center;'}
+
+<br>
+
+:::{.fragment fragment-index=1}
+- Earth: 300K+ species
+- Pl@ntNet: 50K+ species
+- Pl@ntNet-300K: 1K+ species
+:::
+
+:::{.fragment fragment-index=3}
+**[Note]{.underline}**: long tail preserved by genera subsampling
+:::
+:::
+
+::::
+
+<br>
+
+:::{.fragment fragment-index=2}
+
+<center>
+**80% of species | 11% of images** $\iff$ **20% of species | 89% of images**
+</center>
+
+:::
+
+
+### {{<iconify eos-icons:database>}} Details on Pl@ntNet-300K
+<hr>
+<br>
+
+
+:::: {.columns style='display: flex !important'}
+
+::: {.column }
+
+[**Caracteristics**]{.underline}:
+
+<br>
+
+- **306,146** color images
+- Size : **32 GB**
+- Labels: K=**1,081** species
+- Required **2,079,003** volunteers "workers"
+:::
+
+
+::: {.column width=55%}
+:::{.fragment}
+
+<br>
+
+<center>
+**Zenodo, 1 click download**
+
+[https://zenodo.org/record/5645731](https://zenodo.org/record/5645731)
+
+<br>
+
+**Code to train models**
+
+[https://github.com/plantnet/PlantNet-300K](https://github.com/plantnet/PlantNet-300K)
+</center>
+
+:::
+
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+# Votes, labels & aggregation {.section-background}
+<!-------------------------------------------------------------------------- -->
+
+
+### {{<iconify fluent:vote-24-filled>}} Pl@ntNet online "votes"
+<hr>
+
+
+<center>
+![](images/plantnet_online.png){width=70%}
+
+Link: [https://identify.plantnet.org/weurope/observations/1012500059](https://identify.plantnet.org/weurope/observations/1012500059)
+</center>
+
+### {{<iconify pajamas:labels>}} What about labels?
+<hr>
+
+<br>
+
+- Images from users... so are the labels!
+
+- But **users** can be wrong or **not experts**
+
+- **Several labels** can be available per image!
+
+
+### {{<iconify jam:write-f>}} Users can make corrections {.center style="text-align: center;"}
+
+![](images/plantnet_corrected.png){width=90%}
+
+---
+
+### But sometimes users can't be trusted {.center style="text-align: center;"}
+
+
+<center>
+::: {.r-stack}
+
+![](images/vanessa_corrected.png){width=50%}
+
+![](images/right_vanessa_corrected.png){.fragment width=50% fragment-index=1}
+
+:::
+
+
+Link: [https://identify.plantnet.org/weurope/observations/1012500059](https://identify.plantnet.org/weurope/observations/1012500059)
+
+</center>
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify mdi:crowdsource>}} Crowdsourcing for classification
+<hr>
+<br>
+
+
+**The good, the bad and the ugly**
+
+
+
+::: {.fragment}
+- The good: fast, easy, cheap data collection
+:::
+
+::: {.fragment}
+- The bad: noisy labels with different levels of expertise
+:::
+
+::: {.fragment}
+- The ugly: (partly) missing theory, ad-hoc methods for noisy labels
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+## (Weighted) Majority Vote {.section-background-small}
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify fluent:clipboard-math-formula-32-regular>}} Notation
+
+![](images/notation_smiley.svg){width=86%}
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Objective
+<hr>
+<br>
+Provide for all images $x_i$ an aggregated label $\hat{y}_i$ based on the votes $y^{u}_i$ of the workers $u \in \mathcal{U}$.
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Majority Vote (MV): intuitively
+<hr>
+<br>
+**Naive idea**: make users vote and take the most voted label for each image
+
+
+![](images/MV_smiley.svg){.fragment width=95%}
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Majority Vote : formally
+<hr>
+<br>
+
+**Naive idea**: make users vote and take the most voted label for each image
+
+<div class="defini" data-text='Majority vote'>
+$$
+\forall x_i \in \mathcal{X}_{\text{train}},\quad
+\hat y_i^{\text{MV}} = \argmax_{k\in [K]}
+\Big(\sum\limits_{u\in\mathcal{U}(x_i)} \1_{\{y^{u}_i=k\}} \Big)
+$$
+
+</div>
+
+<br>
+
+::::: {.columns style='display: flex !important; height: 90%;'}
+
+::: {.column width="18%" }
+
+[**Properties**]{.underline}:
+
+:::
+
+
+
+::: {.column width="82%"}
+
+<span style="color:#047C90;">✓</span> simple
+
+<span style="color:#047C90;">✓</span> adapted for any number of users
+
+<span style="color:#047C90;">✓</span> efficient, few labelers sufficient [say <
+5, @Snow_OConnor_Jurafsky_Ng08]
+
+<span style="color:red;">✗</span>  ineffective for borderline cases
+
+<span style="color:red;">✗</span>  suffer from spammers / adversarial users
+
+
+:::
+
+::::
+<!-------------------------------------------------------------------------- -->
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify ri:weight-fill>}} Weights, confidence and accuracy
+<hr>
+<br>
+
+[**Constraints**]{.underline}: wide range of skills, different levels of expertise
+
+
+[**Modeling aspect**]{.underline}: add a user weight to balance votes
+
+
+::: {.fragment}
+<center>
+![](images/weights_smiley.svg){width="14%" }
+</center>
+:::
+
+
+::: {.fragment}
+
+Assume given weights $(w_u)_{u\in\mathcal{U}}$ for now
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+### Weighted Majority Vote (WMV): example
+
+<center>
+![](images/WMV_simley.svg){width="80%"}
+</center>
+
+
+
+<!-------------------------------------------------------------------------- -->
+###  {{<iconify eos-icons:trusted-organization>}}Confidence
+
+<br>
+
+::: {.defini data-text="label confidence"}
+
+The label confidence $\mathrm{conf}_{i}(k)$ of label $k$ for image $x_i$ is the sum of the weights of the workers who voted for $k$:
+$$
+\forall k \in [K], \quad \mathrm{conf}_{i}(k) = \sum\limits_{u\in\mathcal{U}(x_i)} w_u \1_{\{y^{u}_i=k\}}
+$$
+:::
+
+
+<br>
+
+::::: {.columns style='display: flex !important; height: 90%;' .fragment}
+
+::: {.column width="30%"}
+
+[**Size effect**]{.underline}:
+
+:::
+
+::: {.column width="60%"}
+
+- more votes $\Rightarrow$ more confidence
+- more expertise $\Rightarrow$ more confidence
+
+:::
+
+:::::
+
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify gravity-ui:target-dart>}} Accuracy
+
+<br>
+
+::: {.defini data-text="label accuracy"}
+
+The label accuracy $\mathrm{acc}_{i}(k)$ of label $k$ for image $x_i$ is the normalized sum of weights of the workers who voted for $k$:
+$$
+\forall k \in [K], \quad \mathrm{acc}_{i}(k) = \frac{\mathrm{conf}_i(k)}{\sum\limits_{k'\in [K]} \mathrm{conf}_i(k')}
+$$
+:::
+
+<br>
+
+
+::::: {.columns style='display: flex !important; height: 90%;' .fragment}
+
+::: {.column width="30%"}
+
+[**Interpretation**]{.underline}:
+
+:::
+
+::: {.column width="60%"}
+
+-  only the proportion of the weights matters
+
+:::
+
+:::::
+<!-------------------------------------------------------------------------- -->
+
+
+### Weighted Majority Vote (WMV)
+
+<br>
+
+::: {.defini data-text="Weighted Majority Voting (WMV)"}
+
+Majority voting but weighted by a confidence score per user $u$:
+$$
+\forall x_i \in \mathcal{X}_{\texttt{train}},\quad
+\hat{y}_i^{\textrm{WMV}} = \argmax_{k\in [K]}
+\Big(\sum\limits_{u\in\mathcal{U}(x_i)} w_u \1_{\{y^{u}_i=k\}} \Big)
+$$
+:::
+
+<br>
+
+::: {.fragment}
+
+[**Note**]{.underline}: the weighted majority vote can be computed from confidence or accuracy
+$$
+\hat{y}_i^{\textrm{WMV}}
+= \argmax_{k\in [K]}
+\Big( \mathrm{conf}_i(k) \Big)
+= \argmax_{k\in [K]}
+\Big(\mathrm{acc}_i(k) \Big)
+$$
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify tdesign:task-checked>}} Label validation in Pl@ntNet
+<hr>
+<br>
+
+Two pillars for validating a label $\hat{y}_i$ for an image $x_i$ in Pl@ntNet :
+
+<br>
+
+::: {.fragment}
+
+- **Expertise**: <span style="text-decoration: underline;">labels quality check</span>
+
+    keep images with label confidence above a threshold $\theta_{\text{conf}}$,
+    validate $\hat{y}_i$ when
+    $$
+    \boxed{\mathrm{conf}_{i}(\hat{y}_i) > \theta_{\text{conf}}}
+    $$
+
+:::
+
+
+::: {.fragment}
+
+- **Consensus**: <span style="text-decoration: underline;">labels agreement check</span>
+
+    keep images with label accuracy above a threshold $\theta_{\text{acc}}$, validate $\hat{y}_i$ when
+    $$
+    \boxed{\mathrm{acc}_{i}(\hat{y}_i) > \theta_{\text{acc}}}
+    $$
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+### Pl@ntNet label aggregation (EM algorithm) {.center style="text-align: center;"}
+
+**Weighting scheme**: weight user vote by its number of identified species
+
+
+::: {.r-stack}
+
+![](images/schema_plantnet_aggregation_js_0.svg){.fragment width=81% fragment-index=1}
+
+![](images/schema_plantnet_aggregation_js_1.svg){.fragment width=81% fragment-index=2}
+
+![](images/schema_plantnet_aggregation_js.svg){.fragment width=81% fragment-index=3}
+:::
+
+
+::: {.fragment}
+
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Weights example {.center style="text-align: center;"}
+
+
+:::: {.columns}
+
+::: {.column width="34%"}
+- $n_{\mathrm{user}} = 6$
+- $K=3$ :
+  *Rosa indica, Ficus elastica, Mentha arvensis*
+- $\theta_{\text{conf}}=2$ and $\theta_{\text{acc}}=0.7$
+<!-- - Users weights as on the right -->
+:::
+
+::: {.column}
+
+![](images/weights_users.svg){.fragment width=95% fragment-index=1}
+
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+
+:::{.r-stack}
+
+![](images/histplot_conf_init.svg){.fragment width=84% fragment-index=2-3}
+
+![](images/histplot_conf_invalidate.svg){.fragment width=84% fragment-index=4}
+
+![](images/histplot_conf_switch.svg){.fragment width=84% fragment-index=5}
+
+:::
+
+:::
+
+
+::: {.column}
+
+:::{.r-stack}
+
+![](images/histplot_acc_init.svg){.fragment width=84% fragment-index=3}
+
+![](images/histplot_acc_invalidate.svg){.fragment width=84% fragment-index=4}
+
+![](images/histplot_acc_switch.svg){.fragment width=84% fragment-index=5}
+
+:::
+
+:::
+
+::::
+
+
+:::{.r-stack}
+
+::: {.fragment fragment-index=2 .fade-in-then-out}
+Take into account 4 users out of 6
+:::
+
+::: {.fragment fragment-index=3 .fade-in-then-out}
+Take into account 4 users out of 6
+:::
+
+::: {.fragment fragment-index=4 .fade-in-then-out}
+**Invalidated label**: Adding User 5 reduces accuracy
+:::
+
+::: {.fragment fragment-index=5 .fade-in-then-out}
+**Label switched**: User 6 is an expert (even self-validating)
+:::
+
+:::
+<!-------------------------------------------------------------------------- -->
+
+<!-------------------------------------------------------------------------- -->
+### Choice of weight function
+<hr>
+
+$$
+f(n_u) = n_u^\alpha - n_u^\beta + \gamma \text{ with }
+\begin{cases}
+\alpha = 0.5 \\
+\beta=0.2 \\
+\gamma=\log(1.7)\simeq 0.74
+\end{cases}
+$$
+
+<center>
+![](images/weight_function.svg){width=70%}
+</center>
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Other existing strategies
+<hr>
+<br>
+
+- **Majority Vote** (MV)
+
+. . .
+
+- **Worker agreement with aggregate (WAWA)**: 2-step method
+
+    - Majority vote
+    - Weight users by how much they agree with the majority
+    - Weighted majority vote
+
+. . .
+
+- **TwoThrid** (iNaturalist)
+    - Need 2 votes
+    - $2/3$ of agreements
+
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+## Pl@ntNet labels release: <span style="display: block;">**South West.  European flora**</span> {.section-background-small}
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Extracting a subset of a Pl@ntNet votes
+<hr>
+<br>
+
+- South Western European flora observations since $2017$
+- $~800K$ users answered more than $11K$ species
+- $~6.6M$ observations
+- $~9M$ votes casted
+- **Imbalance**: 80% of observations are represented by 10% of total votes
+
+::: {.pause}
+:::
+
+::: {style="text-align: center; margin-top: 1cm;"}
+<span style="color: red;">No ground truth available to evaluate the strategies</span>
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Test sets without ground truth {.center style="text-align: center;"}
+
+- Extract $98$ experts: Tela Botanica + prior knowledge (P. Bonnet)
+
+![](images/sankey_v2.svg){width=75%}
+
+**Pl@ntNet South Western European flora**
+
+[https://zenodo.org/records/10782465](https://zenodo.org/records/10782465)
+<!-------------------------------------------------------------------------- -->
+
+
+
+
+<!-------------------------------------------------------------------------- -->
+### Accuracy and number of classes kept {.center style="text-align: center;"}
+
+![](images/both_accuracies.svg){width=55%}
+
+
+. . .
+
+- Pl@ntNet aggregation performs better overall
+- TwoThird is highly impacted by the reject threshold
+- In ambiguous settings, strategies weighting users are better
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Performance: Precision, recall and validity {.center style="text-align: center;"}
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/precision_and_recall_one_disagreeement__macro.svg)
+:::
+::: {.column width="40%"}
+![](images/volume_train_data-1.svg)
+:::
+:::
+
+. . .
+
+- Pl@ntNet aggregation performs better overall
+- TwoThird has good precision but bad recall
+- We indeed remove some data but less than TwoThird
+
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {{<iconify ooui:robot>}} Integrating the AI vote
+<hr>
+<br>
+
+**Why?**
+
+- More data
+- Could correct non-expert users
+- Could invalidate bad quality observation
+
+. . .
+
+**Main danger**
+
+- Model collapse [@Shumailov_Shumaylov_Zhao_Papernot_Anderson_Gal24]: users are already guided by AI predictions
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Potential strategies to integrate the AI vote
+<hr>
+
+- AI **as worker**: naive integration
+- AI **fixed weight**:
+    - weight fixed to $1.7$
+    - can invalidate two new users but is not self-validating
+- AI **invalidating**:
+    - weight fixed to $1.7$
+    - can only invalidate observation
+- AI **confident**:
+    - weight fixed to $1.7$
+    - can participate if confidence in prediction high enough ($\theta_{\text{score}}$)
+
+::: {style="text-align: center; margin-top: .5cm;"}
+$\Longrightarrow$ **confident AI with $\theta_{\text{score}}=0.7$ performs best... but invalidating AI could be preferred for safety** $\Longleftarrow$
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Aggregating labels: a new open source tool
+<hr>
+
+`peerannot`: Python library to handle crowdsourced data
+
+
+::: {.columns}
+::: {.column width="30%"}
+![](images/qr-code-styling.png){width=65%}
+:::
+::: {.column width="70%"}
+![](images/strategiesbis.svg)
+:::
+:::
+
+<center>
+[**Link**]{.underline}: [https://peerannot.github.io/](https://peerannot.github.io/)
+</center>
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### Conclusion
+<hr>
+
+
+- Challenges in citizen science: many and varied (need more attention)
+- Crowdsourcing / Label uncertainty: helpful for **data curation**
+- Improved **data quality** $\implies$ **improved learning** performance
+
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+**Dataset release**:
+:::
+
+::: {.column width="69%"}
+
+- Pl@ntNet-300K: [https://zenodo.org/record/5645731](https://zenodo.org/record/5645731)
+- Pl@ntNet SWE flora: [https://zenodo.org/records/10782465](https://zenodo.org/records/10782465)
+:::
+::::
+
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+**Code release**:
+:::
+
+::: {.column width="69%"}
+
+- Toolbox: [https://peerannot.github.io/](https://peerannot.github.io/)
+- Some benchmarks: [https://benchopt.github.io/](https://benchopt.github.io/)
+:::
+::::
+
+:::: {.columns}
+
+::: {.column width="30%"}
+**Future work**
+:::
+
+::: {.column width="69%"}
+- Uncertainty quantification
+- Improve robustness to adversarial users
+- Leverage gamification for more quality labels [theplantgame.com](https://theplantgame.com)
+:::
+::::
+<!-------------------------------------------------------------------------- -->
+
+
+<!-------------------------------------------------------------------------- -->
+### {#contact data-menu-title="Contact"}
+
+![](https://raw.githubusercontent.com/josephsalmon/OrganizationFiles/master/inkscape/images/contact_js.svg)
+
+<br>
+<br>
+<br>
+
+<!-------------------------------------------------------------------------- -->
+
+
+
+# Bibliographie {.section-background}
+
+
+<!-------------------------------------------------------------------------- -->
+### References
+<hr>
+
+::: {#refs}
+:::
+<!-------------------------------------------------------------------------- -->
+
+
+
+# Appendix {.section-background}
+
+### More on AI strategies {.center style="text-align: center;"}
+
+
+<center>
+<img src="images/ai_strategy_votes.svg" width="90%" >
+</center>
