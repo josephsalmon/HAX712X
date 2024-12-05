@@ -399,7 +399,7 @@ window.Quarto = {
 <li>Image processing (<a href="http://docs.scipy.org/doc/scipy/reference/ndimage.html">scipy.ndimage</a>)</li>
 <li>IO (input/output) (<a href="http://docs.scipy.org/doc/scipy/reference/io.html">scipy.io</a>)</li>
 </ul>
-<div id="e9c4c5e2" class="cell" data-execution_count="1">
+<div id="c6d04c67" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> linalg</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -420,7 +420,7 @@ window.Quarto = {
 <section id="solving-linear-systems" class="level3">
 <h3 class="anchored" data-anchor-id="solving-linear-systems">Solving linear systems:</h3>
 <p>Find <span class="math inline">x</span> such that: <span class="math inline">A x = b</span> for specified matrix <span class="math inline">A</span> and vector <span class="math inline">b</span>.</p>
-<div id="65998ed0" class="cell" data-execution_count="2">
+<div id="868a9aee" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">12</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]], dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]], dtype<span class="op">=</span>np.float64).T</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -440,7 +440,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Check the result at a given precision (different from ==)</p>
-<div id="bdc92d38" class="cell" data-execution_count="3">
+<div id="0a827009" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>np.allclose(A <span class="op">@</span> x, b, atol<span class="op">=</span><span class="fl">1e-14</span>, rtol<span class="op">=</span><span class="fl">1e-15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>True</code></pre>
@@ -450,7 +450,7 @@ window.Quarto = {
 <section id="eigenvalues-eigenvectors" class="level4">
 <h4 class="anchored" data-anchor-id="eigenvalues-eigenvectors">Eigenvalues/ Eigenvectors</h4>
 <p><span class="math inline">A v_n = \lambda_n v_n</span> with <span class="math inline">v_n</span> the <span class="math inline">n</span>-th eigen vector and <span class="math inline">\lambda_n</span> the <span class="math inline">n</span>-th eigen value. The associated <code>python</code> functions are <code>eigvals</code> and <code>eig</code>:</p>
-<div id="c412a6a4" class="cell" data-execution_count="4">
+<div id="c460d8e4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.randn(<span class="dv">3</span>, <span class="dv">3</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> A <span class="op">+</span> A.T</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>evals, evecs <span class="op">=</span> linalg.eig(A)</span>
@@ -458,11 +458,11 @@ window.Quarto = {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>np.allclose(A, evecs <span class="op">@</span> np.diag(evals) <span class="op">@</span> evecs.T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[-0.66144753+0.j  3.42247675+0.j  4.47187548+0.j] 
+<pre><code>[ 5.86809365+0.j  1.80226403+0.j -1.36226619+0.j] 
  ------
- [[ 0.34989824 -0.86343929 -0.36337832]
- [-0.93431259 -0.29347103 -0.20232333]
- [-0.0680529  -0.41030152  0.90940721]]</code></pre>
+ [[ 0.37727305 -0.92436327 -0.05672383]
+ [-0.81440684 -0.36030907  0.45488335]
+ [ 0.44091557  0.12541896  0.88874267]]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>True</code></pre>
@@ -498,18 +498,18 @@ EXERCISE: Eigenvalues/Eigenvectors
 </section>
 <section id="norms" class="level3">
 <h3 class="anchored" data-anchor-id="norms">Norms</h3>
-<div id="7647b1b7" class="cell" data-execution_count="5">
+<div id="fd961640" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linalg.norm(A, <span class="bu">ord</span><span class="op">=</span><span class="st">"fro"</span>))  <span class="co"># fro for Frobenius</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((np.<span class="bu">sum</span>(A <span class="op">**</span> <span class="dv">2</span>)) <span class="op">**</span> <span class="fl">0.5</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linalg.norm(A, <span class="bu">ord</span><span class="op">=</span><span class="dv">2</span>))</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((linalg.eigvalsh(A.T <span class="op">@</span> A) <span class="op">**</span> <span class="fl">0.5</span>))</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linalg.norm(A, <span class="bu">ord</span><span class="op">=</span>np.inf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5.66996739458809
-5.66996739458809
-4.471875483728461
-[0.66144753 3.42247675 4.47187548]
-4.973727192437845</code></pre>
+<pre><code>6.287960551870672
+6.287960551870671
+5.868093650431046
+[1.36226619 1.80226403 5.86809365]
+7.751062127511309</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
@@ -525,11 +525,11 @@ EXERCISE: Norms computation
 <p>Check numerically what the instruction <code>linalg.norm(A, ord=np.inf)</code> is computing. Double check with the help and a numerical test.</p>
 </div>
 </div>
-<div id="77dfcb9e" class="cell" data-execution_count="6">
+<div id="05ebfc9e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.randn(<span class="dv">3</span>, <span class="dv">3</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linalg.norm(A, <span class="bu">ord</span><span class="op">=</span>np.inf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>3.256101735247701</code></pre>
+<pre><code>5.282687343771229</code></pre>
 </div>
 </div>
 </section>
@@ -542,7 +542,7 @@ EXERCISE: Norms computation
 <li><a href="https://numpy.org/doc/1.18/reference/random/legacy.html#numpy.random.RandomState">Numpy documentation on RandomState</a></li>
 <li><a href="https://github.com/josephsalmon/Random-Widgets">Random Widgets</a>, by Joseph Salmon: Visualization of various popular distributions.</li>
 </ul>
-<div id="18318145" class="cell" data-execution_count="7">
+<div id="04872f44" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">12345</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed)  <span class="co"># can be called without a seed</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>rng.random()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -558,7 +558,7 @@ EXERCISE: Norms computation
 <ul>
 <li><a href="http://scipy-lectures.github.com/advanced/mathematical_optimization/index.html">Scipy Lectures</a> on mathematical optimization.</li>
 </ul>
-<div id="babc3096" class="cell" data-execution_count="8">
+<div id="ebf2851d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> optimize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="finding-local-minima" class="level3">
@@ -575,7 +575,7 @@ EXERCISE: Norms computation
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.plot(xs, f(xs))</span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="193c669d" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="9">
+<div id="4b226710" class="cell quarto-layout-panel" data-execution_count="9" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-10-output-1.png" class="img-fluid" width="575"></p>
@@ -594,7 +594,7 @@ EXERCISE: Norms computation
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.plot(x_min2, f(x_min2), <span class="st">"o"</span>, markersize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x_max, f(x_max), <span class="st">"|"</span>, markersize<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="5c5a3074" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="10">
+<div id="1c51767a" class="cell quarto-layout-panel" data-execution_count="10" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <pre><code>Optimization terminated successfully.
@@ -671,7 +671,7 @@ EXERCISE: Basin of attraction
 <span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>plt.plot(my_zeros, np.zeros(my_zeros.shape), <span class="st">"o"</span>, label<span class="op">=</span><span class="st">"$x : f(x)=0$"</span>)</span>
 <span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="d009876c" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="11">
+<div id="1bc907cb" class="cell quarto-layout-panel" data-execution_count="11" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-12-output-1.png" class="img-fluid" width="569"></p>
@@ -706,7 +706,7 @@ EXERCISE: Basin of attraction
 <span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>(a, b, c), _ <span class="op">=</span> curve_fit(f, x, yn)</span>
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, b,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="1c0c4e7f" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="12">
+<div id="852e0561" class="cell quarto-layout-panel" data-execution_count="12" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-13-output-1.png" class="img-fluid" width="571"></p>
@@ -714,9 +714,9 @@ EXERCISE: Basin of attraction
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<pre><code>2.2843215859352437 
- 1.1362835851858062 
- 0.48910197985252996</code></pre>
+<pre><code>2.6057830434892515 
+ 1.4027232489326618 
+ 0.5070778294563028</code></pre>
 </div>
 </div>
 </div>
@@ -736,12 +736,12 @@ invalid escape sequence '\h'
 
 invalid escape sequence '\h'
 
-/tmp/ipykernel_25315/1241871388.py:4: SyntaxWarning:
+/tmp/ipykernel_53074/1241871388.py:4: SyntaxWarning:
 
 invalid escape sequence '\h'
 </code></pre>
 </div>
-<div id="20ecdd0b" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="13">
+<div id="7bfe9d74" class="cell quarto-layout-panel" data-execution_count="13" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-14-output-2.png" class="img-fluid" width="571"></p>
@@ -758,12 +758,12 @@ invalid escape sequence '\h'
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_25315/4158621946.py:3: RankWarning:
+<pre><code>/tmp/ipykernel_53074/4158621946.py:3: RankWarning:
 
 Polyfit may be poorly conditioned
 </code></pre>
 </div>
-<div id="baa41fc2" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="14">
+<div id="16531eb4" class="cell quarto-layout-panel" data-execution_count="14" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-15-output-2.png" class="img-fluid" width="571"></p>
@@ -801,7 +801,7 @@ Polyfit may be poorly conditioned
 <span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_interp2, <span class="st">"g"</span>, label<span class="op">=</span><span class="st">"CubicSpline interp"</span>)</span>
 <span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="f8b03d46" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="15">
+<div id="4413fa2e" class="cell quarto-layout-panel" data-execution_count="15" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-16-output-1.png" class="img-fluid" width="582"></p>
@@ -829,7 +829,7 @@ Polyfit may be poorly conditioned
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plt.imshow(img)</span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="4dfa012a" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="16">
+<div id="8305d932" class="cell quarto-layout-panel" data-execution_count="16" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <pre><code>&lt;class 'numpy.ndarray'&gt; uint8 3 (768, 1024, 3)
@@ -864,7 +864,7 @@ Polyfit may be poorly conditioned
 <span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>, <span class="dv">1</span>].hist(img[:, :, <span class="dv">2</span>].reshape(n_1 <span class="op">*</span> n_2), np.arange(<span class="dv">0</span>, <span class="dv">256</span>))</span>
 <span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="4905cd4f" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="17">
+<div id="bb38c41a" class="cell quarto-layout-panel" data-execution_count="17" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-18-output-1.png" class="img-fluid" width="595"></p>
@@ -885,7 +885,7 @@ Polyfit may be poorly conditioned
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>plt.imshow(img_compressed, cmap<span class="op">=</span>plt.cm.gray)</span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="eb958132" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="18">
+<div id="64daec04" class="cell quarto-layout-panel" data-execution_count="18" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <pre><code>  C_CONTIGUOUS : True
@@ -916,7 +916,7 @@ Polyfit may be poorly conditioned
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.mean(img, axis<span class="op">=</span><span class="dv">2</span>), cmap<span class="op">=</span>plt.cm.gray)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="43486598" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="19">
+<div id="653682a7" class="cell quarto-layout-panel" data-execution_count="19" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-20-output-1.png" class="img-fluid" width="553"></p>
@@ -956,7 +956,7 @@ Polyfit may be poorly conditioned
 <span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>, <span class="dv">1</span>].hist(img[:, :, <span class="dv">2</span>].reshape(n_1 <span class="op">*</span> n_2), np.arange(<span class="dv">0</span>, <span class="dv">256</span>), density<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>, <span class="dv">1</span>].set_title(<span class="st">"Pixel values histogram (Blue channel)"</span>)</span>
 <span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="a0959f8c" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="20">
+<div id="4dd84330" class="cell quarto-layout-panel" data-execution_count="20" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-21-output-1.png" class="img-fluid" width="575"></p>
@@ -982,7 +982,7 @@ EXERCISE: Make the Brazilian italianer
 <div>
 
 </div>
-<div id="90434446" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="21">
+<div id="6b7e03ea" class="cell quarto-layout-panel" data-execution_count="21" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-22-output-1.png" class="img-fluid" width="575"></p>
@@ -1023,7 +1023,7 @@ EXERCISE: Make the Brazilian italianer
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>plt.plot(x1, y1)</span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">6</span>)</span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="8a75bad8" class="cell quarto-layout-panel" data-layout-ncol="1" data-execution_count="22">
+<div id="2d00af50" class="cell quarto-layout-panel" data-execution_count="22" data-layout-ncol="1">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="tp_files/figure-html/cell-23-output-1.png" class="img-fluid" width="446"></p>
@@ -1031,7 +1031,7 @@ EXERCISE: Make the Brazilian italianer
 </div>
 </div>
 <p>Then, we can save the figure in various formats:</p>
-<div id="af75d75c" class="cell" data-execution_count="23">
+<div id="e30a69fe" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fig1.savefig(<span class="st">"ma_figure_pas_belle.png"</span>, <span class="bu">format</span><span class="op">=</span><span class="st">'png'</span>, dpi<span class="op">=</span><span class="dv">90</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>fig1.savefig(<span class="st">"ma_figure_plus_belle.svg"</span>,<span class="bu">format</span><span class="op">=</span><span class="st">'svg'</span>, dpi<span class="op">=</span><span class="dv">90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
